@@ -5,7 +5,7 @@ import xbmc, xbmcaddon
 
 # addon info
 
-__addon_id__ = 'plugin.audio.kodira'
+__addon_id__ = 'plugin.audio.kodi.ra'
 __settings__ = xbmcaddon.Addon(__addon_id__)
 
 # paths
