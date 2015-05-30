@@ -10,17 +10,17 @@
     <setting id="area" label="30001" type="enum" lvalues="30002|30003|30004|30005" default="0"/>
     <setting id="radiru" label="30101" type="enum" lvalues="30052|30053|30054" default="0"/>
 {radiru}
-    <setting label="30102" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30102" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30200">
     <setting id="radiko" label="30201" type="enum" lvalues="30052|30053|30054" default="0"/>
 {radiko}
-    <setting label="30202" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30202" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30300">
     <setting id="simul" label="30301" type="enum" lvalues="30052|30053|30054" default="0"/>
 {simul}
-    <setting label="30302" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30302" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30000">
     <setting label="30050" type="action" option="close" action="{reset}"/>

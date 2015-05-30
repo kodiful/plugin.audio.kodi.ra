@@ -12,7 +12,7 @@
 <setting label="NHKラジオ第1" type="bool" id="radiru_NHKR1" default="false" enable="eq(-1,2)"/>
 <setting label="NHKラジオ第2" type="bool" id="radiru_NHKR2" default="false" enable="eq(-2,2)"/>
 <setting label="NHK FM" type="bool" id="radiru_NHKFM" default="false" enable="eq(-3,2)"/>
-    <setting label="30102" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30102" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30200">
     <setting id="radiko" label="30201" type="enum" lvalues="30052|30053|30054" default="0"/>
@@ -29,7 +29,7 @@
 <setting label="NACK5" type="bool" id="radiko_NACK5" default="false" enable="eq(-11,2)"/>
 <setting label="ＦＭヨコハマ" type="bool" id="radiko_YFM" default="false" enable="eq(-12,2)"/>
 <setting label="放送大学" type="bool" id="radiko_HOUSOU-DAIGAKU" default="false" enable="eq(-13,2)"/>
-    <setting label="30202" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30202" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30300">
     <setting id="simul" label="30301" type="enum" lvalues="30052|30053|30054" default="0"/>
@@ -150,9 +150,9 @@
 <setting label="AIR STATION HIBIKI(北九州市)" type="bool" id="simul_hibiki882" default="false" enable="eq(-115,2)"/>
 <setting label="FMくめじま(久米島)" type="bool" id="simul_fmkumejima" default="false" enable="eq(-116,2)"/>
 <setting label="FMのべおか(延岡市)" type="bool" id="simul_fmnobeoka" default="false" enable="eq(-117,2)"/>
-    <setting label="30302" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodira,replace)"/>
+    <setting label="30302" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30000">
-    <setting label="30050" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodira/?action=reset)"/>
+    <setting label="30050" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=reset)"/>
   </category>
 </settings>
