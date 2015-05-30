@@ -135,19 +135,19 @@ class Radiru:
                 t = r10[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
                 to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                 tol = str(t[11:13])+str(t[14:16])
-                xmlstr += '<prog ft="'+ft+'" ftl="'+ftl+'" to="'+to+'" tol="'+tol+'">'
-                xmlstr += '<title>'+r10[0].getElementsByTagName('title')[0].firstChild.data.strip()+'</title>'
+                xmlstr += '<prog ft="%s" ftl="%s" to="%s" tol="%s">' % (ft,ftl,to,tol)
+                xmlstr += '<title>%s</title>' % (r10[0].getElementsByTagName('title')[0].firstChild.data.strip())
                 try:
                     content = r10[0].getElementsByTagName('free')[0].firstChild.data.strip()
                     content = re.sub(r'[\r\n]', ' ', content)
                     content = re.sub(r'\s{2,}', ' ', content)
-                    xmlstr += '<desc>'+content+'</desc>'
+                    xmlstr += '<desc>%s</desc>' % (content)
                 except:
                     try:
                         content = r10[0].getElementsByTagName('content')[0].firstChild.data.strip()
                         content = re.sub(r'[\r\n]', ' ', content)
                         content = re.sub(r'\s{2,}', ' ', content)
-                        xmlstr += '<desc>'+content+'</desc>'
+                        xmlstr += '<desc>%s</desc>' % (content)
                     except:
                         pass
                 xmlstr += '</prog>'
@@ -160,19 +160,19 @@ class Radiru:
                     t = r11[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
                     to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                     tol = str(t[11:13])+str(t[14:16])
-                    xmlstr += '<prog ft="'+ft+'" ftl="'+ftl+'" to="'+to+'" tol="'+tol+'">'
-                    xmlstr += '<title>'+r11[0].getElementsByTagName('title')[0].firstChild.data.strip()+'</title>'
+                    xmlstr += '<prog ft="%s" ftl="%s" to="%s" tol="%s">' % (ft,ftl,to,tol)
+                    xmlstr += '<title>%s</title>' % (r11[0].getElementsByTagName('title')[0].firstChild.data.strip())
                     try:
                         content = r11[0].getElementsByTagName('free')[0].firstChild.data.strip()
                         content = re.sub(r'[\r\n]', ' ', content)
                         content = re.sub(r'\s{2,}', ' ', content)
-                        xmlstr += '<desc>'+content+'</desc>'
+                        xmlstr += '<desc>%s</desc>' % (content)
                     except:
                         try:
                             content = r11[0].getElementsByTagName('content')[0].firstChild.data.strip()
                             content = re.sub(r'[\r\n]', ' ', content)
                             content = re.sub(r'\s{2,}', ' ', content)
-                            xmlstr += '<desc>'+content+'</desc>'
+                            xmlstr += '<desc>%s</desc>' % (content)
                         except:
                             pass
                     xmlstr += '</prog>'
