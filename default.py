@@ -254,7 +254,8 @@ def buildStationList(stationDOM, programDOM):
             li.setInfo(type='music', infoLabels={'title':title})
             # コンテクストメニュー
             contextmenu = []
-            contextmenu.append((__settings__.getLocalizedString(30051),'Addon.OpenSettings(%s)' % __addon_id__))
+            contextmenu.append((__settings__.getLocalizedString(30055), 'XBMC.Container.Refresh'))
+            contextmenu.append((__settings__.getLocalizedString(30051), 'Addon.OpenSettings(%s)' % __addon_id__))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             # リストアイテムを追加
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), items[id]['url'], listitem=li, isFolder=False, totalItems=number_of_stations)
@@ -324,9 +325,10 @@ def reset():
         os.remove(__settings_file__)
     except:
         pass
-    # 再起動
-    notify('Restart KodiRa', image='DefaultIconInfo.png')
-    sys.exit()
+    # リフレッシュ
+    notify('Initializing KodiRa', image='DefaultIconInfo.png')
+    xbmc.executebuiltin("XBMC.Container.Refresh")
+    
 
 def default():
     # グローバル変数
