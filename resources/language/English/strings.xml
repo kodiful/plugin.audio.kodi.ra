@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+  <!--
+      strings 30000 thru 30999 reserved for plugins and plugin settings
+      strings 31000 thru 31999 reserved for skins
+      strings 32000 thru 32999 reserved for scripts
+      strings 33000 thru 33999 reserved for common strings used in add-ons
+  -->
+  <string id="30000">Other Settings</string>
+  <string id="30050">[COLOR green]Reset All Settings[/COLOR]</string>
+  <string id="30051">Addon Settings</string>
+  <string id="30052">All</string>
+  <string id="30053">None</string>
+  <string id="30054">Custom</string>
+  <string id="30100">NHK Radio</string>
+  <string id="30001">Station</string>
+  <string id="30002">Tokyo</string>
+  <string id="30003">Sendai</string>
+  <string id="30004">Nagoya</string>
+  <string id="30005">Osaka</string>
+  <string id="30101">Stations to be displayed</string>
+  <string id="30102">[COLOR green]Update display[/COLOR]</string>
+  <string id="30200">Commercial Radio (radiko.jp)</string>
+  <string id="30201">Stations to be displayed</string>
+  <string id="30202">[COLOR green]Update display[/COLOR]</string>
+  <string id="30300">Community SimulRadio (CSRA.fm)</string>
+  <string id="30301">Stations to be displayed</string>
+  <string id="30302">[COLOR green]Update display[/COLOR]</string>
+</strings>
