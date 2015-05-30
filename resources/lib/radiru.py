@@ -129,8 +129,13 @@ class Radiru:
             # 放送中のプログラム
             r10 = dom.getElementsByTagName(station[1])
             if r10.length:
-                st = r10[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
-                xmlstr += '<prog ft="'+str(st[0:4])+str(st[5:7])+str(st[8:10])+str(st[11:13])+str(st[14:16])+str(st[17:19])+'" ftl="'+str(st[11:13])+str(st[14:16])+'">'
+                t = r10[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
+                ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                ftl = str(t[11:13])+str(t[14:16])
+                t = r10[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
+                to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                tol = str(t[11:13])+str(t[14:16])
+                xmlstr += '<prog ft="'+ft+'" ftl="'+ftl+'" to="'+to+'" tol="'+tol+'">'
                 xmlstr += '<title>'+r10[0].getElementsByTagName('title')[0].firstChild.data.strip()+'</title>'
                 try:
                     content = r10[0].getElementsByTagName('free')[0].firstChild.data.strip()
@@ -149,8 +154,13 @@ class Radiru:
                 # 次のプログラム
                 r11 = dom.getElementsByTagName(station[2])
                 if r11.length:
-                    st = r11[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
-                    xmlstr += '<prog ft="'+str(st[0:4])+str(st[5:7])+str(st[8:10])+str(st[11:13])+str(st[14:16])+str(st[17:19])+'" ftl="'+str(st[11:13])+str(st[14:16])+'">'
+                    t = r11[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
+                    ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                    ftl = str(t[11:13])+str(t[14:16])
+                    t = r11[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
+                    to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                    tol = str(t[11:13])+str(t[14:16])
+                    xmlstr += '<prog ft="'+ft+'" ftl="'+ftl+'" to="'+to+'" tol="'+tol+'">'
                     xmlstr += '<title>'+r11[0].getElementsByTagName('title')[0].firstChild.data.strip()+'</title>'
                     try:
                         content = r11[0].getElementsByTagName('free')[0].firstChild.data.strip()

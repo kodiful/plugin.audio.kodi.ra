@@ -16,7 +16,7 @@
     <summary lang="en">KodiRa</summary>
     <summary lang="ja">KodiRa</summary>
     <description lang="en">Listen to NHK Radio, Commercial Radio (radiko.jp) and Community SimulRadio (CSRA.fm)</description>
-    <description lang="ja">NHKラジオ, 民放ラジオ(radiko.jp), コミュニティサイマルラジオ(CSRA.fm)を聴く</description>
+    <description lang="ja">NHKラジオ, 民放ラジオ(radiko.jp), コミュニティサイマルラジオ(CSRA.fm)を聴くことができます</description>
     <disclaimer lang="en">Works on Windows &amp; MacOSX</disclaimer>
     <disclaimer lang="ja">WindowsとMacOSXで動作</disclaimer>
   </extension>

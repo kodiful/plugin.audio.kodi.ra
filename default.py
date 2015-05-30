@@ -219,6 +219,10 @@ def buildStationList(stationDOM, programDOM):
                 except:
                     items[id][i]['start'] = ''
                 try:
+                    items[id][i]['end'] = programs[i].getAttribute('tol')
+                except:
+                    items[id][i]['end'] = ''
+                try:
                     items[id][i]['desc'] = programs[i].getElementsByTagName('desc')[0].firstChild.data.strip()
                 except:
                     try:
@@ -242,7 +246,7 @@ def buildStationList(stationDOM, programDOM):
                     if items[id][i]['start'] == '':
                         prog = '%s'.decode('utf-8') % (items[id][i]['prog'])
                     else:
-                        prog = '%s (%s:%s～)'.decode('utf-8') % (items[id][i]['prog'], items[id][i]['start'][0:2], items[id][i]['start'][2:4])
+                        prog = '%s (%s:%s～%s:%s)'.decode('utf-8') % (items[id][i]['prog'],items[id][i]['start'][0:2],items[id][i]['start'][2:4],items[id][i]['end'][0:2],items[id][i]['end'][2:4])
                     title += (' [COLOR green]'+bullet+'[/COLOR] %s').decode('utf-8') % (prog)            
             # リストアイテムを定義
             li = xbmcgui.ListItem(title, iconImage=items[id]['fanart_artist'], thumbnailImage=items[id]['fanart_artist'])
