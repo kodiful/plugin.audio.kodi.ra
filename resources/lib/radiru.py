@@ -35,8 +35,8 @@ class Radiru:
             self.area = ['東京','仙台','名古屋','大阪'][int(area)]
         except:
             self.area = '東京'
-        #self.protocol = 'rtmp'
-        self.protocol = 'wms'
+        self.protocol = 'rtmp'
+        #self.protocol = 'wms'
     
     def getStationFile(self):
         # キャッシュがある場合
