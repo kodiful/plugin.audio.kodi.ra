@@ -18,8 +18,8 @@ __program_file__  = os.path.join(__simul_path__, 'program.xml')
 __station_file2__ = os.path.join(__simul_path__, 'station2.xml')
 __settings_file__ = os.path.join(__simul_path__, 'settings.xml')
 
-__station_url__   = 'http://www.kodiful.com/KodiRa/downloads/simul/station2.xml'
-__settings_url__  = 'http://www.kodiful.com/KodiRa/downloads/simul/settings.xml'
+__station_url__   = 'http://kodiful.com/KodiRa/downloads/simul/station2.xml'
+__settings_url__  = 'http://kodiful.com/KodiRa/downloads/simul/settings.xml'
 
 #-------------------------------------------------------------------------------
 class Simul:
