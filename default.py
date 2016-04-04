@@ -37,6 +37,8 @@ from resources.lib.common import(
 
 from resources.lib.common import(notify)
 
+__logo_url__    = 'http://kodiful.com/KodiRa/downloads/simul/icon.png'
+
 __birth_file__  = os.path.join(__data_path__, '_birth')
 __alive_file__  = os.path.join(__data_path__, '_alive')
 __resume_file__ = os.path.join(__data_path__, '_resume')
@@ -106,13 +108,13 @@ def keepAlive(aliveFile=__alive_file__):
 #-------------------------------------------------------------------------------
 def clearCache():
     files = glob.glob(os.path.join(__data_path__, '_*'))
-    for f in files: 
+    for f in files:
         try:
             if os.path.isfile(f): os.remove(f)
             if os.path.isdir(f): os.rmdir(f)
         except:
             pass
-    
+
 #-------------------------------------------------------------------------------
 def getStationFile(services):
     for service in services:
@@ -148,7 +150,7 @@ def checkStationID(id):
     except:
         pass
     return True
-    
+
 #-------------------------------------------------------------------------------
 def buildSettings(services):
     # 設定画面がない場合は生成する
@@ -186,7 +188,10 @@ def buildStationList(stationDOM, programDOM):
             # ロゴ
             logopath = os.path.join(__media_path__, 'logo_%s.png' % id)
             if not os.path.isfile(logopath):
-                buffer = urllib2.urlopen(items[id]['logo_large'].encode('utf-8')).read() 
+                try:
+                    buffer = urllib2.urlopen(items[id]['logo_large'].encode('utf-8')).read()
+                except:
+                    buffer = urllib2.urlopen(__logo_url__).read()
                 img = Image.open(StringIO(buffer))
                 w = img.size[0]
                 h = img.size[1]
@@ -247,7 +252,7 @@ def buildStationList(stationDOM, programDOM):
                         prog = '%s'.decode('utf-8') % (items[id][i]['prog'])
                     else:
                         prog = '%s (%s:%s～%s:%s)'.decode('utf-8') % (items[id][i]['prog'],items[id][i]['start'][0:2],items[id][i]['start'][2:4],items[id][i]['end'][0:2],items[id][i]['end'][2:4])
-                    title += (' [COLOR green]'+bullet+'[/COLOR] %s').decode('utf-8') % (prog)            
+                    title += (' [COLOR green]'+bullet+'[/COLOR] %s').decode('utf-8') % (prog)
             # リストアイテムを定義
             li = xbmcgui.ListItem(title, iconImage=items[id]['fanart_artist'], thumbnailImage=items[id]['fanart_artist'])
             #li.setInfo(type='music', infoLabels={'title':title, 'artist':items[id]['now_desc']})
@@ -328,7 +333,7 @@ def reset():
     # リフレッシュ
     notify('Initializing KodiRa', image='DefaultIconInfo.png')
     xbmc.executebuiltin("XBMC.Container.Refresh")
-    
+
 
 def default():
     # グローバル変数
@@ -445,7 +450,7 @@ def updateInfo():
             # 更新予定だが未更新の場合
             threading.Timer(__check_interval__, updateInfo).start()
             print 'updateInfo:Timer'
-            return 
+            return
         if Resumes['settings'] < checkSettings():
             Resumes['settings'] = checkSettings()
             setResumes()
