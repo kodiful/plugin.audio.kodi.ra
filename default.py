@@ -153,10 +153,6 @@ def setup(radiru, radiko, simul, force=False):
             for root, dirs, files in os.walk(__data_path__, topdown=False):
                 for name in files:
                     os.remove(os.path.join(root, name))
-                for name in dirs:
-                    os.rmdir(os.path.join(root, name))
-            os.rmdir(__profile_path__)
-            os.remove(__settings_file__)
         except:
             pass
     # 設定ファイルがテンプレートより古い場合は生成する
