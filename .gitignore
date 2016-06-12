@@ -2,3 +2,4 @@
 *.pyo
 *.work
 .DS_Store
+/resources/settings.xml
