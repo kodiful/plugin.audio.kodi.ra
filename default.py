@@ -116,7 +116,8 @@ def getBirth(birthFile=__birth_file__):
         return False
 
 #-------------------------------------------------------------------------------
-def clearCache():
+def clearResumes():
+    # ファイルをクリア
     files = glob.glob(os.path.join(__data_path__, '_*'))
     for f in files:
         try:
@@ -124,6 +125,19 @@ def clearCache():
             if os.path.isdir(f): os.rmdir(f)
         except:
             pass
+
+#-------------------------------------------------------------------------------
+def clearCache():
+    # ディレクトリの有無をチェック
+    if not os.path.isdir(__data_path__):
+        return
+    try:
+        # データキャッシュをクリア
+        for root, dirs, files in os.walk(__data_path__, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+    except:
+        pass
 
 #-------------------------------------------------------------------------------
 def reset():
@@ -144,59 +158,44 @@ def reset():
     sys.exit()
 
 #-------------------------------------------------------------------------------
-def setup(radiru, radiko, simul, force=False):
-    # アドオン設定がない場合は生成する
-    if not os.path.isfile(__settings_file__):
-        force = True
-        # データキャッシュをクリアする
-        try:
-            for root, dirs, files in os.walk(__data_path__, topdown=False):
-                for name in files:
-                    os.remove(os.path.join(root, name))
-        except:
-            pass
-    # 設定ファイルがテンプレートより古い場合は生成する
-    elif os.path.getmtime(__settings_file__) < os.path.getmtime(__template_file__):
-        force = True
-    # 設定画面を生成する
-    if force:
-        # テンプレート読み込み
-        f = codecs.open(__template_file__,'r','utf-8')
-        template = f.read()
+def setup(radiru, radiko, simul):
+    # テンプレート読み込み
+    f = codecs.open(__template_file__,'r','utf-8')
+    template = f.read()
+    f.close()
+    # 既存設定を記憶
+    usersettings = None
+    if os.path.isfile(__usersettings_file__):
+        f = codecs.open(__usersettings_file__,'r','utf-8')
+        usersettings = f.read()
         f.close()
-        # 既存設定を記憶
-        usersettings = None
-        if os.path.isfile(__usersettings_file__):
-            f = codecs.open(__usersettings_file__,'r','utf-8')
-            usersettings = f.read()
-            f.close()
-        # 放送局リスト
-        s = [__settings__.getLocalizedString(30520)]
-        stations = Data((radiru,radiko)).stations
-        for station in stations:
-            s.append(station['name'])
-        # ソース作成
-        source = template.format(
-            radiru = radiru.getSettingsData(),
-            radiko = radiko.getSettingsData(),
-            simul  = simul.getSettingsData(),
-            bc = '|'.join(s),
-            os = platform.system())
-        # ファイル書き込み
-        f = codecs.open(__settings_file__,'w','utf-8')
-        f.write(source)
+    # 放送局リスト
+    s = [__settings__.getLocalizedString(30520)]
+    stations = Data((radiru,radiko)).stations
+    for station in stations:
+        s.append(station['name'])
+    # ソース作成
+    source = template.format(
+        radiru = radiru.getSettingsData(),
+        radiko = radiko.getSettingsData(),
+        simul  = simul.getSettingsData(),
+        bc = '|'.join(s),
+        os = platform.system())
+    # ファイル書き込み
+    f = codecs.open(__settings_file__,'w','utf-8')
+    f.write(source)
+    f.close()
+    # 既存設定を反映
+    if usersettings is not None:
+        f = codecs.open(__usersettings_file__,'w','utf-8')
+        f.write(usersettings)
         f.close()
-        # 既存設定を反映
-        if usersettings is not None:
-            f = codecs.open(__usersettings_file__,'w','utf-8')
-            f.write(usersettings)
-            f.close()
-            # 再起動
-            notify('Settings transferred. Restarting KodiRa...', image='DefaultIconInfo.png')
-            xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
-            sys.exit()
-        # ログ
-        log('settings updated')
+        # 再起動
+        notify('Settings transferred. Restarting KodiRa...', image='DefaultIconInfo.png')
+        xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
+        sys.exit()
+    # ログ
+    log('settings updated')
 
 #-------------------------------------------------------------------------------
 def main():
@@ -257,11 +256,16 @@ def main():
         Keywords().delete(params['id'])
 
     else:
+        # アドオン設定をチェック
+        if os.path.isfile(__settings_file__):
+            needsetup = False
+        else:
+            needsetup = True
+            # デーータキャッシュをクリア
+            clearCache()
         # 初期化
-        if params['action'] == 'resetSettings':
-            data = initialize(force=True)
-        elif not getAlive():
-            data = initialize()
+        if not getAlive():
+            data = initialize(needsetup)
         else:
             data = proceed()
         # Birth設定
@@ -275,7 +279,7 @@ def main():
         while not monitor.abortRequested():
             if monitor.waitForAbort(__check_interval__):
                 log('break by aborted')
-                clearCache();
+                clearResumes();
                 break
             if not getBirth():
                 log('break by renewed')
@@ -286,10 +290,10 @@ def main():
             setAlive()
 
 #-------------------------------------------------------------------------------
-def initialize(force=False):
+def initialize(needsetup=False):
     global Resumes
     # _birth,_resumeを削除
-    clearCache()
+    clearResumes()
     # radiko認証
     getAuthkey()
     auth = authenticate()
@@ -302,7 +306,7 @@ def initialize(force=False):
     simul  = Simul()
     data = Data((radiru,radiko,simul), True)
     # 放送局データに応じて設定画面を生成
-    setup(radiru,radiko,simul,force)
+    if needsetup: setup(radiru,radiko,simul)
     # 番組データを取得
     data.setPrograms(True)
     # 更新を通知
@@ -427,8 +431,6 @@ def refresh():
     if xbmcgui.getCurrentWindowDialogId() == 9999:
         path = xbmc.getInfoLabel('Container.FolderPath')
         if path == sys.argv[0]:
-            immediate = True
-        elif path == sys.argv[0]+'?action=resetSettings':
             immediate = True
     # 画面を更新
     if immediate:
