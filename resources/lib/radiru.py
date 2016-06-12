@@ -4,7 +4,11 @@ import os
 import urllib, urllib2
 import xml.dom.minidom
 import codecs
+import re
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
+import exceptions
 
+from common import(log)
 from common import(__data_path__)
 from common import(__settings__)
 
@@ -21,6 +25,35 @@ __player_url__    = 'http://www3.nhk.or.jp/netradio/files/swf/rtmpe201406.swf?ve
 __station_url__   = 'http://www3.nhk.or.jp/netradio/app/config_pc.xml'
 __program_url__   = 'http://www2.nhk.or.jp/hensei/api/noa.cgi'
 
+__station_area__  = ['東京','仙台','名古屋','大阪']
+__default_area__  = '東京'
+__station_attr__  = [
+    {
+        'id':   'NHKR1',
+        'name': 'NHKラジオ第1',
+        'tag0': 'r1',
+        'logo': 'http://www.nhk.or.jp/r2/images/symbol_r1.png',
+        'tag1': 'netr10',
+        'tag2': 'netr1F1'
+    },
+    {
+        'id':   'NHKR2',
+        'name': 'NHKラジオ第2',
+        'tag0': 'r2',
+        'logo': 'http://www.nhk.or.jp/r2/images/symbol_r2.png',
+        'tag1': 'netr20',
+        'tag2': 'netr2F1'
+    },
+    {
+        'id':   'NHKFM',
+        'name': 'NHK FM',
+        'tag0': 'fm',
+        'logo': 'http://www.nhk.or.jp/r2/images/symbol_fm.png',
+        'tag1': 'netfm0',
+        'tag2': 'netfmF1'
+    }
+]
+
 #-------------------------------------------------------------------------------
 class Radiru:
 
@@ -28,9 +61,9 @@ class Radiru:
         self.id = 'radiru'
         try:
             area = __settings__.getSetting('area')
-            self.area = ['東京','仙台','名古屋','大阪'][int(area)]
+            self.area = __station_area__[int(area)]
         except:
-            self.area = '東京'
+            self.area = __default_area__
 
     def getStationFile(self):
         # キャッシュがある場合
@@ -45,7 +78,7 @@ class Radiru:
         f.write(data.decode('utf-8'))
         f.close()
 
-    def getStationArray(self):
+    def getStationData(self):
         # キャッシュがある場合
         if os.path.isfile(__station_file2__):
             f = codecs.open(__station_file2__,'r','utf-8')
@@ -57,25 +90,26 @@ class Radiru:
         dom = xml.dom.minidom.parseString(xmlstr)
         results = []
         settings = []
-        stations = [['NHKR1','NHKラジオ第1','r1','http://www.nhk.or.jp/r2/images/symbol_r1.png'],['NHKR2','NHKラジオ第2','r2','http://www.nhk.or.jp/r2/images/symbol_r2.png'],['NHKFM','NHK FM','fm','http://www.nhk.or.jp/r2/images/symbol_fm.png']]
         i = -1
         data = dom.getElementsByTagName('data')
         for datum in data:
             area = datum.getElementsByTagName('areajp')[0].firstChild.data.strip().encode('utf-8')
             if area == self.area:
-                for station in stations:
+                for attr in __station_attr__:
                     # pack as xml
-                    id = station[0].decode('utf-8')
-                    name = station[1].decode('utf-8')
-                    url = datum.getElementsByTagName(station[2])[0].firstChild.data.strip()
-                    url = '%s swfUrl=%s swfVfy=1 live=1' % (url,__player_url__)
-                    logo = station[3].decode('utf-8')
+                    id = attr['id'].decode('utf-8')
+                    name = attr['name'].decode('utf-8')
+                    logo = attr['logo'].decode('utf-8')
+                    url1 = datum.getElementsByTagName(attr['tag0'])[0].firstChild.data.strip()
+                    url = '%s swfUrl=%s swfVfy=1 live=1' % (url1,__player_url__)
+                    options = '-r "%s" -W "%s" -v' % (url1,__player_url__)
                     # pack as xml
                     xmlstr = '<station>'
                     xmlstr += '<id>radiru_%s</id>' % (id)
                     xmlstr += '<name>%s</name>' % (name)
                     xmlstr += '<logo_large>%s</logo_large>' % (logo)
                     xmlstr += '<url>%s</url>' % (url)
+                    xmlstr += '<options>%s</options>' % (options)
                     xmlstr += '</station>'
                     results.append(xmlstr)
                     # pack as xml (for settings)
@@ -93,77 +127,62 @@ class Radiru:
         f.close()
         return '\n'.join(results)
 
-    def getSettingsArray(self):
+    def getSettingsData(self):
         f = codecs.open(__settings_file__,'r','utf-8')
         settings = f.read()
         f.close()
         return settings
 
     def getProgramFile(self):
-        response = urllib.urlopen(__program_url__)
-        data = response.read()
-        response.close()
+        try:
+            response = urllib.urlopen(__program_url__)
+            data = response.read()
+            response.close()
+        except:
+            log('failed in radiru')
+            return
         f = codecs.open(__program_file__,'w','utf-8')
         f.write(data.decode('utf-8'))
         f.close()
 
-    def getProgramArray(self):
+    def getProgramData(self):
         xmlstr = open(__program_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
         results = []
-        stations = [['NHKR1','netr10','netr1F1'],['NHKR2','netr20','netr2F1'],['NHKFM','netfm0','netfmF1']]
-        for station in stations:
-            xmlstr = '<station id="radiru_%s">' % station[0]
+        for attr in __station_attr__:
+            xmlstr = '<station id="radiru_%s">' % attr['id']
             # 放送中のプログラム
-            r10 = dom.getElementsByTagName(station[1])
-            if r10.length:
-                t = r10[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
-                ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
-                ftl = str(t[11:13])+str(t[14:16])
-                t = r10[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
-                to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
-                tol = str(t[11:13])+str(t[14:16])
-                xmlstr += '<prog ft="%s" ftl="%s" to="%s" tol="%s">' % (ft,ftl,to,tol)
-                xmlstr += '<title>%s</title>' % (r10[0].getElementsByTagName('title')[0].firstChild.data.strip())
+            for s in [attr['tag1'],attr['tag2']]:
                 try:
-                    content = r10[0].getElementsByTagName('free')[0].firstChild.data.strip()
-                    content = re.sub(r'[\r\n]', ' ', content)
-                    content = re.sub(r'\s{2,}', ' ', content)
-                    xmlstr += '<desc>%s</desc>' % (content)
-                except:
-                    try:
-                        content = r10[0].getElementsByTagName('content')[0].firstChild.data.strip()
-                        content = re.sub(r'[\r\n]', ' ', content)
-                        content = re.sub(r'\s{2,}', ' ', content)
-                        xmlstr += '<desc>%s</desc>' % (content)
-                    except:
-                        pass
-                xmlstr += '</prog>'
-                # 次のプログラム
-                r11 = dom.getElementsByTagName(station[2])
-                if r11.length:
-                    t = r11[0].getElementsByTagName('starttime')[0].firstChild.data.strip()
+                    r = dom.getElementsByTagName(s)[0]
+                    # title
+                    title = r.getElementsByTagName('title')[0].firstChild.data.strip()
+                    # start & end
+                    t = r.getElementsByTagName('starttime')[0].firstChild.data.strip()
                     ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                     ftl = str(t[11:13])+str(t[14:16])
-                    t = r11[0].getElementsByTagName('endtime')[0].firstChild.data.strip()
+                    t = r.getElementsByTagName('endtime')[0].firstChild.data.strip()
                     to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                     tol = str(t[11:13])+str(t[14:16])
+                    # xml
                     xmlstr += '<prog ft="%s" ftl="%s" to="%s" tol="%s">' % (ft,ftl,to,tol)
-                    xmlstr += '<title>%s</title>' % (r11[0].getElementsByTagName('title')[0].firstChild.data.strip())
-                    try:
-                        content = r11[0].getElementsByTagName('free')[0].firstChild.data.strip()
-                        content = re.sub(r'[\r\n]', ' ', content)
-                        content = re.sub(r'\s{2,}', ' ', content)
-                        xmlstr += '<desc>%s</desc>' % (content)
-                    except:
+                    # title
+                    xmlstr += '<title>%s</title>' % (title)
+                    # description
+                    for tag in ['subtitle','content','act','music','free']:
                         try:
-                            content = r11[0].getElementsByTagName('content')[0].firstChild.data.strip()
-                            content = re.sub(r'[\r\n]', ' ', content)
-                            content = re.sub(r'\s{2,}', ' ', content)
-                            xmlstr += '<desc>%s</desc>' % (content)
-                        except:
-                            pass
+                            text = r.getElementsByTagName(tag)[0].firstChild.data.strip()
+                            text = re.sub(r'[\r\n\t]',' ',text)
+                            text = re.sub(r'\s{2,}',' ',text)
+                            text = re.sub(r'(^\s+|\s+$)','',text)
+                            #text = text.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&')
+                            #text = text.replace('&','&amp;').replace('"','&quot;').replace('>','&gt;').replace('<','&lt;')
+                            xmlstr += '<%s>%s</%s>' % (tag,text,tag)
+                        except (exceptions.IndexError,exceptions.AttributeError):
+                            continue
                     xmlstr += '</prog>'
+                except exceptions.IndexError:
+                    break
             xmlstr += '</station>'
             results.append(xmlstr)
         return '\n'.join(results)

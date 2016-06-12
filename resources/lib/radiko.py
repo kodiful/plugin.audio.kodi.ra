@@ -9,7 +9,6 @@
 
 # cf. http://d.hatena.ne.jp/zariganitosh/20130124/rtmpdump_radiko_access
 
-
 import os
 import struct
 import zlib
@@ -17,10 +16,12 @@ import urllib, urllib2
 import xml.dom.minidom
 import threading
 import codecs
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
 from math import ceil
 
+from common import(log)
 from common import(__data_path__)
 
 __radiko_path__ = os.path.join(__data_path__, 'radiko')
@@ -96,7 +97,7 @@ class getAuthkey(object):
         self.file_length = self.le4Byte(self.swfRead(4))
 
         rectbits = ord(self.swfRead(1)) >> 3
-        total_bytes = int(ceil((5 + rectbits * 4) / 8.0)) 
+        total_bytes = int(ceil((5 + rectbits * 4) / 8.0))
         twips_waste = self.swfRead(total_bytes - 1)
         self.frame_rate_decimal = ord(self.swfRead(1))
         self.frame_rate_integer = ord(self.swfRead(1))
@@ -150,7 +151,7 @@ class getAuthkey(object):
         f.write(self.Block['value'])
         f.close()
 
-    def swfRead(self, Num): 
+    def swfRead(self, Num):
         self.SwfPos += Num
         return self.Swf[self.SwfPos - Num: self.SwfPos]
 
@@ -302,7 +303,7 @@ class Radiko:
         f.write(data.decode('utf-8'))
         f.close()
 
-    def getStationArray(self):
+    def getStationData(self):
         # キャッシュがある場合
         #if os.path.isfile(__station_file2__):
         #    f = codecs.open(__station_file2__,'r','utf-8')
@@ -319,14 +320,16 @@ class Radiko:
         for station in stations:
             id = station.getElementsByTagName('id')[0].firstChild.data
             name = station.getElementsByTagName('name')[0].firstChild.data
-            logo_large = station.getElementsByTagName('logo_large')[0].firstChild.data
+            logo = station.getElementsByTagName('logo_large')[0].firstChild.data
             url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (__stream_url__,id,self.token)
+            options = '-r "%s/%s/_definst_/simul-stream.stream" -C S: -C S: -C S: -C S:%s -v' % (__stream_url__,id,self.token)
             # pack as xml
             xmlstr = '<station>'
             xmlstr += '<id>radiko_%s</id>' % (id)
             xmlstr += '<name>%s</name>' % (name)
-            xmlstr += '<logo_large>%s</logo_large>' % (logo_large)
+            xmlstr += '<logo_large>%s</logo_large>' % (logo)
             xmlstr += '<url>%s</url>' % (url)
+            xmlstr += '<options>%s</options>' % (options)
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
@@ -343,24 +346,28 @@ class Radiko:
         f.close()
         return '\n'.join(results)
 
-    def getSettingsArray(self):
+    def getSettingsData(self):
         f = codecs.open(__settings_file__,'r','utf-8')
         settings = f.read()
         f.close()
         return settings
 
     def getProgramFile(self):
-        url = '%s?area_id=%s'  % (__program_url__,self.area)
-        opener = urllib2.build_opener()
-        opener.addheaders = [('Referer', __referer_url__)]
-        response = opener.open(url)
-        data = response.read()
-        response.close()
+        try:
+            url = '%s?area_id=%s'  % (__program_url__,self.area)
+            opener = urllib2.build_opener()
+            opener.addheaders = [('Referer', __referer_url__)]
+            response = opener.open(url)
+            data = response.read()
+            response.close()
+        except:
+            log('failed in radiko')
+            return
         f = codecs.open(__program_file__,'w','utf-8')
         f.write(data.decode('utf-8'))
         f.close()
 
-    def getProgramArray(self):
+    def getProgramData(self):
         xmlstr = open(__program_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
         results = []

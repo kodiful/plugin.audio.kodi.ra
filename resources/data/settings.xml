@@ -10,19 +10,47 @@
     <setting id="area" label="30001" type="enum" lvalues="30002|30003|30004|30005" default="0"/>
     <setting id="radiru" label="30101" type="enum" lvalues="30052|30053|30054" default="0"/>
 {radiru}
-    <setting label="30102" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30200">
     <setting id="radiko" label="30201" type="enum" lvalues="30052|30053|30054" default="0"/>
 {radiko}
-    <setting label="30202" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
   <category label="30300">
     <setting id="simul" label="30301" type="enum" lvalues="30052|30053|30054" default="0"/>
 {simul}
-    <setting label="30302" type="action" option="close" action="Container.Update(plugin://plugin.audio.kodi.ra,replace)"/>
   </category>
-  <category label="30000">
-    <setting label="30050" type="action" option="close" action="{reset}"/>
+  <category label="30400">
+    <setting id="os" type="text" default="{os}" visible="false"/>
+    <setting label="30529" type="text" enable="false" visible="!eq(-1,Darwin)+!eq(-1,Windows)"/>
+    <setting label="30403" id="download" type="bool" default="false" visible="eq(-2,Darwin)|eq(-2,Windows)"/>
+    <setting label="30404" id="download_path" type="folder" default="" enable="eq(-1,true)" visible="eq(-3,Darwin)|eq(-3,Windows)"/>
+    <setting label="30406" id="rtmpdump" type="file" default="" enable="eq(-2,true)+!eq(-1,)" visible="eq(-4,Darwin)|eq(-4,Windows)"/>
+    <setting label="30407" id="ffmpeg" type="file" default="" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
+    <setting label="30408" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=clearDownloads)" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
+  </category>
+  <category label="30500">
+    <setting id="id" type="text" visible="false"/>
+    <setting id="download" type="bool" visible="false"/>
+    <setting id="download_path" type="folder" visible="false"/>
+    <setting label="30528" type="text" enable="false" visible="eq(-2,false)|eq(-1,)"/>
+    <setting label="30501" id="key" type="text" default="" visible="eq(-3,true)+!eq(-2,)"/>
+    <setting label="30502" id="s" type="enum" lvalues="30511|30512" default="0" visible="eq(-4,true)+!eq(-3,)"/>
+    <setting label="30503" id="day" type="enum" lvalues="30520|30521|30522|30523|30524|30525|30526|30527" default="0" visible="eq(-5,true)+!eq(-4,)"/>
+    <setting label="30504" id="ch" type="labelenum" values="{bc}" default="" visible="eq(-6,true)+!eq(-5,)"/>
+    <setting label="30505" id="duplicate" type="enum" lvalues="30513|30514" default="0" visible="eq(-7,true)+!eq(-6,)"/>
+    <setting label="30508" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=editedKeyword)" enable="!eq(-5,)" visible="!eq(-9,)+eq(-8,true)+!eq(-7,)"/>
+    <setting label="30509" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=editedKeyword)" enable="!eq(-6,)" visible="eq(-10,)+eq(-9,true)+!eq(-8,)"/>
+  </category>
+  <category label="30600">
+    <setting id="download" type="bool" visible="false"/>
+    <setting id="download_path" type="folder" visible="false"/>
+    <setting label="30528" type="text" enable="false" visible="eq(-2,false)|eq(-1,)"/>
+    <setting label="30601" id="rss" type="bool" default="false" visible="eq(-3,true)+!eq(-2,)"/>
+    <setting label="30602" id="rss_url" type="text" default="http://" enable="eq(-1,true)" visible="eq(-4,true)+!eq(-3,)"/>
+    <setting label="30603" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=updateRSS)" enable="eq(-2,true)" visible="eq(-5,true)+!eq(-4,)"/>
+  </category>
+  <category label="30700">
+    <setting label="30701" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=resetAll)"/>
+    <setting label="30703" id="debug" type="bool" default="false"/>
   </category>
 </settings>

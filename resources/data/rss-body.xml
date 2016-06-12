@@ -1,0 +1,16 @@
+    <item>
+      <title>{title}</title>
+      <link>{url}</link>
+      <description>{description}</description>
+      <category></category>
+      <pubDate>{startdate}</pubDate>
+      <guid>{gtvid}</guid>
+      <source>{bc}</source>
+      <author>{bc}</author>
+      <enclosure url="{url}" length="{filesize}" type="audio/mp3" />
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>{duration}</itunes:duration>
+      <itunes:summary>{description}</itunes:summary>
+      <itunes:author>{bc}</itunes:author>
+      <dc:creator>{bc}</dc:creator>
+    </item>

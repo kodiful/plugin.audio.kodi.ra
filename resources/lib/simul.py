@@ -5,11 +5,11 @@ import urllib, urllib2
 import xml.dom.minidom
 import re
 import codecs
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from bs4 import BeautifulSoup
 
 from common import(__data_path__)
-from common import(__settings__)
 
 __simul_path__ = os.path.join(__data_path__, 'simul')
 if not os.path.isdir(__simul_path__): os.makedirs(__simul_path__)
@@ -30,7 +30,7 @@ class Simul:
     def getStationFile(self):
         pass
 
-    def getStationArray(self):
+    def getStationData(self):
         # キャッシュがある場合
         if os.path.isfile(__station_file2__):
             f = codecs.open(__station_file2__,'r','utf-8')
@@ -48,7 +48,7 @@ class Simul:
         f.close()
         return data
 
-    def getSettingsArray(self):
+    def getSettingsData(self):
         # キャッシュがある場合
         if os.path.isfile(__settings_file__):
             f = codecs.open(__settings_file__,'r','utf-8')
@@ -67,9 +67,9 @@ class Simul:
         return data
 
     def getProgramFile(self):
-        pass
+        return
 
-    def getProgramArray(self):
+    def getProgramData(self):
         f = codecs.open(__station_file2__,'r','utf-8')
         xmlstr = f.read()
         f.close()

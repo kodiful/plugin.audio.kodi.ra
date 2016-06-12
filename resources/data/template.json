@@ -1,0 +1,23 @@
+{{
+  "status": 1,
+  "hit": "1",
+  "version": "KodiRa 2.0",
+  "program": [
+    {{
+      "gtvid": "{gtvid}",
+      "startdate": "{startdate}",
+      "duration": "{duration}",
+      "ch": "{ch}",
+      "title": "{title}",
+      "description": "{description}",
+      "genre": [],
+      "favorite": 1,
+      "bc": "{bc}",
+      "bc_tags": "",
+      "ts": 1,
+      "caption_hit": 0,
+      "caption": [],
+      "key": "{key}"
+    }}
+  ]
+}}

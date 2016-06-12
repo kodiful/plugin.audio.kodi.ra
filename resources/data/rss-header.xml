@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss
+    xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:media="http://search.yahoo.com/mrss"
+    version="2.0" xml:lang="ja">
+  <channel>
+    <ttl>60</ttl>
+    <title>KodiRa</title>
+    <link></link>
+    <language>ja</language>
+    <copyright></copyright>
+    <description></description>
+    <image>
+      <url>{image}</url>
+      <link></link>
+      <title>KodiRa</title>
+    </image>
+    <itunes:image href="{image}" />
