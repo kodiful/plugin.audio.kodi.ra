@@ -11,7 +11,7 @@ $header = <<<EOF
     version="2.0" xml:lang="ja">
   <channel>
     <ttl>60</ttl>
-    <title>KodiRa</title>
+    <title>{rsstitle}</title>
     <link></link>
     <language>ja</language>
     <copyright></copyright>
@@ -19,7 +19,7 @@ $header = <<<EOF
     <image>
       <url>{image}</url>
       <link></link>
-      <title>KodiRa</title>
+      <title>{rsstitle}</title>
     </image>
     <itunes:image href="{image}" />
 EOF;
@@ -66,7 +66,18 @@ $dir =  preg_replace('/rss\.php$/', '', $_SERVER['SCRIPT_FILENAME']);
 header("Content-Type: text/xml");
 
 // RSSヘッダを出力
-echo str_replace("{image}", $url . "icon.png", $header);
+$source = $header;
+if(isset($_GET['title_or_description'])) {
+  $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['title_or_description'], $source);
+} else if(isset($_GET['title'])) {
+  $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['title'], $source);
+} else if(isset($_GET['description'])) {
+  $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['description'], $source);
+} else {
+  $source = str_replace("{rsstitle}", "KodiRa", $source);
+}
+$source = str_replace("{image}", $url . "icon.png", $source);
+echo $source;
 
 // このスクリプトと同じディレクトリに格納されているファイルをチェック
 foreach (glob("*.mp3") as $filename) {
