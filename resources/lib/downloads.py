@@ -312,11 +312,11 @@ class Downloads:
         rss.close()
         # copy image if necessary
         dst = os.path.join(__download_path__, 'icon.png')
-        if not os.path.isfile(dst):
-            src = os.path.join(__plugin_path__, 'icon.png')
-            shutil.copy(src, dst)
+        if os.path.isfile(dst): os.remove(dst)
+        src = os.path.join(__plugin_path__, 'icon.png')
+        shutil.copy(src, dst)
         # copy script if necessary
         dst = os.path.join(__download_path__, 'rss.php')
-        if not os.path.isfile(dst):
-            src = os.path.join(__template_path__, 'rss.php')
-            shutil.copy(src, dst)
+        if os.path.isfile(dst): os.remove(dst)
+        src = os.path.join(__template_path__, 'rss.php')
+        shutil.copy(src, dst)
