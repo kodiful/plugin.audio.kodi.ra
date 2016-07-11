@@ -79,6 +79,9 @@ if(isset($_GET['title_or_description'])) {
 $source = str_replace("{image}", $url . "icon.png", $source);
 echo $source;
 
+// RSSボディを格納する配列を初期化
+$results = array();
+
 // このスクリプトと同じディレクトリに格納されているファイルをチェック
 foreach (glob("*.mp3") as $filename) {
   $filename = preg_replace('/\.mp3$/', '', $filename);
@@ -119,7 +122,7 @@ foreach (glob("*.mp3") as $filename) {
       }
     }
     if($hit) {
-      // RSSボディを出力
+      // RSSボディに変換
       $source = $body;
       $source = str_replace("{title}", $json['program'][0]['title'], $source);
       $source = str_replace("{url}", $url . $filename . ".mp3", $source);
@@ -128,15 +131,28 @@ foreach (glob("*.mp3") as $filename) {
       $source = str_replace("{bc}", $json['program'][0]['bc'], $source);
       $source = str_replace("{filesize}", filesize($filename . ".mp3"), $source);
       // startdate
-      $startdate = strftime('%a, %d %b %Y %H:%M:%S +0900', strtotime($json['program'][0]['startdate']));
+      $starttime = strtotime($json['program'][0]['startdate']);
+      $startdate = strftime('%a, %d %b %Y %H:%M:%S +0900', $starttime);
       $source = str_replace("{startdate}", $startdate, $source);
       // duration
       $duration = $json['program'][0]['duration'];
       $duration = sprintf("%02d:%02d:%02d", intval($duration/3600), intval($duration/60)%60, $duration%60);
       $source = str_replace("{duration}", $duration, $source);
-      echo $source, "\n";
+      // 配列に格納
+      array_push($results, array('starttime'=>$starttime, 'source'=>$source));
     }
   }
+}
+
+// starttimeの逆順にソート
+function cmp($a, $b) {
+  return $a['starttime'] < $b['starttime'];
+}
+usort($results , "cmp");
+
+// RSSボディを出力
+foreach($results as $result) {
+  echo $result['source'], "\n";
 }
 
 // RSSフッタを出力
