@@ -60,10 +60,11 @@ if($_SERVER['SERVER_PORT'] != '80') {
   $url .= ":" . $_SERVER['SERVER_PORT'];
 }
 $url .= preg_replace('/rss\.php$/', '', $_SERVER['SCRIPT_NAME']);
-$dir =  preg_replace('/rss\.php$/', '', $_SERVER['SCRIPT_FILENAME']);
 
-// HTTPヘッダを出力
+// 初期化
 header("Content-Type: text/xml");
+date_default_timezone_set('Asia/Tokyo');
+$results = array();
 
 // RSSヘッダを出力
 $source = $header;
@@ -78,9 +79,6 @@ if(isset($_GET['title_or_description'])) {
 }
 $source = str_replace("{image}", $url . "icon.png", $source);
 echo $source;
-
-// RSSボディを格納する配列を初期化
-$results = array();
 
 // このスクリプトと同じディレクトリに格納されているファイルをチェック
 foreach (glob("*.mp3") as $filename) {
