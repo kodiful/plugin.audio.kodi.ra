@@ -1,7 +1,6 @@
 <?php
 
 // RSSのテンプレート
-
 $header = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <rss
@@ -48,8 +47,12 @@ $footer = <<<EOF
 </rss>
 EOF;
 
-// URLから抽出
+// 初期化
+header("Content-Type: text/xml");
+date_default_timezone_set('Asia/Tokyo');
+$results = array();
 
+// URLから抽出
 if($_SERVER['HTTPS']) {
   $url = "https://";
 } else {
@@ -60,11 +63,6 @@ if($_SERVER['SERVER_PORT'] != '80') {
   $url .= ":" . $_SERVER['SERVER_PORT'];
 }
 $url .= preg_replace('/rss\.php$/', '', $_SERVER['SCRIPT_NAME']);
-
-// 初期化
-header("Content-Type: text/xml");
-date_default_timezone_set('Asia/Tokyo');
-$results = array();
 
 // RSSヘッダを出力
 $source = $header;
