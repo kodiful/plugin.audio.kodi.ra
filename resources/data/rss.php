@@ -104,14 +104,14 @@ foreach (glob("*.mp3") as $filename) {
       }
     }
     if(isset($_GET['description'])) {
-      if($hit and strpos($json['program'][0]['description'], $_GET['title']) !== FALSE) {
+      if($hit and strpos($json['program'][0]['description'], $_GET['description']) !== FALSE) {
         $hit = TRUE;
       } else {
         $hit = FALSE;
       }
     }
     if(isset($_GET['bc'])) {
-      if($hit and strpos($json['program'][0]['bc'], $_GET['title']) !== FALSE) {
+      if($hit and strpos($json['program'][0]['bc'], $_GET['bc']) !== FALSE) {
         $hit = TRUE;
       } else {
         $hit = FALSE;
