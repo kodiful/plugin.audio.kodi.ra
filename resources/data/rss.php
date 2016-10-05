@@ -72,6 +72,8 @@ if(isset($_GET['title_or_description'])) {
   $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['title'], $source);
 } else if(isset($_GET['description'])) {
   $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['description'], $source);
+} else if(isset($_GET['bc'])) {
+  $source = str_replace("{rsstitle}", "KodiRa - " . $_GET['bc'], $source);
 } else {
   $source = str_replace("{rsstitle}", "KodiRa", $source);
 }
