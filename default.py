@@ -261,7 +261,7 @@ def main():
             needsetup = False
         else:
             needsetup = True
-            # デーータキャッシュをクリア
+            # データキャッシュをクリア
             clearCache()
         # 初期化
         if not getAlive():

@@ -6,6 +6,10 @@ import os
 import datetime, time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import inspect
+import socket
+
+# HTTP接続におけるタイムアウト(秒)
+socket.setdefaulttimeout(60)
 
 # addon info
 
