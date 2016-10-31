@@ -105,8 +105,8 @@ class Downloads:
             startdate=startdate,
             duration=duration1.seconds,
             ch=id,
-            title=prog.replace('&amp;','&').replace('&','&amp;'),
-            description=desc.replace('&amp;','&').replace('&','&amp;'),
+            title=prog.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
+            description=desc.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
             bc=name,
             key=key)
         f = codecs.open(js_file, 'w', 'utf-8')
