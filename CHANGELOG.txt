@@ -1,5 +1,8 @@
+2016-12-10 v2.0.4
+settings.xmlの変更をタイムスタンプでなくファイル内容で判定
+
 2016-10-28 v2.0.3
-socket.setdefaulttimeoutを設定
+socket.setdefaulttimeoutを60秒に設定
 RSSの'&'のエスケープ漏れを修正
 
 2016-07-09 v2.0.2

@@ -10,6 +10,8 @@ import codecs
 import json, xml.dom.minidom
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
+from hashlib import md5
+
 from resources.lib.radiko    import(Radiko,getAuthkey,authenticate)
 from resources.lib.radiru    import(Radiru)
 from resources.lib.simul     import(Simul)
@@ -64,13 +66,19 @@ class Monitor(xbmc.Monitor):
 
 #-------------------------------------------------------------------------------
 def checkSettings(settingsFile=__usersettings_file__):
-    if not os.path.isfile(settingsFile): return 0
-    return os.path.getmtime(settingsFile)
+    if not os.path.isfile(settingsFile): return ''
+    f = codecs.open(settingsFile,'r','utf-8')
+    settings = f.read()
+    f.close()
+    return md5(settings).hexdigest()
 
 #-------------------------------------------------------------------------------
 def checkKeywords(keywordsFile=__keywords_file__):
-    if not os.path.isfile(keywordsFile): return 0
-    return os.path.getmtime(keywordsFile)
+    if not os.path.isfile(keywordsFile): return ''
+    f = codecs.open(keywordsFile,'r','utf-8')
+    keywords = f.read()
+    f.close()
+    return md5(keywords).hexdigest()
 
 #-------------------------------------------------------------------------------
 def setResumes(resumeFile=__resume_file__):
@@ -378,7 +386,7 @@ def watcher(data):
             log('hashinfo unchanged')
 
     # 設定変更があった場合
-    elif Resumes['settings'] < checkSettings() or Resumes['keywords'] < checkKeywords():
+    elif Resumes['settings'] != checkSettings() or Resumes['keywords'] != checkKeywords():
         Resumes['settings'] = checkSettings()
         Resumes['keywords'] = checkKeywords()
         # 更新を通知
