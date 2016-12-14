@@ -34,7 +34,8 @@
   <string id="30312">保存済み番組</string>
   <string id="30314">削除する</string>
   <string id="30315">編集する</string>
-  <string id="30316">[COLOR yellow]すべての保存済み番組を表示[/COLOR]</string>
+  <string id="30316">[COLOR orange]放送中の番組[/COLOR]</string>
+  <string id="30317">[COLOR yellow]すべての保存済み番組[/COLOR]</string>
 
   <string id="30400">番組保存</string>
   <string id="30403">番組保存</string>

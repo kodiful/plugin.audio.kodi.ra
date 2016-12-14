@@ -14,7 +14,7 @@ import struct
 import zlib
 import urllib, urllib2
 import xml.dom.minidom
-import threading
+import threading, time
 import codecs
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
@@ -37,14 +37,16 @@ __settings_file__ = os.path.join(__radiko_path__, 'settings.xml')
 
 __auth1_url__     = 'https://radiko.jp/v2/api/auth1_fms'
 __auth2_url__     = 'https://radiko.jp/v2/api/auth2_fms'
-__player_url__    = 'http://radiko.jp/player/swf/player_3.0.0.01.swf'
+#__player_url__    = 'http://radiko.jp/player/swf/player_3.0.0.01.swf'
+__player_url__    = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
 __station_url__   = 'http://radiko.jp/v2/station/list/'
 __referer_url__   = 'http://radiko.jp/player/timetable.html'
 __program_url__   = 'http://radiko.jp/v2/api/program/now'
 __stream_url__    = 'rtmpe://f-radiko.smartstream.ne.jp'
 
 __object_tag__    = 87
-__object_id__     = 14
+#__object_id__     = 14
+__object_id__     = 12
 
 
 #-------------------------------------------------------------------------------
@@ -222,8 +224,10 @@ class appIDAuth(object):
     #-----------------------------------
     def start(self):
         headers = {'pragma': 'no-cache',
-            'X-Radiko-App': 'pc_1',
-            'X-Radiko-App-Version': '2.0.1',
+            #'X-Radiko-App': 'pc_1',
+            #'X-Radiko-App-Version': '2.0.1',
+            'X-Radiko-App': 'pc_ts',
+            'X-Radiko-App-Version': '4.0.0',
             'X-Radiko-User': 'test-stream',
             'X-Radiko-Device': 'pc'}
 
@@ -254,8 +258,10 @@ class challengeAuth(object):
             self._response['partial_key'] = self.createPartialKey()
 
         headers = {'pragma': 'no-cache',
-            'X-Radiko-App': 'pc_1',
-            'X-Radiko-App-Version': '2.0.1',
+            #'X-Radiko-App': 'pc_1',
+            #'X-Radiko-App-Version': '2.0.1',
+            'X-Radiko-App': 'pc_ts',
+            'X-Radiko-App-Version': '4.0.0',
             'X-Radiko-User': 'test-stream',
             'X-Radiko-Device': 'pc',
             'X-Radiko-Authtoken': self._response['auth_token'],

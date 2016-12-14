@@ -70,15 +70,12 @@ def checkSettings(settingsFile=__usersettings_file__):
     f = codecs.open(settingsFile,'r','utf-8')
     settings = f.read()
     f.close()
-    return md5(settings).hexdigest()
+    return md5(settings.encode('utf-8','ignore')).hexdigest()
 
 #-------------------------------------------------------------------------------
 def checkKeywords(keywordsFile=__keywords_file__):
-    if not os.path.isfile(keywordsFile): return ''
-    f = codecs.open(keywordsFile,'r','utf-8')
-    keywords = f.read()
-    f.close()
-    return md5(keywords).hexdigest()
+    if not os.path.isfile(keywordsFile): return 0
+    return os.path.getmtime(keywordsFile)
 
 #-------------------------------------------------------------------------------
 def setResumes(resumeFile=__resume_file__):
@@ -211,7 +208,7 @@ def main():
     global Birth
     # ログ
     log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-
+    log(sys.argv[2])
     # パラメータ抽出
     parsed = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query, keep_blank_values=True)
     params = {'action':''}
@@ -263,42 +260,57 @@ def main():
     elif params['action'] == 'deleteKeyword':
         Keywords().delete(params['id'])
 
+    elif params['action'] == 'showPrograms':
+        start()
+
     else:
-        # アドオン設定をチェック
-        if os.path.isfile(__settings_file__):
-            needsetup = False
+        if __settings__.getSetting('download') == 'true':
+            Keywords().show()
         else:
-            needsetup = True
-            # データキャッシュをクリア
-            clearCache()
-        # 初期化
-        if not getAlive():
-            data = initialize(needsetup)
-        else:
-            data = proceed()
-        # Birth設定
-        Birth = setBirth()
-        # Alive設定を更新
-        setAlive()
-        # 保存キーワード設定をクリア
-        Keywords().reset()
-        # 更新
-        monitor = Monitor()
-        while not monitor.abortRequested():
-            if monitor.waitForAbort(__check_interval__):
-                log('break by aborted')
-                clearResumes();
-                break
-            if not getBirth():
-                log('break by renewed')
-                break
-            # __check_interval__毎に実行
-            data = watcher(data)
-            # Alive設定を更新
-            setAlive()
+            start()
 
 #-------------------------------------------------------------------------------
-def initialize(needsetup=False):
+def start(active=True):
+    global Resumes
+    global Birth
+    # アドオン設定をチェック
+    if os.path.isfile(__settings_file__):
+        needsetup = False
+    else:
+        # 後方互換のための処理を実行
+        needsetup = True
+        # データキャッシュをクリア
+        clearCache()
+    # 初期化
+    if getAlive():
+        data = proceed()
+    else:
+        data = initialize(needsetup)
+    # 表示
+    if active: data.showPrograms()
+    # Birth設定
+    Birth = setBirth()
+    # Alive設定を更新
+    setAlive()
+    # 保存キーワード設定をクリア
+    Keywords().reset()
+    # 更新
+    monitor = Monitor()
+    while not monitor.abortRequested():
+        if monitor.waitForAbort(__check_interval__):
+            log('break by aborted')
+            clearResumes();
+            break
+        if not getBirth():
+            log('break by renewed')
+            break
+        # __check_interval__毎に実行
+        data = watcher(data)
+        # Alive設定を更新
+        setAlive()
+
+#-------------------------------------------------------------------------------
+def initialize(needsetup):
     global Resumes
     # _birth,_resumeを削除
     clearResumes()
@@ -319,8 +331,6 @@ def initialize(needsetup=False):
     data.setPrograms(True)
     # 更新を通知
     data.onChanged()
-    # 表示
-    data.showPrograms()
     # Resumes設定
     (reinfo, hashinfo) = data.nextAired()
     Resumes['key'] = auth._response['partial_key']
@@ -349,8 +359,6 @@ def proceed():
     data.setPrograms()
     # 更新を通知
     data.onChanged()
-    # 表示
-    data.showPrograms()
     # Dataオブジェクトを返す
     return data
 
@@ -438,11 +446,14 @@ def refresh():
     immediate = False
     if xbmcgui.getCurrentWindowDialogId() == 9999:
         path = xbmc.getInfoLabel('Container.FolderPath')
-        if path == sys.argv[0]:
+        if path == sys.argv[0] and __settings__.getSetting('download') == 'false':
             immediate = True
+        elif path == '%s?action=showPrograms' % sys.argv[0]:
+            immediate = True
+
     # 画面を更新
     if immediate:
-        xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
+        xbmc.executebuiltin('XBMC.Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0]))
         Resumes['update'] = False
         log('update immediately')
     else:

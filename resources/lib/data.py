@@ -259,10 +259,10 @@ class Data:
                 # コンテクストメニュー
                 contextmenu = []
                 # 保存済み番組
-                if __settings__.getSetting('download') == 'true':
-                    contextmenu.append((__settings__.getLocalizedString(30312), 'XBMC.Container.Update(%s?action=showKeywords)' % (sys.argv[0])))
+                #if __settings__.getSetting('download') == 'true':
+                #    contextmenu.append((__settings__.getLocalizedString(30312), 'XBMC.Container.Update(%s?action=showKeywords)' % (sys.argv[0])))
                 # 番組情報を更新
-                contextmenu.append((__settings__.getLocalizedString(30055), 'XBMC.Container.Update(%s,replace)' % (sys.argv[0])))
+                contextmenu.append((__settings__.getLocalizedString(30055), 'XBMC.Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
                 # 保存、設定
                 if __settings__.getSetting('download') == 'true':
                     if s['options']:

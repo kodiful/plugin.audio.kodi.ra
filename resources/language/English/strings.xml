@@ -34,7 +34,8 @@
   <string id="30312">Saved programs</string>
   <string id="30314">Delete</string>
   <string id="30315">Edit</string>
-  <string id="30316">[COLOR yellow]Show all[/COLOR]</string>
+  <string id="30316">[COLOR orange]Show programs on air[/COLOR]</string>
+  <string id="30317">[COLOR yellow]Show all[/COLOR]</string>
 
   <string id="30400">Save</string>
   <string id="30403">Save streaming</string>

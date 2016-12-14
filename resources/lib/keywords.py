@@ -34,12 +34,14 @@ class Keywords:
     def show(self):
         # すべて表示
         if __settings__.getSetting('download') == 'true':
+            # 放送中の番組
             li = xbmcgui.ListItem(__settings__.getLocalizedString(30316), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
-            # コンテクストメニュー
-            contextmenu = []
-            #contextmenu.append((__settings__.getLocalizedString(30055), 'XBMC.Container.Refresh'))
-            li.addContextMenuItems(contextmenu, replaceItems=True)
-            xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % (sys.argv[0]), listitem=li, isFolder=True, totalItems=len(self.search)+1)
+            li.addContextMenuItems([], replaceItems=True)
+            xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showPrograms' % (sys.argv[0]), listitem=li, isFolder=True, totalItems=len(self.search)+2)
+            # すべての保存済み番組
+            li = xbmcgui.ListItem(__settings__.getLocalizedString(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+            li.addContextMenuItems([], replaceItems=True)
+            xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % (sys.argv[0]), listitem=li, isFolder=True, totalItems=len(self.search)+2)
         # キーワードを表示
         id = 0
         for s in self.search:
@@ -126,7 +128,7 @@ class Keywords:
         __settings__.setSetting('day','0')
         __settings__.setSetting('ch','0')
         __settings__.setSetting('duplicate','0')
-        
+
     def delete(self, id):
         elem = self.search[int(id)]
         search = []
