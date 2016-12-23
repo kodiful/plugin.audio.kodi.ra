@@ -121,34 +121,45 @@ class Data:
                     'id':  id,
                     'name': s['name'],
                     'options':  s['options'],
-                    'prog': '',
+                    'title': '',
                     'ft': '',
                     'to': '',
                     'ftl': '',
                     'tol': '',
-                    'desc': ''
+                    'description': '',
+                    'sub_title': '',
+                    'pfm': '',
+                    'desc': '',
+                    'info': '',
+                    'url': '',
+                    'subtitle': '',
+                    'content': '',
+                    'act': '',
+                    'music': '',
+                    'free': ''
                     }
                 # title,ft,to,ftl,tol
                 try:
-                    p['prog'] = program.getElementsByTagName('title')[0].firstChild.data.strip()
+                    p['title'] = program.getElementsByTagName('title')[0].firstChild.data.strip()
                     for attr in ['ft','to','ftl','tol']:
                         p[attr] = program.getAttribute(attr)
                 except exceptions.AttributeError:
                     pass
-                # desc
-                desc = []
-                for tag in ['sub_title','pfm','desc','info','url','subtitle','content','act','music','free']:
+                # description
+                description = []
+                for attr in ['sub_title','pfm','desc','info','url','subtitle','content','act','music','free']:
                     try:
-                        text = program.getElementsByTagName(tag)[0].firstChild.data.strip()
-                        text = re.sub(r'\s',' ',text)
-                        text = re.sub(r'\s{2,}',' ',text)
-                        text = re.sub(r'(^\s+|\s+$)','',text)
-                        #text = text.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&')
-                        #text = text.replace('&','&amp;').replace('"','&quot;').replace('>','&gt;').replace('<','&lt;')
+                        content = program.getElementsByTagName(attr)[0].firstChild.data.strip()
+                        content = re.sub(r'\s',' ',content)
+                        content = re.sub(r'\s{2,}',' ',content)
+                        content = re.sub(r'(^\s+|\s+$)','',content)
+                        #content = content.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&')
+                        #content = content.replace('&','&amp;').replace('"','&quot;').replace('>','&gt;').replace('<','&lt;')
+                        p[attr] = content
                     except (exceptions.IndexError,exceptions.AttributeError):
                         continue
-                    desc.append('&lt;div title=&quot;%s&quot;&gt;%s&lt;/div&gt;' % (tag,text))
-                p['desc'] = ''.join(desc)
+                    description.append('&lt;div title=&quot;%s&quot;&gt;%s&lt;/div&gt;' % (attr,content))
+                p['description'] = ''.join(description)
                 # 配列に追加
                 s['programs'].append(p)
                 self.programs.append(p)
@@ -163,9 +174,9 @@ class Data:
                 for s in search:
                     # キーワードを照合
                     if s['key']:
-                        if p['prog'].find(s['key']) > -1:
+                        if p['title'].find(s['key']) > -1:
                             pass
-                        elif s['s'] == '1' and p['desc'].find(s['key']) > -1:
+                        elif s['s'] == '1' and p['description'].find(s['key']) > -1:
                             pass
                         else:
                             continue
@@ -196,11 +207,11 @@ class Data:
                                 program = json.loads(f.read())['program'][0]
                                 f.close()
                                 if p['name'] == program['bc']:
-                                    if s['s'] == '0' and p['prog'] == program['title']:
+                                    if s['s'] == '0' and p['title'] == program['title']:
                                         # 番組名が一致する
                                         skip = True
                                         break
-                                    if s['s'] == '1' and p['prog'] == program['title'] and p['desc'] == program['description']:
+                                    if s['s'] == '1' and p['title'] == program['title'] and p['description'] == program['description']:
                                         # 番組名と詳細情報が一致する
                                         skip = True
                                         break
@@ -208,8 +219,10 @@ class Data:
                     # とりあえず追加
                     start = strptime(p['ft'],'%Y%m%d%H%M%S')
                     self.matched_programs.append({'program':p, 'start':start, 'key':s['key']})
-                    log('start=',start,' name=',p['name'],' prog=',p['prog'])
+                    log('start=',start,' name=',p['name'],' title=',p['title'])
                     break
+        # DBに番組情報を送信
+        self.savePrograms()
 
     def onWatched(self):
         now = datetime.datetime.now()
@@ -223,12 +236,12 @@ class Data:
                             name=p['name'],
                             start=p['ft'],
                             end=p['to'],
-                            prog=p['prog'],
-                            desc=p['desc'],
+                            title=p['title'],
+                            description=p['description'],
                             options=p['options'],
                             key=m['key'])
                 if result['status']:
-                    log('start=',strptime(p['ft'],'%Y%m%d%H%M%S'),' name=',p['name'],' prog=',p['prog'])
+                    log('start=',strptime(p['ft'],'%Y%m%d%H%M%S'),' name=',p['name'],' title=',p['title'])
 
     def showPrograms(self):
         # 放送局表示
@@ -246,13 +259,13 @@ class Data:
                     for i in range(len(programs)):
                         p = programs[i]
                         if p['ftl'] == '':
-                            prog = '%s' % (p['prog'])
+                            title1 = '%s' % (p['title'])
                         else:
-                            prog = '%s (%s:%s～%s:%s)' % (p['prog'],p['ftl'][0:2],p['ftl'][2:4],p['tol'][0:2],p['tol'][2:4])
-                        if i==0: title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,prog)
-                        if i>0: title += ' [COLOR lightgreen]%s %s[/COLOR]' % (bullet,prog)
-                    title0 = programs[0]['prog']
-                    comment0 = re.sub(r'&lt;.*?&gt;','',programs[0]['desc'])
+                            title1 = '%s (%s:%s～%s:%s)' % (p['title'],p['ftl'][0:2],p['ftl'][2:4],p['tol'][0:2],p['tol'][2:4])
+                        if i==0: title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,title1)
+                        if i>0: title += ' [COLOR lightgreen]%s %s[/COLOR]' % (bullet,title1)
+                    title0 = programs[0]['title']
+                    comment0 = re.sub(r'&lt;.*?&gt;','',programs[0]['description'])
                 # リストアイテムを定義
                 li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
                 li.setInfo(type='music', infoLabels={'title':title0,'artist':s['name'],'comment':comment0})
@@ -270,27 +283,27 @@ class Data:
                             p = programs[i]
                             if p['ft'].isdigit() and p['to'].isdigit():
                                 # 保存
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['prog'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['prog'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['title'])
                                 contextmenu.append((menu,
-                                    'XBMC.RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&prog={prog}&desc={desc}&options={options})'.format(
+                                    'XBMC.RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options})'.format(
                                         url=sys.argv[0],
                                         id=id,
                                         name=urllib.quote_plus(s['name'].encode('utf-8')),
                                         start=p['ft'],
                                         end=p['to'],
-                                        prog=urllib.quote_plus(p['prog'].encode('utf-8')),
-                                        desc=urllib.quote_plus(p['desc'].encode('utf-8')),
+                                        title=urllib.quote_plus(p['title'].encode('utf-8')),
+                                        description=urllib.quote_plus(p['description'].encode('utf-8')),
                                         options=urllib.quote_plus(s['options'])
                                     )
                                 ))
                                 # キーワード追加
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['prog'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['prog'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['title'])
                                 contextmenu.append((menu,
                                     'XBMC.RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
                                         url=sys.argv[0],
-                                        key=urllib.quote_plus(p['prog'].encode('utf-8')),
+                                        key=urllib.quote_plus(p['title'].encode('utf-8')),
                                         day=str(int(strptime(p['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
                                         ch=urllib.quote_plus(s['name'].encode('utf-8'))
                                     )
@@ -327,3 +340,21 @@ class Data:
                 int(nearest[12:14]),
                 0, 0, 0)))
         return (nearest, md5(data).hexdigest())
+
+    def savePrograms(self):
+        url = __settings__.getSetting('db')
+        if url == '': return
+        # 番組情報をDBへ送信
+        programs = []
+        for p in self.programs:
+            if p['id'].find('radiru_') == 0 or p['id'].find('radiko_') == 0: programs.append(p)
+        data = {}
+        data['programs'] = json.dumps(programs)
+        response = urllib2.urlopen(url, urllib.urlencode(data))
+        status = response.getcode()
+        if status == 200:
+            status1 = response.read()
+            response.close()
+            log('db status: ', status1)
+        else:
+            log('http error: ', status)

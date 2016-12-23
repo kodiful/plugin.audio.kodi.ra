@@ -208,7 +208,7 @@ def main():
     global Birth
     # ログ
     log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-    log(sys.argv[2])
+
     # パラメータ抽出
     parsed = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query, keep_blank_values=True)
     params = {'action':''}
@@ -227,8 +227,8 @@ def main():
                     name=params['name'],
                     start=params['start'],
                     end=params['end'],
-                    prog=params['prog'],
-                    desc=params['desc'],
+                    title=params['title'],
+                    description=params['description'],
                     options=params['options'])
         notify2(result, onlyonerror=False)
     elif params['action'] == 'showDownloads':

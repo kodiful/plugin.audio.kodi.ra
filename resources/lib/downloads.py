@@ -43,7 +43,7 @@ class Downloads:
         self.template = f.read()
         f.close()
 
-    def add(self, id, name, start, end, prog, desc, options, key=''):
+    def add(self, id, name, start, end, title, description, options, key=''):
         # OS判定
         if self.os == 'Windows':
             log1_file = 'NUL'
@@ -105,8 +105,8 @@ class Downloads:
             startdate=startdate,
             duration=duration1.seconds,
             ch=id,
-            title=prog.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
-            description=desc.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
+            title=title.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
+            description=description.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
             bc=name,
             key=key)
         f = codecs.open(js_file, 'w', 'utf-8')
@@ -121,13 +121,13 @@ class Downloads:
         rtmpdump += '|'
         rtmpdump += '"{ffmpeg}" -i pipe:0 -acodec libmp3lame -b:a 192k -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
             ffmpeg=self.ffmpeg,
-            title=prog,
+            title=title,
             artist=name,
             copyright=name,
             publisher=name,
             date=start1.strftime('%Y-%m-%dT%H:%M:%SZ'),
             tit1=key,
-            tit3=desc,
+            tit3=description,
             mp3=mp3_file,
             log2=log2_file)
         # スクリプト作成
@@ -162,7 +162,7 @@ class Downloads:
             # スクリプト実行
             proc = subprocess.Popen(bat_file, shell=True)
         # ログ
-        log('%s %s' % (gtvid,prog))
+        log('%s %s' % (gtvid,title))
         return {'status':True, 'message':'Download started/reserved successfully'}
 
     def deleteall(self):
@@ -237,7 +237,13 @@ class Downloads:
                 if not os.path.isfile(logopath): logopath = 'DefaultFile.png'
                 # listitemを追加
                 li = xbmcgui.ListItem(title, iconImage=logopath, thumbnailImage=logopath)
-                li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':p['description']})
+                #li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':p['description']})
+                comment = p['description']
+                comment = re.sub(r'&lt;.*?&gt;','\n', comment)
+                comment = re.sub(r'\n{2,}', '\n', comment)
+                comment = re.sub(r'^\n+', '', comment)
+                comment = re.sub(r'\n+$', '', comment)
+                li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':comment})
                 li.setProperty('IsPlayable', 'true')
                 # context menu
                 li.addContextMenuItems([(__settings__.getLocalizedString(30314), 'XBMC.RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)

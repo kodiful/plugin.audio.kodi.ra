@@ -82,7 +82,7 @@ def notify2(result, onlyonerror=True):
         notify(result['message'],image='DefaultIconError.png')
 
 def log(*messages):
-    if True or __settings__.getSetting('debug') == 'true':
+    if __settings__.getSetting('debug') == 'true':
         m = []
         for message in messages:
             if isinstance(message, str):
