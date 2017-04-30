@@ -46,7 +46,7 @@ class Keywords:
         id = 0
         for s in self.search:
             # listitemを追加
-            li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+            li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
             contextmenu.append((__settings__.getLocalizedString(30315), 'XBMC.RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
