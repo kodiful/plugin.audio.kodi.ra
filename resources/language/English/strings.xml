@@ -20,6 +20,10 @@
   <string id="30003">Sendai</string>
   <string id="30004">Nagoya</string>
   <string id="30005">Osaka</string>
+  <string id="30006">Sapporo</string>
+  <string id="30007">Hiroshima</string>
+  <string id="30008">Matsuyama</string>
+  <string id="30009">Fukuoka</string>
   <string id="30101">Stations to be displayed</string>
   <string id="30102">[COLOR green]Update display[/COLOR]</string>
 

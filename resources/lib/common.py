@@ -92,7 +92,7 @@ def log(*messages):
             else:
                 m.append(str(message))
         frame = inspect.currentframe(1)
-        xbmc.log(str('KodiRa: %s %d: %s') % (frame.f_code.co_name, frame.f_lineno, str('').join(m)))
+        xbmc.log(str('KodiRa: %s %d: %s') % (frame.f_code.co_name, frame.f_lineno, str('').join(m)), xbmc.LOGNOTICE)
 
 def strptime(t, format):
     #startdate = datetime.datetime.strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0000')

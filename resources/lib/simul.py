@@ -74,7 +74,7 @@ class Simul:
         xmlstr = f.read()
         f.close()
         results = []
-        stations = BeautifulSoup('<stations>%s</stations>' % xmlstr).find_all('station')
+        stations = BeautifulSoup('<stations>%s</stations>' % xmlstr, 'html.parser').find_all('station')
         for station in stations:
             try:
                 id = station.find('id').string

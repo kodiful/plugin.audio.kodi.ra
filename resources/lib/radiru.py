@@ -21,12 +21,13 @@ __station_file2__ = os.path.join(__radiru_path__, 'station2.xml')
 __settings_file__ = os.path.join(__radiru_path__, 'settings.xml')
 
 #__player_url__   = 'http://www3.nhk.or.jp/netradio/files/swf/rtmpe.swf'
-__player_url__    = 'http://www3.nhk.or.jp/netradio/files/swf/rtmpe201406.swf?ver.2'
+#__player_url__    = 'http://www3.nhk.or.jp/netradio/files/swf/rtmpe201406.swf?ver.2'
+__player_url__    = 'http://www3.nhk.or.jp/netradio/files/swf/rtmpe_ver2015.swf'
 #__station_url__   = 'http://www3.nhk.or.jp/netradio/app/config_pc.xml'
 __station_url__   = 'http://www3.nhk.or.jp/netradio/app/config_pc_2016.xml'
 __program_url__   = 'http://www2.nhk.or.jp/hensei/api/noa.cgi'
 
-__station_area__  = ['東京','仙台','名古屋','大阪']
+__station_area__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
 __default_area__  = '東京'
 __station_attr__  = [
     {
