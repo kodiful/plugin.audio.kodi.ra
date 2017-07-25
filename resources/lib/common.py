@@ -47,7 +47,7 @@ __resume_timer_interval__ = 3600
 __check_interval__        = 30
 __dead_interval__         = 30
 __prep_interval__         = 180
-__margin_interval__       = 5
+__margin_interval__       = 0
 
 # parameters
 

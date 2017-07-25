@@ -99,6 +99,19 @@ class Downloads:
         else:
             # durationが異常値
             return {'status':False, 'message':'Failed. Invalid start and/or end'}
+        # ビットレート
+        bitrate = __settings__.getSetting('bitrate')
+        if bitrate == 'auto':
+            if duration <= 3600:
+                bitrate = '192k'
+            elif duration <= 4320:
+                bitrate = '160k'
+            elif duration <= 5400:
+                bitrate = '128k'
+            elif duration <= 7200:
+                bitrate = '96k'
+            else:
+                bitrate = '64k'
         # 番組情報を保存
         js_data = self.template.format(
             gtvid=gtvid,
@@ -119,8 +132,9 @@ class Downloads:
             duration=duration,
             log1=log1_file)
         rtmpdump += '|'
-        rtmpdump += '"{ffmpeg}" -i pipe:0 -acodec libmp3lame -b:a 192k -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
+        rtmpdump += '"{ffmpeg}" -i pipe:0 -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
             ffmpeg=self.ffmpeg,
+            bitrate=bitrate,
             title=title,
             artist=name,
             copyright=name,

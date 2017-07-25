@@ -43,7 +43,8 @@
 
   <string id="30400">番組保存</string>
   <string id="30403">番組保存</string>
-  <string id="30404">保存フォルダのパス</string>
+  <string id="30404">ビットレート</string>
+  <string id="30405">保存フォルダのパス</string>
   <string id="30406">rtmpdumpのパス</string>
   <string id="30407">ffmpegのパス</string>
   <string id="30408">[COLOR green]保存フォルダをクリア[/COLOR]</string>

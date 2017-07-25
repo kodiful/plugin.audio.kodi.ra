@@ -23,10 +23,11 @@
     <setting id="os" type="text" default="{os}" visible="false"/>
     <setting label="30529" type="text" enable="false" visible="!eq(-1,Darwin)+!eq(-1,Windows)"/>
     <setting label="30403" id="download" type="bool" default="false" visible="eq(-2,Darwin)|eq(-2,Windows)"/>
-    <setting label="30404" id="download_path" type="folder" default="" enable="eq(-1,true)" visible="eq(-3,Darwin)|eq(-3,Windows)"/>
-    <setting label="30406" id="rtmpdump" type="file" default="" enable="eq(-2,true)+!eq(-1,)" visible="eq(-4,Darwin)|eq(-4,Windows)"/>
-    <setting label="30407" id="ffmpeg" type="file" default="" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
-    <setting label="30408" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=clearDownloads)" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
+    <setting label="30404" id="bitrate" type="labelenum" default="192k" values="auto|192k|160k|128k|96k|64k" enable="eq(-1,true)" visible="eq(-3,Darwin)|eq(-3,Windows)"/>
+    <setting label="30405" id="download_path" type="folder" default="" enable="eq(-2,true)" visible="eq(-4,Darwin)|eq(-4,Windows)"/>
+    <setting label="30406" id="rtmpdump" type="file" default="" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
+    <setting label="30407" id="ffmpeg" type="file" default="" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
+    <setting label="30408" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=clearDownloads)" enable="eq(-5,true)+!eq(-4,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
   </category>
   <category label="30500">
     <setting id="id" type="text" visible="false"/>
