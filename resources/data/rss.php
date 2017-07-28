@@ -47,8 +47,8 @@ $footer = <<<EOF
 </rss>
 EOF;
 
-// 初期化
-header("Content-Type: text/xml");
+// 初期化<
+header("Content-Type: application/xml");
 date_default_timezone_set('Asia/Tokyo');
 $results = array();
 
@@ -122,20 +122,27 @@ foreach (glob("*.mp3") as $filename) {
     if($hit) {
       // RSSボディに変換
       $source = $body;
-      $source = str_replace("{title}", $json['program'][0]['title'], $source);
-      $source = str_replace("{url}", $url . $filename . ".mp3", $source);
-      $source = str_replace("{description}", $json['program'][0]['description'], $source);
-      $source = str_replace("{gtvid}", $json['program'][0]['gtvid'], $source);
-      $source = str_replace("{bc}", $json['program'][0]['bc'], $source);
-      $source = str_replace("{filesize}", filesize($filename . ".mp3"), $source);
-      // startdate
+      // starttime
       $starttime = strtotime($json['program'][0]['startdate']);
+      // title
+      $title = $json['program'][0]['title'];
+      $title .= ' ';
+      //$title .= strftime('%F %R', $starttime);
+      $title .= strftime('%F', $starttime);
+      // startdate
       $startdate = strftime('%a, %d %b %Y %H:%M:%S +0900', $starttime);
       $source = str_replace("{startdate}", $startdate, $source);
       // duration
       $duration = $json['program'][0]['duration'];
       $duration = sprintf("%02d:%02d:%02d", intval($duration/3600), intval($duration/60)%60, $duration%60);
       $source = str_replace("{duration}", $duration, $source);
+      // others
+      $source = str_replace("{title}", $title, $source);
+      $source = str_replace("{url}", $url . $filename . ".mp3", $source);
+      $source = str_replace("{description}", $json['program'][0]['description'], $source);
+      $source = str_replace("{gtvid}", $json['program'][0]['gtvid'], $source);
+      $source = str_replace("{bc}", $json['program'][0]['bc'], $source);
+      $source = str_replace("{filesize}", filesize($filename . ".mp3"), $source);
       // 配列に格納
       array_push($results, array('starttime'=>$starttime, 'source'=>$source));
     }
