@@ -13,7 +13,6 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from hashlib import md5
 
 from resources.lib.radiko    import(Radiko,getAuthkey,authenticate)
-from resources.lib.radiru    import(Radiru)
 from resources.lib.simul     import(Simul)
 from resources.lib.data      import(Data)
 from resources.lib.downloads import(Downloads)
@@ -163,7 +162,7 @@ def reset():
     sys.exit()
 
 #-------------------------------------------------------------------------------
-def setup(radiru, radiko, simul):
+def setup(radiko, simul):
     # テンプレート読み込み
     f = codecs.open(__template_file__,'r','utf-8')
     template = f.read()
@@ -176,12 +175,11 @@ def setup(radiru, radiko, simul):
         f.close()
     # 放送局リスト
     s = [__settings__.getLocalizedString(30520)]
-    stations = Data((radiru,radiko)).stations
+    stations = Data((radiko,simul)).stations
     for station in stations:
         s.append(station['name'])
     # ソース作成
     source = template.format(
-        radiru = radiru.getSettingsData(),
         radiko = radiko.getSettingsData(),
         simul  = simul.getSettingsData(),
         bc = '|'.join(s),
@@ -322,11 +320,10 @@ def initialize(needsetup):
     if auth._response['area_id'] == '': notify('Radiko authentication failed')
     # クラス初期化
     radiko = Radiko(auth._response['area_id'], auth._response['auth_token'])
-    radiru = Radiru()
     simul  = Simul()
-    data = Data((radiru,radiko,simul), True)
+    data = Data((radiko,simul), True)
     # 放送局データに応じて設定画面を生成
-    if needsetup: setup(radiru,radiko,simul)
+    if needsetup: setup(radiko,simul)
     # 番組データを取得
     data.setPrograms(True)
     # 更新を通知
@@ -352,9 +349,8 @@ def proceed():
     getResumes()
     # クラス初期化
     radiko = Radiko(Resumes['area'], Resumes['token'])
-    radiru = Radiru()
     simul  = Simul()
-    data = Data((radiru,radiko,simul))
+    data = Data((radiko,simul))
     # 番組データ
     data.setPrograms()
     # 更新を通知
@@ -416,9 +412,8 @@ def watcher(data):
         Resumes['reauth'] = stamp + __resume_timer_interval__
         # radiko認証の更新に伴う処理
         radiko = Radiko(Resumes['area'], Resumes['token'])
-        radiru = Radiru()
         simul  = Simul()
-        data = Data((radiru, radiko, simul))
+        data = Data((radiko, simul))
         # 番組データを更新
         data.setPrograms()
         # 更新を通知

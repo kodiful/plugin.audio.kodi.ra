@@ -347,7 +347,7 @@ class Data:
         # 番組情報をDBへ送信
         programs = []
         for p in self.programs:
-            if p['id'].find('radiru_') == 0 or p['id'].find('radiko_') == 0: programs.append(p)
+            if p['id'].find('radiko_') == 0: programs.append(p)
         data = {}
         data['programs'] = json.dumps(programs)
         response = urllib2.urlopen(url, urllib.urlencode(data))
