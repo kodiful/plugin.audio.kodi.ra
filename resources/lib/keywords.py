@@ -77,7 +77,7 @@ class Keywords:
         __settings__.setSetting('ch',elem['ch'])
         __settings__.setSetting('duplicate',elem['duplicate'])
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % __addon_id__)
-        xbmc.executebuiltin('SetFocus(104)') # select 5th category
+        xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
     def edited(self):
