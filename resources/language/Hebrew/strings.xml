@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+  <!--
+      strings 30000 thru 30999 reserved for plugins and plugin settings
+      strings 31000 thru 31999 reserved for skins
+      strings 32000 thru 32999 reserved for scripts
+      strings 33000 thru 33999 reserved for common strings used in add-ons
+  -->
+  <string id="30051">הגדרות הרחבה</string>
+  <string id="30052">הכל</string>
+  <string id="30053">ללא</string>
+  <string id="30054">מותאם אישית</string>
+  <string id="30055">עדכן תוכניות</string>
+  <string id="30056">שמור: </string>
+  <string id="30057">הוסף מילת מפתח: </string>
+
+  <string id="30200">רדיו  NHK/רדיו מסחרי</string>
+  <string id="30201">תחנות לתצוגה</string>
+  <string id="30202">[COLOR green]עדכן תצוגה[/COLOR]</string>
+
+  <string id="30300">רדיו קהילתי</string>
+  <string id="30301">תחנות לתצוגה</string>
+  <string id="30302">[COLOR green]עדכן תצוגה[/COLOR]</string>
+
+  <string id="30312">תכניות שמורות</string>
+  <string id="30314">מחק</string>
+  <string id="30315">ערוך</string>
+  <string id="30316">[COLOR orange]הראה תכניות בשידור[/COLOR]</string>
+  <string id="30317">[COLOR yellow]הצג הכל[/COLOR]</string>
+
+  <string id="30400">שמור</string>
+  <string id="30403">שמור השרמה</string>
+  <string id="30404">קצב סיביות</string>
+  <string id="30405">נתיב לספרייה</string>
+  <string id="30406">נתיב ל-rtmpdump</string>
+  <string id="30407">נתיב ל-ffmpeg</string>
+  <string id="30408">[COLOR green]נקה ספרייה[/COLOR]</string>
+
+  <string id="30500">מילת מפתח</string>
+  <string id="30501">מילת מפתח</string>
+  <string id="30502">חיפוש</string>
+  <string id="30503">יום</string>
+  <string id="30504">תחנה</string>
+  <string id="30505">שם או מידע כפול</string>
+  <string id="30508">[COLOR green]עדכן[/COLOR]</string>
+  <string id="30509">[COLOR green]הוסף[/COLOR]</string>
+  <string id="30511">כותרת בלבד</string>
+  <string id="30512">שם &amp; מידע מפורט</string>
+  <string id="30513">שמור</string>
+  <string id="30514">דלג</string>
+  <string id="30520">הכל</string>
+  <string id="30521">ראשון</string>
+  <string id="30522">שני</string>
+  <string id="30523">שלישי</string>
+  <string id="30524">רביעי</string>
+  <string id="30525">חמישי</string>
+  <string id="30526">שישי</string>
+  <string id="30527">שבת</string>
+  <string id="30528">נדרש הגדרות שמירת תכנית</string>
+  <string id="30529">מערכת הפעלה לא נתמכת</string>
+
+  <string id="30600">RSS</string>
+  <string id="30601">צור RSS</string>
+  <string id="30602">קישור</string>
+  <string id="30603">[COLOR green]עדכן RSS[/COLOR]</string>
+
+  <string id="30700">הגדרות אחרות</string>
+  <string id="30701">[COLOR green]אפס את כל ההגדרות[/COLOR]</string>
+  <string id="30702">[COLOR green]דיאלוג איפוס הגדרות[/COLOR]</string>
+  <string id="30703">איתור באגים</string>
+  <string id="30704">בסיס נתונים</string>
+
+</strings>
