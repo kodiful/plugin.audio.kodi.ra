@@ -23,10 +23,6 @@ __cache_path__   = os.path.join(__profile_path__, 'cache')
 __media_path__   = os.path.join(__cache_path__, 'media')
 __data_path__    = os.path.join(__cache_path__, 'data')
 
-if not os.path.isdir(__cache_path__): os.makedirs(__cache_path__)
-if not os.path.isdir(__media_path__): os.makedirs(__media_path__)
-if not os.path.isdir(__data_path__):  os.makedirs(__data_path__)
-
 __plugin_path__       = xbmc.translatePath(__settings__.getAddonInfo('path'))
 __resources_path__    = os.path.join(__plugin_path__, 'resources')
 __settings_file__     = os.path.join(__resources_path__, 'settings.xml')

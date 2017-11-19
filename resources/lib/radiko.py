@@ -311,11 +311,11 @@ class Radiko:
 
     def getStationData(self):
         # キャッシュがある場合
-        #if os.path.isfile(__station_file2__):
-        #    f = codecs.open(__station_file2__,'r','utf-8')
-        #    data = f.read()
-        #    f.close()
-        #    return data
+        if os.path.isfile(__station_file2__):
+            f = codecs.open(__station_file2__,'r','utf-8')
+            data = f.read()
+            f.close()
+            return data
         # キャッシュがない場合
         xmlstr = open(__station_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
@@ -374,6 +374,8 @@ class Radiko:
         f.close()
 
     def getProgramData(self):
+        if not os.path.isfile(__program_file__):
+            self.getProgramFile()
         xmlstr = open(__program_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
         results = []

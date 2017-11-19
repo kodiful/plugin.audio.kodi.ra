@@ -21,6 +21,7 @@ from resources.lib.downloads import(Downloads)
 from resources.lib.keywords  import(Keywords)
 
 from resources.lib.common import(log)
+from resources.lib.common import(notify,notify2)
 from resources.lib.common import(strptime)
 
 from resources.lib.common import(
@@ -112,9 +113,15 @@ class Data:
         for station in stations:
             # この放送局の番組の配列を初期化
             id = station.getAttribute('id').encode('utf-8')
-            s = self.stations_id[id]
+            try:
+                s = self.stations_id[id]
+            except KeyError:
+                # 未知の放送局がある場合はデータキャッシュを削除してリスタート
+                notify('Updating station data...', image='DefaultIconInfo.png')
+                xbmc.executebuiltin('XBMC.Container.Update(%s?action=reset,replace)' % (sys.argv[0]))
+                sys.exit()
+            # この放送局のDOMからデータを抽出して配列に格納
             s['programs'] = []
-            # この放送局のDOMからデータを抽出
             programs = station.getElementsByTagName('prog')
             for program in programs:
                 p = {
@@ -248,7 +255,13 @@ class Data:
         for s in self.stations:
             id = s['id']
             if check(id):
-                programs = s['programs']
+                try:
+                    programs = s['programs']
+                except KeyError:
+                    # 既存の放送局がない場合はデータキャッシュを削除してリスタート
+                    notify('Updating station data...', image='DefaultIconInfo.png')
+                    xbmc.executebuiltin('XBMC.Container.Update(%s?action=reset,replace)' % (sys.argv[0]))
+                    sys.exit()
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\u25b6'
                 if len(programs) == 0:

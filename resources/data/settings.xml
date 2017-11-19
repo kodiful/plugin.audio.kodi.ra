@@ -47,6 +47,7 @@
   </category>
   <category label="30700">
     <setting label="30701" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=resetAll)"/>
+    <setting label="30702" type="action" option="close" action="RunPlugin(plugin://plugin.audio.kodi.ra/?action=reset)"/>
     <setting label="30704" id="db" type="text" default=""/>
     <setting label="30703" id="debug" type="bool" default="false"/>
   </category>

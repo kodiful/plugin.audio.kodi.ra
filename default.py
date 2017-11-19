@@ -23,6 +23,7 @@ from resources.lib.common import(
     __settings__,
     __profile_path__,
     __cache_path__,
+    __media_path__,
     __data_path__,
     __template_path__)
 
@@ -131,35 +132,31 @@ def clearResumes():
             pass
 
 #-------------------------------------------------------------------------------
-def clearCache():
-    # ディレクトリの有無をチェック
-    if not os.path.isdir(__data_path__):
-        return
+def resetAll():
+    # インストール後に生成されたファイルをすべて削除（保存フォルダを除く）
     try:
-        # データキャッシュをクリア
-        for root, dirs, files in os.walk(__data_path__, topdown=False):
-            for name in files:
-                os.remove(os.path.join(root, name))
-    except:
-        pass
-
-#-------------------------------------------------------------------------------
-def reset():
-    # インストール後に生成されたファイルをすべて削除
-    try:
+        # プロファイルの配下を削除
         for root, dirs, files in os.walk(__profile_path__, topdown=False):
             for name in files:
                 os.remove(os.path.join(root, name))
-            for name in dirs:
-                os.rmdir(os.path.join(root, name))
+        # プロファイルディレクトリを削除
         os.rmdir(__profile_path__)
+        # 設定ダイアログを削除
         os.remove(__settings_file__)
     except:
         pass
     # 再表示
-    notify('Intializing KodiRa. Wait a minute...', image='DefaultIconInfo.png')
-    xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
-    sys.exit()
+    notify('Intializing KodiRa...', image='DefaultIconInfo.png')
+    start()
+
+#-------------------------------------------------------------------------------
+def reset():
+    # 設定ファイルを削除
+    if os.path.isfile(__settings_file__):
+        os.remove(__settings_file__)
+    # 再表示
+    notify('Intializing KodiRa...', image='DefaultIconInfo.png')
+    start()
 
 #-------------------------------------------------------------------------------
 def setup(radiko, simul):
@@ -167,12 +164,6 @@ def setup(radiko, simul):
     f = codecs.open(__template_file__,'r','utf-8')
     template = f.read()
     f.close()
-    # 既存設定を記憶
-    usersettings = None
-    if os.path.isfile(__usersettings_file__):
-        f = codecs.open(__usersettings_file__,'r','utf-8')
-        usersettings = f.read()
-        f.close()
     # 放送局リスト
     s = [__settings__.getLocalizedString(30520)]
     stations = Data((radiko,simul)).stations
@@ -188,17 +179,12 @@ def setup(radiko, simul):
     f = codecs.open(__settings_file__,'w','utf-8')
     f.write(source)
     f.close()
-    # 既存設定を反映
-    if usersettings is not None:
-        f = codecs.open(__usersettings_file__,'w','utf-8')
-        f.write(usersettings)
-        f.close()
-        # 再起動
-        notify('Settings transferred. Restarting KodiRa...', image='DefaultIconInfo.png')
-        xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
-        sys.exit()
     # ログ
     log('settings updated')
+    # 再起動
+    notify('Restarting KodiRa...', image='DefaultIconInfo.png')
+    xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
+    sys.exit()
 
 #-------------------------------------------------------------------------------
 def main():
@@ -217,6 +203,8 @@ def main():
 
     # actionに応じた処理
     if params['action'] == 'resetAll':
+        resetAll()
+    elif params['action'] == 'reset':
         reset()
 
     elif params['action'] == 'addDownload':
@@ -271,19 +259,20 @@ def main():
 def start(active=True):
     global Resumes
     global Birth
-    # アドオン設定をチェック
-    if os.path.isfile(__settings_file__):
-        needsetup = False
-    else:
-        # 後方互換のための処理を実行
-        needsetup = True
-        # データキャッシュをクリア
-        clearCache()
+    # ディレクトリをチェック
+    if not os.path.isdir(__cache_path__): os.makedirs(__cache_path__)
+    if not os.path.isdir(__media_path__): os.makedirs(__media_path__)
+    if not os.path.isdir(__data_path__):  os.makedirs(__data_path__)
+    # アドオン設定がない場合はデータキャッシュを削除
+    if not os.path.isfile(__settings_file__):
+        for root, dirs, files in os.walk(__data_path__, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
     # 初期化
     if getAlive():
         data = proceed()
     else:
-        data = initialize(needsetup)
+        data = initialize()
     # 表示
     if active: data.showPrograms()
     # Birth設定
@@ -308,7 +297,7 @@ def start(active=True):
         setAlive()
 
 #-------------------------------------------------------------------------------
-def initialize(needsetup):
+def initialize():
     global Resumes
     # _birth,_resumeを削除
     clearResumes()
@@ -323,7 +312,8 @@ def initialize(needsetup):
     simul  = Simul()
     data = Data((radiko,simul), True)
     # 放送局データに応じて設定画面を生成
-    if needsetup: setup(radiko,simul)
+    if not os.path.isfile(__settings_file__):
+        setup(radiko,simul)
     # 番組データを取得
     data.setPrograms(True)
     # 更新を通知
