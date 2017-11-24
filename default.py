@@ -249,6 +249,9 @@ def main():
     elif params['action'] == 'showPrograms':
         start()
 
+    elif params['action'] == 'playMedia':
+        xbmc.executebuiltin('XBMC.PlayMedia("%s")' % params['url'])
+
     else:
         if __settings__.getSetting('download') == 'true':
             Keywords().show()

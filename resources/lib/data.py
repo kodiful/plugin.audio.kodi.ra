@@ -324,7 +324,11 @@ class Data:
                 # コンテクストメニュー設定
                 li.addContextMenuItems(contextmenu, replaceItems=True)
                 # リストアイテムを追加
-                xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['url'], listitem=li, isFolder=False, totalItems=len(self.stations)+1)
+                url = '{url}?action=playMedia&url={stream}'.format(
+                    url=sys.argv[0],
+                    stream=urllib.quote_plus(s['url'])
+                )
+                xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, listitem=li, isFolder=False, totalItems=len(self.stations)+1)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
