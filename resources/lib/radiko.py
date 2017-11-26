@@ -32,7 +32,6 @@ __player_file__   = os.path.join(__radiko_path__, 'player.swf')
 
 __program_file__  = os.path.join(__radiko_path__, 'program.xml')
 __station_file__  = os.path.join(__radiko_path__, 'station.xml')
-__station_file2__ = os.path.join(__radiko_path__, 'station2.xml')
 __settings_file__ = os.path.join(__radiko_path__, 'settings.xml')
 
 __auth1_url__     = 'https://radiko.jp/v2/api/auth1_fms'
@@ -312,6 +311,7 @@ class Radiko:
         self.id = 'radiko'
         self.area = area
         self.token = token
+        log('area:%s, token:%s' % (self.area,self.token))
 
     def getStationFile(self):
         # キャッシュがある場合
@@ -328,13 +328,6 @@ class Radiko:
         f.close()
 
     def getStationData(self):
-        # キャッシュがある場合
-        if os.path.isfile(__station_file2__):
-            f = codecs.open(__station_file2__,'r','utf-8')
-            data = f.read()
-            f.close()
-            return data
-        # キャッシュがない場合
         xmlstr = open(__station_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
         results = []
@@ -346,6 +339,7 @@ class Radiko:
             name = station.getElementsByTagName('name')[0].firstChild.data
             logo = station.getElementsByTagName('logo_large')[0].firstChild.data
             url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (__stream_url__,id,self.token)
+            log(url)
             options = '-r "%s/%s/_definst_/simul-stream.stream" -C S: -C S: -C S: -C S:%s -v' % (__stream_url__,id,self.token)
             # pack as xml
             xmlstr = '<station>'
@@ -360,10 +354,6 @@ class Radiko:
             xmlstr = '<setting label="%s" type="bool" id="radiko_%s" default="false" enable="eq(%d,2)"/>' % (name,id,i)
             settings.append(xmlstr)
             i = i-1
-        # write as xml
-        f = codecs.open(__station_file2__,'w','utf-8')
-        f.write('\n'.join(results))
-        f.close()
         # write as xml (for settings)
         f = codecs.open(__settings_file__,'w','utf-8')
         f.write('\n'.join(settings))

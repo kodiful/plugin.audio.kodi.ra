@@ -15,7 +15,7 @@ __simul_path__ = os.path.join(__data_path__, 'simul')
 if not os.path.isdir(__simul_path__): os.makedirs(__simul_path__)
 
 __program_file__  = os.path.join(__simul_path__, 'program.xml')
-__station_file2__ = os.path.join(__simul_path__, 'station2.xml')
+__station_file__ = os.path.join(__simul_path__, 'station.xml')
 __settings_file__ = os.path.join(__simul_path__, 'settings.xml')
 
 __station_url__   = 'http://kodiful.com/KodiRa/downloads/simul/station2.xml'
@@ -31,19 +31,12 @@ class Simul:
         pass
 
     def getStationData(self):
-        # キャッシュがある場合
-        if os.path.isfile(__station_file2__):
-            f = codecs.open(__station_file2__,'r','utf-8')
-            data = f.read()
-            f.close()
-            return data
-        # キャッシュがない場合
         # ファイルを読み込む
         response = urllib.urlopen(__station_url__)
         data = response.read().decode('utf-8')
         response.close()
         # ファイルを書き込む
-        f = codecs.open(__station_file2__,'w','utf-8')
+        f = codecs.open(__station_file__,'w','utf-8')
         f.write(data)
         f.close()
         return data
@@ -70,7 +63,7 @@ class Simul:
         return
 
     def getProgramData(self):
-        f = codecs.open(__station_file2__,'r','utf-8')
+        f = codecs.open(__station_file__,'r','utf-8')
         xmlstr = f.read()
         f.close()
         results = []
