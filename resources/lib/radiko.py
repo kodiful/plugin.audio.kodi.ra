@@ -84,7 +84,8 @@ class getAuthkey(object):
         self.parseSwfHead()
         self.output_file = __key_file__
         while self.swfBlock(): # タブブロックがある限り
-            if __debug__: print (self.Block['tag'], self.Block['block_len'], self.Block['id'])
+            #if __debug__: print (self.Block['tag'], self.Block['block_len'], self.Block['id'])
+            log(self.Block['tag'], self.Block['block_len'], self.Block['id'])
 
             if self.Block['tag'] == __object_tag__ and self.Block['id'] == __object_id__:
                 self.Save(__key_file__)
@@ -105,14 +106,21 @@ class getAuthkey(object):
         self.frame_rate_integer = ord(self.swfRead(1))
         self.frame_count = self.le2Byte(self.swfRead(2))
 
-        if __debug__:
+        '''if __debug__:
             print ("magic: %s\nver: %d\nlen: %d\nframe_rate: %d.%d\ncount: %d\n" % ( \
                 self.magic,
                 self.version,
                 self.file_length,
                 self.frame_rate_integer,
                 self.frame_rate_decimal,
-                self.frame_count))
+                self.frame_count))'''
+        log("magic: %s, ver: %d, len: %d, frame_rate: %d.%d, count: %d" % ( \
+            self.magic,
+            self.version,
+            self.file_length,
+            self.frame_rate_integer,
+            self.frame_rate_decimal,
+            self.frame_count))
 
     #-----------------------------------
     # ブロック判定
@@ -214,7 +222,8 @@ class authenticate(threading.Thread):
     #-----------------------------------
     def resumeTimer(self):
         self.startChallengeAuth()
-        if __debug__:print ("Resume Timer\n")
+        #if __debug__:print ("Resume Timer\n")
+        log("Resume Timer")
 
 #-------------------------------------------------------------------------------
 class appIDAuth(object):
@@ -239,11 +248,15 @@ class appIDAuth(object):
         self._response['key_offset'] = int(auth1fms['X-Radiko-KeyOffset'])
         self._response['key_length'] = int(auth1fms['X-Radiko-KeyLength'])
 
-        if __debug__:
+        '''if __debug__:
             print ("authtoken: %s\noffset: %d length: %d\n" % ( \
                 self._response['auth_token'],
                 self._response['key_offset'],
-                self._response['key_length']))
+                self._response['key_length']))'''
+        log("authtoken: %s, offset: %d, length: %d" % ( \
+            self._response['auth_token'],
+            self._response['key_offset'],
+            self._response['key_length']))
 
 #-------------------------------------------------------------------------------
 class challengeAuth(object):
@@ -271,12 +284,17 @@ class challengeAuth(object):
         auth2fms = urllib2.urlopen(req).read().decode('utf-8')
 
         self._response['area_id'] = auth2fms.split(',')[0].strip()
-        if __debug__:
+        '''if __debug__:
             print ("authtoken: %s\noffset: %d length: %d \npartialkey: %s\n" % ( \
                 self._response['auth_token'],
                 self._response['key_offset'],
                 self._response['key_length'],
-                self._response['partial_key']))
+                self._response['partial_key']))'''
+        log("authtoken: %s, offset: %d, length: %d, partialkey: %s" % ( \
+            self._response['auth_token'],
+            self._response['key_offset'],
+            self._response['key_length'],
+            self._response['partial_key']))
 
     #-----------------------------------
     def createPartialKey(self):
