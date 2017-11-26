@@ -311,6 +311,7 @@ class Radiko:
         self.id = 'radiko'
         self.area = area
         self.token = token
+        log('area:%s, token:%s' % (self.area,self.token))
 
     def getStationFile(self):
         # キャッシュがある場合
