@@ -14,7 +14,19 @@
   <string id="30056">保存：</string>
   <string id="30057">設定：</string>
 
-  <string id="30200">NHKラジオ/民放ラジオ</string>
+  <string id="30100">NHKラジオ</string>
+  <string id="30001">放送局</string>
+  <string id="30002">東京</string>
+  <string id="30003">仙台</string>
+  <string id="30004">名古屋</string>
+  <string id="30005">大阪</string>
+  <string id="30006">広島</string>
+  <string id="30007">松山</string>
+  <string id="30008">福岡</string>
+  <string id="30101">表示する放送局</string>
+  <string id="30102">[COLOR green]表示を更新する[/COLOR]</string>
+
+  <string id="30200">民放ラジオ</string>
   <string id="30201">表示する放送局</string>
   <string id="30202">[COLOR green]表示を更新する[/COLOR]</string>
 
@@ -22,9 +34,16 @@
   <string id="30301">表示する放送局</string>
   <string id="30302">[COLOR green]表示を更新する[/COLOR]</string>
 
+  <string id="30350">その他のラジオ</string>
+  <string id="30351">放送局名</string>
+  <string id="30352">ストリーム</string>
+  <string id="30353">[COLOR green]変更する[/COLOR]</string>
+  <string id="30354">[COLOR green]追加する[/COLOR]</string>
+  <string id="30355">表示する放送局</string>
+
   <string id="30312">保存済み番組</string>
   <string id="30314">削除する</string>
-  <string id="30315">編集する</string>
+  <string id="30315">変更する</string>
   <string id="30316">[COLOR orange]放送中の番組[/COLOR]</string>
   <string id="30317">[COLOR yellow]すべての保存済み番組[/COLOR]</string>
 

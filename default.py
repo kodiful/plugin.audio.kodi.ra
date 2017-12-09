@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import sys, os, platform
 import re, glob
 import time
 import urlparse
 import codecs
+import subprocess
 import json, xml.dom.minidom
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from hashlib import md5
 
+from resources.lib.radiru    import(Radiru)
 from resources.lib.radiko    import(Radiko,getAuthkey,authenticate)
-from resources.lib.simul     import(Simul)
+from resources.lib.jcba      import(Jcba)
+from resources.lib.misc      import(Misc)
 from resources.lib.data      import(Data)
 from resources.lib.downloads import(Downloads)
 from resources.lib.keywords  import(Keywords)
 
 from resources.lib.common import(
-    __addon_id__,
-    __settings__,
+    __addon__,
     __profile_path__,
     __cache_path__,
     __media_path__,
@@ -145,35 +145,41 @@ def resetAll():
         os.remove(__settings_file__)
     except:
         pass
-    # 再表示
-    notify('Intializing KodiRa...', image='DefaultIconInfo.png')
-    start()
+    # 初期化
+    initialize()
 
 #-------------------------------------------------------------------------------
 def reset():
-    # 設定ファイルを削除
+    # 設定ダイアログを削除
     if os.path.isfile(__settings_file__):
         os.remove(__settings_file__)
-    # 再表示
-    notify('Intializing KodiRa...', image='DefaultIconInfo.png')
-    start()
+    # 初期化
+    initialize()
 
 #-------------------------------------------------------------------------------
-def setup(radiko, simul):
+def setup(radiru, radiko, jcba, misc):
     # テンプレート読み込み
     f = codecs.open(__template_file__,'r','utf-8')
     template = f.read()
     f.close()
     # 放送局リスト
-    s = [__settings__.getLocalizedString(30520)]
-    stations = Data((radiko,simul)).stations
+    s = [__addon__.getLocalizedString(30520)]
+    stations = Data((radiru,radiko,jcba,misc)).stations
     for station in stations:
         s.append(station['name'])
     # ソース作成
+    ffmpeg = '/usr/local/bin/ffmpeg'
+    if not os.path.isfile(ffmpeg): ffmpeg = ''
+    rtmpdump = '/usr/local/bin/rtmpdump'
+    if not os.path.isfile(rtmpdump): rtmpdump = ''
     source = template.format(
+        radiru = radiru.getSettingsData(),
         radiko = radiko.getSettingsData(),
-        simul  = simul.getSettingsData(),
+        jcba   = jcba.getSettingsData(),
+        misc   = misc.getSettingsData(),
         bc = '|'.join(s),
+        ffmegpath = ffmpeg,
+        rtmpdumppath = rtmpdump,
         os = platform.system())
     # ファイル書き込み
     f = codecs.open(__settings_file__,'w','utf-8')
@@ -181,10 +187,6 @@ def setup(radiko, simul):
     f.close()
     # ログ
     log('settings updated')
-    # 再起動
-    notify('Restarting KodiRa...', image='DefaultIconInfo.png')
-    xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
-    sys.exit()
 
 #-------------------------------------------------------------------------------
 def main():
@@ -192,14 +194,25 @@ def main():
     global Birth
     # ログ
     log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-
     # パラメータ抽出
     parsed = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query, keep_blank_values=True)
     params = {'action':''}
     for key in parsed.keys():
-        key1 = key.decode('utf-8')
-        params[key1] = parsed[key][0].decode('utf-8')
-        log('argv:',key1,'=',params[key1])
+        value = params[key.decode('utf-8')] = parsed[key][0].decode('utf-8')
+        log('argv:',key,'=',value)
+    # アドオン設定をコピー
+    settings = {}
+    for key in ['id','key','s','day','ch','duplicate','name','stream']:
+        settings[key] = __addon__.getSetting(key).decode('utf-8')
+    # アドオン設定をリセット
+    __addon__.setSetting('id','')
+    __addon__.setSetting('key','')
+    __addon__.setSetting('s','0')
+    __addon__.setSetting('day','0')
+    __addon__.setSetting('ch','0')
+    __addon__.setSetting('duplicate','0')
+    __addon__.setSetting('name','')
+    __addon__.setSetting('stream','')
 
     # actionに応じた処理
     if params['action'] == 'resetAll':
@@ -231,6 +244,7 @@ def main():
     elif params['action'] == 'updateRSS':
         Downloads().createRSS()
 
+    # キーワードの追加、変更、削除
     elif params['action'] == 'addKeyword':
         Keywords().add(
             key=params['key'],
@@ -241,19 +255,38 @@ def main():
     elif params['action'] == 'editKeyword':
         Keywords().edit(params['id'])
     elif params['action'] == 'editedKeyword':
-        result = Keywords().edited()
+        result = Keywords().edited(
+            id=settings['id'],
+            key=settings['key'],
+            s=settings['s'],
+            day=settings['day'],
+            ch=settings['ch'],
+            duplicate=settings['duplicate'])
         notify2(result)
     elif params['action'] == 'deleteKeyword':
         Keywords().delete(params['id'])
 
+    # 放送局の追加、変更、削除
+    elif params['action'] == 'editStation':
+        Misc().edit(params['id'])
+    elif params['action'] == 'editedStation':
+        Misc().edited(
+            settings['id'],
+            settings['name'],
+            settings['stream'])
+        xbmc.executebuiltin('Container.Refresh()')
+    elif params['action'] == 'deleteStation':
+        Misc().delete(params['id'])
+        xbmc.executebuiltin('Container.Refresh()')
+
     elif params['action'] == 'showPrograms':
         start()
 
-    elif params['action'] == 'playMedia':
-        xbmc.executebuiltin('XBMC.PlayMedia("%s")' % params['url'])
+    elif params['action'] == 'settings':
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % __addon__.getAddonInfo('id'))
 
     else:
-        if __settings__.getSetting('download') == 'true':
+        if __addon__.getSetting('download') == 'true':
             Keywords().show()
         else:
             start()
@@ -266,13 +299,8 @@ def start(active=True):
     if not os.path.isdir(__cache_path__): os.makedirs(__cache_path__)
     if not os.path.isdir(__media_path__): os.makedirs(__media_path__)
     if not os.path.isdir(__data_path__):  os.makedirs(__data_path__)
-    # アドオン設定がない場合はデータキャッシュを削除
-    if not os.path.isfile(__settings_file__):
-        for root, dirs, files in os.walk(__data_path__, topdown=False):
-            for name in files:
-                os.remove(os.path.join(root, name))
     # 初期化
-    if getAlive():
+    if os.path.isfile(__settings_file__) and getAlive():
         data = proceed()
     else:
         data = initialize()
@@ -282,8 +310,6 @@ def start(active=True):
     Birth = setBirth()
     # Alive設定を更新
     setAlive()
-    # 保存キーワード設定をクリア
-    Keywords().reset()
     # 更新
     monitor = Monitor()
     while not monitor.abortRequested():
@@ -311,12 +337,13 @@ def initialize():
     while 'authed' not in auth._response or auth._response['authed'] == 0: time.sleep(1)
     if auth._response['area_id'] == '': notify('Radiko authentication failed')
     # クラス初期化
-    radiko = Radiko(auth._response['area_id'], auth._response['auth_token'])
-    simul  = Simul()
-    data = Data((radiko,simul), True)
+    radiru = Radiru(renew=True)
+    radiko = Radiko(area=auth._response['area_id'], token=auth._response['auth_token'], renew=True)
+    jcba   = Jcba(renew=True)
+    misc   = Misc(renew=True)
+    data = Data((radiru,radiko,jcba,misc))
     # 放送局データに応じて設定画面を生成
-    if not os.path.isfile(__settings_file__):
-        setup(radiko,simul)
+    setup(radiru, radiko, jcba, misc)
     # 番組データを取得
     data.setPrograms(True)
     # 更新を通知
@@ -341,9 +368,11 @@ def proceed():
     # Resumes設定
     getResumes()
     # クラス初期化
+    radiru = Radiru()
     radiko = Radiko(Resumes['area'], Resumes['token'])
-    simul  = Simul()
-    data = Data((radiko,simul))
+    jcba   = Jcba()
+    misc   = Misc()
+    data = Data((radiru,radiko,jcba,misc))
     # 番組データ
     data.setPrograms()
     # 更新を通知
@@ -404,9 +433,11 @@ def watcher(data):
         Resumes['area'] = auth._response['area_id']
         Resumes['reauth'] = stamp + __resume_timer_interval__
         # radiko認証の更新に伴う処理
+        radiru = Radiru()
         radiko = Radiko(Resumes['area'], Resumes['token'])
-        simul  = Simul()
-        data = Data((radiko, simul))
+        jcba   = Jcba()
+        misc   = Misc()
+        data = Data((radiru,radiko,jcba,misc))
         # 番組データを更新
         data.setPrograms()
         # 更新を通知
@@ -415,11 +446,11 @@ def watcher(data):
         refresh()
 
     # キーワードマッチによるダウンロード
-    if __settings__.getSetting('download') == 'true':
+    if __addon__.getSetting('download') == 'true':
         data.onWatched()
 
     # ダウンロードが完了している場合はRSSを更新
-    if __settings__.getSetting('rss') == 'true':
+    if __addon__.getSetting('rss') == 'true':
         if createRSS(): notify('Download completed', image='DefaultIconInfo.png')
 
     # Resumes設定を書き込み
@@ -434,14 +465,14 @@ def refresh():
     immediate = False
     if xbmcgui.getCurrentWindowDialogId() == 9999:
         path = xbmc.getInfoLabel('Container.FolderPath')
-        if path == sys.argv[0] and __settings__.getSetting('download') == 'false':
+        if path == sys.argv[0] and __addon__.getSetting('download') == 'false':
             immediate = True
         elif path == '%s?action=showPrograms' % sys.argv[0]:
             immediate = True
 
     # 画面を更新
     if immediate:
-        xbmc.executebuiltin('XBMC.Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0]))
+        xbmc.executebuiltin('Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0]))
         Resumes['update'] = False
         log('update immediately')
     else:

@@ -21,15 +21,14 @@ from resources.lib.downloads import(Downloads)
 from resources.lib.keywords  import(Keywords)
 
 from resources.lib.common import(log)
-from resources.lib.common import(notify,notify2)
+from resources.lib.common import(notify)
 from resources.lib.common import(strptime)
 
 from resources.lib.common import(
     __prep_interval__)
 
 from resources.lib.common import(
-    __addon_id__,
-    __settings__,
+    __addon__,
     __media_path__,
     __data_path__,
     __logo_url__)
@@ -40,17 +39,17 @@ from resources.lib.common import(
 def check(id):
     category = id.split('_')[0]
     try:
-        if __settings__.getSetting(category) == '0': return True
-        if __settings__.getSetting(category) == '1': return False
-        if __settings__.getSetting(id) == 'true': return True
-        if __settings__.getSetting(id) == 'false': return False
+        if __addon__.getSetting(category) == '0': return True
+        if __addon__.getSetting(category) == '1': return False
+        if __addon__.getSetting(id) == 'true': return True
+        if __addon__.getSetting(id) == 'false': return False
     except:
         pass
     return True
 
 class Data:
 
-    def __init__(self, services, renew=False):
+    def __init__(self, services):
         # インスタンス変数を初期化
         self.stations = []
         self.stations_id = {}
@@ -60,7 +59,6 @@ class Data:
         self.services = services
         xmlstr = ''
         for service in self.services:
-            if renew: service.getStationFile()
             xmlstr += service.getStationData()
         dom =  xml.dom.minidom.parseString(('<stations>'+xmlstr.replace('&amp;','&').replace('&','&amp;')+'</stations>').encode('utf-8'))
         # DOMからデータ抽出
@@ -70,7 +68,10 @@ class Data:
             name = re.sub(r'(^\s+|\s+$)', '', station.getElementsByTagName('name')[0].firstChild.data)
             s = {'id':id, 'name':name}
             s['url'] = station.getElementsByTagName('url')[0].firstChild.data
-            s['logo_large'] = station.getElementsByTagName('logo_large')[0].firstChild.data
+            try:
+                s['logo_large'] = station.getElementsByTagName('logo_large')[0].firstChild.data
+            except:
+                s['logo_large'] = ''
             try:
                 s['options'] = station.getElementsByTagName('options')[0].firstChild.data
             except:
@@ -105,8 +106,7 @@ class Data:
         # 番組データのDOM生成
         xmlstr = ''
         for service in self.services:
-            if renew: service.getProgramFile()
-            xmlstr += service.getProgramData()
+            xmlstr += service.getProgramData(renew)
         dom =  xml.dom.minidom.parseString(('<stations>'+xmlstr.replace('&amp;','&').replace('&','&amp;')+'</stations>').encode('utf-8'))
         # DOMからデータ抽出
         stations = dom.getElementsByTagName('station')
@@ -118,8 +118,7 @@ class Data:
             except KeyError:
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
                 notify('Updating station data...', image='DefaultIconInfo.png')
-                xbmc.executebuiltin('XBMC.Container.Update(%s?action=reset,replace)' % (sys.argv[0]))
-                sys.exit()
+                xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
             # この放送局のDOMからデータを抽出して配列に格納
             s['programs'] = []
             programs = station.getElementsByTagName('prog')
@@ -197,7 +196,7 @@ class Data:
                     else:
                         continue
                     # 放送局を照合
-                    if s['ch'] == __settings__.getLocalizedString(30520):
+                    if s['ch'] == __addon__.getLocalizedString(30520):
                         pass
                     elif s['ch'] == p['name']:
                         pass
@@ -260,8 +259,7 @@ class Data:
                 except KeyError:
                     # 既存の放送局がない場合はデータキャッシュを削除してリスタート
                     notify('Updating station data...', image='DefaultIconInfo.png')
-                    xbmc.executebuiltin('XBMC.Container.Update(%s?action=reset,replace)' % (sys.argv[0]))
-                    sys.exit()
+                    xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\u25b6'
                 if len(programs) == 0:
@@ -281,25 +279,23 @@ class Data:
                     comment0 = re.sub(r'&lt;.*?&gt;','',programs[0]['description'])
                 # リストアイテムを定義
                 li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
-                li.setInfo(type='music', infoLabels={'title':title0,'artist':s['name'],'comment':comment0})
+                #li.setInfo(type='music', infoLabels={'title':title0,'artist':s['name'],'comment':comment0})
+                li.setInfo(type='video', infoLabels={'title':s['name']})
                 # コンテクストメニュー
                 contextmenu = []
-                # 保存済み番組
-                #if __settings__.getSetting('download') == 'true':
-                #    contextmenu.append((__settings__.getLocalizedString(30312), 'XBMC.Container.Update(%s?action=showKeywords)' % (sys.argv[0])))
                 # 番組情報を更新
-                contextmenu.append((__settings__.getLocalizedString(30055), 'XBMC.Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
+                contextmenu.append((__addon__.getLocalizedString(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
                 # 保存、設定
-                if __settings__.getSetting('download') == 'true':
+                if __addon__.getSetting('download') == 'true':
                     if s['options']:
                         for i in range(len(programs)):
                             p = programs[i]
                             if p['ft'].isdigit() and p['to'].isdigit():
                                 # 保存
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30056),p['title'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__addon__.getLocalizedString(30056),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__addon__.getLocalizedString(30056),p['title'])
                                 contextmenu.append((menu,
-                                    'XBMC.RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options})'.format(
+                                    'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options})'.format(
                                         url=sys.argv[0],
                                         id=id,
                                         name=urllib.quote_plus(s['name'].encode('utf-8')),
@@ -311,24 +307,26 @@ class Data:
                                     )
                                 ))
                                 # キーワード追加
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__settings__.getLocalizedString(30057),p['title'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__addon__.getLocalizedString(30057),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__addon__.getLocalizedString(30057),p['title'])
                                 contextmenu.append((menu,
-                                    'XBMC.RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
+                                    'RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
                                         url=sys.argv[0],
                                         key=urllib.quote_plus(p['title'].encode('utf-8')),
                                         day=str(int(strptime(p['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
                                         ch=urllib.quote_plus(s['name'].encode('utf-8'))
                                     )
                                 ))
+                if id.find('misc_') == 0:
+                    id1 = int(id.replace('misc_',''))-1
+                    contextmenu.append((__addon__.getLocalizedString(30315), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((__addon__.getLocalizedString(30314), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
+                # アドオン設定
+                contextmenu.append((__addon__.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
                 # コンテクストメニュー設定
                 li.addContextMenuItems(contextmenu, replaceItems=True)
                 # リストアイテムを追加
-                url = '{url}?action=playMedia&url={stream}'.format(
-                    url=sys.argv[0],
-                    stream=urllib.quote_plus(s['url'])
-                )
-                xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, listitem=li, isFolder=False, totalItems=len(self.stations)+1)
+                xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['url'], listitem=li, isFolder=False, totalItems=len(self.stations)+1)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
@@ -359,7 +357,7 @@ class Data:
         return (nearest, md5(data).hexdigest())
 
     def savePrograms(self):
-        url = __settings__.getSetting('db')
+        url = __addon__.getSetting('db')
         if url == '': return
         # 番組情報をDBへ送信
         programs = []

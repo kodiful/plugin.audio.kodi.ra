@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import datetime, time
 import os, platform, subprocess, commands
 import sys, glob, shutil
@@ -14,8 +12,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from datetime import datetime
 
 from resources.lib.common import(
-    __addon_id__,
-    __settings__,
+    __addon__,
     __media_path__,
     __plugin_path__,
     __template_path__)
@@ -36,8 +33,8 @@ class Downloads:
 
     def __init__(self):
         self.os = platform.system()
-        self.rtmpdump = __settings__.getSetting('rtmpdump')
-        self.ffmpeg = __settings__.getSetting('ffmpeg')
+        self.rtmpdump = __addon__.getSetting('rtmpdump')
+        self.ffmpeg = __addon__.getSetting('ffmpeg')
         # templates
         f = codecs.open(os.path.join(__template_path__,'template.json'),'r','utf-8')
         self.template = f.read()
@@ -68,6 +65,10 @@ class Downloads:
         startdate = start1.strftime('%Y-%m-%d %H:%M:%S')
         # 終了時間
         end1 = strptime(end, '%Y%m%d%H%M%S')
+        # ラグ調整
+        lag = datetime.timedelta(seconds=__lag__)
+        start1 = start1 + lag
+        end1 = end1 + lag
         # 放送時間
         duration1 = end1 - start1
         # 録音開始の設定
@@ -88,6 +89,7 @@ class Downloads:
         duration = end1 - start1
         if duration.seconds > 0:
             if wait == 0:
+                # すぐ開始する場合
                 duration = duration.seconds + __margin_interval__
             else:
                 if wait > __margin_interval__:
@@ -100,7 +102,7 @@ class Downloads:
             # durationが異常値
             return {'status':False, 'message':'Failed. Invalid start and/or end'}
         # ビットレート
-        bitrate = __settings__.getSetting('bitrate')
+        bitrate = __addon__.getSetting('bitrate')
         if bitrate == 'auto':
             if duration <= 3600:
                 bitrate = '192k'
@@ -190,7 +192,7 @@ class Downloads:
         # rssファイル生成
         self.createRSS()
         # 再表示
-        xbmc.executebuiltin('XBMC.Container.Update(%s,replace)' % (sys.argv[0]))
+        xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
         return {'status':True, 'message':'Saved data deleted successfully'}
 
     def delete(self, gtvid):
@@ -202,7 +204,7 @@ class Downloads:
             # rssファイル生成
             self.createRSS()
             # 再表示
-            xbmc.executebuiltin("XBMC.Container.Refresh")
+            xbmc.executebuiltin("Container.Refresh")
             return {'status':True, 'message':'Saved data deleted successfully'}
         else:
             return {'status':False, 'message':'Failed. Now recording'}
@@ -260,7 +262,7 @@ class Downloads:
                 li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':comment})
                 li.setProperty('IsPlayable', 'true')
                 # context menu
-                li.addContextMenuItems([(__settings__.getLocalizedString(30314), 'XBMC.RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)
+                li.addContextMenuItems([(__addon__.getLocalizedString(30314), 'RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)
                 # add directory item
                 # file
                 mp3_file = os.path.join(__download_path__, p['gtvid'] + '.mp3')
@@ -268,7 +270,7 @@ class Downloads:
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
     def createRSS(self):
-        if __settings__.getSetting('rss') == 'false': return
+        if __addon__.getSetting('rss') == 'false': return
         # templates
         f = codecs.open(os.path.join(__template_path__,'rss-header.xml'),'r','utf-8')
         header = f.read()

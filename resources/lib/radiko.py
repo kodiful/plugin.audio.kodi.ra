@@ -307,29 +307,25 @@ class challengeAuth(object):
 #-------------------------------------------------------------------------------
 class Radiko:
 
-    def __init__(self, area, token):
+    def __init__(self, area, token, renew=False):
         self.id = 'radiko'
         self.area = area
         self.token = token
         log('area:%s, token:%s' % (self.area,self.token))
+        # 放送局データと設定データを初期化
+        self.getStationFile(renew)
 
-    def getStationFile(self):
-        # キャッシュがある場合
-        if os.path.isfile(__station_file__):
+    def getStationFile(self, renew=False):
+        # キャッシュがあれば何もしない
+        if renew == False and os.path.isfile(__station_file__) and os.path.isfile(__settings_file__):
             return
-        # キャッシュがない場合
+        # キャッシュがなければウェブから読み込む
         url = '%s%s.xml' % (__station_url__ ,self.area)
         response = urllib.urlopen(url)
         data = response.read()
         response.close()
-        # ファイルを書き込む
-        f = codecs.open(__station_file__,'w','utf-8')
-        f.write(data.decode('utf-8'))
-        f.close()
-
-    def getStationData(self):
-        xmlstr = open(__station_file__, 'r').read()
-        dom = xml.dom.minidom.parseString(xmlstr)
+        # データ変換
+        dom = xml.dom.minidom.parseString(data)
         results = []
         settings = []
         i = -1
@@ -353,17 +349,26 @@ class Radiko:
             xmlstr = '<setting label="%s" type="bool" id="radiko_%s" default="false" enable="eq(%d,2)"/>' % (name,id,i)
             settings.append(xmlstr)
             i = i-1
-        # write as xml (for settings)
+        # 放送局データを書き込む
+        f = codecs.open(__station_file__,'w','utf-8')
+        f.write('\n'.join(results))
+        f.close()
+        # 設定データを書き込む
         f = codecs.open(__settings_file__,'w','utf-8')
         f.write('\n'.join(settings))
         f.close()
-        return '\n'.join(results)
+
+    def getStationData(self):
+        f = codecs.open(__station_file__,'r','utf-8')
+        data = f.read()
+        f.close()
+        return data
 
     def getSettingsData(self):
         f = codecs.open(__settings_file__,'r','utf-8')
-        settings = f.read()
+        data = f.read()
         f.close()
-        return settings
+        return data
 
     def getProgramFile(self):
         try:
@@ -374,14 +379,14 @@ class Radiko:
             data = response.read()
             response.close()
         except:
-            log('failed in radiko')
+            log('failed')
             return
         f = codecs.open(__program_file__,'w','utf-8')
         f.write(data.decode('utf-8'))
         f.close()
 
-    def getProgramData(self):
-        if not os.path.isfile(__program_file__):
+    def getProgramData(self, renew=False):
+        if renew or not os.path.isfile(__program_file__):
             self.getProgramFile()
         xmlstr = open(__program_file__, 'r').read()
         dom = xml.dom.minidom.parseString(xmlstr)
