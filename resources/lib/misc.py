@@ -50,7 +50,6 @@ class Misc:
         results = []
         settings = []
         id = 1
-        i = -1
         for ch in self.ch:
             name = ch['name']
             logo = ''
@@ -66,10 +65,9 @@ class Misc:
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
-            xmlstr = '<setting label="%s" type="bool" id="misc_%03d" default="true"  enable="eq(%d,2)" visible="true"/>' % (name,id,i)
+            xmlstr = '<setting label="%s" type="bool" id="misc_%03d" default="true" enable="eq(%d,2)" visible="true"/>' % (name,id,-id)
             settings.append(xmlstr)
             id = id + 1
-            i = i - 1
         # 放送局データを書き込む
         f = codecs.open(__station_file__,'w','utf-8')
         f.write('\n'.join(results))
