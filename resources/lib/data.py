@@ -273,8 +273,9 @@ class Data:
                             title1 = '%s' % (p['title'])
                         else:
                             title1 = '%s (%s:%s～%s:%s)' % (p['title'],p['ftl'][0:2],p['ftl'][2:4],p['tol'][0:2],p['tol'][2:4])
-                        if i==0: title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,title1)
-                        if i>0: title += ' [COLOR lightgreen]%s %s[/COLOR]' % (bullet,title1)
+                        if title1:
+                            if i==0: title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,title1)
+                            if i>0: title += ' [COLOR lightgreen]%s %s[/COLOR]' % (bullet,title1)
                     title0 = programs[0]['title']
                     comment0 = re.sub(r'&lt;.*?&gt;','',programs[0]['description'])
                 # リストアイテムを定義
