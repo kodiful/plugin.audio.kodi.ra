@@ -36,7 +36,7 @@
 
   <string id="30350">その他のラジオ</string>
   <string id="30351">放送局名</string>
-  <string id="30352">ストリーム</string>
+  <string id="30352">ストリームのURL</string>
   <string id="30353">[COLOR green]変更する[/COLOR]</string>
   <string id="30354">[COLOR green]追加する[/COLOR]</string>
   <string id="30355">表示する放送局</string>
@@ -80,7 +80,7 @@
 
   <string id="30600">RSS生成</string>
   <string id="30601">RSS生成</string>
-  <string id="30602">URL</string>
+  <string id="30602">保存フォルダのURL</string>
   <string id="30603">[COLOR green]RSSを更新する[/COLOR]</string>
 
   <string id="30700">その他</string>

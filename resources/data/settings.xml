@@ -25,7 +25,7 @@
     <setting id="stream" label="30352" type="text" default=""/>
     <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-1,)+!eq(-2,)" visible="!eq(-3,)"/>
     <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-2,)+!eq(-3,)" visible="eq(-4,)"/>
-    <setting id="misc" label="30355" type="enum" lvalues="30052|30053|30054" default="0" visible="false"/>
+    <setting id="misc" label="30355" type="enum" lvalues="30052|30053|30054" default="0" visible="true"/>
 {misc}
   </category>
   <category label="30400">
@@ -60,8 +60,8 @@
     <setting label="30603" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="eq(-2,true)" visible="eq(-5,true)+!eq(-4,)"/>
   </category>
   <category label="30700">
-    <setting label="30701" type="action" option="close" action="RunPlugin(plugin://$ID/?action=resetAll)"/>
     <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=reset)"/>
+    <setting label="30701" type="action" option="close" action="RunPlugin(plugin://$ID/?action=resetAll)"/>
     <setting label="30704" id="db" type="text" default=""/>
     <setting label="30703" id="debug" type="bool" default="false"/>
   </category>

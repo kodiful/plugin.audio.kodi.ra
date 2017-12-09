@@ -50,6 +50,7 @@ class Misc:
         results = []
         settings = []
         id = 1
+        i = -1
         for ch in self.ch:
             name = ch['name']
             logo = ''
@@ -65,9 +66,10 @@ class Misc:
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
-            xmlstr = '<setting label="%s" type="bool" id="misc_%03d" default="true" visible="false"/>' % (name,id)
+            xmlstr = '<setting label="%s" type="bool" id="misc_%03d" default="true"  enable="eq(%d,2)" visible="true"/>' % (name,id,i)
             settings.append(xmlstr)
             id = id + 1
+            i = i - 1
         # 放送局データを書き込む
         f = codecs.open(__station_file__,'w','utf-8')
         f.write('\n'.join(results))
@@ -142,6 +144,7 @@ class Misc:
             self.write()
             # 変更を反映する
             self.getStationFile(renew=True)
+            xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
 
     def delete(self, id):
         if int(id) < len(self.ch):
@@ -151,3 +154,4 @@ class Misc:
             self.write()
             # 変更を反映する
             self.getStationFile(renew=True)
+            xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))

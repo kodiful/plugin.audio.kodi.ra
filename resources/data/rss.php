@@ -47,7 +47,7 @@ $footer = <<<EOF
 </rss>
 EOF;
 
-// 初期化<
+// 初期化
 header("Content-Type: application/xml");
 date_default_timezone_set('Asia/Tokyo');
 $results = array();

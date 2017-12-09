@@ -36,7 +36,7 @@
 
   <string id="30350">Other Radio</string>
   <string id="30351">Station</string>
-  <string id="30352">Stream</string>
+  <string id="30352">Stream URL</string>
   <string id="30353">[COLOR green]Update[/COLOR]</string>
   <string id="30354">[COLOR green]Add[/COLOR]</string>
   <string id="30355">Stations to be displayed</string>
@@ -80,7 +80,7 @@
 
   <string id="30600">RSS</string>
   <string id="30601">Create RSS</string>
-  <string id="30602">URL</string>
+  <string id="30602">URL of download folder</string>
   <string id="30603">[COLOR green]Update RSS[/COLOR]</string>
 
   <string id="30700">Other Settings</string>
