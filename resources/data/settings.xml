@@ -24,7 +24,7 @@
     <setting id="name" label="30351" type="text" default=""/>
     <setting id="stream" label="30352" type="text" default=""/>
     <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-1,)+!eq(-2,)" visible="!eq(-3,)"/>
-    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-1,)+!eq(-2,)" visible="eq(-4,)"/>
+    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-2,)+!eq(-3,)" visible="eq(-4,)"/>
     <setting id="misc" label="30355" type="enum" lvalues="30052|30053|30054" default="0" visible="false"/>
 {misc}
   </category>

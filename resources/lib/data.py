@@ -280,7 +280,7 @@ class Data:
                 # リストアイテムを定義
                 li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
                 #li.setInfo(type='music', infoLabels={'title':title0,'artist':s['name'],'comment':comment0})
-                li.setInfo(type='video', infoLabels={'title':s['name']})
+                li.setInfo(type='video', infoLabels={'title':title0 or s['name']})
                 # コンテクストメニュー
                 contextmenu = []
                 # 番組情報を更新
