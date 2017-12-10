@@ -308,8 +308,8 @@ class Data:
                                 ))
                 if id.find('misc_') == 0:
                     id1 = int(id.replace('misc_',''))-1
-                    contextmenu.append((common.addon.getLocalizedString(30315), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
-                    contextmenu.append((common.addon.getLocalizedString(30314), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((common.addon.getLocalizedString(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((common.addon.getLocalizedString(30318), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
                 # アドオン設定
                 contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
                 # コンテクストメニュー設定

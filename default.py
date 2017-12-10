@@ -319,7 +319,7 @@ def initialize():
     radiko = Radiko(area=auth._response['area_id'], token=auth._response['auth_token'], renew=True)
     jcba   = Jcba(renew=True)
     misc   = Misc(renew=True)
-    data = Data((radiru,radiko,jcba,misc))
+    data   = Data((radiru,radiko,jcba,misc))
     # 放送局データに応じて設定画面を生成
     setup(radiru, radiko, jcba, misc)
     # 番組データを取得
@@ -350,7 +350,7 @@ def proceed():
     radiko = Radiko(Resumes['area'], Resumes['token'])
     jcba   = Jcba()
     misc   = Misc()
-    data = Data((radiru,radiko,jcba,misc))
+    data   = Data((radiru,radiko,jcba,misc))
     # 番組データ
     data.setPrograms()
     # 更新を通知
@@ -415,9 +415,9 @@ def watcher(data):
         radiko = Radiko(Resumes['area'], Resumes['token'])
         jcba   = Jcba()
         misc   = Misc()
-        data = Data((radiru,radiko,jcba,misc))
+        data   = Data((radiru,radiko,jcba,misc))
         # 番組データを更新
-        data.setPrograms()
+        data.setPrograms(True)
         # 更新を通知
         data.onChanged()
         # 画面更新

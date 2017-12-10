@@ -50,8 +50,8 @@ class Keywords:
             li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
-            contextmenu.append((common.addon.getLocalizedString(30315), 'RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
-            contextmenu.append((common.addon.getLocalizedString(30314), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],id)))
+            contextmenu.append((common.addon.getLocalizedString(30321), 'RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
+            contextmenu.append((common.addon.getLocalizedString(30320), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],id)))
             contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=%s' % (sys.argv[0],s['key']), listitem=li, isFolder=True, totalItems=len(self.search)+2)
