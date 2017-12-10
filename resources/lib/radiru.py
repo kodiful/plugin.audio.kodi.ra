@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
+from common import(log,notify)
+
 import os
 import urllib, urllib2
 import xml.dom.minidom
@@ -8,11 +11,7 @@ import re
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import exceptions
 
-from common import(log)
-from common import(__data_path__)
-from common import(__addon__)
-
-__radiru_path__ = os.path.join(__data_path__, 'radiru')
+__radiru_path__ = os.path.join(common.data_path, 'radiru')
 if not os.path.isdir(__radiru_path__): os.makedirs(__radiru_path__)
 
 __program_file__  = os.path.join(__radiru_path__, 'program.xml')
@@ -57,7 +56,7 @@ class Radiru:
     def __init__(self, renew=False):
         self.id = 'radiru'
         try:
-            area = __addon__.getSetting('area')
+            area = common.addon.getSetting('area')
             self.area = __station_area__[int(area)]
         except:
             self.area = __default_area__

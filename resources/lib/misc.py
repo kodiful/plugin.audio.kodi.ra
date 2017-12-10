@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
+from common import(log,notify)
+
 import os, sys
 import urllib, urllib2
 import xml.dom.minidom
@@ -10,9 +13,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from bs4 import BeautifulSoup
 
-from common import(__data_path__, __channels_file__, __addon__, log)
-
-__misc_path__ = os.path.join(__data_path__, 'misc')
+__misc_path__ = os.path.join(common.data_path, 'misc')
 if not os.path.isdir(__misc_path__): os.makedirs(__misc_path__)
 
 __program_file__  = os.path.join(__misc_path__, 'program.xml')
@@ -30,15 +31,15 @@ class Misc:
         self.getStationFile(renew)
 
     def read(self):
-        if os.path.isfile(__channels_file__):
-            f = open(__channels_file__,'r')
+        if os.path.isfile(common.channels_file):
+            f = open(common.channels_file,'r')
             self.ch = json.loads(f.read(), 'utf-8')
             f.close()
         else:
             self.ch = []
 
     def write(self):
-        f = open(__channels_file__,'w')
+        f = open(common.channels_file,'w')
         f.write(json.dumps(self.ch, sort_keys=True, ensure_ascii=False, indent=2).encode('utf-8'))
         f.close()
 
@@ -122,10 +123,10 @@ class Misc:
 
     def edit(self, id):
         ch = self.ch[int(id)]
-        __addon__.setSetting('id',str(id))
-        __addon__.setSetting('name',ch['name'])
-        __addon__.setSetting('stream',ch['stream'])
-        xbmc.executebuiltin('Addon.OpenSettings(%s)' % __addon__.getAddonInfo('id'))
+        common.addon.setSetting('id',str(id))
+        common.addon.setSetting('name',ch['name'])
+        common.addon.setSetting('stream',ch['stream'])
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 

@@ -53,7 +53,10 @@
   <string id="30405">保存フォルダのパス</string>
   <string id="30406">rtmpdumpのパス</string>
   <string id="30407">ffmpegのパス</string>
-  <string id="30408">[COLOR green]保存フォルダをクリア[/COLOR]</string>
+  <string id="30408">[COLOR green]保存フォルダをクリアする[/COLOR]</string>
+  <string id="30409">RSS生成</string>
+  <string id="30410">保存フォルダのURL</string>
+  <string id="30411">[COLOR green]RSSを更新する[/COLOR]</string>
 
   <string id="30500">保存キーワード</string>
   <string id="30501">キーワード</string>
@@ -77,11 +80,6 @@
   <string id="30527">土</string>
   <string id="30528">番組保存設定を行ってください</string>
   <string id="30529">このOSでは番組保存をサポートしていません</string>
-
-  <string id="30600">RSS生成</string>
-  <string id="30601">RSS生成</string>
-  <string id="30602">保存フォルダのURL</string>
-  <string id="30603">[COLOR green]RSSを更新する[/COLOR]</string>
 
   <string id="30700">その他</string>
   <string id="30701">[COLOR green]すべての設定を初期化する[/COLOR]</string>

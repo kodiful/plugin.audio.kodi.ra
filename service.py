@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
 from resources.lib.keywords import(Keywords)
 from default import(start)
 
-from resources.lib.common import(__addon__)
-
 # 番組保存設定がある場合はバックグラウンドで起動する
-if __addon__.getSetting('download') == 'true' and len(Keywords().search) > 0: start(False)
+if common.addon.getSetting('download') == 'true' and len(Keywords().search) > 0:
+    # 通知
+    common.notify('Starting service', time=3000)
+    # 起動
+    start(False)

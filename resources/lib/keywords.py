@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
+from common import(log,notify)
+
 import os, sys
 import json
 import re
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-
-from resources.lib.common import(
-    __addon__,
-    __keywords_file__)
 
 class Keywords:
 
@@ -15,33 +14,33 @@ class Keywords:
         self.read()
 
     def read(self):
-        if os.path.isfile(__keywords_file__):
-            f = open(__keywords_file__,'r')
+        if os.path.isfile(common.keywords_file):
+            f = open(common.keywords_file,'r')
             self.search = json.loads(f.read(), 'utf-8')
             f.close()
         else:
             self.search = []
 
     def write(self):
-        f = open(__keywords_file__,'w')
+        f = open(common.keywords_file,'w')
         f.write(json.dumps(self.search, sort_keys=True, ensure_ascii=False, indent=2).encode('utf-8'))
         f.close()
 
     def show(self):
         # すべて表示
-        if __addon__.getSetting('download') == 'true':
+        if common.addon.getSetting('download') == 'true':
             # 放送中の番組
-            li = xbmcgui.ListItem(__addon__.getLocalizedString(30316), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+            li = xbmcgui.ListItem(common.addon.getLocalizedString(30316), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
             # アドオン設定
             contextmenu = []
-            contextmenu.append((__addon__.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
+            contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showPrograms' % (sys.argv[0]), listitem=li, isFolder=True, totalItems=len(self.search)+2)
             # すべての保存済み番組
-            li = xbmcgui.ListItem(__addon__.getLocalizedString(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+            li = xbmcgui.ListItem(common.addon.getLocalizedString(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
             # アドオン設定
             contextmenu = []
-            contextmenu.append((__addon__.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
+            contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % (sys.argv[0]), listitem=li, isFolder=True, totalItems=len(self.search)+2)
         # キーワードを表示
@@ -51,8 +50,8 @@ class Keywords:
             li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
-            contextmenu.append((__addon__.getLocalizedString(30315), 'RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
-            contextmenu.append((__addon__.getLocalizedString(30314), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],id)))
+            contextmenu.append((common.addon.getLocalizedString(30315), 'RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
+            contextmenu.append((common.addon.getLocalizedString(30314), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],id)))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             # add directory item
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=%s' % (sys.argv[0],s['key']), li, isFolder=True, totalItems=len(self.search)+1)
@@ -60,25 +59,25 @@ class Keywords:
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
     def add(self, key, s='0', day='0', ch='0', duplicate='false'):
-        __addon__.setSetting('id','')
-        __addon__.setSetting('key',key)
-        __addon__.setSetting('s',s)
-        __addon__.setSetting('day',day)
-        __addon__.setSetting('ch',ch)
-        __addon__.setSetting('duplicate',duplicate)
-        xbmc.executebuiltin('Addon.OpenSettings(%s)' % __addon__.getAddonInfo('id'))
+        common.addon.setSetting('id','')
+        common.addon.setSetting('key',key)
+        common.addon.setSetting('s',s)
+        common.addon.setSetting('day',day)
+        common.addon.setSetting('ch',ch)
+        common.addon.setSetting('duplicate',duplicate)
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
     def edit(self, id):
         elem = self.search[int(id)]
-        __addon__.setSetting('id',str(id))
-        __addon__.setSetting('key',elem['key'])
-        __addon__.setSetting('s',elem['s'])
-        __addon__.setSetting('day',elem['day'])
-        __addon__.setSetting('ch',elem['ch'])
-        __addon__.setSetting('duplicate',elem['duplicate'])
-        xbmc.executebuiltin('Addon.OpenSettings(%s)' % __addon__.getAddonInfo('id'))
+        common.addon.setSetting('id',str(id))
+        common.addon.setSetting('key',elem['key'])
+        common.addon.setSetting('s',elem['s'])
+        common.addon.setSetting('day',elem['day'])
+        common.addon.setSetting('ch',elem['ch'])
+        common.addon.setSetting('duplicate',elem['duplicate'])
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
@@ -87,7 +86,8 @@ class Keywords:
         if id=='':
             for elem in self.search:
                 if elem['key'] == key:
-                    return {'status':False, 'message':'Failed. Keyword exists'}
+                    notify('Keyword edit failed. Keyword exists.', error=True)
+                    return
             elem = {}
             elem['key'] = key
             elem['s'] = s
@@ -103,7 +103,8 @@ class Keywords:
             else:
                 for elem in self.search:
                     if elem['key'] == key:
-                        return {'status':False, 'message':'Failed. Keyword exists'}
+                        notify('Keyword edit failed. Keyword exists.', error=True)
+                        return
             elem = self.search[int(id)]
             elem['key'] = key
             elem['s'] = s
@@ -116,7 +117,6 @@ class Keywords:
         self.search = sorted(self.search, key=lambda item: item['key'])
         # 変更した設定を書き込む
         self.write()
-        return {'status':True, 'message':'Keyword added/changed successfully'}
 
     def delete(self, id):
         if int(id) < len(self.search):

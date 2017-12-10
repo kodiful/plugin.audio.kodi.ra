@@ -37,6 +37,10 @@
     <setting label="30406" id="rtmpdump" type="file" default="{rtmpdumppath}" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
     <setting label="30407" id="ffmpeg" type="file" default="{ffmegpath}" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
     <setting label="30408" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearDownloads)" enable="eq(-5,true)+!eq(-4,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
+    <!--RSS-->
+    <setting label="30409" id="rss" type="bool" default="false" enable="eq(-6,true)+!eq(-5,)" visible="eq(-8,Darwin)|eq(-8,Windows)"/>
+    <setting label="30410" id="rss_url" type="text" default="http://" enable="eq(-1,true)+eq(-7,true)+!eq(-6,)" visible="eq(-9,Darwin)|eq(-9,Windows)"/>
+    <setting label="30411" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="eq(-2,true)+eq(-8,true)+!eq(-7,)" visible="eq(-10,Darwin)|eq(-10,Windows)"/>
   </category>
   <category label="30500">
     <setting id="id" type="text" visible="false"/>
@@ -50,14 +54,6 @@
     <setting label="30505" id="duplicate" type="enum" lvalues="30513|30514" default="0" visible="eq(-7,true)+!eq(-6,)"/>
     <setting label="30508" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedKeyword)" enable="!eq(-5,)" visible="!eq(-9,)+eq(-8,true)+!eq(-7,)"/>
     <setting label="30509" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedKeyword)" enable="!eq(-6,)" visible="eq(-10,)+eq(-9,true)+!eq(-8,)"/>
-  </category>
-  <category label="30600">
-    <setting id="download" type="bool" visible="false"/>
-    <setting id="download_path" type="folder" visible="false"/>
-    <setting label="30528" type="text" enable="false" visible="eq(-2,false)|eq(-1,)"/>
-    <setting label="30601" id="rss" type="bool" default="false" visible="eq(-3,true)+!eq(-2,)"/>
-    <setting label="30602" id="rss_url" type="text" default="http://" enable="eq(-1,true)" visible="eq(-4,true)+!eq(-3,)"/>
-    <setting label="30603" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="eq(-2,true)" visible="eq(-5,true)+!eq(-4,)"/>
   </category>
   <category label="30700">
     <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=reset)"/>

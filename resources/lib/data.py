@@ -2,6 +2,10 @@
 
 from __future__ import unicode_literals
 
+import resources.lib.common as common
+from resources.lib.common import(log,notify)
+from resources.lib.common import(strptime)
+
 import os, sys, glob
 import re
 import urllib, urllib2
@@ -20,29 +24,13 @@ from cStringIO import StringIO
 from resources.lib.downloads import(Downloads)
 from resources.lib.keywords  import(Keywords)
 
-from resources.lib.common import(log)
-from resources.lib.common import(notify)
-from resources.lib.common import(strptime)
-
-from resources.lib.common import(
-    __prep_interval__)
-
-from resources.lib.common import(
-    __addon__,
-    __media_path__,
-    __data_path__,
-    __logo_url__)
-
-from resources.lib.common import(
-    __download_path__)
-
 def check(id):
     category = id.split('_')[0]
     try:
-        if __addon__.getSetting(category) == '0': return True
-        if __addon__.getSetting(category) == '1': return False
-        if __addon__.getSetting(id) == 'true': return True
-        if __addon__.getSetting(id) == 'false': return False
+        if common.addon.getSetting(category) == '0': return True
+        if common.addon.getSetting(category) == '1': return False
+        if common.addon.getSetting(id) == 'true': return True
+        if common.addon.getSetting(id) == 'false': return False
     except:
         pass
     return True
@@ -77,12 +65,12 @@ class Data:
             except:
                 s['options'] = ''
             # ロゴ
-            logopath = os.path.join(__media_path__, 'logo_%s.png' % id)
+            logopath = os.path.join(common.media_path, 'logo_%s.png' % id)
             if not os.path.isfile(logopath):
                 try:
                     buffer = urllib2.urlopen(s['logo_large'].encode('utf-8')).read()
                 except:
-                    buffer = urllib2.urlopen(__logo_url__).read()
+                    buffer = urllib2.urlopen(common.logo_url).read()
                 img = Image.open(StringIO(buffer))
                 w = img.size[0]
                 h = img.size[1]
@@ -117,7 +105,7 @@ class Data:
                 s = self.stations_id[id]
             except KeyError:
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
-                notify('Updating station data...', image='DefaultIconInfo.png')
+                notify('Updating station data...')
                 xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
             # この放送局のDOMからデータを抽出して配列に格納
             s['programs'] = []
@@ -196,7 +184,7 @@ class Data:
                     else:
                         continue
                     # 放送局を照合
-                    if s['ch'] == __addon__.getLocalizedString(30520):
+                    if s['ch'] == common.addon.getLocalizedString(30520):
                         pass
                     elif s['ch'] == p['name']:
                         pass
@@ -205,9 +193,9 @@ class Data:
                     # 保存済み番組名と照合
                     if s['duplicate'] == '1':
                         skip = False
-                        for file in glob.glob(os.path.join(__download_path__, '*.js')):
-                            js_file = os.path.join(__download_path__, file)
-                            mp3_file = os.path.join(__download_path__, file.replace('.js','.mp3'))
+                        for file in glob.glob(os.path.join(common.download_path, '*.js')):
+                            js_file = os.path.join(common.download_path, file)
+                            mp3_file = os.path.join(common.download_path, file.replace('.js','.mp3'))
                             if os.path.isfile(mp3_file):
                                 f = codecs.open(js_file,'r','utf-8')
                                 program = json.loads(f.read())['program'][0]
@@ -235,7 +223,7 @@ class Data:
         for m in self.matched_programs:
             # 開始直前であれば保存処理を開始
             wait = m['start'] - now
-            if wait.days == 0 and wait.seconds < __prep_interval__:
+            if wait.days == 0 and wait.seconds < common.prep_interval:
                 p = m['program']
                 result = Downloads().add(
                             id=p['id'],
@@ -258,7 +246,7 @@ class Data:
                     programs = s['programs']
                 except KeyError:
                     # 既存の放送局がない場合はデータキャッシュを削除してリスタート
-                    notify('Updating station data...', image='DefaultIconInfo.png')
+                    notify('Updating station data...')
                     xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\u25b6'
@@ -285,16 +273,16 @@ class Data:
                 # コンテクストメニュー
                 contextmenu = []
                 # 番組情報を更新
-                contextmenu.append((__addon__.getLocalizedString(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
+                contextmenu.append((common.addon.getLocalizedString(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
                 # 保存、設定
-                if __addon__.getSetting('download') == 'true':
+                if common.addon.getSetting('download') == 'true':
                     if s['options']:
                         for i in range(len(programs)):
                             p = programs[i]
                             if p['ft'].isdigit() and p['to'].isdigit():
                                 # 保存
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__addon__.getLocalizedString(30056),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__addon__.getLocalizedString(30056),p['title'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
                                 contextmenu.append((menu,
                                     'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options})'.format(
                                         url=sys.argv[0],
@@ -308,8 +296,8 @@ class Data:
                                     )
                                 ))
                                 # キーワード追加
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (__addon__.getLocalizedString(30057),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (__addon__.getLocalizedString(30057),p['title'])
+                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
+                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
                                 contextmenu.append((menu,
                                     'RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
                                         url=sys.argv[0],
@@ -320,10 +308,10 @@ class Data:
                                 ))
                 if id.find('misc_') == 0:
                     id1 = int(id.replace('misc_',''))-1
-                    contextmenu.append((__addon__.getLocalizedString(30315), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
-                    contextmenu.append((__addon__.getLocalizedString(30314), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((common.addon.getLocalizedString(30315), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((common.addon.getLocalizedString(30314), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
                 # アドオン設定
-                contextmenu.append((__addon__.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
+                contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
                 # コンテクストメニュー設定
                 li.addContextMenuItems(contextmenu, replaceItems=True)
                 # リストアイテムを追加
@@ -358,7 +346,7 @@ class Data:
         return (nearest, md5(data).hexdigest())
 
     def savePrograms(self):
-        url = __addon__.getSetting('db')
+        url = common.addon.getSetting('db')
         if url == '': return
         # 番組情報をDBへ送信
         programs = []

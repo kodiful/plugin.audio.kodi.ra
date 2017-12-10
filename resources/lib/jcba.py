@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
+from common import(log,notify)
+
 import os
 import urllib, urllib2
 import xml.dom.minidom
@@ -9,9 +12,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from bs4 import BeautifulSoup
 
-from common import(__data_path__)
-
-__jcba_path__ = os.path.join(__data_path__, 'jcba')
+__jcba_path__ = os.path.join(common.data_path, 'jcba')
 if not os.path.isdir(__jcba_path__): os.makedirs(__jcba_path__)
 
 __program_file__  = os.path.join(__jcba_path__, 'program.xml')

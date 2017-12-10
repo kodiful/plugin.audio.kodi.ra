@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import resources.lib.common as common
+from resources.lib.common import(log,notify)
+from resources.lib.common import(strptime)
+
 import datetime, time
 import os, platform, subprocess, commands
 import sys, glob, shutil
@@ -11,32 +15,14 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from datetime import datetime
 
-from resources.lib.common import(
-    __addon__,
-    __media_path__,
-    __plugin_path__,
-    __template_path__)
-
-from resources.lib.common import(
-    __download_path__,
-    __exit_file__,
-    __rss_file__,
-    __rss_url__)
-
-from resources.lib.common import(
-    __margin_interval__)
-
-from resources.lib.common import(log)
-from resources.lib.common import(strptime)
-
 class Downloads:
 
     def __init__(self):
         self.os = platform.system()
-        self.rtmpdump = __addon__.getSetting('rtmpdump')
-        self.ffmpeg = __addon__.getSetting('ffmpeg')
+        self.rtmpdump = common.addon.getSetting('rtmpdump')
+        self.ffmpeg = common.addon.getSetting('ffmpeg')
         # templates
-        f = codecs.open(os.path.join(__template_path__,'template.json'),'r','utf-8')
+        f = codecs.open(os.path.join(common.template_path,'template.json'),'r','utf-8')
         self.template = f.read()
         f.close()
 
@@ -49,15 +35,16 @@ class Downloads:
             log1_file = '/dev/null'
             log2_file = '/dev/null'
         else:
-            return {'status':False, 'message':'Failed. Unsupported OS'}
+            notify('Download failed. Unsupported OS.', error=True)
+            return
         # 番組ID
         gtvid = '%s_%s' % (id,start);
         # ファイルパス
-        js_file  = os.path.join(__download_path__, gtvid+'.js')
-        mp3_file = os.path.join(__download_path__, gtvid+'.mp3')
+        js_file  = os.path.join(common.download_path, gtvid+'.js')
+        mp3_file = os.path.join(common.download_path, gtvid+'.mp3')
         # 番組情報の有無をチェック
         if os.path.isfile(js_file):
-            return {'status':False, 'message':'Failed. Saved data exists'}
+            notify('Download failed. Saved data exists.', error=True)
         # 現在時刻
         now1 = datetime.now()
         # 開始時間
@@ -66,7 +53,7 @@ class Downloads:
         # 終了時間
         end1 = strptime(end, '%Y%m%d%H%M%S')
         # ラグ調整
-        lag = datetime.timedelta(seconds=__lag__)
+        lag = datetime.timedelta(seconds=common.lag)
         start1 = start1 + lag
         end1 = end1 + lag
         # 放送時間
@@ -84,25 +71,27 @@ class Downloads:
                 wait = 0
             else:
                 # すでに終わっている場合はこのまま終了する
-                return {'status':False, 'message':'Failed. Program is over'}
+                notify('Download failed. Program is over.', error=True)
+                return
         # 録音時間
         duration = end1 - start1
         if duration.seconds > 0:
             if wait == 0:
                 # すぐ開始する場合
-                duration = duration.seconds + __margin_interval__
+                duration = duration.seconds + common.margin_interval
             else:
-                if wait > __margin_interval__:
-                    duration = duration.seconds + __margin_interval__ + __margin_interval__
-                    wait = wait - __margin_interval__
+                if wait > common.margin_interval:
+                    duration = duration.seconds + common.margin_interval + common.margin_interval
+                    wait = wait - common.margin_interval
                 else:
-                    duration = duration.seconds + wait + __margin_interval__
+                    duration = duration.seconds + wait + common.margin_interval
                     wait = 0
         else:
             # durationが異常値
-            return {'status':False, 'message':'Failed. Invalid start and/or end'}
+            notify('Download failed. Invalid start and/or end.', error=True)
+            return
         # ビットレート
-        bitrate = __addon__.getSetting('bitrate')
+        bitrate = common.addon.getSetting('bitrate')
         if bitrate == 'auto':
             if duration <= 3600:
                 bitrate = '192k'
@@ -148,10 +137,10 @@ class Downloads:
             log2=log2_file)
         # スクリプト作成
         if self.os == 'Darwin':
-            sh_file  = os.path.join(__download_path__, gtvid+'.sh')
+            sh_file  = os.path.join(common.download_path, gtvid+'.sh')
             # sh
             command = []
-            command.append('cd "%s"' % (__download_path__))
+            command.append('cd "%s"' % (common.download_path))
             command.append('echo $$ > %s.pid' % (gtvid))
             command.append('sleep %d' % (wait))
             command.append(rtmpdump)
@@ -163,10 +152,10 @@ class Downloads:
             # スクリプト実行
             proc = subprocess.Popen('sh "%s"' % (sh_file), shell=True)
         elif self.os == 'Windows':
-            bat_file  = os.path.join(__download_path__, gtvid+'.bat')
+            bat_file  = os.path.join(common.download_path, gtvid+'.bat')
             # bat
             command = []
-            command.append('CD "%s"' % (__download_path__))
+            command.append('CD "%s"' % (common.download_path))
             command.append('ECHO > %s.pid' % (gtvid))
             command.append('TIMEOUT /T %d /NOBREAK > NUL' % (wait))
             command.append(rtmpdump)
@@ -179,38 +168,39 @@ class Downloads:
             proc = subprocess.Popen(bat_file, shell=True)
         # ログ
         log('%s %s' % (gtvid,title))
-        return {'status':True, 'message':'Download started/reserved successfully'}
 
     def deleteall(self):
         # 実行中のプロセスを停止
-        for file in glob.glob(os.path.join(__download_path__, '*.pid')):
-            gtvid = file.replace(__download_path__,'').replace('.pid','')
-            self.kill(gtvid)
+        status = True
+        for file in glob.glob(os.path.join(common.download_path, '*.pid')):
+            gtvid = file.replace(common.download_path,'').replace('.pid','')
+            status = status and self.kill(gtvid)
+        if status == False:
+            notify('Download failed. Now recording.', error=True)
+            return
         # ファイル削除
-        for file in glob.glob(os.path.join(__download_path__, '*.*')):
+        for file in glob.glob(os.path.join(common.download_path, '*.*')):
             if os.path.isfile(file): os.remove(file)
         # rssファイル生成
         self.createRSS()
         # 再表示
         xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
-        return {'status':True, 'message':'Saved data deleted successfully'}
 
     def delete(self, gtvid):
         # 実行中のプロセスを停止
-        if self.kill(gtvid):
-            # ファイル削除
-            for file in glob.glob(os.path.join(__download_path__, '%s.*' % (gtvid))):
-                if os.path.isfile(file): os.remove(file)
-            # rssファイル生成
-            self.createRSS()
-            # 再表示
-            xbmc.executebuiltin("Container.Refresh")
-            return {'status':True, 'message':'Saved data deleted successfully'}
-        else:
-            return {'status':False, 'message':'Failed. Now recording'}
+        if self.kill(gtvid) == False:
+            notify('Download failed. Now recording.', error=True)
+            return
+        # ファイル削除
+        for file in glob.glob(os.path.join(common.download_path, '%s.*' % (gtvid))):
+            if os.path.isfile(file): os.remove(file)
+        # rssファイル生成
+        self.createRSS()
+        # 再表示
+        xbmc.executebuiltin("Container.Refresh")
 
     def kill(self, gtvid):
-        pid_file = os.path.join(__download_path__, '%s.pid' % (gtvid))
+        pid_file = os.path.join(common.download_path, '%s.pid' % (gtvid))
         if os.path.isfile(pid_file):
             if self.os == 'Darwin':
                 # 親プロセスのpidを取得する
@@ -228,9 +218,9 @@ class Downloads:
 
     def show(self, key=''):
         plist = []
-        for file in glob.glob(os.path.join(__download_path__, '*.js')):
-            js_file = os.path.join(__download_path__, file)
-            mp3_file = os.path.join(__download_path__, file.replace('.js','.mp3'))
+        for file in glob.glob(os.path.join(common.download_path, '*.js')):
+            js_file = os.path.join(common.download_path, file)
+            mp3_file = os.path.join(common.download_path, file.replace('.js','.mp3'))
             if os.path.isfile(mp3_file):
                 f = codecs.open(js_file,'r','utf-8')
                 plist.append(json.loads(f.read())['program'][0])
@@ -249,7 +239,7 @@ class Downloads:
                 title = '[COLOR white]%s[/COLOR] [COLOR khaki]%s[/COLOR] [COLOR lightgreen](%s)[/COLOR]' % (p['startdate'],p['title'],p['bc'])
                 # logo
                 id = p['gtvid'].split('_')
-                logopath = os.path.join(__media_path__, 'logo_%s_%s.png' % (id[0],id[1]))
+                logopath = os.path.join(common.media_path, 'logo_%s_%s.png' % (id[0],id[1]))
                 if not os.path.isfile(logopath): logopath = 'DefaultFile.png'
                 # listitemを追加
                 li = xbmcgui.ListItem(title, iconImage=logopath, thumbnailImage=logopath)
@@ -262,39 +252,39 @@ class Downloads:
                 li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':comment})
                 li.setProperty('IsPlayable', 'true')
                 # context menu
-                li.addContextMenuItems([(__addon__.getLocalizedString(30314), 'RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)
+                li.addContextMenuItems([(common.addon.getLocalizedString(30314), 'RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)
                 # add directory item
                 # file
-                mp3_file = os.path.join(__download_path__, p['gtvid'] + '.mp3')
+                mp3_file = os.path.join(common.download_path, p['gtvid'] + '.mp3')
                 xbmcplugin.addDirectoryItem(int(sys.argv[1]), mp3_file, li, isFolder=False)
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
     def createRSS(self):
-        if __addon__.getSetting('rss') == 'false': return
+        if common.addon.getSetting('rss') == 'false': return
         # templates
-        f = codecs.open(os.path.join(__template_path__,'rss-header.xml'),'r','utf-8')
+        f = codecs.open(os.path.join(common.template_path,'rss-header.xml'),'r','utf-8')
         header = f.read()
         f.close()
-        f = codecs.open(os.path.join(__template_path__,'rss-body.xml'),'r','utf-8')
+        f = codecs.open(os.path.join(common.template_path,'rss-body.xml'),'r','utf-8')
         body = f.read()
         f.close()
-        f = codecs.open(os.path.join(__template_path__,'rss-footer.xml'),'r','utf-8')
+        f = codecs.open(os.path.join(common.template_path,'rss-footer.xml'),'r','utf-8')
         footer = f.read()
         f.close()
         # open rss
-        rss = codecs.open(__rss_file__,'w','utf-8')
+        rss = codecs.open(common.rss_file,'w','utf-8')
         # header
         rss.write(
             header.format(
-                image=__rss_url__+'icon.png'))
+                image=common.rss_url+'icon.png'))
         # body
         plist = []
-        for file in glob.glob(os.path.join(__download_path__, '*.js')):
-            js_file = os.path.join(__download_path__, file)
-            mp3_file = os.path.join(__download_path__, file.replace('.js','.mp3'))
-            pid_file = os.path.join(__download_path__, file.replace('.js','.pid'))
+        for file in glob.glob(os.path.join(common.download_path, '*.js')):
+            js_file = os.path.join(common.download_path, file)
+            mp3_file = os.path.join(common.download_path, file.replace('.js','.mp3'))
+            pid_file = os.path.join(common.download_path, file.replace('.js','.pid'))
             if not os.path.isfile(pid_file) and os.path.isfile(mp3_file):
-                f = codecs.open(os.path.join(__download_path__,file),'r','utf-8')
+                f = codecs.open(os.path.join(common.download_path,file),'r','utf-8')
                 plist.append(json.loads(f.read())['program'][0])
                 f.close()
         # sort by startdate in reverse order
@@ -305,9 +295,9 @@ class Downloads:
             # gtvid
             gtvid = p['gtvid']
             # url
-            url = __rss_url__ + gtvid + '.mp3'
+            url = common.rss_url + gtvid + '.mp3'
             # file
-            mp3_file = os.path.join(__download_path__, gtvid + '.mp3')
+            mp3_file = os.path.join(common.download_path, gtvid + '.mp3')
             # startdate
             startdate = strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0900')
             # duration
@@ -333,12 +323,12 @@ class Downloads:
         # close rss
         rss.close()
         # copy image if necessary
-        dst = os.path.join(__download_path__, 'icon.png')
+        dst = os.path.join(common.download_path, 'icon.png')
         if os.path.isfile(dst): os.remove(dst)
-        src = os.path.join(__plugin_path__, 'icon.png')
+        src = os.path.join(common.plugin_path, 'icon.png')
         shutil.copy(src, dst)
         # copy script if necessary
-        dst = os.path.join(__download_path__, 'rss.php')
+        dst = os.path.join(common.download_path, 'rss.php')
         if os.path.isfile(dst): os.remove(dst)
-        src = os.path.join(__template_path__, 'rss.php')
+        src = os.path.join(common.template_path, 'rss.php')
         shutil.copy(src, dst)

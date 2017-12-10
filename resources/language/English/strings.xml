@@ -54,6 +54,9 @@
   <string id="30406">Path to rtmpdump</string>
   <string id="30407">Path to ffmpeg</string>
   <string id="30408">[COLOR green]Clear Folder[/COLOR]</string>
+  <string id="30409">Create RSS</string>
+  <string id="30410">URL of download folder</string>
+  <string id="30411">[COLOR green]Update RSS[/COLOR]</string>
 
   <string id="30500">Keyword</string>
   <string id="30501">Keyword</string>
@@ -77,11 +80,6 @@
   <string id="30527">Sat</string>
   <string id="30528">Save program settings required</string>
   <string id="30529">Unsupported OS</string>
-
-  <string id="30600">RSS</string>
-  <string id="30601">Create RSS</string>
-  <string id="30602">URL of download folder</string>
-  <string id="30603">[COLOR green]Update RSS[/COLOR]</string>
 
   <string id="30700">Other Settings</string>
   <string id="30701">[COLOR green]Reset all settings[/COLOR]</string>

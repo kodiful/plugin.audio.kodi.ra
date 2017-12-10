@@ -9,6 +9,9 @@
 
 # cf. http://d.hatena.ne.jp/zariganitosh/20130124/rtmpdump_radiko_access
 
+import resources.lib.common as common
+from common import(log,notify)
+
 import os
 import struct
 import zlib
@@ -21,10 +24,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from base64 import b64encode
 from math import ceil
 
-from common import(log)
-from common import(__data_path__)
-
-__radiko_path__ = os.path.join(__data_path__, 'radiko')
+__radiko_path__ = os.path.join(common.data_path, 'radiko')
 if not os.path.isdir(__radiko_path__): os.makedirs(__radiko_path__)
 
 __key_file__      = os.path.join(__radiko_path__, 'authkey.dat')
@@ -205,10 +205,10 @@ class authenticate(threading.Thread):
         if _loc_1._response['area_id'] != "" and _loc_1._response['area_id'] > 0:
             self._response['area_id'] = _loc_1._response['area_id']
             self._response['authed' ] = 1
-            #t = threading.Timer(__resume_timer_interval__, self.resumeTimer)
+            #t = threading.Timer(common.resume_timer_interval, self.resumeTimer)
             #t.setDaemon(True)
             #t.start()
-            #time.sleep(__resume_timer_interval__)
+            #time.sleep(common.resume_timer_interval)
             #self.resumeTimer()
         else:
             print 'failed get area_id'
