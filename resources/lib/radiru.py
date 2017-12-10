@@ -21,7 +21,7 @@ __settings_file__ = os.path.join(__radiru_path__, 'settings.xml')
 __station_url__   = 'http://www.nhk.or.jp/radio/config/config_web.xml'
 __program_url__   = 'http://www2.nhk.or.jp/hensei/api/noa.cgi'
 
-__station_area__  = ['東京','仙台','名古屋','大阪','広島','松山','福岡']
+__station_area__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
 __default_area__  = '東京'
 __station_attr__  = [
     {

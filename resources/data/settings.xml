@@ -7,7 +7,7 @@
       strings 33000 thru 33999 reserved for common strings used in add-ons
   -->
   <category label="30100">
-    <setting id="area" label="30001" type="enum" lvalues="30002|30003|30004|30005|30006|30007|30008" default="0"/>
+    <setting id="area" label="30001" type="enum" lvalues="30002|30009|30003|30004|30005|30006|30007|30008" default="0"/>
     <setting id="radiru" label="30101" type="enum" lvalues="30052|30053|30054" default="0"/>
 {radiru}
   </category>
