@@ -203,14 +203,19 @@ def main():
 
     # ダウンロードの管理
     elif params['action'] == 'addDownload':
-        Downloads().add(
+        status = Downloads().add(
             id=params['id'],
             name=params['name'],
             start=params['start'],
             end=params['end'],
             title=params['title'],
             description=params['description'],
-            options=params['options'])
+            options=params['options'],
+            lag=params['lag'])
+        if status:
+            notify(status, error=True)
+        else:
+            notify('Download started/reserved successfully', time=3000)
     elif params['action'] == 'showDownloads':
         Downloads().show()
     elif params['action'] == 'clearDownloads':

@@ -43,7 +43,6 @@ check_interval        = 30
 dead_interval         = 30
 prep_interval         = 180
 margin_interval       = 5
-lag                   = 20
 
 # parameters
 

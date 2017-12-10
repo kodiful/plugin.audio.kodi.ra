@@ -86,7 +86,7 @@ class Keywords:
         if id=='':
             for elem in self.search:
                 if elem['key'] == key:
-                    notify('Keyword edit failed. Keyword exists.', error=True)
+                    notify('Keyword edit failed (Keyword exists)', error=True)
                     return
             elem = {}
             elem['key'] = key
@@ -103,7 +103,7 @@ class Keywords:
             else:
                 for elem in self.search:
                     if elem['key'] == key:
-                        notify('Keyword edit failed. Keyword exists.', error=True)
+                        notify('Keyword edit failed (Keyword exists)', error=True)
                         return
             elem = self.search[int(id)]
             elem['key'] = key

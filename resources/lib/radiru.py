@@ -50,6 +50,8 @@ __station_attr__  = [
     }
 ]
 
+__lag__ = 40
+
 #-------------------------------------------------------------------------------
 class Radiru:
 
@@ -94,6 +96,7 @@ class Radiru:
                     xmlstr += '<logo_large>%s</logo_large>' % (logo)
                     xmlstr += '<url>%s</url>' % (url)
                     xmlstr += '<options>%s</options>' % (options)
+                    xmlstr += '<lag>%d</lag>' % (__lag__)
                     xmlstr += '</station>'
                     results.append(xmlstr)
                     # pack as xml (for settings)

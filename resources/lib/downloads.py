@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import resources.lib.common as common
 from resources.lib.common import(log,notify)
 from resources.lib.common import(strptime)
@@ -13,7 +15,7 @@ import re
 import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
-from datetime import datetime
+from datetime import (datetime,timedelta)
 
 class Downloads:
 
@@ -26,7 +28,7 @@ class Downloads:
         self.template = f.read()
         f.close()
 
-    def add(self, id, name, start, end, title, description, options, key=''):
+    def add(self, id, name, start, end, title, description, options, lag, key=''):
         # OS判定
         if self.os == 'Windows':
             log1_file = 'NUL'
@@ -35,8 +37,7 @@ class Downloads:
             log1_file = '/dev/null'
             log2_file = '/dev/null'
         else:
-            notify('Download failed. Unsupported OS.', error=True)
-            return
+            return 'Download failed (Unsupported OS)'
         # 番組ID
         gtvid = '%s_%s' % (id,start);
         # ファイルパス
@@ -44,7 +45,7 @@ class Downloads:
         mp3_file = os.path.join(common.download_path, gtvid+'.mp3')
         # 番組情報の有無をチェック
         if os.path.isfile(js_file):
-            notify('Download failed. Saved data exists.', error=True)
+            return 'Download failed (Saved data exists)'
         # 現在時刻
         now1 = datetime.now()
         # 開始時間
@@ -53,7 +54,7 @@ class Downloads:
         # 終了時間
         end1 = strptime(end, '%Y%m%d%H%M%S')
         # ラグ調整
-        lag = datetime.timedelta(seconds=common.lag)
+        lag = timedelta(seconds=int(lag))
         start1 = start1 + lag
         end1 = end1 + lag
         # 放送時間
@@ -71,8 +72,7 @@ class Downloads:
                 wait = 0
             else:
                 # すでに終わっている場合はこのまま終了する
-                notify('Download failed. Program is over.', error=True)
-                return
+                return 'Download failed (Program is over)'
         # 録音時間
         duration = end1 - start1
         if duration.seconds > 0:
@@ -88,8 +88,7 @@ class Downloads:
                     wait = 0
         else:
             # durationが異常値
-            notify('Download failed. Invalid start and/or end.', error=True)
-            return
+            return 'Download failed (Invalid start and/or end)'
         # ビットレート
         bitrate = common.addon.getSetting('bitrate')
         if bitrate == 'auto':
@@ -176,7 +175,7 @@ class Downloads:
             gtvid = file.replace(common.download_path,'').replace('.pid','')
             status = status and self.kill(gtvid)
         if status == False:
-            notify('Download failed. Now recording.', error=True)
+            notify('Download failed (Now recording)', error=True)
             return
         # ファイル削除
         for file in glob.glob(os.path.join(common.download_path, '*.*')):
@@ -189,7 +188,7 @@ class Downloads:
     def delete(self, gtvid):
         # 実行中のプロセスを停止
         if self.kill(gtvid) == False:
-            notify('Download failed. Now recording.', error=True)
+            notify('Download failed (Now recording)', error=True)
             return
         # ファイル削除
         for file in glob.glob(os.path.join(common.download_path, '%s.*' % (gtvid))):

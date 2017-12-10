@@ -64,6 +64,10 @@ class Data:
                 s['options'] = station.getElementsByTagName('options')[0].firstChild.data
             except:
                 s['options'] = ''
+            try:
+                s['lag'] = station.getElementsByTagName('lag')[0].firstChild.data
+            except:
+                s['lag'] = 0
             # ロゴ
             logopath = os.path.join(common.media_path, 'logo_%s.png' % id)
             if not os.path.isfile(logopath):
@@ -112,9 +116,10 @@ class Data:
             programs = station.getElementsByTagName('prog')
             for program in programs:
                 p = {
-                    'id':  id,
+                    'id': id,
                     'name': s['name'],
-                    'options':  s['options'],
+                    'options': s['options'],
+                    'lag': s['lag'],
                     'title': '',
                     'ft': '',
                     'to': '',
@@ -225,16 +230,19 @@ class Data:
             wait = m['start'] - now
             if wait.days == 0 and wait.seconds < common.prep_interval:
                 p = m['program']
-                result = Downloads().add(
-                            id=p['id'],
-                            name=p['name'],
-                            start=p['ft'],
-                            end=p['to'],
-                            title=p['title'],
-                            description=p['description'],
-                            options=p['options'],
-                            key=m['key'])
-                if result['status']:
+                status = Downloads().add(
+                    id=p['id'],
+                    name=p['name'],
+                    start=p['ft'],
+                    end=p['to'],
+                    title=p['title'],
+                    description=p['description'],
+                    options=p['options'],
+                    lag=p['lag'],
+                    key=m['key'])
+                if status:
+                    pass
+                else:
                     log('start=',strptime(p['ft'],'%Y%m%d%H%M%S'),' name=',p['name'],' title=',p['title'])
 
     def showPrograms(self):
@@ -269,43 +277,43 @@ class Data:
                 # リストアイテムを定義
                 li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
                 #li.setInfo(type='music', infoLabels={'title':title0,'artist':s['name'],'comment':comment0})
-                li.setInfo(type='video', infoLabels={'title':title0 or s['name']})
+                li.setInfo(type='video', infoLabels={'title':s['name'] or s['name']})
                 # コンテクストメニュー
                 contextmenu = []
                 # 番組情報を更新
                 contextmenu.append((common.addon.getLocalizedString(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
                 # 保存、設定
                 if common.addon.getSetting('download') == 'true':
-                    if s['options']:
-                        for i in range(len(programs)):
-                            p = programs[i]
-                            if p['ft'].isdigit() and p['to'].isdigit():
-                                # 保存
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
-                                contextmenu.append((menu,
-                                    'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options})'.format(
-                                        url=sys.argv[0],
-                                        id=id,
-                                        name=urllib.quote_plus(s['name'].encode('utf-8')),
-                                        start=p['ft'],
-                                        end=p['to'],
-                                        title=urllib.quote_plus(p['title'].encode('utf-8')),
-                                        description=urllib.quote_plus(p['description'].encode('utf-8')),
-                                        options=urllib.quote_plus(s['options'])
-                                    )
-                                ))
-                                # キーワード追加
-                                if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
-                                if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
-                                contextmenu.append((menu,
-                                    'RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
-                                        url=sys.argv[0],
-                                        key=urllib.quote_plus(p['title'].encode('utf-8')),
-                                        day=str(int(strptime(p['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
-                                        ch=urllib.quote_plus(s['name'].encode('utf-8'))
-                                    )
-                                ))
+                    for i in range(len(programs)):
+                        p = programs[i]
+                        if p['ft'].isdigit() and p['to'].isdigit():
+                            # 保存
+                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
+                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
+                            contextmenu.append((menu,
+                                'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options}&lag={lag})'.format(
+                                    url=sys.argv[0],
+                                    id=id,
+                                    name=urllib.quote_plus(s['name'].encode('utf-8')),
+                                    start=p['ft'],
+                                    end=p['to'],
+                                    title=urllib.quote_plus(p['title'].encode('utf-8')),
+                                    description=urllib.quote_plus(p['description'].encode('utf-8')),
+                                    options=urllib.quote_plus(s['options']),
+                                    lag=s['lag']
+                                )
+                            ))
+                            # キーワード追加
+                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
+                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
+                            contextmenu.append((menu,
+                                'RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
+                                    url=sys.argv[0],
+                                    key=urllib.quote_plus(p['title'].encode('utf-8')),
+                                    day=str(int(strptime(p['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
+                                    ch=urllib.quote_plus(s['name'].encode('utf-8'))
+                                )
+                            ))
                 if id.find('misc_') == 0:
                     id1 = int(id.replace('misc_',''))-1
                     contextmenu.append((common.addon.getLocalizedString(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
@@ -351,6 +359,7 @@ class Data:
         # 番組情報をDBへ送信
         programs = []
         for p in self.programs:
+            if p['id'].find('radiru_') == 0: programs.append(p)
             if p['id'].find('radiko_') == 0: programs.append(p)
         data = {}
         data['programs'] = json.dumps(programs)

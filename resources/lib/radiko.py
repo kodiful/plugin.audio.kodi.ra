@@ -43,6 +43,8 @@ __referer_url__   = 'http://radiko.jp/player/timetable.html'
 __program_url__   = 'http://radiko.jp/v2/api/program/now'
 __stream_url__    = 'rtmpe://f-radiko.smartstream.ne.jp'
 
+__lag__           = 20
+
 __object_tag__    = 87
 #__object_id__     = 14
 __object_id__     = 12
@@ -343,6 +345,7 @@ class Radiko:
             xmlstr += '<logo_large>%s</logo_large>' % (logo)
             xmlstr += '<url>%s</url>' % (url)
             xmlstr += '<options>%s</options>' % (options)
+            xmlstr += '<lag>%d</lag>' % (__lag__)
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
