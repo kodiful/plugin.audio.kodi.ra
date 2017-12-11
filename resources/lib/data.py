@@ -61,6 +61,10 @@ class Data:
             except:
                 s['logo_large'] = ''
             try:
+                s['url'] = station.getElementsByTagName('url')[0].firstChild.data
+            except:
+                s['url'] = ''
+            try:
                 s['options'] = station.getElementsByTagName('options')[0].firstChild.data
             except:
                 s['options'] = ''
@@ -118,6 +122,7 @@ class Data:
                 p = {
                     'id': id,
                     'name': s['name'],
+                    'source': s['url'],
                     'options': s['options'],
                     'lag': s['lag'],
                     'title': '',
@@ -237,6 +242,7 @@ class Data:
                     end=p['to'],
                     title=p['title'],
                     description=p['description'],
+                    source=p['source'],
                     options=p['options'],
                     lag=p['lag'],
                     key=m['key'])
@@ -291,7 +297,7 @@ class Data:
                             if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
                             if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
                             contextmenu.append((menu,
-                                'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&options={options}&lag={lag})'.format(
+                                'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&source={source}&options={options}&lag={lag})'.format(
                                     url=sys.argv[0],
                                     id=id,
                                     name=urllib.quote_plus(s['name'].encode('utf-8')),
@@ -299,6 +305,7 @@ class Data:
                                     end=p['to'],
                                     title=urllib.quote_plus(p['title'].encode('utf-8')),
                                     description=urllib.quote_plus(p['description'].encode('utf-8')),
+                                    source=urllib.quote_plus(s['url']),
                                     options=urllib.quote_plus(s['options']),
                                     lag=s['lag']
                                 )

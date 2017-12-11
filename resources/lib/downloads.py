@@ -28,7 +28,7 @@ class Downloads:
         self.template = f.read()
         f.close()
 
-    def add(self, id, name, start, end, title, description, options, lag, key=''):
+    def add(self, id, name, start, end, title, description, source, options, lag, key=''):
         # OS判定
         if self.os == 'Windows':
             log1_file = 'NUL'
@@ -116,14 +116,19 @@ class Downloads:
         f.write(js_data)
         f.close()
         # コマンドライン
-        rtmpdump = '"{rtmpdump}" {options} -B {duration} 2> "{log1}"'.format(
-            rtmpdump=self.rtmpdump,
-            options=options,
-            duration=duration,
-            log1=log1_file)
-        rtmpdump += '|'
-        rtmpdump += '"{ffmpeg}" -i pipe:0 -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
+        if options:
+            rtmpdump = '"{rtmpdump}" {options} -B {duration} 2> "{log1}" | '.format(
+                rtmpdump=self.rtmpdump,
+                options=options,
+                duration=duration,
+                log1=log1_file)
+            source = 'pipe:0'
+        else:
+            rtmpdump = ''
+        rtmpdump += '"{ffmpeg}" -t {duration} -i {source} -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
             ffmpeg=self.ffmpeg,
+            duration=duration,
+            source=source,
             bitrate=bitrate,
             title=title,
             artist=name,
@@ -144,7 +149,8 @@ class Downloads:
             command.append('sleep %d' % (wait))
             command.append(rtmpdump)
             command.append('rm -f %s.pid' % (gtvid))
-            command.append('echo $$ > exit')
+            #command.append('echo $$ > exit')
+            command.append('echo $$ > "%s"' % (common.exit_file))
             f = codecs.open(sh_file, 'w', 'utf-8')
             f.write('\n'.join(command))
             f.close()
@@ -159,7 +165,8 @@ class Downloads:
             command.append('TIMEOUT /T %d /NOBREAK > NUL' % (wait))
             command.append(rtmpdump)
             command.append('DEL %s.pid' % (gtvid))
-            command.append('ECHO > exit')
+            #command.append('ECHO > exit')
+            command.append('ECHO > "%s"' % (common.exit_file))
             f = codecs.open(bat_file, 'w', 'shift_jis', 'ignore')
             f.write('\r\n'.join(command))
             f.close()
@@ -322,12 +329,10 @@ class Downloads:
         # close rss
         rss.close()
         # copy image if necessary
-        dst = os.path.join(common.download_path, 'icon.png')
-        if os.path.isfile(dst): os.remove(dst)
-        src = os.path.join(common.plugin_path, 'icon.png')
-        shutil.copy(src, dst)
+        dest = os.path.join(common.download_path, 'icon.png')
+        if not os.path.isfile(dest):
+            shutil.copy(os.path.join(common.plugin_path, 'icon.png'), dest)
         # copy script if necessary
-        dst = os.path.join(common.download_path, 'rss.php')
-        if os.path.isfile(dst): os.remove(dst)
-        src = os.path.join(common.template_path, 'rss.php')
-        shutil.copy(src, dst)
+        dest = os.path.join(common.download_path, 'rss.php')
+        if not os.path.isfile(dest):
+            shutil.copy(os.path.join(common.template_path, 'rss.php'), dest)

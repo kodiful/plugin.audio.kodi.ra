@@ -57,6 +57,13 @@ def checkKeywords(keywordsFile=common.keywords_file):
     return os.path.getmtime(keywordsFile)
 
 #-------------------------------------------------------------------------------
+def checkDownloads(exitFile=common.exit_file):
+    if not os.path.isfile(exitFile): return 0
+    # ファイルを削除
+    os.remove(exitFile)
+    return 1
+
+#-------------------------------------------------------------------------------
 def setResumes(resumeFile=__resume_file__):
     global Resumes
     f = codecs.open(resumeFile,'w','utf-8')
@@ -210,6 +217,7 @@ def main():
             end=params['end'],
             title=params['title'],
             description=params['description'],
+            source=params['source'],
             options=params['options'],
             lag=params['lag'])
         if status:
@@ -432,9 +440,10 @@ def watcher(data):
     if common.addon.getSetting('download') == 'true':
         data.onWatched()
 
-    # ダウンロードが完了している場合はRSSを更新
-    if common.addon.getSetting('rss') == 'true':
-        if createRSS(): notify('Download completed')
+    # ダウンロードが完了している場合
+    if checkDownloads():
+        notify('Download completed')
+        if common.addon.getSetting('rss') == 'true': Downloads().createRSS()
 
     # Resumes設定を書き込み
     setResumes()
@@ -462,19 +471,6 @@ def refresh():
         Resumes['update'] = True
         log('update scheduled')
     return immediate
-
-def createRSS():
-    # exitファイルをチェック
-    create = False
-    if os.path.isfile(common.exit_file):
-        if not os.path.isfile(common.rss_file):
-            create = True
-        elif os.path.getmtime(common.rss_file) < os.path.getmtime(common.exit_file):
-            create = True
-    # RSSを生成
-    if create:
-        Downloads().createRSS()
-    return create
 
 #-------------------------------------------------------------------------------
 if __name__  == '__main__': main()
