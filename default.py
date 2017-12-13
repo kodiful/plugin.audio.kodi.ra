@@ -336,7 +336,7 @@ def initialize():
     # 放送局データに応じて設定画面を生成
     setup(radiru, radiko, jcba, misc)
     # 番組データを取得
-    data.setPrograms(True)
+    data.setPrograms(renew=True)
     # 更新を通知
     data.onChanged()
     # Resumes設定
@@ -360,7 +360,7 @@ def proceed():
     getResumes()
     # クラス初期化
     radiru = Radiru()
-    radiko = Radiko(Resumes['area'], Resumes['token'])
+    radiko = Radiko(area=Resumes['area'], token=Resumes['token'])
     jcba   = Jcba()
     misc   = Misc()
     data   = Data((radiru,radiko,jcba,misc))
@@ -389,7 +389,7 @@ def watcher(data):
     # 番組情報が更新された場合
     elif Resumes['reinfo'] < stamp:
         # 番組データ
-        data.setPrograms(True)
+        data.setPrograms(renew=True)
         # 更新をチェック
         (reinfo, hashinfo) = data.nextAired()
         if Resumes['hashinfo'] != hashinfo:
@@ -425,12 +425,12 @@ def watcher(data):
         Resumes['reauth'] = stamp + common.resume_timer_interval
         # radiko認証の更新に伴う処理
         radiru = Radiru()
-        radiko = Radiko(Resumes['area'], Resumes['token'])
+        radiko = Radiko(area=Resumes['area'], token=Resumes['token'], renew=True)
         jcba   = Jcba()
         misc   = Misc()
         data   = Data((radiru,radiko,jcba,misc))
         # 番組データを更新
-        data.setPrograms(True)
+        data.setPrograms(renew=True)
         # 更新を通知
         data.onChanged()
         # 画面更新
