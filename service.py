@@ -9,4 +9,4 @@ if common.addon.getSetting('download') == 'true' and len(Keywords().search) > 0:
     # 通知
     common.notify('Starting service', time=3000)
     # 起動
-    start()
+    start(background=True)

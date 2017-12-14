@@ -283,7 +283,7 @@ def main():
             start()
 
 #-------------------------------------------------------------------------------
-def start(active=True):
+def start(background=False):
     global Resumes
     global Birth
     # ディレクトリをチェック
@@ -296,7 +296,7 @@ def start(active=True):
     else:
         data = initialize()
     # 表示
-    if active: data.showPrograms()
+    if not background: data.showPrograms()
     # Birth設定
     Birth = setBirth()
     # Alive設定を更新
