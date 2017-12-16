@@ -150,7 +150,7 @@ def setup(radiru, radiko, jcba, misc):
     f.close()
     # 放送局リスト
     s = [common.addon.getLocalizedString(30520)]
-    stations = Data((radiru,radiko,jcba,misc)).stations
+    stations = Data((radiru,radiko)).stations
     for station in stations:
         s.append(station['name'])
     # ソース作成
