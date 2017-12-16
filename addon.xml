@@ -17,7 +17,7 @@
     <summary lang="en">KodiRa</summary>
     <summary lang="ja">KodiRa</summary>
     <description lang="en">Listen to NHK Radio, Commercial Radio (radiko.jp), Internet Simul Radio (jcbasimul.com) and others</description>
-    <description lang="ja">NHKラジオ(らじる★らじる), 民放ラジオ(radiko.jp), インターネットサイマルラジオ(jcbasimul.com)ほかを聴くことができます</description>
+    <description lang="ja">NHKラジオ(らじる★らじる), 民放ラジオ(radiko.jp)ほかを聴くことができます</description>
     <disclaimer lang="en">Works on Windows &amp; macOS</disclaimer>
     <disclaimer lang="ja">WindowsとmacOSで動作。</disclaimer>
   </extension>
