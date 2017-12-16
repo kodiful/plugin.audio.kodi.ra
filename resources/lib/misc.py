@@ -66,7 +66,7 @@ class Misc:
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
-            xmlstr = '<setting label="%s" type="bool" id="misc_%03d" default="true" enable="eq(%d,2)" visible="true"/>' % (name,id,-id)
+            xmlstr = '    <setting label="%s" type="bool" id="misc_%03d" default="true" enable="eq(%d,2)" visible="true"/>' % (name,id,-id)
             settings.append(xmlstr)
             id = id + 1
         # 放送局データを書き込む
