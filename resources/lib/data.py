@@ -195,7 +195,11 @@ class Data:
                         continue
                     # 放送局を照合
                     if s['ch'] == common.addon.getLocalizedString(30520):
-                        pass
+                        # 放送局を指定しない場合、radikoのNHKは重複するのでスキップ
+                        if p['id'].find('radiko') == 0 and p['name'].find('NHK') == 0:
+                            continue
+                        else:
+                            pass
                     elif s['ch'] == p['name']:
                         pass
                     else:
