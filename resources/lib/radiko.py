@@ -337,14 +337,12 @@ class Radiko:
             name = station.getElementsByTagName('name')[0].firstChild.data
             logo = station.getElementsByTagName('logo_large')[0].firstChild.data
             url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (__stream_url__,id,self.token)
-            options = '-r "%s/%s/_definst_/simul-stream.stream" -C S: -C S: -C S: -C S:%s -v' % (__stream_url__,id,self.token)
             # pack as xml
             xmlstr = '<station>'
             xmlstr += '<id>radiko_%s</id>' % (id)
             xmlstr += '<name>%s</name>' % (name)
             xmlstr += '<logo_large>%s</logo_large>' % (logo)
             xmlstr += '<url>%s</url>' % (url)
-            xmlstr += '<options>%s</options>' % (options)
             xmlstr += '<lag>%d</lag>' % (__lag__)
             xmlstr += '</station>'
             results.append(xmlstr)

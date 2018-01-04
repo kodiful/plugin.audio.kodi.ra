@@ -55,14 +55,12 @@ class Misc:
             name = ch['name']
             logo = ''
             url = ch['stream']
-            options = ''
             # pack as xml
             xmlstr = '<station>'
             xmlstr += '<id>misc_%03d</id>' % (id)
             xmlstr += '<name>%s</name>' % (name)
             xmlstr += '<logo_large>%s</logo_large>' % (logo)
             xmlstr += '<url>%s</url>' % (url)
-            xmlstr += '<options>%s</options>' % (options)
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)

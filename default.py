@@ -218,7 +218,6 @@ def main():
             title=params['title'],
             description=params['description'],
             source=params['source'],
-            options=params['options'],
             lag=params['lag'])
         if status:
             notify(status, error=True)

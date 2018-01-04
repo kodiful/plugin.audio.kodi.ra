@@ -28,7 +28,7 @@ class Downloads:
         self.template = f.read()
         f.close()
 
-    def add(self, id, name, start, end, title, description, source, options, lag, key=''):
+    def add(self, id, name, start, end, title, description, source, lag, key=''):
         # OS判定
         if self.os == 'Windows':
             log1_file = 'NUL'
@@ -116,16 +116,7 @@ class Downloads:
         f.write(js_data)
         f.close()
         # コマンドライン
-        if options:
-            rtmpdump = '"{rtmpdump}" {options} -B {duration} 2> "{log1}" | '.format(
-                rtmpdump=self.rtmpdump,
-                options=options,
-                duration=duration,
-                log1=log1_file)
-            source = 'pipe:0'
-        else:
-            rtmpdump = ''
-        rtmpdump += '"{ffmpeg}" -t {duration} -i {source} -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
+        rtmpdump = '"{ffmpeg}" -t {duration} -i "{source}" -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
             ffmpeg=self.ffmpeg,
             duration=duration,
             source=source,

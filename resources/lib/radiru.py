@@ -88,14 +88,12 @@ class Radiru:
                     name = attr['name'].decode('utf-8')
                     logo = attr['logo'].decode('utf-8')
                     url = datum.getElementsByTagName(attr['tag0'])[0].firstChild.data.strip()
-                    options = ''
                     # pack as xml
                     xmlstr = '<station>'
                     xmlstr += '<id>radiru_%s</id>' % (id)
                     xmlstr += '<name>%s</name>' % (name)
                     xmlstr += '<logo_large>%s</logo_large>' % (logo)
                     xmlstr += '<url>%s</url>' % (url)
-                    xmlstr += '<options>%s</options>' % (options)
                     xmlstr += '<lag>%d</lag>' % (__lag__)
                     xmlstr += '</station>'
                     results.append(xmlstr)
