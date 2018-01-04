@@ -347,7 +347,7 @@ class Radiko:
             xmlstr += '</station>'
             results.append(xmlstr)
             # pack as xml (for settings)
-            xmlstr = '    <setting label="%s" type="bool" id="radiko_%s" default="false" enable="eq(%d,2)"/>' % (name,id,i)
+            xmlstr = '    <setting label="%s" type="bool" id="radiko_%s" default="true" enable="eq(%d,2)"/>' % (name,id,i)
             settings.append(xmlstr)
             i = i-1
         # 放送局データを書き込む
