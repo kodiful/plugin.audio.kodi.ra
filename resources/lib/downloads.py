@@ -102,6 +102,18 @@ class Downloads:
                 bitrate = '96k'
             else:
                 bitrate = '64k'
+        # ソース
+        conn = []
+        match = re.findall(r'conn=[^ ]+', source)
+        for m in match:
+            conn.append(re.sub(r'conn=', '', m))
+        if len(conn) > 0:
+            rtmp_conn = '-rtmp_conn "%s"' % ' '.join(conn)
+        else:
+            rtmp_conn = ''
+        match = re.match(r'(?:rtmp|rtmps|rtmpe|rtmpt)://[^ ]+', source)
+        if match:
+            source = match.group()
         # 番組情報を保存
         js_data = self.template.format(
             gtvid=gtvid,
@@ -116,9 +128,10 @@ class Downloads:
         f.write(js_data)
         f.close()
         # コマンドライン
-        rtmpdump = '"{ffmpeg}" -t {duration} -i "{source}" -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
+        rtmpdump = '"{ffmpeg}" -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
             ffmpeg=self.ffmpeg,
             duration=duration,
+            rtmp_conn=rtmp_conn,
             source=source,
             bitrate=bitrate,
             title=title,
