@@ -164,10 +164,18 @@ class Data:
                 self.programs.append(p)
 
     def onChanged(self):
+        # 重複を除いた放送局リスト作成
+        stations = {}
+        for s in self.stations_id.values():
+            if stations.get(s['name']):
+                pass
+            else:
+                stations[s['name']] = s['id']
+        # 番組を照合
         self.matched_programs = []
         for p in self.programs:
-            # 開始時間、終了時間が規定されている番組について
-            if p['ft'] and p['to']:
+            # 重複しない放送局の、開始時間、終了時間が規定されている番組について
+            if p['ft'] and p['to'] and stations.get(p['name']) == p['id']:
                 # キーワードをチェック
                 search = Keywords().search
                 for s in search:
@@ -190,11 +198,7 @@ class Data:
                         continue
                     # 放送局を照合
                     if s['ch'] == common.addon.getLocalizedString(30520):
-                        # 放送局を指定しない場合、radikoのNHKは重複するのでスキップ
-                        if p['id'].find('radiko') == 0 and p['name'].find('NHK') == 0:
-                            continue
-                        else:
-                            pass
+                        pass
                     elif s['ch'] == p['name']:
                         pass
                     else:

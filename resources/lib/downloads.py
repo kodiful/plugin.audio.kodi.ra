@@ -92,13 +92,13 @@ class Downloads:
         # ビットレート
         bitrate = common.addon.getSetting('bitrate')
         if bitrate == 'auto':
-            if duration <= 3600:
+            if duration <= 3600+60:
                 bitrate = '192k'
-            elif duration <= 4320:
+            elif duration <= 4320+60:
                 bitrate = '160k'
-            elif duration <= 5400:
+            elif duration <= 5400+60:
                 bitrate = '128k'
-            elif duration <= 7200:
+            elif duration <= 7200+60:
                 bitrate = '96k'
             else:
                 bitrate = '64k'
