@@ -4,7 +4,7 @@ import resources.lib.common as common
 from common import(log,notify)
 
 import os
-import urllib, urllib2
+import urllib2
 import xml.dom.minidom
 import codecs
 import re
@@ -20,6 +20,7 @@ __settings_file__ = os.path.join(__radiru_path__, 'settings.xml')
 
 __station_url__   = 'http://www.nhk.or.jp/radio/config/config_web.xml'
 __program_url__   = 'http://www2.nhk.or.jp/hensei/api/noa.cgi'
+__user_agent__    = 'Mozilla/5.0'
 
 __station_area__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
 __default_area__  = '東京'
@@ -70,7 +71,9 @@ class Radiru:
         if renew == False and os.path.isfile(__station_file__) and os.path.isfile(__settings_file__):
             return
         # キャッシュがなければウェブから読み込む
-        response = urllib.urlopen(__station_url__)
+        opener = urllib2.build_opener()
+        opener.addheaders = [('User-Agent', __user_agent__)]
+        response = opener.open(__station_url__)
         data = response.read()
         response.close()
         # データ変換
@@ -125,7 +128,9 @@ class Radiru:
 
     def getProgramFile(self):
         try:
-            response = urllib.urlopen(__program_url__)
+            opener = urllib2.build_opener()
+            opener.addheaders = [('User-Agent', __user_agent__)]
+            response = opener.open(__program_url__)
             data = response.read()
             response.close()
         except:
