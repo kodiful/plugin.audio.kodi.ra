@@ -4,7 +4,7 @@ import resources.lib.common as common
 from common import(log,notify)
 
 import os, sys
-import urllib, urllib2
+import urllib
 import xml.dom.minidom
 import re
 import codecs

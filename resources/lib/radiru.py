@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import resources.lib.common as common
-from common import(log,notify)
+from common import(urlread,log,notify)
 
 import os
-import urllib2
 import xml.dom.minidom
 import codecs
 import re
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import exceptions
+import json
 
 __radiru_path__ = os.path.join(common.data_path, 'radiru')
 if not os.path.isdir(__radiru_path__): os.makedirs(__radiru_path__)
@@ -19,35 +19,31 @@ __station_file__  = os.path.join(__radiru_path__, 'station.xml')
 __settings_file__ = os.path.join(__radiru_path__, 'settings.xml')
 
 __station_url__   = 'http://www.nhk.or.jp/radio/config/config_web.xml'
-__program_url__   = 'http://www2.nhk.or.jp/hensei/api/noa.cgi'
-__user_agent__    = 'Mozilla/5.0'
+__program_url__   = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
 
-__station_area__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
-__default_area__  = '東京'
+__station_areajp__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
+__default_areajp__  = '東京'
 __station_attr__  = [
     {
         'id':   'NHKR1',
         'name': 'NHKラジオ第1',
         'tag0': 'r1hls',
-        'logo': 'http://www.nhk.or.jp/r2/images/symbol_r1.png',
-        'tag1': 'netr10',
-        'tag2': 'netr1F1'
+        'logo': 'https://www.nhk.or.jp/common/img/media/r1-200x200.png',
+        'id1':   'n1',
     },
     {
         'id':   'NHKR2',
         'name': 'NHKラジオ第2',
         'tag0': 'r2hls',
-        'logo': 'http://www.nhk.or.jp/r2/images/symbol_r2.png',
-        'tag1': 'netr20',
-        'tag2': 'netr2F1'
+        'logo': 'https://www.nhk.or.jp/common/img/media/r2-200x200.png',
+        'id1':  'n2',
     },
     {
         'id':   'NHKFM',
         'name': 'NHK FM',
         'tag0': 'fmhls',
-        'logo': 'http://www.nhk.or.jp/r2/images/symbol_fm.png',
-        'tag1': 'netfm0',
-        'tag2': 'netfmF1'
+        'logo': 'https://www.nhk.or.jp/common/img/media/fm-200x200.png',
+        'id1':  'n3',
     }
 ]
 
@@ -60,9 +56,9 @@ class Radiru:
         self.id = 'radiru'
         try:
             area = common.addon.getSetting('area')
-            self.area = __station_area__[int(area)]
+            self.areajp = __station_areajp__[int(area)]
         except:
-            self.area = __default_area__
+            self.areajp = __default_areajp__
         # 放送局データと設定データを初期化
         self.getStationFile(renew)
 
@@ -71,11 +67,7 @@ class Radiru:
         if renew == False and os.path.isfile(__station_file__) and os.path.isfile(__settings_file__):
             return
         # キャッシュがなければウェブから読み込む
-        opener = urllib2.build_opener()
-        opener.addheaders = [('User-Agent', __user_agent__)]
-        response = opener.open(__station_url__)
-        data = response.read()
-        response.close()
+        data = urlread(__station_url__)
         # データ変換
         dom = xml.dom.minidom.parseString(data)
         results = []
@@ -83,8 +75,14 @@ class Radiru:
         i = -1
         data = dom.getElementsByTagName('data')
         for datum in data:
-            area = datum.getElementsByTagName('areajp')[0].firstChild.data.strip().encode('utf-8')
-            if area == self.area:
+            areajp = datum.getElementsByTagName('areajp')[0].firstChild.data.strip().encode('utf-8')
+            area = datum.getElementsByTagName('area')[0].firstChild.data.strip().encode('utf-8')
+            areakey = datum.getElementsByTagName('areakey')[0].firstChild.data.strip().encode('utf-8')
+            apikey = datum.getElementsByTagName('apikey')[0].firstChild.data.strip().encode('utf-8')
+            if areajp == self.areajp:
+                self.area = area
+                self.areakey = areakey
+                self.apikey = apikey
                 for attr in __station_attr__:
                     # pack as xml
                     id = attr['id'].decode('utf-8')
@@ -128,11 +126,7 @@ class Radiru:
 
     def getProgramFile(self):
         try:
-            opener = urllib2.build_opener()
-            opener.addheaders = [('User-Agent', __user_agent__)]
-            response = opener.open(__program_url__)
-            data = response.read()
-            response.close()
+            data = urlread(__program_url__ % self.areakey)
         except:
             log('failed')
             return
@@ -143,22 +137,24 @@ class Radiru:
     def getProgramData(self, renew=False):
         if renew or not os.path.isfile(__program_file__):
             self.getProgramFile()
-        xmlstr = open(__program_file__, 'r').read()
-        dom = xml.dom.minidom.parseString(xmlstr)
+        jsonstr = open(__program_file__, 'r').read()
+        #jsonstr = jsonstr.replace('\n', '<br/>')
+        dom = json.loads(jsonstr)
         results = []
         for attr in __station_attr__:
+            id1 = attr['id1']
             xmlstr = '<station id="radiru_%s">' % attr['id']
             # 放送中のプログラム
-            for s in [attr['tag1'],attr['tag2']]:
+            for s in ('present','following'):
                 try:
-                    r = dom.getElementsByTagName(s)[0]
+                    r = dom['nowonair_list'][id1][s]
                     # title
-                    title = r.getElementsByTagName('title')[0].firstChild.data.strip()
+                    title = r['title']
                     # start & end
-                    t = r.getElementsByTagName('starttime')[0].firstChild.data.strip()
+                    t = r['start_time']
                     ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                     ftl = str(t[11:13])+str(t[14:16])
-                    t = r.getElementsByTagName('endtime')[0].firstChild.data.strip()
+                    t = r['end_time']
                     to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                     tol = str(t[11:13])+str(t[14:16])
                     # xml
@@ -166,14 +162,12 @@ class Radiru:
                     # title
                     xmlstr += '<title>%s</title>' % (title)
                     # description
-                    for tag in ['subtitle','content','act','music','free']:
+                    for tag in ('subtitle','content','act','music','free'):
                         try:
-                            text = r.getElementsByTagName(tag)[0].firstChild.data.strip()
+                            text = r[tag]
                             text = re.sub(r'[\r\n\t]',' ',text)
                             text = re.sub(r'\s{2,}',' ',text)
                             text = re.sub(r'(^\s+|\s+$)','',text)
-                            #text = text.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&')
-                            #text = text.replace('&','&amp;').replace('"','&quot;').replace('>','&gt;').replace('<','&lt;')
                             xmlstr += '<%s>%s</%s>' % (tag,text,tag)
                         except (exceptions.IndexError,exceptions.AttributeError):
                             continue

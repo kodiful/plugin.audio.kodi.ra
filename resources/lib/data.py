@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 import resources.lib.common as common
-from resources.lib.common import(log,notify)
+from resources.lib.common import(urlread,log,notify)
 from resources.lib.common import(strptime)
 
 import os, sys, glob
@@ -72,9 +72,9 @@ class Data:
             logopath = os.path.join(common.media_path, 'logo_%s.png' % id)
             if not os.path.isfile(logopath):
                 try:
-                    buffer = urllib2.urlopen(s['logo_large'].encode('utf-8')).read()
+                    buffer = urlread(s['logo_large'].encode('utf-8'))
                 except:
-                    buffer = urllib2.urlopen(common.logo_url).read()
+                    buffer = urlread(common.logo_url)
                 img = Image.open(StringIO(buffer))
                 w = img.size[0]
                 h = img.size[1]

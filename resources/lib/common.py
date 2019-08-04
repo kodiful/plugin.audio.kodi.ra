@@ -5,6 +5,7 @@ import datetime, time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import inspect
 import socket
+import urllib2
 
 # HTTP接続におけるタイムアウト(秒)
 socket.setdefaulttimeout(60)
@@ -65,6 +66,14 @@ Birth = 0
 logo_url = 'http://kodiful.com/KodiRa/downloads/jcba/icon.png'
 
 # utilities
+
+def urlread(url):
+    opener = urllib2.build_opener()
+    opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
+    response = opener.open(url)
+    buffer = response.read()
+    response.close()
+    return buffer
 
 def notify(message, **options):
     time = options.get('time', 10000)

@@ -12,7 +12,6 @@ import sys, glob, shutil
 import codecs
 import json
 import re
-import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from datetime import (datetime,timedelta)
