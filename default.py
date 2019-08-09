@@ -186,19 +186,6 @@ def main():
     for key in parsed.keys():
         value = params[key.decode('utf-8')] = parsed[key][0].decode('utf-8')
         log('argv:',key,'=',value)
-    # アドオン設定をコピー
-    settings = {}
-    for key in ['id','key','s','day','ch','duplicate','name','stream']:
-        settings[key] = common.addon.getSetting(key).decode('utf-8')
-    # アドオン設定をリセット
-    common.addon.setSetting('id','')
-    common.addon.setSetting('key','')
-    common.addon.setSetting('s','0')
-    common.addon.setSetting('day','0')
-    common.addon.setSetting('ch','0')
-    common.addon.setSetting('duplicate','0')
-    common.addon.setSetting('name','')
-    common.addon.setSetting('stream','')
 
     # actionに応じた処理
 
@@ -245,6 +232,9 @@ def main():
     elif params['action'] == 'editKeyword':
         Keywords().edit(params['id'])
     elif params['action'] == 'editedKeyword':
+        settings = {}
+        for key in ['id','key','s','day','ch','duplicate']:
+            settings[key] = common.addon.getSetting(key).decode('utf-8')
         Keywords().edited(
             id=settings['id'],
             key=settings['key'],
@@ -259,10 +249,14 @@ def main():
     elif params['action'] == 'editStation':
         Misc().edit(params['id'])
     elif params['action'] == 'editedStation':
+        # アドオン設定をコピー
+        settings = {}
+        for key in ['id','name','stream']:
+            settings[key] = common.addon.getSetting(key).decode('utf-8')
         Misc().edited(
-            settings['id'],
-            settings['name'],
-            settings['stream'])
+            id=settings['id'],
+            name=settings['name'],
+            stream=settings['stream'])
         xbmc.executebuiltin('Container.Refresh()')
     elif params['action'] == 'deleteStation':
         Misc().delete(params['id'])
@@ -270,6 +264,14 @@ def main():
 
     # アドオン設定
     elif params['action'] == 'settings':
+        common.addon.setSetting('id','')
+        common.addon.setSetting('key','')
+        common.addon.setSetting('s','0')
+        common.addon.setSetting('day','0')
+        common.addon.setSetting('ch','0')
+        common.addon.setSetting('duplicate','0')
+        common.addon.setSetting('name','')
+        common.addon.setSetting('stream','')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
 
     # 表示

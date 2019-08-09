@@ -124,6 +124,11 @@ class Misc:
         common.addon.setSetting('id',str(id))
         common.addon.setSetting('name',ch['name'])
         common.addon.setSetting('stream',ch['stream'])
+        common.addon.setSetting('key','')
+        common.addon.setSetting('s','0')
+        common.addon.setSetting('day','0')
+        common.addon.setSetting('ch','0')
+        common.addon.setSetting('duplicate','0')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control

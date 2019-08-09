@@ -65,6 +65,8 @@ class Keywords:
         common.addon.setSetting('day',day)
         common.addon.setSetting('ch',ch)
         common.addon.setSetting('duplicate',duplicate)
+        common.addon.setSetting('name','')
+        common.addon.setSetting('stream','')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
@@ -77,6 +79,8 @@ class Keywords:
         common.addon.setSetting('day',elem['day'])
         common.addon.setSetting('ch',elem['ch'])
         common.addon.setSetting('duplicate',elem['duplicate'])
+        common.addon.setSetting('name','')
+        common.addon.setSetting('stream','')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
