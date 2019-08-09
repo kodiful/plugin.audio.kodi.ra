@@ -174,6 +174,8 @@ class Radiru:
                     xmlstr += '</prog>'
                 except exceptions.IndexError:
                     break
+                except exceptions.KeyError:
+                    continue
             xmlstr += '</station>'
             results.append(xmlstr)
         return '\n'.join(results)

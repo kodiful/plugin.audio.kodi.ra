@@ -267,8 +267,8 @@ class Data:
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\u25b6'
                 if len(programs) == 0:
-                    title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,'放送休止')
-                    title0 = '放送休止'
+                    title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,common.addon.getLocalizedString(30058))
+                    title0 = common.addon.getLocalizedString(30058)
                     comment0 = ''
                 else:
                     for i in range(len(programs)):
