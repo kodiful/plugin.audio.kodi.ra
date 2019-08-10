@@ -99,7 +99,9 @@ class Data:
         xmlstr = ''
         for service in self.services:
             xmlstr += service.getProgramData(renew)
-        dom =  xml.dom.minidom.parseString(('<stations>'+xmlstr.replace('&amp;','&').replace('&','&amp;')+'</stations>').encode('utf-8'))
+        xmlstr = '<stations>%s</stations>' % xmlstr.replace('&amp;','&').replace('&','&amp;')
+        # DOMを生成
+        dom =  xml.dom.minidom.parseString(xmlstr.encode('utf-8'))
         # DOMからデータ抽出
         stations = dom.getElementsByTagName('station')
         for station in stations:

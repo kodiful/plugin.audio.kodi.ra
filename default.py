@@ -330,7 +330,7 @@ def initialize():
     if auth._response['area_id'] == '': notify('Radiko authentication failed', error=True)
     # クラス初期化
     radiru = Radiru(renew=True)
-    radiko = Radiko(area=auth._response['area_id'], token=auth._response['auth_token'], renew=True)
+    radiko = Radiko(renew=True, area=auth._response['area_id'], token=auth._response['auth_token'])
     jcba   = Jcba(renew=True)
     misc   = Misc(renew=True)
     data   = Data((radiru,radiko,jcba,misc))

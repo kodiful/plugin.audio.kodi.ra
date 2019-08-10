@@ -14,15 +14,23 @@ import json
 __radiru_path__ = os.path.join(common.data_path, 'radiru')
 if not os.path.isdir(__radiru_path__): os.makedirs(__radiru_path__)
 
-__program_file__  = os.path.join(__radiru_path__, 'program.xml')
+__program_file__  = os.path.join(__radiru_path__, 'program.json')
 __station_file__  = os.path.join(__radiru_path__, 'station.xml')
 __settings_file__ = os.path.join(__radiru_path__, 'settings.xml')
 
 __station_url__   = 'http://www.nhk.or.jp/radio/config/config_web.xml'
 __program_url__   = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
 
-__station_areajp__  = ['東京','札幌','仙台','名古屋','大阪','広島','松山','福岡']
-__default_areajp__  = '東京'
+__station_areajp__  = [
+    ('東京', '130'),
+    ('札幌', '010'),
+    ('仙台', '040'),
+    ('名古屋', '230'),
+    ('大阪', '270'),
+    ('広島', '340'),
+    ('松山', '380'),
+    ('福岡', '400'),
+]
 __station_attr__  = [
     {
         'id':   'NHKR1',
@@ -56,9 +64,9 @@ class Radiru:
         self.id = 'radiru'
         try:
             area = common.addon.getSetting('area')
-            self.areajp = __station_areajp__[int(area)]
+            self.areajp, self.areakey = __station_areajp__[int(area)]
         except:
-            self.areajp = __default_areajp__
+            self.areajp, self.areakey = __station_areajp__[0]
         # 放送局データと設定データを初期化
         self.getStationFile(renew)
 
@@ -76,13 +84,7 @@ class Radiru:
         data = dom.getElementsByTagName('data')
         for datum in data:
             areajp = datum.getElementsByTagName('areajp')[0].firstChild.data.strip().encode('utf-8')
-            area = datum.getElementsByTagName('area')[0].firstChild.data.strip().encode('utf-8')
-            areakey = datum.getElementsByTagName('areakey')[0].firstChild.data.strip().encode('utf-8')
-            apikey = datum.getElementsByTagName('apikey')[0].firstChild.data.strip().encode('utf-8')
             if areajp == self.areajp:
-                self.area = area
-                self.areakey = areakey
-                self.apikey = apikey
                 for attr in __station_attr__:
                     # pack as xml
                     id = attr['id'].decode('utf-8')
@@ -125,11 +127,7 @@ class Radiru:
         return settings
 
     def getProgramFile(self):
-        try:
-            data = urlread(__program_url__ % self.areakey)
-        except:
-            log('failed')
-            return
+        data = urlread(__program_url__ % self.areakey)
         f = codecs.open(__program_file__,'w','utf-8')
         f.write(data.decode('utf-8'))
         f.close()
