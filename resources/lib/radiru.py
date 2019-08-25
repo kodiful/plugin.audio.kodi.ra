@@ -128,9 +128,10 @@ class Radiru:
 
     def getProgramFile(self):
         data = urlread(__program_url__ % self.areakey)
-        f = codecs.open(__program_file__,'w','utf-8')
-        f.write(data.decode('utf-8'))
-        f.close()
+        if data:
+            f = codecs.open(__program_file__,'w','utf-8')
+            f.write(data.decode('utf-8'))
+            f.close()
 
     def getProgramData(self, renew=False):
         if renew or not os.path.isfile(__program_file__):

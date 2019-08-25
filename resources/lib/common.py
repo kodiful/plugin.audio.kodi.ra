@@ -70,9 +70,16 @@ logo_url = 'http://kodiful.com/KodiRa/downloads/jcba/icon.png'
 def urlread(url):
     opener = urllib2.build_opener()
     opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
-    response = opener.open(url)
-    buffer = response.read()
-    response.close()
+    try:
+        response = opener.open(url)
+        buffer = response.read()
+        response.close()
+    except urllib2.HTTPError, e:
+        log('HTTPError: url=', url, error=True)
+        log('HTTPError: code=', e.code, error=True)
+        log('HTTPError: reason=', e.reason, error=True)
+        log('HTTPError: read=', e.read(), error=True)
+        buffer = ''
     return buffer
 
 def notify(message, **options):
