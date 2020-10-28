@@ -1,0 +1,857 @@
+{
+  "nowonair_list": {
+    "n1": {
+      "following": {
+        "act": "",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "3332505",
+          "split1": [
+            "3332",
+            "505"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T09:00:00+09:00",
+        "event_id": "67932",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "11",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0000"
+        ],
+        "hashtags": [],
+        "id": "2020102867932",
+        "images": {
+          "logo_l": null,
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/1336/g1336.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:02+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n1",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第1"
+        },
+        "site_id": "1336",
+        "start_time": "2020-10-28T08:55:00+09:00",
+        "subtitle": "",
+        "title": "全国の天気・全国交通情報",
+        "url": {
+          "e": "http://p.nhk.jp/radionews/",
+          "i": "http://p.nhk.jp/radionews/",
+          "pc": "http://www.nhk.or.jp/radionews/",
+          "short": "https://nhk.jp/P1336",
+          "v": "http://p.nhk.jp/radionews/"
+        }
+      },
+      "present": {
+        "act": "【キャスター】吾妻謙，【リポーター】徳田章，【出演】阿佐ヶ谷姉妹",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "4283612",
+          "split1": [
+            "4283",
+            "612"
+          ]
+        },
+        "content": "８時台は【まいにちリクエスト】から。リスナーのみなさんから寄せられた、この日かけてほしい一曲を、エピソードとともに紹介します。【おたより＆ナマゴエ紹介】テーマは「初恋」です。人に限らず、あなたが初めて恋心を抱いたことなどの思い出やエピソードもお待ちしています。【阿佐ヶ谷姉妹のお困りでしたら】もお送りします。",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T08:55:00+09:00",
+        "event_id": "67931",
+        "extra": {
+          "pr_images": [
+            {
+              "keyvisual_l": {
+                "height": "450",
+                "url": "https://www.nhk.or.jp/pr-image/f5f37c3f5afb377f1f3fb79b89cad9f9_l.jpg",
+                "width": "800"
+              },
+              "keyvisual_s": {
+                "height": "360",
+                "url": "https://www.nhk.or.jp/pr-image/f5f37c3f5afb377f1f3fb79b89cad9f9_s.jpg",
+                "width": "640"
+              }
+            }
+          ]
+        },
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "11",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0215",
+          "0504"
+        ],
+        "hashtags": [],
+        "id": "2020102867931",
+        "images": {
+          "logo_l": {
+            "height": "640",
+            "url": "https://www.nhk.or.jp/prog/img/6323/6323.png",
+            "width": "640"
+          },
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/6323/g6323.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-26T15:00:31+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n1",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第1"
+        },
+        "site_id": "6323",
+        "start_time": "2020-10-28T08:30:00+09:00",
+        "subtitle": "【まいにちリクエスト】【おたより＆ナマゴエ紹介】【阿佐ヶ谷姉妹のお困りでしたら】",
+        "title": "らじるラボ　８時台　オープニング「阿佐ヶ谷姉妹のお困りでしたら」",
+        "url": {
+          "e": "http://p.nhk.jp/radiru-lab/",
+          "episode": "https://www4.nhk.or.jp/radiru-lab/x/2020-10-28/05/67931/4283612/",
+          "i": "http://p.nhk.jp/radiru-lab/",
+          "pc": "https://www4.nhk.or.jp/radiru-lab/",
+          "short": "https://nhk.jp/P6323",
+          "v": "http://p.nhk.jp/radiru-lab/"
+        }
+      },
+      "previous": {
+        "act": "",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "3761066",
+          "split1": [
+            "3761",
+            "066"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T08:30:00+09:00",
+        "event_id": "67930",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "11",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0202",
+          "0800",
+          "0203"
+        ],
+        "hashtags": [],
+        "id": "2020102867930",
+        "images": {
+          "logo_l": null,
+          "thumbnail_m": null
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:02+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n1",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r1-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第1"
+        },
+        "site_id": "",
+        "start_time": "2020-10-28T08:28:00+09:00",
+        "subtitle": "",
+        "title": "朝の音楽",
+        "url": null
+      }
+    },
+    "n2": {
+      "following": {
+        "act": "【司会】三遊亭楽麻呂，【ゲスト】雑誌副編集長…アナスタシア・ストレブコーワ",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "4241348",
+          "split1": [
+            "4241",
+            "348"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T09:05:00+09:00",
+        "event_id": "68017",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "23",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "1007",
+          "1011",
+          "1010"
+        ],
+        "hashtags": [],
+        "id": "2020102868017",
+        "images": {
+          "logo_l": null,
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/956/g956.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:03+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n2",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第2"
+        },
+        "site_id": "956",
+        "start_time": "2020-10-28T08:50:00+09:00",
+        "subtitle": "【司会】三遊亭楽麻呂，【ゲスト】雑誌副編集長…アナスタシア・ストレブコーワ",
+        "title": "まいにちロシア語　入門編　おもてなしフレーズで学ぶ基礎文法（４８）",
+        "url": {
+          "e": "http://p.nhk.jp/P956/",
+          "i": "http://p.nhk.jp/P956/",
+          "pc": "https://www2.nhk.or.jp/gogaku/russian/",
+          "short": "https://nhk.jp/P956",
+          "v": "http://p.nhk.jp/P956/"
+        }
+      },
+      "present": {
+        "act": "鈴木大輔，能條貴大",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "3462418",
+          "split1": [
+            "3462",
+            "418"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T08:50:00+09:00",
+        "event_id": "68016",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "23",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0115",
+          "1015",
+          "0203"
+        ],
+        "hashtags": [
+          "#NHKラジオ体操"
+        ],
+        "id": "2020102868016",
+        "images": {
+          "logo_l": {
+            "height": "640",
+            "url": "https://www.nhk.or.jp/prog/img/664/664.jpg",
+            "width": "640"
+          },
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/664/g664.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:03+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n2",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第2"
+        },
+        "site_id": "664",
+        "start_time": "2020-10-28T08:40:00+09:00",
+        "subtitle": "鈴木大輔，能條貴大",
+        "title": "ラジオ体操",
+        "url": {
+          "e": "http://p.nhk.jp/radio-taisou/",
+          "episode": "https://www4.nhk.or.jp/radio-taisou/x/2020-10-28/06/68016/3462418/",
+          "i": "http://p.nhk.jp/radio-taisou/",
+          "pc": "https://www4.nhk.or.jp/radio-taisou/",
+          "short": "https://nhk.jp/P664",
+          "v": "http://p.nhk.jp/radio-taisou/"
+        }
+      },
+      "previous": {
+        "act": "【講師】ＢＢＴ大学　教授…スティーブ・ソレイシィ，【出演】ジェニー・スキッドモア",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "4237919",
+          "split1": [
+            "4237",
+            "919"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T08:40:00+09:00",
+        "event_id": "68015",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "01",
+          "sozai": "23",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "1007",
+          "1011",
+          "1010"
+        ],
+        "hashtags": [],
+        "id": "2020102868015",
+        "images": {
+          "logo_l": null,
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/2331/g2331.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:03+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n2",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/r2-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオ第2"
+        },
+        "site_id": "2331",
+        "start_time": "2020-10-28T08:30:00+09:00",
+        "subtitle": "【講師】ＢＢＴ大学教授…スティーブ・ソレイシィ，【出演】ジェニー・スキッドモア",
+        "title": "英会話タイムトライアル「１０月ＤＡＹ１８」",
+        "url": {
+          "e": "http://p.nhk.jp/P2331/",
+          "i": "http://p.nhk.jp/P2331/",
+          "pc": "https://www2.nhk.or.jp/gogaku/english/",
+          "short": "https://nhk.jp/P2331",
+          "v": "http://p.nhk.jp/P2331/"
+        }
+      }
+    },
+    "n3": {
+      "following": {
+        "act": "【語り】井上あさひ",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "3506076",
+          "split1": [
+            "3506",
+            "076"
+          ]
+        },
+        "content": "天気が変わりやすい秋の永平寺。夜、遠くに求愛のシーズンを迎えた鹿の鳴き声が聞こえてきます。座禅が終わると承陽殿から聞こえる鐘の音を合図に普勧坐禅儀を唱えます。雷が鳴り、冷たい雨が降りはじめました。厳しい冬はもうすぐです。",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T09:20:00+09:00",
+        "event_id": "68109",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "03",
+          "sozai": "23",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0807"
+        ],
+        "hashtags": [],
+        "id": "2020102868109",
+        "images": {
+          "logo_l": {
+            "height": "640",
+            "url": "https://www.nhk.or.jp/prog/img/442/442.jpg",
+            "width": "640"
+          },
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/442/g442.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:04+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n3",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオＦＭ"
+        },
+        "site_id": "442",
+        "start_time": "2020-10-28T09:15:00+09:00",
+        "subtitle": "【初回放送】２０１９年１１月２５日【語り】井上あさひ　▽秋を迎えた永平寺。道元禅師が記したお経、普勧坐禅儀（ふかんざぜんぎ）が僧堂に響きます。",
+        "title": "音の風景「永平寺の秋～福井～」",
+        "url": {
+          "e": "http://p.nhk.jp/oto/",
+          "i": "http://p.nhk.jp/oto/",
+          "pc": "https://www.nhk.or.jp/oto/",
+          "short": "https://nhk.jp/P442",
+          "v": "http://p.nhk.jp/oto/"
+        }
+      },
+      "present": {
+        "act": "粕谷紘世",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "4824629",
+          "split1": [
+            "4824",
+            "629"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T09:15:00+09:00",
+        "event_id": "68108",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "1",
+          "shuwa": "0",
+          "sound": "03",
+          "sozai": "23",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "",
+        "genre": [
+          "0402"
+        ],
+        "hashtags": [],
+        "id": "2020102868108",
+        "images": {
+          "logo_l": {
+            "height": "640",
+            "url": "https://www.nhk.or.jp/prog/img/933/933.jpg",
+            "width": "640"
+          },
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/933/g933.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:04+09:00",
+        "music": "「歌劇「ウィンザーの陽気な女房たち」序曲」\nニコライ:作曲\n（管弦楽）ウィーン・フィルハーモニー管弦楽団、（指揮）ルドルフ・ケンペ\n（８分４９秒）\n＜ＥＭＩ　ＳＧＲ－８２３３＞\n\n「ピアノ・ソナタ　変ロ長調　Ｄ９６０」\nシューベルト:作曲\n（ピアノ）マウリツィオ・ポリーニ\n（４０分０３秒）\n＜ＤＧ　Ｆ６６Ｇ－２０１９２＞\n\n「リーダークライス　作品３９」\nシューマン:作曲\n（バリトン）ディートリヒ・フィッシャー・ディースカウ、（ピアノ）クリストフ・エッシェンバッハ\n（２４分０６秒）\n＜ＤＧ　Ｆ３５Ｇ　５０１３１＞\n\n「チェロ協奏曲　イ短調　作品１２９」\nシューマン:作曲\n（チェロ）ミーシャ・マイスキー、（管弦楽）オルフェウス室内管弦楽団\n（２３分３４秒）\n＜ＤＧ　ＵＣＣＧ－７０５８＞\n",
+        "rate": "",
+        "service": {
+          "id": "n3",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオＦＭ"
+        },
+        "site_id": "933",
+        "start_time": "2020-10-28T07:25:00+09:00",
+        "subtitle": "粕谷紘世",
+        "title": "クラシックカフェ　▽シューベルトのピアノ・ソナタ変ロ長調　他",
+        "url": {
+          "e": "http://p.nhk.jp/c-cafe/",
+          "episode": "https://www4.nhk.or.jp/c-cafe/x/2020-10-28/07/68108/4824629/",
+          "i": "http://p.nhk.jp/c-cafe/",
+          "pc": "https://www4.nhk.or.jp/c-cafe/",
+          "short": "https://nhk.jp/P933",
+          "v": "http://p.nhk.jp/c-cafe/"
+        }
+      },
+      "previous": {
+        "act": "",
+        "area": {
+          "id": "130",
+          "name": "東京"
+        },
+        "ch": {
+          "id": "",
+          "name": "",
+          "station": "首都圏"
+        },
+        "change": [],
+        "codes": {
+          "code": "3301022",
+          "split1": [
+            "3301",
+            "022"
+          ]
+        },
+        "content": "",
+        "date": "2020-10-28",
+        "end_time": "2020-10-28T07:25:00+09:00",
+        "event_id": "67923",
+        "flags": {
+          "databroad": "0",
+          "eizo": "0",
+          "gashitsu": "0",
+          "hybridcastid": "0",
+          "interactive": "0",
+          "kido": "0",
+          "multivoice": "0",
+          "oneseg": "0",
+          "rebroad": "0",
+          "shuwa": "0",
+          "sound": "03",
+          "sozai": "11",
+          "subchannel": "",
+          "teletext": "0"
+        },
+        "free": "　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　",
+        "genre": [
+          "0009",
+          "0000"
+        ],
+        "hashtags": [],
+        "id": "2020102867923",
+        "images": {
+          "logo_l": null,
+          "thumbnail_m": {
+            "height": "360",
+            "url": "https://www.nhk.or.jp/prog/img/1336/g1336.jpg",
+            "width": "640"
+          }
+        },
+        "info": "",
+        "lastupdate": "2020-10-21T00:11:04+09:00",
+        "music": "",
+        "rate": "",
+        "service": {
+          "id": "n3",
+          "images": {
+            "logo_l": {
+              "height": "200",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x200.png",
+              "width": "200"
+            },
+            "logo_m": {
+              "height": "100",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-200x100.png",
+              "width": "200"
+            },
+            "logo_s": {
+              "height": "50",
+              "url": "https://www.nhk.or.jp/common/img/media/fm-100x50.png",
+              "width": "100"
+            }
+          },
+          "name": "ＮＨＫネットラジオＦＭ"
+        },
+        "site_id": "1336",
+        "start_time": "2020-10-28T07:20:00+09:00",
+        "subtitle": "",
+        "title": "ニュース・天気予報",
+        "url": {
+          "e": "http://p.nhk.jp/radionews/",
+          "i": "http://p.nhk.jp/radionews/",
+          "pc": "http://www.nhk.or.jp/radionews/",
+          "short": "https://nhk.jp/P1336",
+          "v": "http://p.nhk.jp/radionews/"
+        }
+      }
+    }
+  }
+}

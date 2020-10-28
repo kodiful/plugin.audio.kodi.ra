@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
-import resources.lib.common as common
-from resources.lib.common import(log,notify)
-from resources.lib.common import(strptime)
+from const import Const
+from common import *
+from xmltodict import parse
 
 import os, sys, glob
 import re
 import urllib, urllib2
-import copy
-import codecs
 import json
 import datetime, time
 import xml.dom.minidom
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import exceptions
 
 from hashlib import md5
 from PIL import Image
@@ -27,10 +22,10 @@ from resources.lib.keywords  import(Keywords)
 def check(id):
     category = id.split('_')[0]
     try:
-        if common.addon.getSetting(category) == '0': return True
-        if common.addon.getSetting(category) == '1': return False
-        if common.addon.getSetting(id) == 'true': return True
-        if common.addon.getSetting(id) == 'false': return False
+        if Const.GET(category) == '0': return True
+        if Const.GET(category) == '1': return False
+        if Const.GET(id) == 'true': return True
+        if Const.GET(id) == 'false': return False
     except:
         pass
     return True
@@ -45,123 +40,100 @@ class Data:
         self.matched_programs = []
         # 放送局データのDOM生成
         self.services = services
-        xmlstr = ''
-        for service in self.services:
-            xmlstr += service.getStationData()
-        dom =  xml.dom.minidom.parseString(('<stations>'+xmlstr.replace('&amp;','&').replace('&','&amp;')+'</stations>').encode('utf-8'))
-        # DOMからデータ抽出
-        stations = dom.getElementsByTagName('station')
-        for station in stations:
-            id = station.getElementsByTagName('id')[0].firstChild.data.encode('utf-8')
-            name = re.sub(r'(^\s+|\s+$)', '', station.getElementsByTagName('name')[0].firstChild.data)
-            s = {'id':id, 'name':name}
-            s['url'] = station.getElementsByTagName('url')[0].firstChild.data
+        data = '\n'.join([service.getStationData() for service in self.services])
+        data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
+        # データ変換
+        dom = convert(parse(data))
+        station = dom['stations']['station']
+        station = station if isinstance(station,list) else [station]
+        # データ抽出
+        for s in station:
+            # ロゴ画像をダウンロード
+            logopath = self.__save_logo(s['id'], s['logo_large'])
+            # 放送局
+            r = {
+                'id': s['id'],
+                'name': s['name'],
+                'logo_large': s.get('logo_large',''),
+                'url': s.get('url',''),
+                'lag': s.get('url',0),
+                'logo_path': logopath,
+                'fanart_artist': logopath,
+            }
+            # リスト、辞書に保存
+            self.stations.append(r)
+            self.stations_id[s['id']] = r
+
+    def __save_logo(self, id, url):
+        logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
+        if not os.path.isfile(logopath):
             try:
-                s['logo_large'] = station.getElementsByTagName('logo_large')[0].firstChild.data
+                if url:
+                    buffer = urlread(url)
+                else:
+                    buffer = urlread(Const.LOGO_URL)
             except:
-                s['logo_large'] = ''
+                buffer = urlread(Const.LOGO_URL)
+            img = Image.open(StringIO(buffer))
+            w = img.size[0]
+            h = img.size[1]
+            if w > 216:
+                h = int(216.0*h/w)
+                w = 216
+                img = img.resize((216, h), Image.ANTIALIAS)
+            background = Image.new('RGB', ( 216, 216 ), (255, 255, 255))
             try:
-                s['url'] = station.getElementsByTagName('url')[0].firstChild.data
+                background.paste(img, (int((216-w)/2), int((216-h)/2)), img)
             except:
-                s['url'] = ''
-            try:
-                s['lag'] = station.getElementsByTagName('lag')[0].firstChild.data
-            except:
-                s['lag'] = 0
-            # ロゴ
-            logopath = os.path.join(common.media_path, 'logo_%s.png' % id)
-            if not os.path.isfile(logopath):
-                try:
-                    buffer = urllib2.urlopen(s['logo_large'].encode('utf-8')).read()
-                except:
-                    buffer = urllib2.urlopen(common.logo_url).read()
-                img = Image.open(StringIO(buffer))
-                w = img.size[0]
-                h = img.size[1]
-                if w > 216:
-                    h = int(216.0*h/w)
-                    w = 216
-                    img = img.resize((216, h), Image.ANTIALIAS)
-                background = Image.new('RGB', ( 216, 216 ), (255, 255, 255))
-                try:
-                    background.paste(img, (int((216-w)/2), int((216-h)/2)), img)
-                except:
-                    background.paste(img, (int((216-w)/2), int((216-h)/2)))
-                background.save(logopath, 'PNG')
-            s['fanart_artist'] = s['logo_path'] = logopath
-            self.stations.append(s)
-            self.stations_id[id] = s
+                background.paste(img, (int((216-w)/2), int((216-h)/2)))
+            background.save(logopath, 'PNG')
+        return logopath
 
     def setPrograms(self, renew=False):
         # 全番組の配列を初期化
         self.programs = []
         # 番組データのDOM生成
-        xmlstr = ''
-        for service in self.services:
-            xmlstr += service.getProgramData(renew)
-        dom =  xml.dom.minidom.parseString(('<stations>'+xmlstr.replace('&amp;','&').replace('&','&amp;')+'</stations>').encode('utf-8'))
-        # DOMからデータ抽出
-        stations = dom.getElementsByTagName('station')
-        for station in stations:
+        data = '\n'.join([service.getProgramData(renew) for service in self.services])
+        data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
+        # データ変換
+        dom = convert(parse(data), True)
+        station = dom['stations']['station']
+        station = station if isinstance(station,list) else [station]
+        # データ抽出
+        for s in station:
             # この放送局の番組の配列を初期化
-            id = station.getAttribute('id').encode('utf-8')
-            try:
-                s = self.stations_id[id]
-            except KeyError:
+            r = self.stations_id.get(s['@id'])
+            if r is None:
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
                 notify('Updating station data...')
                 xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+                return
             # この放送局のDOMからデータを抽出して配列に格納
-            s['programs'] = []
-            programs = station.getElementsByTagName('prog')
-            for program in programs:
-                p = {
-                    'id': id,
-                    'name': s['name'],
-                    'source': s['url'],
-                    'lag': s['lag'],
-                    'title': '',
-                    'ft': '',
-                    'to': '',
-                    'ftl': '',
-                    'tol': '',
-                    'description': '',
-                    'sub_title': '',
-                    'pfm': '',
-                    'desc': '',
-                    'info': '',
-                    'url': '',
-                    'subtitle': '',
-                    'content': '',
-                    'act': '',
-                    'music': '',
-                    'free': ''
-                    }
-                # title,ft,to,ftl,tol
-                try:
-                    p['title'] = program.getElementsByTagName('title')[0].firstChild.data.strip()
-                    for attr in ['ft','to','ftl','tol']:
-                        p[attr] = program.getAttribute(attr)
-                except exceptions.AttributeError:
-                    pass
+            buf = []
+            prog = s['scd']['progs']['prog']
+            prog = prog if isinstance(prog,list) else [prog]
+            for p in prog:
+                q = {
+                    'id': s['@id'],
+                    'name': r['name'],
+                    'source': r['url'],
+                    'lag': r['lag'],
+                    'title': p.get('title',''),
+                }
+                # ft,to,ftl,tol
+                for attr in ('ft','to','ftl','tol'):
+                    q[attr] = p.get('@'+attr,'')
                 # description
                 description = []
-                for attr in ['sub_title','pfm','desc','info','url','subtitle','content','act','music','free']:
-                    try:
-                        content = program.getElementsByTagName(attr)[0].firstChild.data.strip()
-                        content = re.sub(r'\s',' ',content)
-                        content = re.sub(r'\s{2,}',' ',content)
-                        content = re.sub(r'(^\s+|\s+$)','',content)
-                        #content = content.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&')
-                        #content = content.replace('&','&amp;').replace('"','&quot;').replace('>','&gt;').replace('<','&lt;')
-                        p[attr] = content
-                    except (exceptions.IndexError,exceptions.AttributeError):
-                        continue
-                    description.append('&lt;div title=&quot;%s&quot;&gt;%s&lt;/div&gt;' % (attr,content))
-                p['description'] = ''.join(description)
+                for attr in ('sub_title','pfm','desc','info','url','subtitle','content','act','music','free'):
+                    q[attr] = p.get(attr,'')
+                    if q[attr]:
+                        description.append('&lt;div title=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=q[attr]))
+                q['description'] = ''.join(description)
                 # 配列に追加
-                s['programs'].append(p)
-                self.programs.append(p)
+                buf.append(q)
+                self.programs.append(q)
+            r['programs'] = buf
 
     def onChanged(self):
         self.matched_programs = []
@@ -189,12 +161,8 @@ class Data:
                     else:
                         continue
                     # 放送局を照合
-                    if s['ch'] == common.addon.getLocalizedString(30520):
-                        # 放送局を指定しない場合、radikoのNHKは重複するのでスキップ
-                        if p['id'].find('radiko') == 0 and p['name'].find('NHK') == 0:
-                            continue
-                        else:
-                            pass
+                    if s['ch'] == Const.STR(30520):
+                        pass
                     elif s['ch'] == p['name']:
                         pass
                     else:
@@ -202,13 +170,11 @@ class Data:
                     # 保存済み番組名と照合
                     if s['duplicate'] == '1':
                         skip = False
-                        for file in glob.glob(os.path.join(common.download_path, '*.js')):
-                            js_file = os.path.join(common.download_path, file)
-                            mp3_file = os.path.join(common.download_path, file.replace('.js','.mp3'))
-                            if os.path.isfile(mp3_file):
-                                f = codecs.open(js_file,'r','utf-8')
-                                program = json.loads(f.read())['program'][0]
-                                f.close()
+                        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.js')):
+                            js_file = os.path.join(Const.DOWNLOAD_PATH, file)
+                            mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.js','.mp3'))
+                            if os.path.isfile(js_file) and os.path.isfile(mp3_file):
+                                program = read_json(js_file)['program'][0]
                                 if p['name'] == program['bc']:
                                     if s['s'] == '0' and p['title'] == program['title']:
                                         # 番組名が一致する
@@ -224,15 +190,13 @@ class Data:
                     self.matched_programs.append({'program':p, 'start':start, 'key':s['key']})
                     log('start=',start,' name=',p['name'],' title=',p['title'])
                     break
-        # DBに番組情報を送信
-        self.savePrograms()
 
     def onWatched(self):
         now = datetime.datetime.now()
         for m in self.matched_programs:
             # 開始直前であれば保存処理を開始
             wait = m['start'] - now
-            if wait.days == 0 and wait.seconds < common.prep_interval:
+            if wait.days == 0 and wait.seconds < Const.PREP_INTERVAL:
                 p = m['program']
                 status = Downloads().add(
                     id=p['id'],
@@ -261,10 +225,11 @@ class Data:
                     notify('Updating station data...')
                     xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
-                bullet = '\u25b6'
+                #bullet = '\u25b6'
+                bullet = '\xe2\x96\xb6'
                 if len(programs) == 0:
-                    title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,'放送休止')
-                    title0 = '放送休止'
+                    title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,Const.STR(30058))
+                    title0 = Const.STR(30058)
                     comment0 = ''
                 else:
                     for i in range(len(programs)):
@@ -285,15 +250,15 @@ class Data:
                 # コンテクストメニュー
                 contextmenu = []
                 # 番組情報を更新
-                contextmenu.append((common.addon.getLocalizedString(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
+                contextmenu.append((Const.STR(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
                 # 保存、設定
-                if common.addon.getSetting('download') == 'true':
+                if Const.GET('download') == 'true':
                     for i in range(len(programs)):
                         p = programs[i]
                         if p['ft'].isdigit() and p['to'].isdigit():
                             # 保存
-                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
-                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30056),p['title'])
+                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (Const.STR(30056),p['title'])
+                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (Const.STR(30056),p['title'])
                             contextmenu.append((menu,
                                 'RunPlugin({url}?action=addDownload&id={id}&name={name}&start={start}&end={end}&title={title}&description={description}&source={source}&lag={lag})'.format(
                                     url=sys.argv[0],
@@ -308,8 +273,8 @@ class Data:
                                 )
                             ))
                             # キーワード追加
-                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
-                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (common.addon.getLocalizedString(30057),p['title'])
+                            if i==0: menu = '[COLOR khaki]%s%s[/COLOR]' % (Const.STR(30057),p['title'])
+                            if i>0: menu = '[COLOR lightgreen]%s%s[/COLOR]' % (Const.STR(30057),p['title'])
                             contextmenu.append((menu,
                                 'RunPlugin({url}?action=addKeyword&key={key}&day={day}&ch={ch})'.format(
                                     url=sys.argv[0],
@@ -320,13 +285,14 @@ class Data:
                             ))
                 if id.find('misc_') == 0:
                     id1 = int(id.replace('misc_',''))-1
-                    contextmenu.append((common.addon.getLocalizedString(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
-                    contextmenu.append((common.addon.getLocalizedString(30318), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((Const.STR(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((Const.STR(30318), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
                 # アドオン設定
-                contextmenu.append((common.addon.getLocalizedString(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
+                contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
                 # コンテクストメニュー設定
                 li.addContextMenuItems(contextmenu, replaceItems=True)
                 # リストアイテムを追加
+                log(id, s['url'])
                 xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['url'], listitem=li, isFolder=False, totalItems=len(self.stations)+1)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
@@ -356,22 +322,3 @@ class Data:
                 int(nearest[12:14]),
                 0, 0, 0)))
         return (nearest, md5(data).hexdigest())
-
-    def savePrograms(self):
-        url = common.addon.getSetting('db')
-        if url == '': return
-        # 番組情報をDBへ送信
-        programs = []
-        for p in self.programs:
-            if p['id'].find('radiru_') == 0: programs.append(p)
-            if p['id'].find('radiko_') == 0: programs.append(p)
-        data = {}
-        data['programs'] = json.dumps(programs)
-        response = urllib2.urlopen(url, urllib.urlencode(data))
-        status = response.getcode()
-        if status == 200:
-            status1 = response.read()
-            response.close()
-            log('db status: ', status1)
-        else:
-            log('http error: ', status)

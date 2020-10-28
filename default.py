@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import resources.lib.common as common
-from resources.lib.common import(log,notify)
-from resources.lib.common import(Resumes,Birth)
+from resources.lib.const import Const, Resumes, Birth
+from resources.lib.common import *
 
 import sys, os, platform
 import re, glob
@@ -15,17 +14,21 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from hashlib import md5
 
-from resources.lib.radiru    import(Radiru)
-from resources.lib.radiko    import(Radiko,getAuthkey,authenticate)
-from resources.lib.jcba      import(Jcba)
-from resources.lib.misc      import(Misc)
-from resources.lib.data      import(Data)
-from resources.lib.downloads import(Downloads)
-from resources.lib.keywords  import(Keywords)
+from resources.lib.cp.radiko import Radiko, getAuthkey, authenticate
+from resources.lib.cp.radiru import Radiru
+from resources.lib.cp.jcba   import Jcba
+from resources.lib.cp.misc   import Misc
+from resources.lib.data       import Data
+from resources.lib.downloads  import Downloads
+from resources.lib.keywords   import Keywords
 
-__birth_file__   = os.path.join(common.data_path, '_birth')
-__alive_file__   = os.path.join(common.data_path, '_alive')
-__resume_file__  = os.path.join(common.data_path, '_resume')
+# HTTP接続におけるタイムアウト(秒)
+import socket
+socket.setdefaulttimeout(60)
+
+__birth_file__   = os.path.join(Const.DATA_PATH, '_birth')
+__alive_file__   = os.path.join(Const.DATA_PATH, '_alive')
+__resume_file__  = os.path.join(Const.DATA_PATH, '_resume')
 
 
 #-------------------------------------------------------------------------------
@@ -44,7 +47,7 @@ class Monitor(xbmc.Monitor):
         log('screensaver deactivated')
 
 #-------------------------------------------------------------------------------
-def checkSettings(settingsFile=common.usersettings_file):
+def checkSettings(settingsFile=Const.USERSETTINGS_FILE):
     if not os.path.isfile(settingsFile): return ''
     f = codecs.open(settingsFile,'r','utf-8')
     settings = f.read()
@@ -52,12 +55,12 @@ def checkSettings(settingsFile=common.usersettings_file):
     return md5(settings.encode('utf-8','ignore')).hexdigest()
 
 #-------------------------------------------------------------------------------
-def checkKeywords(keywordsFile=common.keywords_file):
+def checkKeywords(keywordsFile=Const.KEYWORDS_FILE):
     if not os.path.isfile(keywordsFile): return 0
     return os.path.getmtime(keywordsFile)
 
 #-------------------------------------------------------------------------------
-def checkDownloads(exitFile=common.exit_file):
+def checkDownloads(exitFile=Const.EXIT_FILE):
     if not os.path.isfile(exitFile): return 0
     # ファイルを削除
     os.remove(exitFile)
@@ -86,7 +89,7 @@ def setAlive(aliveFile=__alive_file__):
 
 #-------------------------------------------------------------------------------
 def getAlive(aliveFile=__alive_file__):
-    if os.path.isfile(aliveFile) and time.time() < os.path.getmtime(aliveFile) + common.dead_interval:
+    if os.path.isfile(aliveFile) and time.time() < os.path.getmtime(aliveFile) + Const.DEAD_INTERVAL:
         return True
     else:
         return False
@@ -109,7 +112,7 @@ def getBirth(birthFile=__birth_file__):
 #-------------------------------------------------------------------------------
 def clearResumes():
     # ファイルをクリア
-    files = glob.glob(os.path.join(common.data_path, '_*'))
+    files = glob.glob(os.path.join(Const.DATA_PATH, '_*'))
     for f in files:
         try:
             if os.path.isfile(f): os.remove(f)
@@ -122,13 +125,13 @@ def resetAll():
     # インストール後に生成されたファイルをすべて削除（保存フォルダを除く）
     try:
         # プロファイルの配下を削除
-        for root, dirs, files in os.walk(common.profile_path, topdown=False):
+        for root, dirs, files in os.walk(Const.PROFILE_PATH, topdown=False):
             for name in files:
                 os.remove(os.path.join(root, name))
         # プロファイルディレクトリを削除
-        os.rmdir(common.profile_path)
+        os.rmdir(Const.PROFILE_PATH)
         # 設定ダイアログを削除
-        os.remove(common.settings_file)
+        os.remove(Const.SETTINGS_FILE)
     except:
         pass
     # 初期化
@@ -137,27 +140,24 @@ def resetAll():
 #-------------------------------------------------------------------------------
 def reset():
     # 設定ダイアログを削除
-    if os.path.isfile(common.settings_file):
-        os.remove(common.settings_file)
+    if os.path.isfile(Const.SETTINGS_FILE):
+        os.remove(Const.SETTINGS_FILE)
     # 初期化
     initialize()
 
 #-------------------------------------------------------------------------------
 def setup(radiru, radiko, jcba, misc):
     # テンプレート読み込み
-    f = codecs.open(common.template_file,'r','utf-8')
-    template = f.read()
-    f.close()
+    with open(Const.TEMPLATE_FILE, 'r') as f:
+        template = f.read()
     # 放送局リスト
-    s = [common.addon.getLocalizedString(30520)]
+    s = [Const.STR(30520)]
     stations = Data((radiru,radiko)).stations
     for station in stations:
         s.append(station['name'])
     # ソース作成
     ffmpeg = '/usr/local/bin/ffmpeg'
     if not os.path.isfile(ffmpeg): ffmpeg = ''
-    rtmpdump = '/usr/local/bin/rtmpdump'
-    if not os.path.isfile(rtmpdump): rtmpdump = ''
     source = template.format(
         radiru = radiru.getSettingsData(),
         radiko = radiko.getSettingsData(),
@@ -165,12 +165,10 @@ def setup(radiru, radiko, jcba, misc):
         misc   = misc.getSettingsData(),
         bc = '|'.join(s),
         ffmegpath = ffmpeg,
-        rtmpdumppath = rtmpdump,
         os = platform.system())
     # ファイル書き込み
-    f = codecs.open(common.settings_file,'w','utf-8')
-    f.write(source)
-    f.close()
+    with open(Const.SETTINGS_FILE, 'w') as f:
+        f.write(source)
     # ログ
     log('settings updated')
 
@@ -245,6 +243,9 @@ def main():
     elif params['action'] == 'editKeyword':
         Keywords().edit(params['id'])
     elif params['action'] == 'editedKeyword':
+        settings = {}
+        for key in ['id','key','s','day','ch','duplicate']:
+            settings[key] = Const.GET(key)
         Keywords().edited(
             id=settings['id'],
             key=settings['key'],
@@ -259,6 +260,10 @@ def main():
     elif params['action'] == 'editStation':
         Misc().edit(params['id'])
     elif params['action'] == 'editedStation':
+        # アドオン設定をコピー
+        settings = {}
+        for key in ['id','name','stream']:
+            settings[key] = Const.GET(key)
         Misc().edited(
             settings['id'],
             settings['name'],
@@ -270,13 +275,21 @@ def main():
 
     # アドオン設定
     elif params['action'] == 'settings':
-        xbmc.executebuiltin('Addon.OpenSettings(%s)' % common.addon.getAddonInfo('id'))
+        Const.SET('id','')
+        Const.SET('key','')
+        Const.SET('s','0')
+        Const.SET('day','0')
+        Const.SET('ch','0')
+        Const.SET('duplicate','0')
+        Const.SET('name','')
+        Const.SET('stream','')
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
 
     # 表示
     elif params['action'] == 'showPrograms':
         start()
     else:
-        if common.addon.getSetting('download') == 'true':
+        if Const.GET('download') == 'true':
             Keywords().show()
         else:
             start()
@@ -286,11 +299,11 @@ def start(background=False):
     global Resumes
     global Birth
     # ディレクトリをチェック
-    if not os.path.isdir(common.cache_path): os.makedirs(common.cache_path)
-    if not os.path.isdir(common.media_path): os.makedirs(common.media_path)
-    if not os.path.isdir(common.data_path):  os.makedirs(common.data_path)
+    if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
+    if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
+    if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
     # 初期化
-    if os.path.isfile(common.settings_file) and getAlive():
+    if os.path.isfile(Const.SETTINGS_FILE) and getAlive():
         data = proceed()
     else:
         data = initialize()
@@ -303,14 +316,14 @@ def start(background=False):
     # 更新
     monitor = Monitor()
     while not monitor.abortRequested():
-        if monitor.waitForAbort(common.check_interval):
+        if monitor.waitForAbort(Const.CHECK_INTERVAL):
             log('break by aborted')
             clearResumes();
             break
         if not getBirth():
             log('break by renewed')
             break
-        # common.check_interval毎に実行
+        # Const.CHECK_INTERVAL毎に実行
         data = watcher(data)
         # Alive設定を更新
         setAlive()
@@ -345,7 +358,7 @@ def initialize():
     Resumes['area'] = auth._response['area_id']
     Resumes['reinfo'] = reinfo
     Resumes['hashinfo'] = hashinfo
-    Resumes['reauth'] = int(time.time()) + common.resume_timer_interval
+    Resumes['reauth'] = int(time.time()) + Const.RESUME_TIMER_INTERVAL
     Resumes['settings'] = checkSettings()
     Resumes['keywords'] = checkKeywords()
     setResumes()
@@ -421,7 +434,7 @@ def watcher(data):
         Resumes['key'] = auth._response['partial_key']
         Resumes['token'] = auth._response['auth_token']
         Resumes['area'] = auth._response['area_id']
-        Resumes['reauth'] = stamp + common.resume_timer_interval
+        Resumes['reauth'] = stamp + Const.RESUME_TIMER_INTERVAL
         # radiko認証の更新に伴う処理
         radiru = Radiru()
         radiko = Radiko(area=Resumes['area'], token=Resumes['token'], renew=True)
@@ -436,13 +449,13 @@ def watcher(data):
         refresh()
 
     # キーワードマッチによるダウンロード
-    if common.addon.getSetting('download') == 'true':
+    if Const.GET('download') == 'true':
         data.onWatched()
 
     # ダウンロードが完了している場合
     if checkDownloads():
         notify('Download completed')
-        if common.addon.getSetting('rss') == 'true': Downloads().createRSS()
+        if Const.GET('rss') == 'true': Downloads().createRSS()
 
     # Resumes設定を書き込み
     setResumes()
@@ -456,7 +469,7 @@ def refresh():
     immediate = False
     if xbmcgui.getCurrentWindowDialogId() == 9999:
         path = xbmc.getInfoLabel('Container.FolderPath')
-        if path == sys.argv[0] and common.addon.getSetting('download') == 'false':
+        if path == sys.argv[0] and Const.GET('download') == 'false':
             immediate = True
         elif path == '%s?action=showPrograms' % sys.argv[0]:
             immediate = True

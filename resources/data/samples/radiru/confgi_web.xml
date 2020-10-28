@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<radiru_config>
+
+	<!-- お知らせ -->
+	<info><![CDATA[/radio/include/oshirase.txt]]></info>
+
+	<!-- 各地域のストリームURL -->
+	<stream_url>
+		<data>
+			<areajp>札幌</areajp>
+			<area>sapporo</area>
+			<apikey>700</apikey>
+			<areakey>010</areakey>
+
+			<r1hls><![CDATA[https://nhkradioikr1-i.akamaihd.net/hls/live/512098/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradioikfm-i.akamaihd.net/hls/live/512100/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>仙台</areajp>
+			<area>sendai</area>
+			<apikey>600</apikey>
+			<areakey>040</areakey>
+
+			<r1hls><![CDATA[https://nhkradiohkr1-i.akamaihd.net/hls/live/512075/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiohkfm-i.akamaihd.net/hls/live/512076/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>東京</areajp>
+			<area>tokyo</area>
+			<apikey>001</apikey>
+			<areakey>130</areakey>
+
+			<r1hls><![CDATA[https://nhkradioakr1-i.akamaihd.net/hls/live/511633/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradioakfm-i.akamaihd.net/hls/live/512290/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>名古屋</areajp>
+			<area>nagoya</area>
+			<apikey>300</apikey>
+			<areakey>230</areakey>
+
+			<r1hls><![CDATA[https://nhkradiockr1-i.akamaihd.net/hls/live/512072/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiockfm-i.akamaihd.net/hls/live/512074/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>大阪</areajp>
+			<area>osaka</area>
+			<apikey>200</apikey>
+			<areakey>270</areakey>
+
+			<r1hls><![CDATA[https://nhkradiobkr1-i.akamaihd.net/hls/live/512291/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiobkfm-i.akamaihd.net/hls/live/512070/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>広島</areajp>
+			<area>hiroshima</area>
+			<apikey>400</apikey>
+			<areakey>340</areakey>
+
+			<r1hls><![CDATA[https://nhkradiofkr1-i.akamaihd.net/hls/live/512086/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiofkfm-i.akamaihd.net/hls/live/512087/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>松山</areajp>
+			<area>matsuyama</area>
+			<apikey>800</apikey>
+			<areakey>380</areakey>
+
+			<r1hls><![CDATA[https://nhkradiozkr1-i.akamaihd.net/hls/live/512103/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiozkfm-i.akamaihd.net/hls/live/512106/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+		<data>
+			<areajp>福岡</areajp>
+			<area>fukuoka</area>
+			<apikey>501</apikey>
+			<areakey>400</areakey>
+
+			<r1hls><![CDATA[https://nhkradiolkr1-i.akamaihd.net/hls/live/512088/1-r1/1-r1-01.m3u8]]></r1hls>
+			<r2hls><![CDATA[https://nhkradioakr2-i.akamaihd.net/hls/live/511929/1-r2/1-r2-01.m3u8]]></r2hls>
+			<fmhls><![CDATA[https://nhkradiolkfm-i.akamaihd.net/hls/live/512097/1-fm/1-fm-01.m3u8]]></fmhls>
+
+		</data>
+	</stream_url>
+
+	<!-- noa api -->
+	<url_program_noa><![CDATA[//api.nhk.or.jp/r2/pg/now/4/{area}/netradio.json]]></url_program_noa>
+
+	<!-- program detail api -->
+	<url_program_day><![CDATA[//api.nhk.or.jp/r2/pg/list/4/{area}/{service}/[YYYY-MM-DD].json]]></url_program_day>
+
+	<!-- program info api -->
+	<url_program_detail><![CDATA[//api.nhk.or.jp/r2/pg/info/4/{area}/{service}/{dateid}.json]]></url_program_detail>
+
+	<!-- tweet cgi @radiru -->
+	<radiru_twitter_timeline><![CDATA[//cgi4.nhk.or.jp/tweet/api/tweet.cgi?twname=nhk_radiru]]></radiru_twitter_timeline>
+
+</radiru_config>

@@ -9,8 +9,9 @@
 
 # cf. http://d.hatena.ne.jp/zariganitosh/20130124/rtmpdump_radiko_access
 
-import resources.lib.common as common
-from common import(log,notify)
+from ..const import Const
+from ..common import *
+from ..xmltodict import parse
 
 import os
 import struct
@@ -18,78 +19,79 @@ import zlib
 import urllib, urllib2
 import xml.dom.minidom
 import threading, time
-import codecs
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
 from math import ceil
 
-__radiko_path__ = os.path.join(common.data_path, 'radiko')
-if not os.path.isdir(__radiko_path__): os.makedirs(__radiko_path__)
-
-__key_file__      = os.path.join(__radiko_path__, 'authkey.dat')
-__player_file__   = os.path.join(__radiko_path__, 'player.swf')
-
-__program_file__  = os.path.join(__radiko_path__, 'program.xml')
-__station_file__  = os.path.join(__radiko_path__, 'station.xml')
-__settings_file__ = os.path.join(__radiko_path__, 'settings.xml')
-
-__auth1_url__     = 'https://radiko.jp/v2/api/auth1_fms'
-__auth2_url__     = 'https://radiko.jp/v2/api/auth2_fms'
-#__player_url__    = 'http://radiko.jp/player/swf/player_3.0.0.01.swf'
-__player_url__    = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
-__station_url__   = 'http://radiko.jp/v2/station/list/'
-__referer_url__   = 'http://radiko.jp/player/timetable.html'
-__program_url__   = 'http://radiko.jp/v2/api/program/now'
-__stream_url__    = 'rtmpe://f-radiko.smartstream.ne.jp'
-
-__lag__           = 3
-
-__object_tag__    = 87
-#__object_id__     = 14
-__object_id__     = 12
+class Params:
+    # ファイルパス
+    DATA_PATH = os.path.join(Const.DATA_PATH, 'radiko')
+    if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
+    # ファイル
+    KEY_FILE      = os.path.join(DATA_PATH, 'authkey.dat')
+    PLAYER_FILE   = os.path.join(DATA_PATH, 'player.swf')
+    # ファイル
+    PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.xml')
+    STATION_FILE  = os.path.join(DATA_PATH, 'station.xml')
+    SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
+    # URL
+    AUTH1_URL     = 'https://radiko.jp/v2/api/auth1_fms'
+    AUTH2_URL     = 'https://radiko.jp/v2/api/auth2_fms'
+    #PLAYER_URL    = 'http://radiko.jp/player/swf/player_3.0.0.01.swf'
+    PLAYER_URL    = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
+    STATION_URL   = 'http://radiko.jp/v2/station/list/'
+    REFERER_URL   = 'http://radiko.jp/player/timetable.html'
+    PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now'
+    STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
+    # 遅延
+    LAG           = 3
+    # その他
+    OBJECT_TAG    = 87
+    #OBJECT_ID     = 14
+    OBJECT_ID     = 12
 
 
 #-------------------------------------------------------------------------------
-class getAuthkey(object):
+class getAuthkey(Params, object):
 
     def __init__(self):
 
         while True:
             try:
-                response = urllib2.urlopen(__player_url__)
+                response = urllib2.urlopen(self.PLAYER_URL)
                 UrlSize = int(response.headers["content-length"])
             except : UrlSize = 0
 
-            if os.path.exists(__player_file__) : PathSize = int(os.path.getsize(__player_file__))
+            if os.path.exists(self.PLAYER_FILE) : PathSize = int(os.path.getsize(self.PLAYER_FILE))
             else : PathSize = 0
 
             if UrlSize > 0 and UrlSize != PathSize:
-                if os.path.exists(__player_file__) : os.remove(__player_file__)
-                if os.path.exists(__key_file__) : os.remove(__key_file__)
-                open(__player_file__, 'wb').write(response.read())
+                if os.path.exists(self.PLAYER_FILE) : os.remove(self.PLAYER_FILE)
+                if os.path.exists(self.KEY_FILE) : os.remove(self.KEY_FILE)
+                open(self.PLAYER_FILE, 'wb').write(response.read())
                 self.keyFileDump()
 
-            elif not os.path.exists(__key_file__) and PathSize > 0 :
+            elif not os.path.exists(self.KEY_FILE) and PathSize > 0 :
                 self.keyFileDump()
 
-            if os.path.exists(__key_file__) : break
+            if os.path.exists(self.KEY_FILE) : break
             else : time.sleep(1)
 
     #-----------------------------------
     def keyFileDump(self):
-        tmpSwf = open(__player_file__, 'rb').read()
+        tmpSwf = open(self.PLAYER_FILE, 'rb').read()
         self.Swf = tmpSwf[:8] + zlib.decompress(tmpSwf[8:]) # 読み込んだswfバッファ
         self.SwfPos = 0 # swf読み込みポインタ
 
         self.parseSwfHead()
-        self.output_file = __key_file__
+        self.output_file = self.KEY_FILE
         while self.swfBlock(): # タブブロックがある限り
             #if __debug__: print (self.Block['tag'], self.Block['block_len'], self.Block['id'])
             log(self.Block['tag'], self.Block['block_len'], self.Block['id'])
 
-            if self.Block['tag'] == __object_tag__ and self.Block['id'] == __object_id__:
-                self.Save(__key_file__)
+            if self.Block['tag'] == self.OBJECT_TAG and self.Block['id'] == self.OBJECT_ID:
+                self.Save(self.KEY_FILE)
                 break
 
     #-----------------------------------
@@ -207,10 +209,10 @@ class authenticate(threading.Thread):
         if _loc_1._response['area_id'] != "" and _loc_1._response['area_id'] > 0:
             self._response['area_id'] = _loc_1._response['area_id']
             self._response['authed' ] = 1
-            #t = threading.Timer(common.resume_timer_interval, self.resumeTimer)
+            #t = threading.Timer(Const.RESUME_TIMER_INTERVAL, self.resumeTimer)
             #t.setDaemon(True)
             #t.start()
-            #time.sleep(common.resume_timer_interval)
+            #time.sleep(Const.RESUME_TIMER_INTERVAL)
             #self.resumeTimer()
         else:
             print 'failed get area_id'
@@ -227,7 +229,7 @@ class authenticate(threading.Thread):
         log("Resume Timer")
 
 #-------------------------------------------------------------------------------
-class appIDAuth(object):
+class appIDAuth(Params, object):
     #def __init__(self):
     #    return True
 
@@ -241,7 +243,7 @@ class appIDAuth(object):
             'X-Radiko-User': 'test-stream',
             'X-Radiko-Device': 'pc'}
 
-        req = urllib2.Request(__auth1_url__, headers=headers, data='\r\n')
+        req = urllib2.Request(self.AUTH1_URL, headers=headers, data='\r\n')
         auth1fms = urllib2.urlopen(req).info()
 
         self._response = {}
@@ -260,7 +262,7 @@ class appIDAuth(object):
             self._response['key_length']))
 
 #-------------------------------------------------------------------------------
-class challengeAuth(object):
+class challengeAuth(Params, object):
     #def __init__(self):
     #    return True
 
@@ -281,7 +283,7 @@ class challengeAuth(object):
             'X-Radiko-Authtoken': self._response['auth_token'],
             'X-Radiko-Partialkey': self._response['partial_key']}
 
-        req = urllib2.Request(__auth2_url__, headers=headers, data='\r\n')
+        req = urllib2.Request(self.AUTH2_URL, headers=headers, data='\r\n')
         auth2fms = urllib2.urlopen(req).read().decode('utf-8')
 
         self._response['area_id'] = auth2fms.split(',')[0].strip()
@@ -299,7 +301,7 @@ class challengeAuth(object):
 
     #-----------------------------------
     def createPartialKey(self):
-        f = open(__key_file__,'rb')
+        f = open(self.KEY_FILE,'rb')
         f.seek(self._response['key_offset'])
         partialkey = b64encode(f.read(self._response['key_length'])).decode('utf-8')
         f.close()
@@ -307,7 +309,7 @@ class challengeAuth(object):
 
 
 #-------------------------------------------------------------------------------
-class Radiko:
+class Radiko(Params):
 
     def __init__(self, area, token, renew=False):
         self.id = 'radiko'
@@ -319,83 +321,78 @@ class Radiko:
 
     def getStationFile(self, renew=False):
         # キャッシュがあれば何もしない
-        if renew == False and os.path.isfile(__station_file__) and os.path.isfile(__settings_file__):
+        if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
         # キャッシュがなければウェブから読み込む
-        url = '%s%s.xml' % (__station_url__ ,self.area)
-        response = urllib.urlopen(url)
-        data = response.read()
-        response.close()
+        url = '%s%s.xml' % (self.STATION_URL ,self.area)
+        data = urlread(url)
         # データ変換
-        dom = xml.dom.minidom.parseString(data)
-        results = []
-        settings = []
-        i = -1
-        stations = dom.getElementsByTagName('station')
-        for station in stations:
-            id = station.getElementsByTagName('id')[0].firstChild.data
-            name = station.getElementsByTagName('name')[0].firstChild.data
-            logo = station.getElementsByTagName('logo_large')[0].firstChild.data
-            url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (__stream_url__,id,self.token)
-            # pack as xml
-            xmlstr = '<station>'
-            xmlstr += '<id>radiko_%s</id>' % (id)
-            xmlstr += '<name>%s</name>' % (name)
-            xmlstr += '<logo_large>%s</logo_large>' % (logo)
-            xmlstr += '<url>%s</url>' % (url)
-            xmlstr += '<lag>%d</lag>' % (__lag__)
-            xmlstr += '</station>'
-            results.append(xmlstr)
-            # pack as xml (for settings)
-            xmlstr = '    <setting label="%s" type="bool" id="radiko_%s" default="true" enable="eq(%d,2)"/>' % (name,id,i)
-            settings.append(xmlstr)
-            i = i-1
+        dom = convert(parse(data))
+        station = dom['stations']['station']
+        station = station if isinstance(station,list) else [station]
+        # 放送局データ
+        buf = []
+        for index, s in enumerate(station):
+            buf.append(
+                '<station>'
+                '<id>radiko_{id}</id>'
+                '<name>{name}</name>'
+                '<logo_large>{logo}</logo_large>'
+                '<url>{url}</url>'
+                '<lag>{lag}</lag>'
+                '</station>'
+                .format(id=s['id'],
+                    name=s['name'],
+                    logo=s['logo_large'],
+                    url='%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
+                    lag=self.LAG))
         # 放送局データを書き込む
-        f = codecs.open(__station_file__,'w','utf-8')
-        f.write('\n'.join(results))
-        f.close()
+        with open(self.STATION_FILE, 'w') as f:
+            f.write('\n'.join(buf))
+        # 設定データ
+        buf = []
+        for index, s in enumerate(station):
+            url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, id, self.token)
+            buf.append(
+                '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'
+                .format(id=s['id'],
+                    name=s['name'],
+                    offset=-1-index))
         # 設定データを書き込む
-        f = codecs.open(__settings_file__,'w','utf-8')
-        f.write('\n'.join(settings))
-        f.close()
+        with open(self.SETTINGS_FILE, 'w') as f:
+            f.write('\n'.join(buf))
 
     def getStationData(self):
-        f = codecs.open(__station_file__,'r','utf-8')
-        data = f.read()
-        f.close()
+        with open(self.STATION_FILE, 'r') as f:
+            data = f.read()
         return data
 
     def getSettingsData(self):
-        f = codecs.open(__settings_file__,'r','utf-8')
-        data = f.read()
-        f.close()
+        with open(self.SETTINGS_FILE, 'r') as f:
+            data = f.read()
         return data
 
     def getProgramFile(self):
         try:
-            url = '%s?area_id=%s'  % (__program_url__,self.area)
-            opener = urllib2.build_opener()
-            opener.addheaders = [('Referer', __referer_url__)]
-            response = opener.open(url)
-            data = response.read()
-            response.close()
+            url = '%s?area_id=%s'  % (self.PROGRAM_URL, self.area)
+            data = urlread(url, ('Referer', self.REFERER_URL))
         except:
             log('failed')
             return
-        f = codecs.open(__program_file__,'w','utf-8')
-        f.write(data.decode('utf-8'))
-        f.close()
+        with open(self.PROGRAM_FILE, 'w') as f:
+            f.write(data)
 
     def getProgramData(self, renew=False):
-        if renew or not os.path.isfile(__program_file__):
+        if renew or not os.path.isfile(self.PROGRAM_FILE):
             self.getProgramFile()
-        xmlstr = open(__program_file__, 'r').read()
-        dom = xml.dom.minidom.parseString(xmlstr)
+        with open(self.PROGRAM_FILE, 'r') as f:
+            data = f.read()
+        dom = xml.dom.minidom.parseString(data)
         results = []
         stations = dom.getElementsByTagName('station')
         for station in stations:
-            id = station.getAttribute('id')
+            id = station.getAttribute('id').encode('utf-8')
             station.setAttribute('id', 'radiko_%s' % id)
-            xmlstr = station.toxml('utf-8').decode('utf-8')
+            xmlstr = station.toxml('utf-8')
             results.append(xmlstr)
         return '\n'.join(results)
