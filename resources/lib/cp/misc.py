@@ -54,7 +54,7 @@ class Misc(Params):
                 .format(id=id, name=ch['name'], logo='', url=ch['stream']))
         # 放送局データを書き込む
         with open(self.STATION_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+            f.write('<stations>%s</stations>' % '\n'.join(buf))
         # 設定データ
         buf = []
         for id, ch in enumerate(self.ch):
@@ -83,7 +83,7 @@ class Misc(Params):
             data = f.read()
         # データ変換
         dom = convert(parse('<stations>%s</stations>' % data))
-        station = dom['stations']['station']
+        station = dom['stations'].get('station',[])
         station = station if isinstance(station,list) else [station]
         # 放送局データ
         buf = []

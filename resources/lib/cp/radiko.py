@@ -328,7 +328,7 @@ class Radiko(Params):
         data = urlread(url)
         # データ変換
         dom = convert(parse(data))
-        station = dom['stations']['station']
+        station = dom['stations'].get('station',[])
         station = station if isinstance(station,list) else [station]
         # 放送局データ
         buf = []

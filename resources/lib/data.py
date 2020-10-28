@@ -44,7 +44,7 @@ class Data:
         data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
         # データ変換
         dom = convert(parse(data))
-        station = dom['stations']['station']
+        station = dom['stations'].get('station',[])
         station = station if isinstance(station,list) else [station]
         # データ抽出
         for s in station:
@@ -97,7 +97,7 @@ class Data:
         data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
         # データ変換
         dom = convert(parse(data), True)
-        station = dom['stations']['station']
+        station = dom['stations'].get('station',[])
         station = station if isinstance(station,list) else [station]
         # データ抽出
         for s in station:

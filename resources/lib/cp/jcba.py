@@ -63,7 +63,7 @@ class Jcba(Params):
             data = f.read()
         # データ変換
         dom = convert(parse('<stations>%s</stations>' % data))
-        station = dom['stations']['station']
+        station = dom['stations'].get('station',[])
         station = station if isinstance(station,list) else [station]
         # 放送局データ
         buf = []

@@ -187,16 +187,16 @@ def main():
     # アドオン設定をコピー
     settings = {}
     for key in ['id','key','s','day','ch','duplicate','name','stream']:
-        settings[key] = common.addon.getSetting(key).decode('utf-8')
+        settings[key] = Const.GET(key).decode('utf-8')
     # アドオン設定をリセット
-    common.addon.setSetting('id','')
-    common.addon.setSetting('key','')
-    common.addon.setSetting('s','0')
-    common.addon.setSetting('day','0')
-    common.addon.setSetting('ch','0')
-    common.addon.setSetting('duplicate','0')
-    common.addon.setSetting('name','')
-    common.addon.setSetting('stream','')
+    Const.SET('id','')
+    Const.SET('key','')
+    Const.SET('s','0')
+    Const.SET('day','0')
+    Const.SET('ch','0')
+    Const.SET('duplicate','0')
+    Const.SET('name','')
+    Const.SET('stream','')
 
     # actionに応じた処理
 
