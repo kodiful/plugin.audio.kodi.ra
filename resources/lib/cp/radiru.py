@@ -146,20 +146,17 @@ class Radiru(Params):
                     break
                 except exceptions.KeyError:
                     continue
-                # xml
-                progs.append(
-                    {
-                        'ft': ft,
-                        'ftl': ftl,
-                        'to': to,
-                        'tol': tol,
-                        'title': r.get('title','n/a'),
-                        'subtitle': r.get('subtitle',''),
-                        'content': r.get('content',''),
-                        'act': r.get('act',''),
-                        'music': r.get('music',''),
-                        'free': r.get('free','')
-                    }
-                )
+                progs.append({
+                    'ft': ft,
+                    'ftl': ftl,
+                    'to': to,
+                    'tol': tol,
+                    'title': r.get('title','n/a'),
+                    'subtitle': r.get('subtitle',''),
+                    'content': r.get('content',''),
+                    'act': r.get('act',''),
+                    'music': r.get('music',''),
+                    'free': r.get('free','')
+                })
             buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
         return buf

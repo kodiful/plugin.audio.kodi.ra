@@ -351,13 +351,12 @@ class Radiko(Params):
             f.write('\n'.join(buf))
         # 設定データ
         buf = []
-        for index, s in enumerate(station):
-            url = '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, id, self.token)
+        for i, s in enumerate(station):
             buf.append(
                 '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'
                 .format(id=s['id'],
                     name=s['name'],
-                    offset=-1-index))
+                    offset=-1-i))
         # 設定データを書き込む
         with open(self.SETTINGS_FILE, 'w') as f:
             f.write('\n'.join(buf))
@@ -399,19 +398,17 @@ class Radiko(Params):
             program = s['scd']['progs']['prog']
             program = program if isinstance(program,list) else [program]
             for p in program:
-                progs.append(
-                    {
-                        'ft': p.get('@ft',''),
-                        'ftl': p.get('@ftl',''),
-                        'to': p.get('@to',''),
-                        'tol': p.get('@tol',''),
-                        'title': p.get('title','n/a'),
-                        'subtitle': p.get('subtitle',''),
-                        'content': p.get('content',''),
-                        'act': p.get('act',''),
-                        'music': p.get('music',''),
-                        'free': p.get('free','')
-                    }
-                )
+                progs.append({
+                    'ft': p.get('@ft',''),
+                    'ftl': p.get('@ftl',''),
+                    'to': p.get('@to',''),
+                    'tol': p.get('@tol',''),
+                    'title': p.get('title','n/a'),
+                    'subtitle': p.get('subtitle',''),
+                    'content': p.get('content',''),
+                    'act': p.get('act',''),
+                    'music': p.get('music',''),
+                    'free': p.get('free','')
+                })
             buf.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
         return buf
