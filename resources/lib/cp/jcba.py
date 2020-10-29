@@ -15,7 +15,6 @@ class Params:
     DATA_PATH = os.path.join(Const.DATA_PATH, 'jcba')
     if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
     # ファイル
-    PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.xml')
     STATION_FILE = os.path.join(DATA_PATH, 'station.xml')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
@@ -69,13 +68,9 @@ class Jcba(Params):
         buf = []
         for s in station:
             buf.append(
-                '<station id="{id}"><scd><progs>'
-                '<prog>'
-                '<title>{onair}</title>'
-                '</prog>'
-                '</progs></scd></station>'
-                .format(id=s['id'], onair=s.get('onair','')))
-        # 放送局データを書き込む
-        with open(self.PROGRAM_FILE, 'w') as f:
-            f.write('<stations>%s</stations>' % '\n'.join(buf))
-        return '\n'.join(buf)
+                {
+                    'id': s['id'],
+                    'progs': [{'onair': s.get('onair','')}]
+                }
+            )
+        return buf

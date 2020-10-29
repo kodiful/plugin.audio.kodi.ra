@@ -101,9 +101,9 @@ class Radiru(Params):
             f.write('\n'.join(buf))
         # 設定データ
         buf = []
-        for s in self.STATION:
+        for i, s in enumerate(self.STATION):
             buf.append('    <setting label="{name}" type="bool" id="radiru_{id}" default="true" enable="eq({offset},2)"/>'
-                .format(id=s['id'], name=s['name'], offset=-1-index))
+                .format(id=s['id'], name=s['name'], offset=-1-i))
         # 設定データを書き込む
         with open(self.SETTINGS_FILE, 'w') as f:
             f.write('\n'.join(buf))
@@ -148,24 +148,18 @@ class Radiru(Params):
                     continue
                 # xml
                 progs.append(
-                    '<prog ft="{ft}" ftl="{ftl}" to="{to}" tol="{tol}">'
-                    '<title>{title}</title>'
-                    '<subtitle>{subtitle}</subtitle>'
-                    '<content>{content}</content>'
-                    '<act>{act}</act>'
-                    '<music>{music}</music>'
-                    '<free>{free}</free>'
-                    '</prog>'
-                    .format(
-                        ft=ft,
-                        ftl=ftl,
-                        to=to,
-                        tol=tol,
-                        title=r.get('title','n/a'),
-                        subtitle=r.get('subtitle',''),
-                        content=r.get('content',''),
-                        act=r.get('act',''),
-                        music=r.get('music',''),
-                        free=r.get('free','')))
-            buf.append('<station id="radiru_%s"><scd><progs>%s</progs></scd></station>' % (s['id'], ''.join(progs)))
-        return '\n'.join(buf)
+                    {
+                        'ft': ft,
+                        'ftl': ftl,
+                        'to': to,
+                        'tol': tol,
+                        'title': r.get('title','n/a'),
+                        'subtitle': r.get('subtitle',''),
+                        'content': r.get('content',''),
+                        'act': r.get('act',''),
+                        'music': r.get('music',''),
+                        'free': r.get('free','')
+                    }
+                )
+            buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
+        return buf

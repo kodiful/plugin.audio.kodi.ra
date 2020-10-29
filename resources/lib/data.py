@@ -35,7 +35,6 @@ class Data:
     def __init__(self, services):
         # インスタンス変数を初期化
         self.stations = []
-        self.stations_id = {}
         self.programs = []
         self.matched_programs = []
         # 放送局データのDOM生成
@@ -62,7 +61,13 @@ class Data:
             }
             # リスト、辞書に保存
             self.stations.append(r)
-            self.stations_id[s['id']] = r
+
+    def __search_station(self, id):
+        results = filter(lambda s: s['id']==id, self.stations)
+        if len(results) == 1:
+            return results[0]
+        else:
+            return None
 
     def __save_logo(self, id, url):
         logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
@@ -93,16 +98,11 @@ class Data:
         # 全番組の配列を初期化
         self.programs = []
         # 番組データのDOM生成
-        data = '\n'.join([service.getProgramData(renew) for service in self.services])
-        data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
-        # データ変換
-        dom = convert(parse(data), True)
-        station = dom['stations'].get('station',[])
-        station = station if isinstance(station,list) else [station]
+        station = reduce(lambda x,y:x+y, [service.getProgramData(renew) for service in self.services])
         # データ抽出
         for s in station:
             # この放送局の番組の配列を初期化
-            r = self.stations_id.get(s['@id'])
+            r = self.__search_station(s['id'])
             if r is None:
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
                 notify('Updating station data...')
@@ -110,11 +110,9 @@ class Data:
                 return
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
-            prog = s['scd']['progs']['prog']
-            prog = prog if isinstance(prog,list) else [prog]
-            for p in prog:
+            for p in s['progs']:
                 q = {
-                    'id': s['@id'],
+                    'id': s['id'],
                     'name': r['name'],
                     'source': r['url'],
                     'lag': r['lag'],

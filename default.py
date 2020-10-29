@@ -187,7 +187,7 @@ def main():
     # アドオン設定をコピー
     settings = {}
     for key in ['id','key','s','day','ch','duplicate','name','stream']:
-        settings[key] = Const.GET(key).decode('utf-8')
+        settings[key] = Const.GET(key)
     # アドオン設定をリセット
     Const.SET('id','')
     Const.SET('key','')

@@ -387,12 +387,31 @@ class Radiko(Params):
             self.getProgramFile()
         with open(self.PROGRAM_FILE, 'r') as f:
             data = f.read()
-        dom = xml.dom.minidom.parseString(data)
-        results = []
-        stations = dom.getElementsByTagName('station')
-        for station in stations:
-            id = station.getAttribute('id').encode('utf-8')
-            station.setAttribute('id', 'radiko_%s' % id)
-            xmlstr = station.toxml('utf-8')
-            results.append(xmlstr)
-        return '\n'.join(results)
+        # データ抽出
+        dom = convert(parse(data))
+        buf = []
+        # 放送局
+        station = dom['radiko']['stations']['station']
+        station = station if isinstance(station,list) else [station]
+        for s in station:
+            progs = []
+            # 放送中のプログラム
+            program = s['scd']['progs']['prog']
+            program = program if isinstance(program,list) else [program]
+            for p in program:
+                progs.append(
+                    {
+                        'ft': p.get('@ft',''),
+                        'ftl': p.get('@ftl',''),
+                        'to': p.get('@to',''),
+                        'tol': p.get('@tol',''),
+                        'title': p.get('title','n/a'),
+                        'subtitle': p.get('subtitle',''),
+                        'content': p.get('content',''),
+                        'act': p.get('act',''),
+                        'music': p.get('music',''),
+                        'free': p.get('free','')
+                    }
+                )
+            buf.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
+        return buf
