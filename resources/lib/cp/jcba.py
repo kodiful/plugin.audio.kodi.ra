@@ -15,7 +15,7 @@ class Params:
     DATA_PATH = os.path.join(Const.DATA_PATH, 'jcba')
     if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
     # ファイル
-    STATION_FILE = os.path.join(DATA_PATH, 'station.xml')
+    STATION_FILE = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
     STATION_URL   = 'http://kodiful.com/KodiRa/downloads/jcba/station.xml'
@@ -35,42 +35,35 @@ class Jcba(Params):
             return
         # 放送局データをウェブから読み込む
         data = urlread(self.STATION_URL)
+        # データ変換
+        dom = convert(parse('<stations>%s</stations>' % data))
+        station = dom['stations'].get('station',[]) if dom['stations'] else []
+        station = station if isinstance(station,list) else [station]
+        # 放送局データ
+        buf = []
+        for s in station:
+            buf.append({
+                'id': s['id'],
+                'name': s['name'],
+                'logo_large': s['logo_large'],
+                'url': s['url'],
+                'onair': s['onair']
+            })
         # 放送局データを書き込む
-        with open(self.STATION_FILE, 'w') as f:
-            f.write(data)
+        write_json(self.STATION_FILE, buf)
         # 設定データをウェブから読み込む
         data = urlread(self.SETTINGS_URL)
         # 設定データを書き込む
-        with open(self.SETTINGS_FILE, 'w') as f:
-            f.write(data)
+        write_file(self.SETTINGS_FILE, data)
 
     def getStationData(self):
-        with open(self.STATION_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_json(self.STATION_FILE)
 
     def getSettingsData(self):
-        with open(self.SETTINGS_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
         return
 
     def getProgramData(self, renew=False):
-        with open(self.STATION_FILE, 'r') as f:
-            data = f.read()
-        # データ変換
-        dom = convert(parse('<stations>%s</stations>' % data))
-        station = dom['stations'].get('station',[])
-        station = station if isinstance(station,list) else [station]
-        # 放送局データ
-        buf = []
-        for s in station:
-            buf.append(
-                {
-                    'id': s['id'],
-                    'progs': [{'onair': s.get('onair','')}]
-                }
-            )
-        return buf
+        return [{'id': s['id'], 'progs': [{'onair': s.get('onair','')}]} for s in self.getStationData()]

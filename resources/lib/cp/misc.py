@@ -17,7 +17,7 @@ class Params:
     DATA_PATH = os.path.join(Const.DATA_PATH, 'misc')
     if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
     # ファイル
-    STATION_FILE = os.path.join(DATA_PATH, 'station.xml')
+    STATION_FILE = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
 
 
@@ -43,17 +43,14 @@ class Misc(Params):
         # 放送局データ
         buf = []
         for id, ch in enumerate(self.ch):
-            buf.append(
-                '<station>'
-                '<id>misc_{id:03d}</id>'
-                '<name>{name}</name>'
-                '<logo_large>{logo}</logo_large>'
-                '<url>{url}</url>'
-                '</station>'
-                .format(id=id, name=ch['name'], logo='', url=ch['stream']))
+            buf.append({
+                'id': 'misc_%03d' % id,
+                'name': ch['name'],
+                'logo_large': '',
+                'url': ch['stream']
+            })
         # 放送局データを書き込む
-        with open(self.STATION_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_json(self.STATION_FILE, buf)
         # 設定データ
         buf = []
         for id, ch in enumerate(self.ch):
@@ -61,39 +58,19 @@ class Misc(Params):
                 '    <setting label="{name}" type="bool" id="misc_{id:03d}" default="true" enable="eq({offset},2)" visible="true"/>'
                 .format(name=ch['name'], id=id, offset=-1-id))
         # 設定データを書き込む
-        with open(self.SETTINGS_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_file(self.SETTINGS_FILE, '\n'.join(buf))
 
     def getStationData(self):
-        with open(self.STATION_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_json(self.STATION_FILE)
 
     def getSettingsData(self):
-        with open(self.SETTINGS_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
         return
 
     def getProgramData(self, renew=False):
-        with open(self.STATION_FILE, 'r') as f:
-            data = f.read()
-        # データ変換
-        dom = convert(parse('<stations>%s</stations>' % data))
-        station = dom['stations'].get('station',[])
-        station = station if isinstance(station,list) else [station]
-        # 放送局データ
-        buf = []
-        for s in station :
-            buf.append(
-                {
-                    'id': s['id'],
-                    'progs': [{'onair': s.get('onair','')}]
-                }
-            )
-        return buf
+        return [{'id': s['id'], 'progs': [{'onair': s.get('onair','')}]} for s in self.getStationData()]
 
     def edit(self, id):
         ch = self.ch[int(id)]

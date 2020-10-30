@@ -18,7 +18,7 @@ class Params:
     if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
     # ファイル
     PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.json')
-    STATION_FILE  = os.path.join(DATA_PATH, 'station.xml')
+    STATION_FILE  = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
     STATION_URL   = 'https://www.nhk.or.jp/radio/config/config_web.xml'
@@ -87,41 +87,36 @@ class Radiru(Params):
         # 放送局データ
         buf = []
         for s in self.STATION:
-            buf.append(
-                '<station>'
-                '<id>radiru_{id}</id>'
-                '<name>{name}</name>'
-                '<logo_large>{logo}</logo_large>'
-                '<url>{url}</url>'
-                '<lag>{lag}</lag>'
-                '</station>'
-                .format(id=s['id'], name=s['name'], logo=s['logo'], url=station[s['hls']], lag=self.LAG))
+            buf.append({
+                'id': 'radiru_%s' % s['id'],
+                'name': s['name'],
+                'logo_large': s['logo'],
+                'url': station[s['hls']],
+                'lag': self.LAG
+            })
         # 放送局データを書き込む
-        with open(self.STATION_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_json(self.STATION_FILE, buf)
         # 設定データ
         buf = []
         for i, s in enumerate(self.STATION):
             buf.append('    <setting label="{name}" type="bool" id="radiru_{id}" default="true" enable="eq({offset},2)"/>'
                 .format(id=s['id'], name=s['name'], offset=-1-i))
         # 設定データを書き込む
-        with open(self.SETTINGS_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_file(self.SETTINGS_FILE, '\n'.join(buf))
 
     def getStationData(self):
-        with open(self.STATION_FILE, 'r') as f:
-            stations = f.read()
-        return stations
+        return read_json(self.STATION_FILE)
 
     def getSettingsData(self):
-        with open(self.SETTINGS_FILE, 'r') as f:
-            settings = f.read()
-        return settings
+        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
-        data = urlread(self.PROGRAM_URL % self.areakey)
-        if data:
+        try:
+            url = self.PROGRAM_URL % self.areakey
+            data = urlread(url)
             write_json(self.PROGRAM_FILE, convert(json.loads(data)))
+        except:
+            log('failed')
 
     def getProgramData(self, renew=False):
         if renew or not os.path.isfile(self.PROGRAM_FILE):

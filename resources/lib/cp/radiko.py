@@ -33,7 +33,7 @@ class Params:
     PLAYER_FILE   = os.path.join(DATA_PATH, 'player.swf')
     # ファイル
     PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.xml')
-    STATION_FILE  = os.path.join(DATA_PATH, 'station.xml')
+    STATION_FILE  = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
     AUTH1_URL     = 'https://radiko.jp/v2/api/auth1_fms'
@@ -328,27 +328,20 @@ class Radiko(Params):
         data = urlread(url)
         # データ変換
         dom = convert(parse(data))
-        station = dom['stations'].get('station',[])
+        station = dom['stations'].get('station',[]) if dom['stations'] else []
         station = station if isinstance(station,list) else [station]
         # 放送局データ
         buf = []
-        for index, s in enumerate(station):
-            buf.append(
-                '<station>'
-                '<id>radiko_{id}</id>'
-                '<name>{name}</name>'
-                '<logo_large>{logo}</logo_large>'
-                '<url>{url}</url>'
-                '<lag>{lag}</lag>'
-                '</station>'
-                .format(id=s['id'],
-                    name=s['name'],
-                    logo=s['logo_large'],
-                    url='%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
-                    lag=self.LAG))
+        for s in station:
+            buf.append({
+                'id': 'radiko_%s' % s['id'],
+                'name': s['name'],
+                'logo_large': s['logo_large'],
+                'url': '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
+                'lag': self.LAG
+            })
         # 放送局データを書き込む
-        with open(self.STATION_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_json(self.STATION_FILE, buf)
         # 設定データ
         buf = []
         for i, s in enumerate(station):
@@ -358,35 +351,27 @@ class Radiko(Params):
                     name=s['name'],
                     offset=-1-i))
         # 設定データを書き込む
-        with open(self.SETTINGS_FILE, 'w') as f:
-            f.write('\n'.join(buf))
+        write_file(self.SETTINGS_FILE, '\n'.join(buf))
 
     def getStationData(self):
-        with open(self.STATION_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_json(self.STATION_FILE)
 
     def getSettingsData(self):
-        with open(self.SETTINGS_FILE, 'r') as f:
-            data = f.read()
-        return data
+        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
         try:
             url = '%s?area_id=%s'  % (self.PROGRAM_URL, self.area)
             data = urlread(url, ('Referer', self.REFERER_URL))
+            write_file(self.PROGRAM_FILE, data)
         except:
             log('failed')
-            return
-        with open(self.PROGRAM_FILE, 'w') as f:
-            f.write(data)
 
     def getProgramData(self, renew=False):
         if renew or not os.path.isfile(self.PROGRAM_FILE):
             self.getProgramFile()
-        with open(self.PROGRAM_FILE, 'r') as f:
-            data = f.read()
         # データ抽出
+        data = read_file(self.PROGRAM_FILE)
         dom = convert(parse(data))
         buf = []
         # 放送局

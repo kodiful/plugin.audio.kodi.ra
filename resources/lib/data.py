@@ -37,14 +37,9 @@ class Data:
         self.stations = []
         self.programs = []
         self.matched_programs = []
-        # 放送局データのDOM生成
+        # 放送局データ生成
         self.services = services
-        data = '\n'.join([service.getStationData() for service in self.services])
-        data = '<stations>%s</stations>' % data.replace('&amp;','&').replace('&','&amp;')
-        # データ変換
-        dom = convert(parse(data))
-        station = dom['stations'].get('station',[])
-        station = station if isinstance(station,list) else [station]
+        station = reduce(lambda x,y:x+y, [service.getStationData() for service in self.services])
         # データ抽出
         for s in station:
             # ロゴ画像をダウンロード
@@ -55,7 +50,7 @@ class Data:
                 'name': s['name'],
                 'logo_large': s.get('logo_large',''),
                 'url': s.get('url',''),
-                'lag': s.get('url',0),
+                'lag': s.get('lag',0),
                 'logo_path': logopath,
                 'fanart_artist': logopath,
             }
@@ -104,9 +99,10 @@ class Data:
             # この放送局の番組の配列を初期化
             r = self.__search_station(s['id'])
             if r is None:
+                log(s['id'])
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
                 notify('Updating station data...')
-                xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+                #xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 return
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
@@ -219,9 +215,10 @@ class Data:
                 try:
                     programs = s['programs']
                 except KeyError:
+                    log(id)
                     # 既存の放送局がない場合はデータキャッシュを削除してリスタート
                     notify('Updating station data...')
-                    xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+                    #xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\xe2\x96\xb6'
                 if len(programs) == 0:

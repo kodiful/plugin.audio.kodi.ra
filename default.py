@@ -48,12 +48,8 @@ class Monitor(xbmc.Monitor):
 
 #-------------------------------------------------------------------------------
 def checkSettings(filepath=Const.USERSETTINGS_FILE):
-    if os.path.isfile(filepath):
-        with open(filepath, 'r') as f:
-            settings = f.read()
-        return md5(settings).hexdigest()
-    else:
-        return ''
+    settings = read_file(filepath)
+    return md5(settings).hexdigest() if settings else ''
 
 #-------------------------------------------------------------------------------
 def checkKeywords(filepath=Const.KEYWORDS_FILE):
@@ -82,8 +78,7 @@ def getResumes(filepath=__resume_file__):
 
 #-------------------------------------------------------------------------------
 def setAlive(filepath=__alive_file__):
-    with open(filepath, 'w') as f:
-        f.write('')
+    write_file(filepath, '')
     return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
@@ -95,8 +90,7 @@ def getAlive(filepath=__alive_file__):
 
 #-------------------------------------------------------------------------------
 def setBirth(filepath=__birth_file__):
-    with open(filepath, 'w') as f:
-        f.write('')
+    write_file(filepath, '')
     return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
@@ -145,8 +139,7 @@ def reset():
 #-------------------------------------------------------------------------------
 def setup(radiru, radiko, jcba, misc):
     # テンプレート読み込み
-    with open(Const.TEMPLATE_FILE, 'r') as f:
-        template = f.read()
+    template = read_file(Const.TEMPLATE_FILE)
     # 放送局リスト
     s = [Const.STR(30520)]
     stations = Data((radiru,radiko)).stations
@@ -164,8 +157,7 @@ def setup(radiru, radiko, jcba, misc):
         ffmegpath = ffmpeg,
         os = platform.system())
     # ファイル書き込み
-    with open(Const.SETTINGS_FILE, 'w') as f:
-        f.write(source)
+    write_file(Const.SETTINGS_FILE, source)
     # ログ
     log('settings updated')
 
