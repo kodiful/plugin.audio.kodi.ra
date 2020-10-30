@@ -23,10 +23,9 @@ def convert(obj, strip=False):
         return convert(obj.encode('utf-8'), strip)
     elif isinstance(obj, str):
         if strip:
-            obj = re.sub(r'　',          ' ', obj) # 全角の空白を半角に置換
-            obj = re.sub(r'[\r\n\t]',    ' ', obj) # 改行を空白に置換
-            obj = re.sub(r'\s{2,}',      ' ', obj) # 二つ以上続く空白は一つに置換
-            obj = re.sub(r'(^\s+|\s+$)', '',  obj) # 先頭と末尾の空白を削除
+            obj = re.sub(r'(?:　|\r\n|\n|\t)', ' ', obj) # 全角スペース、改行、タブを半角スペースに置換
+            obj = re.sub(r'\s{2,}',            ' ', obj) # 二つ以上続く半角スペースは一つに置換
+            obj = re.sub(r'(^\s+|\s+$)',        '', obj) # 先頭と末尾の半角スペースを削除
         return obj
     else:
         return obj

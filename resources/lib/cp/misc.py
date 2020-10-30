@@ -72,7 +72,7 @@ class Misc(Params):
     def getProgramData(self, renew=False):
         return [{'id': s['id'], 'progs': [{'onair': s.get('onair','')}]} for s in self.getStationData()]
 
-    def edit(self, id):
+    def beginEdit(self, id):
         ch = self.ch[int(id)]
         Const.SET('id',str(id))
         Const.SET('name',ch['name'])
@@ -81,7 +81,7 @@ class Misc(Params):
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 
-    def edited(self, id, name, stream):
+    def endEdit(self, id, name, stream):
         if name and stream:
             if id == '':
                 self.ch.append({'name':name, 'stream':stream})

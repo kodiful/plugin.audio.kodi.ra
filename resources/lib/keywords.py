@@ -43,7 +43,7 @@ class Keywords:
             li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
-            contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=editKeyword&id=%d)' % (sys.argv[0],id)))
+            contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],id)))
             contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],id)))
             contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
@@ -64,7 +64,7 @@ class Keywords:
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
-    def edit(self, id):
+    def beginEdit(self, id):
         elem = self.search[int(id)]
         Const.SET('id',str(id))
         Const.SET('key',elem['key'])
@@ -78,7 +78,7 @@ class Keywords:
         xbmc.executebuiltin('SetFocus(105)') # select 6th category
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
-    def edited(self, id, key, s, day, ch, duplicate):
+    def endEdit(self, id, key, s, day, ch, duplicate):
         key = re.sub(r'(^\s+|\s+$)','',key)
         if id=='':
             for elem in self.search:

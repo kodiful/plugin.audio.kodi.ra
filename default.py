@@ -26,9 +26,10 @@ from resources.lib.keywords  import Keywords
 import socket
 socket.setdefaulttimeout(60)
 
-__birth_file__   = os.path.join(Const.DATA_PATH, '_birth')
-__alive_file__   = os.path.join(Const.DATA_PATH, '_alive')
-__resume_file__  = os.path.join(Const.DATA_PATH, '_resume')
+class Params:
+    BIRTH_FILE   = os.path.join(Const.DATA_PATH, '_birth')
+    ALIVE_FILE   = os.path.join(Const.DATA_PATH, '_alive')
+    RESUME_FILE  = os.path.join(Const.DATA_PATH, '_resume')
 
 
 #-------------------------------------------------------------------------------
@@ -67,34 +68,34 @@ def checkDownloads(filepath=Const.EXIT_FILE):
         return 0
 
 #-------------------------------------------------------------------------------
-def setResumes(filepath=__resume_file__):
+def setResumes(filepath=Params.RESUME_FILE):
     global Resumes
     write_json(filepath, Resumes)
 
 #-------------------------------------------------------------------------------
-def getResumes(filepath=__resume_file__):
+def getResumes(filepath=Params.RESUME_FILE):
     global Resumes
     Resumes = read_json(filepath)
 
 #-------------------------------------------------------------------------------
-def setAlive(filepath=__alive_file__):
+def setAlive(filepath=Params.ALIVE_FILE):
     write_file(filepath, '')
     return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
-def getAlive(filepath=__alive_file__):
+def getAlive(filepath=Params.ALIVE_FILE):
     if os.path.isfile(filepath) and time.time() < os.path.getmtime(filepath) + Const.DEAD_INTERVAL:
         return True
     else:
         return False
 
 #-------------------------------------------------------------------------------
-def setBirth(filepath=__birth_file__):
+def setBirth(filepath=Params.BIRTH_FILE):
     write_file(filepath, '')
     return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
-def getBirth(filepath=__birth_file__):
+def getBirth(filepath=Params.BIRTH_FILE):
     global Birth
     if os.path.isfile(filepath) and Birth == os.path.getmtime(filepath):
         return True
@@ -154,7 +155,7 @@ def setup(radiru, radiko, jcba, misc):
         jcba   = jcba.getSettingsData(),
         misc   = misc.getSettingsData(),
         bc = '|'.join(s),
-        ffmegpath = ffmpeg,
+        ffmpeg = ffmpeg,
         os = platform.system())
     # ファイル書き込み
     write_file(Const.SETTINGS_FILE, source)
@@ -241,13 +242,13 @@ def main():
             ch=params['ch'])
     elif params['action'] == 'showKeywords':
         Keywords().show()
-    elif params['action'] == 'editKeyword':
-        Keywords().edit(params['id'])
-    elif params['action'] == 'editedKeyword':
+    elif params['action'] == 'beginEditKeyword':
+        Keywords().beginEdit(params['id'])
+    elif params['action'] == 'endEditKeyword':
         settings = {}
         for key in ['id','key','s','day','ch','duplicate']:
             settings[key] = Const.GET(key)
-        Keywords().edited(
+        Keywords().endEdit(
             id=settings['id'],
             key=settings['key'],
             s=settings['s'],
@@ -258,10 +259,10 @@ def main():
         Keywords().delete(params['id'])
 
     # 放送局の追加、変更、削除
-    elif params['action'] == 'editStation':
-        Misc().edit(params['id'])
-    elif params['action'] == 'editedStation':
-        Misc().edited(
+    elif params['action'] == 'beginEditStation':
+        Misc().beginEdit(params['id'])
+    elif params['action'] == 'endEditStation':
+        Misc().endEdit(
             settings['id'],
             settings['name'],
             settings['stream'])

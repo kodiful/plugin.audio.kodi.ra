@@ -23,8 +23,8 @@
     <setting id="id" type="text" visible="false"/>
     <setting id="name" label="30351" type="text" default=""/>
     <setting id="stream" label="30352" type="text" default=""/>
-    <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-1,)+!eq(-2,)" visible="!eq(-3,)"/>
-    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedStation)" enable="!eq(-2,)+!eq(-3,)" visible="eq(-4,)"/>
+    <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-1,)+!eq(-2,)" visible="!eq(-3,)"/>
+    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-2,)+!eq(-3,)" visible="eq(-4,)"/>
     <setting id="misc" label="30355" type="enum" lvalues="30052|30053|30054" default="0" visible="true"/>
 {misc}
   </category>
@@ -34,7 +34,7 @@
     <setting label="30403" id="download" type="bool" default="false" visible="eq(-2,Darwin)|eq(-2,Windows)"/>
     <setting label="30404" id="bitrate" type="labelenum" default="192k" values="auto|192k|160k|128k|96k|64k" enable="eq(-1,true)" visible="eq(-3,Darwin)|eq(-3,Windows)"/>
     <setting label="30405" id="download_path" type="folder" default="" enable="eq(-2,true)" visible="eq(-4,Darwin)|eq(-4,Windows)"/>
-    <setting label="30407" id="ffmpeg" type="file" default="{ffmegpath}" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
+    <setting label="30407" id="ffmpeg" type="file" default="{ffmeg}" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
     <setting label="30408" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearDownloads)" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
     <!--RSS-->
     <setting label="30409" id="rss" type="bool" default="false" enable="eq(-5,true)+!eq(-4,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
@@ -51,8 +51,8 @@
     <setting label="30503" id="day" type="enum" lvalues="30520|30521|30522|30523|30524|30525|30526|30527" default="0" visible="eq(-5,true)+!eq(-4,)"/>
     <setting label="30504" id="ch" type="labelenum" values="{bc}" default="" visible="eq(-6,true)+!eq(-5,)"/>
     <setting label="30505" id="duplicate" type="enum" lvalues="30513|30514" default="0" visible="eq(-7,true)+!eq(-6,)"/>
-    <setting label="30508" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedKeyword)" enable="!eq(-5,)" visible="!eq(-9,)+eq(-8,true)+!eq(-7,)"/>
-    <setting label="30509" type="action" option="close" action="RunPlugin(plugin://$ID/?action=editedKeyword)" enable="!eq(-6,)" visible="eq(-10,)+eq(-9,true)+!eq(-8,)"/>
+    <setting label="30508" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditKeyword)" enable="!eq(-5,)" visible="!eq(-9,)+eq(-8,true)+!eq(-7,)"/>
+    <setting label="30509" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditKeyword)" enable="!eq(-6,)" visible="eq(-10,)+eq(-9,true)+!eq(-8,)"/>
   </category>
   <category label="30700">
     <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=reset)"/>

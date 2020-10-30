@@ -99,10 +99,9 @@ class Data:
             # この放送局の番組の配列を初期化
             r = self.__search_station(s['id'])
             if r is None:
-                log(s['id'])
                 # 未知の放送局がある場合はデータキャッシュを削除してリスタート
                 notify('Updating station data...')
-                #xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+                xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 return
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
@@ -215,10 +214,9 @@ class Data:
                 try:
                     programs = s['programs']
                 except KeyError:
-                    log(id)
                     # 既存の放送局がない場合はデータキャッシュを削除してリスタート
                     notify('Updating station data...')
-                    #xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+                    xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
                 bullet = '\xe2\x96\xb6'
                 if len(programs) == 0:
@@ -279,7 +277,7 @@ class Data:
                             ))
                 if id.find('misc_') == 0:
                     id1 = int(id.replace('misc_',''))
-                    contextmenu.append((Const.STR(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
+                    contextmenu.append((Const.STR(30319), 'RunPlugin(%s?action=beginEditStation&id=%d)' % (sys.argv[0],id1)))
                     contextmenu.append((Const.STR(30318), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
                 # アドオン設定
                 contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
