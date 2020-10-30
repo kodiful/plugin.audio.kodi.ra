@@ -53,13 +53,13 @@ class Misc(Params):
                 .format(id=id, name=ch['name'], logo='', url=ch['stream']))
         # 放送局データを書き込む
         with open(self.STATION_FILE, 'w') as f:
-            f.write('<stations>%s</stations>' % '\n'.join(buf))
+            f.write('\n'.join(buf))
         # 設定データ
         buf = []
         for id, ch in enumerate(self.ch):
             buf.append(
                 '    <setting label="{name}" type="bool" id="misc_{id:03d}" default="true" enable="eq({offset},2)" visible="true"/>'
-                .format(name=ch['name'], id=id+1, offset=-id))
+                .format(name=ch['name'], id=id, offset=-1-id))
         # 設定データを書き込む
         with open(self.SETTINGS_FILE, 'w') as f:
             f.write('\n'.join(buf))
@@ -94,6 +94,15 @@ class Misc(Params):
                 }
             )
         return buf
+
+    def edit(self, id):
+        ch = self.ch[int(id)]
+        Const.SET('id',str(id))
+        Const.SET('name',ch['name'])
+        Const.SET('stream',ch['stream'])
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
+        xbmc.executebuiltin('SetFocus(103)') # select 4th category
+        xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 
     def edited(self, id, name, stream):
         if name and stream:

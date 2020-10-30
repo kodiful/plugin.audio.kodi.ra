@@ -223,7 +223,6 @@ class Data:
                     notify('Updating station data...')
                     xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
                 title = '[COLOR white]%s[/COLOR]' % (s['name'])
-                #bullet = '\u25b6'
                 bullet = '\xe2\x96\xb6'
                 if len(programs) == 0:
                     title += ' [COLOR khaki]%s %s[/COLOR]' % (bullet,Const.STR(30058))
@@ -282,7 +281,7 @@ class Data:
                                 )
                             ))
                 if id.find('misc_') == 0:
-                    id1 = int(id.replace('misc_',''))-1
+                    id1 = int(id.replace('misc_',''))
                     contextmenu.append((Const.STR(30319), 'RunPlugin(%s?action=editStation&id=%d)' % (sys.argv[0],id1)))
                     contextmenu.append((Const.STR(30318), 'RunPlugin(%s?action=deleteStation&id=%d)' % (sys.argv[0],id1)))
                 # アドオン設定
@@ -290,7 +289,6 @@ class Data:
                 # コンテクストメニュー設定
                 li.addContextMenuItems(contextmenu, replaceItems=True)
                 # リストアイテムを追加
-                log(id, s['url'])
                 xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['url'], listitem=li, isFolder=False, totalItems=len(self.stations)+1)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)

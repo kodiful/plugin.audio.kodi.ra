@@ -18,9 +18,9 @@ from resources.lib.cp.radiko import Radiko, getAuthkey, authenticate
 from resources.lib.cp.radiru import Radiru
 from resources.lib.cp.jcba   import Jcba
 from resources.lib.cp.misc   import Misc
-from resources.lib.data       import Data
-from resources.lib.downloads  import Downloads
-from resources.lib.keywords   import Keywords
+from resources.lib.data      import Data
+from resources.lib.downloads import Downloads
+from resources.lib.keywords  import Keywords
 
 # HTTP接続におけるタイムアウト(秒)
 import socket
@@ -47,64 +47,62 @@ class Monitor(xbmc.Monitor):
         log('screensaver deactivated')
 
 #-------------------------------------------------------------------------------
-def checkSettings(settingsFile=Const.USERSETTINGS_FILE):
-    if not os.path.isfile(settingsFile): return ''
-    f = codecs.open(settingsFile,'r','utf-8')
-    settings = f.read()
-    f.close()
-    return md5(settings.encode('utf-8','ignore')).hexdigest()
+def checkSettings(filepath=Const.USERSETTINGS_FILE):
+    if os.path.isfile(filepath):
+        with open(filepath, 'r') as f:
+            settings = f.read()
+        return md5(settings).hexdigest()
+    else:
+        return ''
 
 #-------------------------------------------------------------------------------
-def checkKeywords(keywordsFile=Const.KEYWORDS_FILE):
-    if not os.path.isfile(keywordsFile): return 0
-    return os.path.getmtime(keywordsFile)
+def checkKeywords(filepath=Const.KEYWORDS_FILE):
+    if os.path.isfile(filepath):
+        return os.path.getmtime(filepath)
+    else:
+        return 0
 
 #-------------------------------------------------------------------------------
-def checkDownloads(exitFile=Const.EXIT_FILE):
-    if not os.path.isfile(exitFile): return 0
-    # ファイルを削除
-    os.remove(exitFile)
-    return 1
+def checkDownloads(filepath=Const.EXIT_FILE):
+    if os.path.isfile(filepath):
+        os.remove(filepath)
+        return 1
+    else:
+        return 0
 
 #-------------------------------------------------------------------------------
-def setResumes(resumeFile=__resume_file__):
+def setResumes(filepath=__resume_file__):
     global Resumes
-    f = codecs.open(resumeFile,'w','utf-8')
-    f.write(json.dumps(Resumes))
-    f.close()
+    write_json(filepath, Resumes)
 
 #-------------------------------------------------------------------------------
-def getResumes(resumeFile=__resume_file__):
+def getResumes(filepath=__resume_file__):
     global Resumes
-    f = codecs.open(resumeFile,'r','utf-8')
-    Resumes = json.loads(f.read())
-    f.close()
+    Resumes = read_json(filepath)
 
 #-------------------------------------------------------------------------------
-def setAlive(aliveFile=__alive_file__):
-    f = codecs.open(aliveFile,'w','utf-8')
-    f.write('')
-    f.close()
-    return os.path.getmtime(aliveFile)
+def setAlive(filepath=__alive_file__):
+    with open(filepath, 'w') as f:
+        f.write('')
+    return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
-def getAlive(aliveFile=__alive_file__):
-    if os.path.isfile(aliveFile) and time.time() < os.path.getmtime(aliveFile) + Const.DEAD_INTERVAL:
+def getAlive(filepath=__alive_file__):
+    if os.path.isfile(filepath) and time.time() < os.path.getmtime(filepath) + Const.DEAD_INTERVAL:
         return True
     else:
         return False
 
 #-------------------------------------------------------------------------------
-def setBirth(birthFile=__birth_file__):
-    f = codecs.open(birthFile,'w','utf-8')
-    f.write('')
-    f.close()
-    return os.path.getmtime(birthFile)
+def setBirth(filepath=__birth_file__):
+    with open(filepath, 'w') as f:
+        f.write('')
+    return os.path.getmtime(filepath)
 
 #-------------------------------------------------------------------------------
-def getBirth(birthFile=__birth_file__):
+def getBirth(filepath=__birth_file__):
     global Birth
-    if os.path.isfile(birthFile) and Birth == os.path.getmtime(birthFile):
+    if os.path.isfile(filepath) and Birth == os.path.getmtime(filepath):
         return True
     else:
         return False
@@ -112,8 +110,7 @@ def getBirth(birthFile=__birth_file__):
 #-------------------------------------------------------------------------------
 def clearResumes():
     # ファイルをクリア
-    files = glob.glob(os.path.join(Const.DATA_PATH, '_*'))
-    for f in files:
+    for f in glob.glob(os.path.join(Const.DATA_PATH, '_*')):
         try:
             if os.path.isfile(f): os.remove(f)
             if os.path.isdir(f): os.rmdir(f)
@@ -156,7 +153,7 @@ def setup(radiru, radiko, jcba, misc):
     for station in stations:
         s.append(station['name'])
     # ソース作成
-    ffmpeg = '/usr/local/bin/ffmpeg'
+    ffmpeg = os.path.join('usr','local','bin','ffmpeg')
     if not os.path.isfile(ffmpeg): ffmpeg = ''
     source = template.format(
         radiru = radiru.getSettingsData(),
@@ -176,14 +173,26 @@ def setup(radiru, radiko, jcba, misc):
 def main():
     global Resumes
     global Birth
+
     # ログ
     log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-    # パラメータ抽出
+    log('argv=', sys.argv)
+
+
+    args = urlparse.parse_qs(sys.argv[2][1:], keep_blank_values=True)
+    for key in args.keys():
+        args[key] = args[key][0]
+    params = {'action':''}
+    params.update(args)
+
+    '''# パラメータ抽出
     parsed = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query, keep_blank_values=True)
     params = {'action':''}
     for key in parsed.keys():
-        value = params[key.decode('utf-8')] = parsed[key][0].decode('utf-8')
-        log('argv:',key,'=',value)
+        value = params[key.decode('utf-8')] = parsed[key][0].decode('utf-8')'''
+
+    log(params)
+
     # アドオン設定をコピー
     settings = {}
     for key in ['id','key','s','day','ch','duplicate','name','stream']:
@@ -260,10 +269,6 @@ def main():
     elif params['action'] == 'editStation':
         Misc().edit(params['id'])
     elif params['action'] == 'editedStation':
-        # アドオン設定をコピー
-        settings = {}
-        for key in ['id','name','stream']:
-            settings[key] = Const.GET(key)
         Misc().edited(
             settings['id'],
             settings['name'],
