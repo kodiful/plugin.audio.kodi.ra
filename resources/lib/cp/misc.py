@@ -42,21 +42,22 @@ class Misc(Params):
             return
         # 放送局データ
         buf = []
-        for id, ch in enumerate(self.ch):
+        for i, ch in enumerate(self.ch):
             buf.append({
-                'id': 'misc_%03d' % id,
+                'id': 'misc_%03d' % i,
                 'name': ch['name'],
                 'logo_large': '',
-                'url': ch['stream']
+                'url': ch['stream'],
+                'onair': ''
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)
         # 設定データ
         buf = []
-        for id, ch in enumerate(self.ch):
+        for i, ch in enumerate(self.ch):
             buf.append(
                 '    <setting label="{name}" type="bool" id="misc_{id:03d}" default="true" enable="eq({offset},2)" visible="true"/>'
-                .format(name=ch['name'], id=id, offset=-1-id))
+                .format(name=ch['name'], id=i, offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
 
@@ -70,38 +71,37 @@ class Misc(Params):
         return
 
     def getProgramData(self, renew=False):
-        return [{'id': s['id'], 'progs': [{'onair': s.get('onair','')}]} for s in self.getStationData()]
+        return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]
 
     def beginEdit(self, id):
-        ch = self.ch[int(id)]
-        Const.SET('id',str(id))
+        ch = filter(lambda x:x['id']==id, self.getStationData())[0]
+        Const.SET('id',id)
         Const.SET('name',ch['name'])
-        Const.SET('stream',ch['stream'])
+        Const.SET('stream',ch['url'])
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 
     def endEdit(self, id, name, stream):
-        if name and stream:
-            if id == '':
-                self.ch.append({'name':name, 'stream':stream})
-            elif int(id) < len(self.ch):
-                self.ch[int(id)]['name'] = name
-                self.ch[int(id)]['stream'] = stream
-            else:
-                return
-            # 追加/編集した設定を書き込む
-            self.write()
-            # 変更を反映する
-            self.getStationFile(renew=True)
-            xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+        if id == '':
+            self.ch.append({'name':name, 'stream':stream})
+        else:
+            ch = filter(lambda x:x['id']==id, self.getStationData())[0]
+            ch = filter(lambda x:x['name']==ch['name'] and x['stream']==ch['stream'], self.ch)[0]
+            ch['name'] = name
+            ch['stream'] = stream
+        # 追加/編集した設定を書き込む
+        self.write()
+        # 変更を反映する
+        self.getStationFile(renew=True)
+        xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
 
     def delete(self, id):
-        if int(id) < len(self.ch):
-            # id番目の要素を削除
-            self.ch.pop(int(id))
-            # 削除した設定を書き込む
-            self.write()
-            # 変更を反映する
-            self.getStationFile(renew=True)
-            xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+        # 指定したidを除いた要素で配列を書き換える
+        ch = filter(lambda x:x['id']==id, self.getStationData())[0]
+        self.ch = filter(lambda x:x['name']!=ch['name'] or x['stream']!=ch['url'], self.ch)
+        # 削除した設定を書き込む
+        self.write()
+        # 変更を反映する
+        self.getStationFile(renew=True)
+        xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))

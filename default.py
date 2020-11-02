@@ -171,19 +171,13 @@ def main():
     log('path=',xbmc.getInfoLabel('Container.FolderPath'))
     log('argv=', sys.argv)
 
-
     args = urlparse.parse_qs(sys.argv[2][1:], keep_blank_values=True)
     for key in args.keys():
         args[key] = args[key][0]
     params = {'action':''}
     params.update(args)
 
-    '''# パラメータ抽出
-    parsed = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query, keep_blank_values=True)
-    params = {'action':''}
-    for key in parsed.keys():
-        value = params[key.decode('utf-8')] = parsed[key][0].decode('utf-8')'''
-
+    # ログ
     log(params)
 
     # アドオン設定をコピー
@@ -237,17 +231,14 @@ def main():
     # キーワードの追加、変更、削除
     elif params['action'] == 'addKeyword':
         Keywords().add(
-            key=params['key'],
-            day=params['day'],
-            ch=params['ch'])
+            key=params['title'],
+            day=str(int(strptime(params['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
+            ch=params['name'])
     elif params['action'] == 'showKeywords':
         Keywords().show()
     elif params['action'] == 'beginEditKeyword':
         Keywords().beginEdit(params['id'])
     elif params['action'] == 'endEditKeyword':
-        settings = {}
-        for key in ['id','key','s','day','ch','duplicate']:
-            settings[key] = Const.GET(key)
         Keywords().endEdit(
             id=settings['id'],
             key=settings['key'],
@@ -348,9 +339,9 @@ def initialize():
     # 番組データを取得
     data.setPrograms(renew=True)
     # 更新を通知
-    data.onChanged()
+    data.matchPrograms()
     # Resumes設定
-    (reinfo, hashinfo) = data.nextAired()
+    (reinfo, hashinfo) = data.getProgramInfo()
     Resumes['key'] = auth._response['partial_key']
     Resumes['token'] = auth._response['auth_token']
     Resumes['area'] = auth._response['area_id']
@@ -377,7 +368,7 @@ def proceed():
     # 番組データ
     data.setPrograms()
     # 更新を通知
-    data.onChanged()
+    data.matchPrograms()
     # Dataオブジェクトを返す
     return data
 
@@ -401,12 +392,12 @@ def watcher(data):
         # 番組データ
         data.setPrograms(renew=True)
         # 更新をチェック
-        (reinfo, hashinfo) = data.nextAired()
+        (reinfo, hashinfo) = data.getProgramInfo()
         if Resumes['hashinfo'] != hashinfo:
             Resumes['reinfo'] = reinfo
             Resumes['hashinfo'] = hashinfo
             # 更新を通知
-            data.onChanged()
+            data.matchPrograms()
             # 画面更新
             refresh()
         else:
@@ -417,7 +408,7 @@ def watcher(data):
         Resumes['settings'] = checkSettings()
         Resumes['keywords'] = checkKeywords()
         # 更新を通知
-        data.onChanged()
+        data.matchPrograms()
         # 画面更新
         refresh()
 
@@ -442,13 +433,13 @@ def watcher(data):
         # 番組データを更新
         data.setPrograms(renew=True)
         # 更新を通知
-        data.onChanged()
+        data.matchPrograms()
         # 画面更新
         refresh()
 
     # キーワードマッチによるダウンロード
     if Const.GET('download') == 'true':
-        data.onWatched()
+        data.downloadMatchedPrograms()
 
     # ダウンロードが完了している場合
     if checkDownloads():

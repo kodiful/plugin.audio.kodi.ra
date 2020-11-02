@@ -66,4 +66,4 @@ class Jcba(Params):
         return
 
     def getProgramData(self, renew=False):
-        return [{'id': s['id'], 'progs': [{'onair': s.get('onair','')}]} for s in self.getStationData()]
+        return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]
