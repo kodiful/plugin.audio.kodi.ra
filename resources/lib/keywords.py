@@ -3,9 +3,11 @@
 from .const import Const
 from .common import *
 
-import os, sys
+import os
+import sys
 import json
 import re
+import glob
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 class Keywords:
@@ -122,7 +124,7 @@ class Keywords:
             # 再表示
             xbmc.executebuiltin("Container.Refresh")
 
-    def matchProgram(self, p):
+    def match(self, p):
         for k in self.keywords:
             # キーワードを照合
             if self.__match_keyword(k, p) == False: continue

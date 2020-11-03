@@ -4,10 +4,11 @@ from const import Const
 from common import *
 from xmltodict import parse
 
-import os, sys, glob
+import os
+import sys
+import glob
 import re
 import urllib, urllib2
-import json
 import datetime, time
 import xml.dom.minidom
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
@@ -19,8 +20,10 @@ from cStringIO import StringIO
 from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords
 
-
 class Params:
+    # ファイル
+    PROGRAM_FILE = os.path.join(Const.DATA_PATH, 'program.json')
+    STATION_FILE = os.path.join(Const.DATA_PATH, 'station.json')
     # タイトル標示のテンプレート
     TITLE_KK = '[COLOR khaki]%s %s[/COLOR]'
     TITLE_LG = '[COLOR lightgreen]%s %s[/COLOR]'
@@ -30,14 +33,14 @@ class Params:
 
 class Data:
 
-    def __init__(self, services):
+    def __init__(self, services=()):
         # インスタンス変数を初期化
         self.services = services
         self.stations = []
         self.programs = []
         self.matched_programs = []
         # データ抽出
-        for data in reduce(lambda x,y:x+y, [service.getStationData() for service in self.services]):
+        for data in reduce(lambda x,y:x+y, [service.getStationData() for service in self.services], []):
             # ロゴ画像をダウンロード
             logopath = self.__save_logo(data['id'], data.get('logo_large'))
             # 放送局
@@ -120,6 +123,10 @@ class Data:
                 self.programs.append(q)
                 buf.append(q)
             s['programs'] = buf
+        # ファイルに書き込む
+        write_json(Params.STATION_FILE, self.stations)
+        # ダイジェストを返す
+        return self.__digest()
 
     def __search_station(self, id):
         results = filter(lambda s: s['id']==id, self.stations)
@@ -146,7 +153,24 @@ class Data:
             pass
         return True
 
+    def __digest(self):
+        # 開始/終了時刻が定義された番組を抽出
+        p = filter(lambda x:x['ft'] and x['to'], self.programs)
+        # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
+        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p))
+        hash = md5(data).hexdigest()
+        # 終了済みの番組は現在時刻を、それ以外は開始時刻を抽出
+        now = next_time()
+        p = map(lambda x:now if x['to']<now else x['ft'], p)
+        # 現在時刻以降の時刻を抽出
+        p = filter(lambda t: t>=now, p)
+        # 直近の時刻を抽出
+        nextaired = min(p) if p else '99999999999999'
+        return nextaired, hash
+
     def showPrograms(self):
+        # ファイルから読み込む
+        self.stations = read_json(Params.STATION_FILE)
         # 放送局表示
         for s in filter(lambda x:self.__showhide(x['id']), self.stations):
             title = '[COLOR white]%s[/COLOR]' % s['name']
@@ -172,7 +196,7 @@ class Data:
                         # 保存
                         if i==0: menu = Params.TITLE_KK % (Const.STR(30056),p['title'])
                         if i>0:  menu = Params.TITLE_LG % (Const.STR(30056),p['title'])
-                        contextmenu.append((menu, 'RunPlugin({url}?action=addDownload&{query}'.format(url=sys.argv[0], query=urllib.urlencode(p))))
+                        contextmenu.append((menu, 'RunPlugin({url}?action=addDownload&{query})'.format(url=sys.argv[0], query=urllib.urlencode(p))))
                         # キーワード追加
                         if i==0: menu = Params.TITLE_KK % (Const.STR(30057),p['title'])
                         if i>0:  menu = Params.TITLE_LG % (Const.STR(30057),p['title'])
@@ -192,57 +216,30 @@ class Data:
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
-    def getProgramInfo(self):
-        # 開始/終了時刻が定義された番組を抽出
-        p = filter(lambda x:x['ft'] and x['to'], self.programs)
-        # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
-        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p))
-        hash = md5(data).hexdigest()
-        # 終了済みの番組は現在時刻を、それ以外は開始時刻を抽出
-        now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-        p = map(lambda x:now if x['to']<now else x['ft'], p)
-        # 現在時刻以降の時刻を抽出
-        p = filter(lambda t: t>=now, p)
-        # 直近の時刻を抽出
-        if len(p) == 0:
-            nextaired = 99999999999999
-        else:
-            m = min(p)
-            nextaired = int(time.mktime((
-                int(m[0:4]),
-                int(m[4:6]),
-                int(m[6:8]),
-                int(m[8:10]),
-                int(m[10:12]),
-                int(m[12:14]),
-                0, 0, 0)))
-        return (nextaired, hash)
-
     def matchPrograms(self):
         self.matched_programs = []
         keywords = Keywords()
         # 開始時間、終了時間が規定されている番組について
         for p in filter(lambda p: p['ft'] and p['to'], self.programs):
             # キーワードと照合
-            k = keywords.matchProgram(p)
-            if k is not None:
+            k = keywords.match(p)
+            if k:
                 # とりあえず追加
-                start = strptime(p['ft'],'%Y%m%d%H%M%S')
                 self.matched_programs.append({
                     'program': p,
-                    'start': start,
-                    'key': k['key']
+                    'keyword': k
                 })
-                log('start=',start,'name=',p['name'],'title=',p['title'])
+                log('program matched.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])
 
-    def downloadMatchedPrograms(self):
+    def addDownload(self):
         now = datetime.datetime.now()
         for m in self.matched_programs:
+            p = m['program']
+            k = m['keyword']
             # 開始直前であれば保存処理を開始
-            wait = m['start'] - now
+            start = strptime(p['ft'], '%Y%m%d%H%M%S')
+            wait = start - now
             if wait.days == 0 and wait.seconds < Const.PREP_INTERVAL:
-                p = m['program']
-                start = strptime(p['ft'],'%Y%m%d%H%M%S')
                 Downloads().add(
                     id=p['id'],
                     name=p['name'],
@@ -252,5 +249,5 @@ class Data:
                     description=p['description'],
                     source=p['source'],
                     lag=p['lag'],
-                    key=m['key'])
-                log('start=',start,'name=',p['name'],'title=',p['title'])
+                    key=k['key'])
+                log('download enqueued.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])

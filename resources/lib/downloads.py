@@ -1,79 +1,81 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from .const import Const
 from .common import *
+from .rss import RSS
 
 import datetime, time
-import os, platform, subprocess, commands
-import sys, glob, shutil
-import codecs
+import os
+import subprocess
+import sys
+import glob
+import shutil
 import json
 import re
-import urllib2
+import threading
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
-from datetime import (datetime,timedelta)
+
+class Params:
+    # ログファイル
+    LOG_FILE = os.path.join(Const.DOWNLOAD_PATH, 'download.log')
+
+
+class Logger():
+
+    def __init__(self, logfile=None):
+        self.handle = open(logfile, 'a')
+
+    def write(self, message=''):
+        now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.handle.write('%s\t%s\n' % (now, message))
+        self.handle.flush()
+
+    def flush(self):
+        self.handle.flush()
+
 
 class Downloads:
 
     def __init__(self):
-        self.os = platform.system()
-        self.rtmpdump = Const.GET('rtmpdump')
-        self.ffmpeg = Const.GET('ffmpeg')
-        # templates
-        f = codecs.open(os.path.join(Const.TEMPLATE_PATH,'template.json'),'r','utf-8')
-        self.template = f.read()
-        f.close()
+        return
 
-    def add(self, id, name, start, end, title, description, source, lag, key=''):
-        # OS判定
-        if self.os == 'Windows':
-            log1_file = 'NUL'
-            log2_file = 'NUL'
-        elif self.os == 'Darwin':
-            log1_file = '/dev/null'
-            log2_file = '/dev/null'
-        else:
-            return 'Download failed (Unsupported OS)'
+    def add(self, id, name, ft, to, title, description, source, lag, key=''):
         # 番組ID
-        gtvid = '%s_%s' % (id,start);
+        gtvid = '%s_%s' % (id, ft);
         # ファイルパス
-        js_file  = os.path.join(Const.DOWNLOAD_PATH, gtvid+'.js')
-        mp3_file = os.path.join(Const.DOWNLOAD_PATH, gtvid+'.mp3')
-        # 番組情報の有無をチェック
-        if os.path.isfile(js_file):
-            return 'Download failed (Saved data exists)'
+        json_file  = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
+        mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
+        tmp_file = os.path.join(Const.DOWNLOAD_PATH, '.%s.mp3' % gtvid)
+        # 既存の番組情報ファイルの有無をチェック
+        if os.path.isfile(json_file): return 'JSON file exists'
         # 現在時刻
-        now1 = datetime.now()
+        now = datetime.datetime.now()
         # 開始時間
-        start1 = strptime(start, '%Y%m%d%H%M%S')
-        startdate = start1.strftime('%Y-%m-%d %H:%M:%S')
+        start = strptime(ft, '%Y%m%d%H%M%S')
+        startdate = start.strftime('%Y-%m-%d %H:%M:%S')
         # 終了時間
-        end1 = strptime(end, '%Y%m%d%H%M%S')
+        end = strptime(to, '%Y%m%d%H%M%S')
         # ラグ調整
-        lag = timedelta(seconds=int(lag))
-        start1 = start1 + lag
-        end1 = end1 + lag
-        # 放送時間
-        duration1 = end1 - start1
+        lag = datetime.timedelta(seconds=int(lag))
+        start = start + lag
+        end = end + lag
         # 録音開始の設定
-        if start1 > now1:
+        if start > now:
             # まだ始まっていない場合は開始を待つ
-            wait = start1 - now1
+            wait = start - now
             wait = wait.seconds
         else:
             # すでに始まっている場合
-            if end1 > now1:
+            if end > now:
                 # まだ終わっていない場合はすぐ開始する
-                start1 = now1
+                start = now
                 wait = 0
             else:
                 # すでに終わっている場合はこのまま終了する
-                return 'Download failed (Program is over)'
+                return 'Program is over'
         # 録音時間
-        duration = end1 - start1
+        duration = end - start
         if duration.seconds > 0:
             if wait == 0:
                 # すぐ開始する場合
@@ -87,7 +89,7 @@ class Downloads:
                     wait = 0
         else:
             # durationが異常値
-            return 'Download failed (Invalid start and/or end)'
+            return 'Invalid duration'
         # ビットレート
         bitrate = Const.GET('bitrate')
         if bitrate == 'auto':
@@ -113,127 +115,123 @@ class Downloads:
         match = re.match(r'(?:rtmp|rtmps|rtmpe|rtmpt)://[^ ]+', source)
         if match:
             source = match.group()
+        # 番組情報
+        data = {
+            'gtvid': gtvid,
+            'id': id,
+            'name': name,
+            'ft': ft,
+            'to': to,
+            'title': title,
+            'description': description,
+            'source': source,
+            'key': '',
+            'duration': duration
+        }
         # 番組情報を保存
-        js_data = self.template.format(
-            gtvid=gtvid,
-            startdate=startdate,
-            duration=duration1.seconds,
-            ch=id,
-            title=title.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
-            description=description.replace('&lt;','<').replace('&gt;','>').replace('&quot;','"').replace('&amp;','&').replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;'),
-            bc=name,
-            key=key)
-        f = codecs.open(js_file, 'w', 'utf-8')
-        f.write(js_data)
-        f.close()
+        write_json(json_file, data)
+        # 別スレッドでダウンロードを実行
+        data = {
+            'ffmpeg': Const.GET('ffmpeg'),
+            'wait': wait,
+            'start': start,
+            'duration': duration,
+            'rtmp_conn': rtmp_conn,
+            'source': source,
+            'bitrate': bitrate,
+            'title': title,
+            'artist': name,
+            'copyright': name,
+            'publisher': name,
+            'date': start.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'tit1': key,
+            'tit3': description,
+            'mp3_file': mp3_file,
+            'tmp_file': tmp_file
+        }
+        threading.Thread(target=self.__thread, args=[data]).start()
+
+    def __thread(self, data):
         # コマンドライン
-        rtmpdump = '"{ffmpeg}" -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} -metadata title="{title}" -metadata artist="{artist}" -metadata copyright="{copyright}" -metadata publisher="{publisher}" -metadata date="{date}" -metadata TIT1="{tit1}" -metadata TIT3="{tit3}" "{mp3}" 2> "{log2}"'.format(
-            ffmpeg=self.ffmpeg,
-            duration=duration,
-            rtmp_conn=rtmp_conn,
-            source=source,
-            bitrate=bitrate,
-            title=title,
-            artist=name,
-            copyright=name,
-            publisher=name,
-            date=start1.strftime('%Y-%m-%dT%H:%M:%SZ'),
-            tit1=key,
-            tit3=description,
-            mp3=mp3_file,
-            log2=log2_file)
-        # スクリプト作成
-        if self.os == 'Darwin':
-            sh_file  = os.path.join(Const.DOWNLOAD_PATH, gtvid+'.sh')
-            # sh
-            command = []
-            command.append('cd "%s"' % (Const.DOWNLOAD_PATH))
-            command.append('echo $$ > %s.pid' % (gtvid))
-            command.append('sleep %d' % (wait))
-            command.append(rtmpdump)
-            command.append('rm -f %s.pid' % (gtvid))
-            #command.append('echo $$ > exit')
-            command.append('echo $$ > "%s"' % (Const.EXIT_FILE))
-            f = codecs.open(sh_file, 'w', 'utf-8')
-            f.write('\n'.join(command))
-            f.close()
-            # スクリプト実行
-            proc = subprocess.Popen('sh "%s"' % (sh_file), shell=True)
-        elif self.os == 'Windows':
-            bat_file  = os.path.join(Const.DOWNLOAD_PATH, gtvid+'.bat')
-            # bat
-            command = []
-            command.append('CD "%s"' % (Const.DOWNLOAD_PATH))
-            command.append('ECHO > %s.pid' % (gtvid))
-            command.append('TIMEOUT /T %d /NOBREAK > NUL' % (wait))
-            command.append(rtmpdump)
-            command.append('DEL %s.pid' % (gtvid))
-            #command.append('ECHO > exit')
-            command.append('ECHO > "%s"' % (Const.EXIT_FILE))
-            f = codecs.open(bat_file, 'w', 'shift_jis', 'ignore')
-            f.write('\r\n'.join(command))
-            f.close()
-            # スクリプト実行
-            proc = subprocess.Popen(bat_file, shell=True)
+        command = ('{ffmpeg} -y -v warning -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} '
+            + '-metadata title="{title}" '
+            + '-metadata artist="{artist}" '
+            + '-metadata copyright="{copyright}" '
+            + '-metadata publisher="{publisher}" '
+            + '-metadata date="{date}" '
+            + '-metadata TIT1="{tit1}" '
+            + '-metadata TIT3="{tit3}" '
+            + '"{tmp_file}"').format(
+                ffmpeg=data['ffmpeg'],
+                duration=data['duration'],
+                rtmp_conn=data['rtmp_conn'],
+                source=data['source'],
+                bitrate=data['bitrate'],
+                title=data['title'],
+                artist=data['artist'],
+                copyright=data['copyright'],
+                publisher=data['publisher'],
+                date=data['start'].strftime('%Y-%m-%dT%H:%M:%SZ'),
+                tit1=data['tit1'],
+                tit3=data['tit3'],
+                tmp_file=data['tmp_file'])
+        # 開始待機
+        if data['wait'] > 0: time.sleep(data['wait'])
+        # 開始通知
+        notify('Download started')
         # ログ
-        log('%s %s' % (gtvid,title))
+        logger = Logger(Params.LOG_FILE)
+        logger.write('downloading \'%s\' as \'%s\' ...' % (data['title'], data['mp3_file']))
+        # ダウンロード開始
+        p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
+        # ダウンロード終了を待つ
+        p.wait()
+        # ダウンロード結果に応じて後処理
+        if p.returncode:
+            # 失敗したときはjsonファイル、一時ファイルを削除
+            os.remove(data['json_file'])
+            os.remove(data['tmp_file'])
+        else:
+            # 一時ファイルをリネーム
+            os.rename(data['tmp_file'], data['mp3_file'])
+            # rssファイル生成
+            RSS().create()
+        # ダウンロード終了
+        logger.write('done (returncode=%d).' % p.returncode)
+        # 完了通知
+        if p.returncode:
+            notify('Download failed (returncode=%d)' % p.returncode, error=True)
+        else:
+            notify('Downloaded successfully')
 
     def deleteall(self):
-        # 実行中のプロセスを停止
-        status = True
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.pid')):
-            gtvid = file.replace(Const.DOWNLOAD_PATH,'').replace('.pid','')
-            status = status and self.kill(gtvid)
-        if status == False:
-            notify('Download failed (Now recording)', error=True)
-            return
         # ファイル削除
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.*')):
             if os.path.isfile(file): os.remove(file)
         # rssファイル生成
-        self.createRSS()
+        RSS().create()
         # 再表示
         xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
 
     def delete(self, gtvid):
-        # 実行中のプロセスを停止
-        if self.kill(gtvid) == False:
-            notify('Download failed (Now recording)', error=True)
-            return
         # ファイル削除
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '%s.*' % (gtvid))):
             if os.path.isfile(file): os.remove(file)
         # rssファイル生成
-        self.createRSS()
+        RSS().create()
         # 再表示
-        xbmc.executebuiltin("Container.Refresh")
-
-    def kill(self, gtvid):
-        pid_file = os.path.join(Const.DOWNLOAD_PATH, '%s.pid' % (gtvid))
-        if os.path.isfile(pid_file):
-            if self.os == 'Darwin':
-                # 親プロセスのpidを取得する
-                f = codecs.open(pid_file, 'r', 'utf-8')
-                ppid = int(f.read())
-                f.close()
-                # pidの子プロセスを抽出
-                cpid = commands.getoutput('ps -A -o ppid,pid | awk "\$1==%d{print \$2}"' % (ppid)).replace('\n',' ')
-                os.system('kill %s %d' % (cpid,ppid))
-                return True
-            else:
-                return False
-        else:
-            return True
+        xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
 
     def show(self, key=''):
         plist = []
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.js')):
-            js_file = os.path.join(Const.DOWNLOAD_PATH, file)
+        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
+            json_file = os.path.join(Const.DOWNLOAD_PATH, file)
             mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.js','.mp3'))
             if os.path.isfile(mp3_file):
-                f = codecs.open(js_file,'r','utf-8')
-                plist.append(json.loads(f.read())['program'][0])
-                f.close()
+                p = read_json(json_file)['program'][0]
+                plist.append(p)
+            else:
+                log('lost file=', mp3_file)
         # 時間の逆順にソート
         plist = sorted(plist, key=lambda item: item['startdate'])
         plist.reverse()
@@ -267,75 +265,3 @@ class Downloads:
                 mp3_file = os.path.join(Const.DOWNLOAD_PATH, p['gtvid'] + '.mp3')
                 xbmcplugin.addDirectoryItem(int(sys.argv[1]), mp3_file, li, isFolder=False)
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
-
-    def createRSS(self):
-        if Const.GET('rss') == 'false': return
-        # templates
-        f = codecs.open(os.path.join(Const.TEMPLATE_PATH,'rss-header.xml'),'r','utf-8')
-        header = f.read()
-        f.close()
-        f = codecs.open(os.path.join(Const.TEMPLATE_PATH,'rss-body.xml'),'r','utf-8')
-        body = f.read()
-        f.close()
-        f = codecs.open(os.path.join(Const.TEMPLATE_PATH,'rss-footer.xml'),'r','utf-8')
-        footer = f.read()
-        f.close()
-        # open rss
-        rss = codecs.open(Const.RSS_FILE,'w','utf-8')
-        # header
-        rss.write(
-            header.format(
-                image=Const.RSS_URL+'icon.png'))
-        # body
-        plist = []
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.js')):
-            js_file = os.path.join(Const.DOWNLOAD_PATH, file)
-            mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.js','.mp3'))
-            pid_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.js','.pid'))
-            if not os.path.isfile(pid_file) and os.path.isfile(mp3_file):
-                f = codecs.open(os.path.join(Const.DOWNLOAD_PATH,file),'r','utf-8')
-                plist.append(json.loads(f.read())['program'][0])
-                f.close()
-        # sort by startdate in reverse order
-        plist = sorted(plist, key=lambda item: item['startdate'])
-        plist.reverse()
-        # build
-        for p in plist:
-            # gtvid
-            gtvid = p['gtvid']
-            # url
-            url = Const.RSS_URL + gtvid + '.mp3'
-            # file
-            mp3_file = os.path.join(Const.DOWNLOAD_PATH, gtvid + '.mp3')
-            # startdate
-            startdate = strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0900')
-            # duration
-            duration = int(p['duration'])
-            duration = '%02d:%02d:%02d' % (int(duration/3600),int(duration/60)%60,duration%60)
-            # filesize
-            if os.path.isfile(mp3_file):
-                filesize = os.path.getsize(mp3_file)
-            else:
-                filesize = 0
-            rss.write(
-                body.format(
-                    title=p['title'],
-                    gtvid=gtvid,
-                    url=url,
-                    startdate=startdate,
-                    bc=p['bc'],
-                    duration=duration,
-                    filesize=filesize,
-                    description=p['description']))
-        # footer
-        rss.write(footer)
-        # close rss
-        rss.close()
-        # copy image if necessary
-        dest = os.path.join(Const.DOWNLOAD_PATH, 'icon.png')
-        if not os.path.isfile(dest):
-            shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), dest)
-        # copy script if necessary
-        dest = os.path.join(Const.DOWNLOAD_PATH, 'rss.php')
-        if not os.path.isfile(dest):
-            shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), dest)

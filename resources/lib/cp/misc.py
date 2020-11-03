@@ -86,8 +86,8 @@ class Misc(Params):
         if id == '':
             self.ch.append({'name':name, 'stream':stream})
         else:
-            ch = filter(lambda x:x['id']==id, self.getStationData())[0]
-            ch = filter(lambda x:x['name']==ch['name'] and x['stream']==ch['stream'], self.ch)[0]
+            data = filter(lambda x:x['id']==id, self.getStationData())[0]
+            ch = filter(lambda x:x['name']==data['name'] and x['stream']==data['url'], self.ch)[0]
             ch['name'] = name
             ch['stream'] = stream
         # 追加/編集した設定を書き込む

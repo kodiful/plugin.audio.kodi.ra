@@ -92,6 +92,8 @@ def log(*messages, **options):
     addon = xbmcaddon.Addon()
     if options.get('error', False):
         level = xbmc.LOGERROR
+    elif options.get('notice', False):
+        level = xbmc.LOGNOTICE
     elif addon.getSetting('debug') == 'true':
         level = xbmc.LOGNOTICE
     else:
@@ -108,6 +110,11 @@ def log(*messages, **options):
                 m.append(json.dumps(message, sort_keys=True, ensure_ascii=False, indent=4))
         frame = inspect.currentframe(1)
         xbmc.log(str('%s: %s(%d): %s: %s') % (addon.getAddonInfo('id'), os.path.basename(frame.f_code.co_filename), frame.f_lineno, frame.f_code.co_name, str(' ').join(m)), level)
+
+def next_time(seconds=0):
+    now = datetime.datetime.now()
+    nexttime = now + datetime.timedelta(seconds)
+    return nexttime.strftime('%Y%m%d%H%M%S')
 
 def strptime(t, format):
     #startdate = datetime.datetime.strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0000')
