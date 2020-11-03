@@ -243,8 +243,8 @@ class Programs:
                 Downloads().add(
                     id=p['id'],
                     name=p['name'],
-                    start=p['ft'],
-                    end=p['to'],
+                    ft=p['ft'],
+                    to=p['to'],
                     title=p['title'],
                     description=p['description'],
                     source=p['source'],
