@@ -2,6 +2,7 @@
 
 from .const import Const
 from .common import *
+from .holiday import Holiday
 from .rss import RSS
 
 import datetime, time
@@ -40,7 +41,7 @@ class Downloads:
     def __init__(self):
         return
 
-    def add(self, id, name, ft, to, title, description, source, lag, key=''):
+    def add(self, id, name, ft, to, title, description, source, delay, key=''):
         # 番組ID
         gtvid = '%s_%s' % (id, ft);
         # ファイルパス
@@ -57,9 +58,9 @@ class Downloads:
         # 終了時間
         end = strptime(to, '%Y%m%d%H%M%S')
         # ラグ調整
-        lag = datetime.timedelta(seconds=int(lag))
-        start = start + lag
-        end = end + lag
+        delay = datetime.timedelta(seconds=int(delay))
+        start = start + delay
+        end = end + delay
         # 録音開始の設定
         if start > now:
             # まだ始まっていない場合は開始を待つ
@@ -181,7 +182,7 @@ class Downloads:
         notify('Download started')
         # ログ
         logger = Logger(Params.LOG_FILE)
-        logger.write('downloading \'%s\' as \'%s\' ...' % (data['title'], data['mp3_file']))
+        logger.write('downloading \'%s\' to \'%s\' ...' % (data['title'], data['mp3_file']))
         # ダウンロード開始
         p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
         # ダウンロード終了を待つ
@@ -226,24 +227,22 @@ class Downloads:
         plist = []
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
             json_file = os.path.join(Const.DOWNLOAD_PATH, file)
-            mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.js','.mp3'))
+            mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.json','.mp3'))
             if os.path.isfile(mp3_file):
-                p = read_json(json_file)['program'][0]
-                plist.append(p)
+                plist.append(read_json(json_file))
             else:
                 log('lost file=', mp3_file)
-        # 時間の逆順にソート
-        plist = sorted(plist, key=lambda item: item['startdate'])
-        plist.reverse()
-        # 表示
-        for p in plist:
+        # 日付フォーマット
+        h = Holiday()
+        # 時間の逆順にソートして表示
+        for p in sorted(plist, key=lambda item: item['ft'], reverse=True):
             try:
                 p['key']
             except:
                 p['key'] = ''
             if key == '' or key==p['key']:
                 # title
-                title = '[COLOR white]%s[/COLOR] [COLOR khaki]%s[/COLOR] [COLOR lightgreen](%s)[/COLOR]' % (p['startdate'],p['title'],p['bc'])
+                title = '%s [COLOR khaki]%s[/COLOR] [COLOR lightgreen](%s)[/COLOR]' % (h.format(p['ft']),p['title'], p['name'])
                 # logo
                 id = p['gtvid'].split('_')
                 logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s_%s.png' % (id[0],id[1]))
@@ -256,7 +255,7 @@ class Downloads:
                 comment = re.sub(r'\n{2,}', '\n', comment)
                 comment = re.sub(r'^\n+', '', comment)
                 comment = re.sub(r'\n+$', '', comment)
-                li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':comment})
+                li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['name'],'comment':comment})
                 li.setProperty('IsPlayable', 'true')
                 # context menu
                 li.addContextMenuItems([(Const.STR(30314), 'RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)

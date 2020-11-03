@@ -3,12 +3,13 @@
 from resources.lib.const import Const
 from resources.lib.common import *
 
-import sys, os, platform
+import sys
+import os
 import urlparse
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from resources.lib.cp.misc   import Misc
-from resources.lib.data      import Data
+from resources.lib.programs  import Programs
 from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords
 from resources.lib.rss       import RSS
@@ -80,7 +81,7 @@ if __name__  == '__main__':
             title=params['title'],
             description=params['description'],
             source=params['source'],
-            lag=params['lag'])
+            delay=params['delay'])
         if status:
             notify(status, error=True)
         else:
@@ -144,9 +145,9 @@ if __name__  == '__main__':
 
     # 表示
     elif params['action'] == 'showPrograms':
-        Data().showPrograms()
+        Programs().show()
     else:
         if Const.GET('download') == 'true':
             Keywords().show()
         else:
-            Data().showPrograms()
+            Programs().show()

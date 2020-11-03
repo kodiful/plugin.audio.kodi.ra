@@ -93,4 +93,7 @@
   <string id="30703">Debug</string>
   <string id="30704">DB</string>
 
+  <string id="30919">%m/%d(%%s)</string>
+  <string id="30920">Mon,Tue,Wed,Thu,Fri,Sat,Sun</string>
+
 </strings>

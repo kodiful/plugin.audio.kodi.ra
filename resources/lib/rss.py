@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from const import Const
+from common import *
+
 import os
 import glob
 import shutil
-
-from const import Const
-from common import *
 
 
 class Params:

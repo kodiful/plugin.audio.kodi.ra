@@ -45,7 +45,7 @@ class Params:
     PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now'
     STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
     # 遅延
-    LAG           = 3
+    DELAY           = 3
     # その他
     OBJECT_TAG    = 87
     #OBJECT_ID     = 14
@@ -338,7 +338,7 @@ class Radiko(Params):
                 'name': s['name'],
                 'logo_large': s['logo_large'],
                 'url': '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
-                'lag': self.LAG
+                'delay': self.DELAY
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)

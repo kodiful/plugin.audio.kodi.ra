@@ -75,7 +75,31 @@ def urlread(url, *headers):
     return buf.encode('utf-8') if isinstance(buf,unicode) else buf
 
 
-# utilities
+# datetime utilities
+
+def nexttime(seconds=0):
+    now = datetime.datetime.now()
+    nexttime = now + datetime.timedelta(seconds)
+    return nexttime.strftime('%Y%m%d%H%M%S')
+
+# workaround for encode problems for strftime on Windows
+def strftime(d, format):
+    if isinstance(format, unicode):
+        return d.strftime(format.encode('unicode-escape')).decode('unicode-escape')
+    else:
+        return d.strftime(format)
+
+def strptime(t, format):
+    #startdate = datetime.datetime.strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0000')
+    #http://forum.kodi.tv/showthread.php?tid=203759
+    try:
+        s = datetime.datetime.strptime(t, format)
+    except TypeError:
+        s = datetime.datetime.fromtimestamp(time.mktime(time.strptime(t, format)))
+    return s
+
+
+# other utilities
 
 def notify(message, **options):
     time = options.get('time', 10000)
@@ -110,17 +134,3 @@ def log(*messages, **options):
                 m.append(json.dumps(message, sort_keys=True, ensure_ascii=False, indent=4))
         frame = inspect.currentframe(1)
         xbmc.log(str('%s: %s(%d): %s: %s') % (addon.getAddonInfo('id'), os.path.basename(frame.f_code.co_filename), frame.f_lineno, frame.f_code.co_name, str(' ').join(m)), level)
-
-def next_time(seconds=0):
-    now = datetime.datetime.now()
-    nexttime = now + datetime.timedelta(seconds)
-    return nexttime.strftime('%Y%m%d%H%M%S')
-
-def strptime(t, format):
-    #startdate = datetime.datetime.strptime(p['startdate'],'%Y-%m-%d %H:%M:%S').strftime('%a, %d %b %Y %H:%M:%S +0000')
-    #http://forum.kodi.tv/showthread.php?tid=203759
-    try:
-        s = datetime.datetime.strptime(t, format)
-    except TypeError:
-        s = datetime.datetime.fromtimestamp(time.mktime(time.strptime(t, format)))
-    return s

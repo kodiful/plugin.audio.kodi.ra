@@ -59,7 +59,7 @@ class Params:
         }
     ]
     # 遅延
-    LAG = 40
+    DELAY = 40
 
 
 class Radiru(Params):
@@ -92,7 +92,7 @@ class Radiru(Params):
                 'name': s['name'],
                 'logo_large': s['logo'],
                 'url': station[s['hls']],
-                'lag': self.LAG
+                'delay': self.DELAY
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)

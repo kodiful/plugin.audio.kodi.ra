@@ -93,4 +93,7 @@
   <string id="30703">デバッグ</string>
   <string id="30704">DB</string>
 
+  <string id="30919">%m月%d日(%%s)</string>
+  <string id="30920">月,火,水,木,金,土,日</string>
+
 </strings>

@@ -31,7 +31,7 @@ class Params:
     BULLET   = '\xe2\x96\xb6'
 
 
-class Data:
+class Programs:
 
     def __init__(self, services=()):
         # インスタンス変数を初期化
@@ -49,7 +49,7 @@ class Data:
                 'name': data['name'],
                 'logo_large': data.get('logo_large',''),
                 'url': data.get('url',''),
-                'lag': data.get('lag',0),
+                'delay': data.get('delay',0),
                 'logo_path': logopath,
                 'fanart_artist': logopath,
             }
@@ -81,7 +81,7 @@ class Data:
             background.save(logopath, 'PNG')
         return logopath
 
-    def setPrograms(self, renew=False):
+    def setup(self, renew=False):
         # 全番組の配列を初期化
         self.programs = []
         # データ抽出
@@ -101,7 +101,7 @@ class Data:
                     'id': s['id'],
                     'name': s['name'],
                     'source': s['url'],
-                    'lag': s['lag'],
+                    'delay': s['delay'],
                     'title': p.get('title',''),
                     'ft': p.get('ft',''),
                     'ftl': p.get('ftl',''),
@@ -160,7 +160,7 @@ class Data:
         data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p))
         hash = md5(data).hexdigest()
         # 終了済みの番組は現在時刻を、それ以外は開始時刻を抽出
-        now = next_time()
+        now = nexttime()
         p = map(lambda x:now if x['to']<now else x['ft'], p)
         # 現在時刻以降の時刻を抽出
         p = filter(lambda t: t>=now, p)
@@ -168,7 +168,7 @@ class Data:
         nextaired = min(p) if p else '99999999999999'
         return nextaired, hash
 
-    def showPrograms(self):
+    def show(self):
         # ファイルから読み込む
         self.stations = read_json(Params.STATION_FILE)
         # 放送局表示
@@ -216,7 +216,7 @@ class Data:
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
-    def matchPrograms(self):
+    def match(self):
         self.matched_programs = []
         keywords = Keywords()
         # 開始時間、終了時間が規定されている番組について
@@ -231,7 +231,7 @@ class Data:
                 })
                 log('program matched.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])
 
-    def addDownload(self):
+    def reserve(self):
         now = datetime.datetime.now()
         for m in self.matched_programs:
             p = m['program']
@@ -248,6 +248,6 @@ class Data:
                     title=p['title'],
                     description=p['description'],
                     source=p['source'],
-                    lag=p['lag'],
+                    delay=p['delay'],
                     key=k['key'])
                 log('download enqueued.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])
