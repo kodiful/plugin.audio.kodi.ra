@@ -15,11 +15,11 @@ class Compatibility:
     def converter(self):
         status = 0
         status += self.__download_info()
-        status += self.__channels_config()
-        status += self.__keywords_config()
+        status += self.__channels_settings()
+        status += self.__keywords_settings()
         return status
 
-    def __channels_config(self):
+    def __channels_settings(self):
         status = 0
         file = os.path.join(Const.PROFILE_PATH, 'channels.js')
         if os.path.isfile(file):
@@ -28,7 +28,7 @@ class Compatibility:
             status = 1
         return status
 
-    def __keywords_config(self):
+    def __keywords_settings(self):
         status = 0
         file = os.path.join(Const.PROFILE_PATH, 'keywords.js')
         if os.path.isfile(file):

@@ -40,7 +40,9 @@ class Service:
         # 古い形式ののファイルの変換
         status = Compatibility().converter()
         # 古い形式のファイルが更新されたときは設定ダイアログを再作成
-        if status: os.remove(Const.SETTINGS_FILE)
+        if status:
+            os.remove(Const.SETTINGS_FILE)
+            notify('Settings updated')
         # ディレクトリをチェック
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
@@ -112,7 +114,7 @@ class Service:
         # 開始
         log('enter monitor.')
         # 監視処理開始を通知
-        notify('Starting service', time=3000)
+        notify('Starting service')
         # 監視処理を実行
         monitor = Monitor()
         while not monitor.abortRequested():
@@ -152,9 +154,7 @@ class Service:
                     self.programs.match()
                     # 画面更新
                     refresh = True
-                    log('program updated.')
-                else:
-                    log('pending program update.', 'nextaired=', self.nextaired)
+                    log('program updated.', 'nextaired=', self.nextaired)
             # ダウンロードする番組が検出されたら
             if self.programs.matched_programs:
                 # ダウンロードを予約
