@@ -9,6 +9,8 @@
 
 # cf. http://d.hatena.ne.jp/zariganitosh/20130124/rtmpdump_radiko_access
 
+from common import Common
+
 from ..const import Const
 from ..common import *
 from ..xmltodict import parse
@@ -38,7 +40,6 @@ class Params:
     # URL
     AUTH1_URL     = 'https://radiko.jp/v2/api/auth1_fms'
     AUTH2_URL     = 'https://radiko.jp/v2/api/auth2_fms'
-    #PLAYER_URL    = 'http://radiko.jp/player/swf/player_3.0.0.01.swf'
     PLAYER_URL    = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
     STATION_URL   = 'http://radiko.jp/v2/station/list/'
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
@@ -48,7 +49,6 @@ class Params:
     DELAY           = 3
     # その他
     OBJECT_TAG    = 87
-    #OBJECT_ID     = 14
     OBJECT_ID     = 12
 
 
@@ -309,7 +309,7 @@ class challengeAuth(Params, object):
 
 
 #-------------------------------------------------------------------------------
-class Radiko(Params):
+class Radiko(Params, Common):
 
     def __init__(self, area, token, renew=False):
         self.id = 'radiko'
@@ -317,9 +317,9 @@ class Radiko(Params):
         self.token = token
         log('area:%s, token:%s' % (self.area,self.token))
         # 放送局データと設定データを初期化
-        self.getStationFile(renew)
+        self.setup(renew)
 
-    def getStationFile(self, renew=False):
+    def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
@@ -352,12 +352,6 @@ class Radiko(Params):
                     offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getStationData(self):
-        return read_json(self.STATION_FILE)
-
-    def getSettingsData(self):
-        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
         try:

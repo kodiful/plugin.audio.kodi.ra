@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from common import Common
+
 from ..const import Const
 from ..common import *
 from ..xmltodict import parse
@@ -11,6 +13,8 @@ import re
 import json
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
+from hashlib import md5
+
 
 class Params:
     # ファイルパス
@@ -21,14 +25,14 @@ class Params:
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
 
 
-class Misc(Params):
+class Misc(Params, Common):
 
     def __init__(self, renew=False):
         self.id = 'misc'
         # 放送局データをファイルから読み込む
         self.read()
         # 放送局データと設定データを初期化
-        self.getStationFile(renew)
+        self.setup(renew)
 
     def read(self):
         self.ch = read_json(Const.CHANNELS_FILE) or []
@@ -36,15 +40,16 @@ class Misc(Params):
     def write(self):
         write_json(Const.CHANNELS_FILE, self.ch)
 
-    def getStationFile(self, renew=False):
+    def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
         # 放送局データ
         buf = []
-        for i, ch in enumerate(self.ch):
+        for ch in self.ch:
+            ch['id'] = 'misc_%s' % md5(ch['stream']).hexdigest()
             buf.append({
-                'id': 'misc_%03d' % i,
+                'id': ch['id'],
                 'name': ch['name'],
                 'logo_large': '',
                 'url': ch['stream'],
@@ -56,19 +61,10 @@ class Misc(Params):
         buf = []
         for i, ch in enumerate(self.ch):
             buf.append(
-                '    <setting label="{name}" type="bool" id="misc_{id:03d}" default="true" enable="eq({offset},2)" visible="true"/>'
-                .format(name=ch['name'], id=i, offset=-1-i))
+                '    <setting label="{name}" type="bool" id="{id}" default="true" enable="eq({offset},2)" visible="true"/>'
+                .format(id=ch['id'], name=ch['name'], offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getStationData(self):
-        return read_json(self.STATION_FILE)
-
-    def getSettingsData(self):
-        return read_file(self.SETTINGS_FILE)
-
-    def getProgramFile(self):
-        return
 
     def getProgramData(self, renew=False):
         return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]
@@ -93,8 +89,9 @@ class Misc(Params):
         # 追加/編集した設定を書き込む
         self.write()
         # 変更を反映する
-        self.getStationFile(renew=True)
-        xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+        self.setup(renew=True)
+        # 設定ダイアログを更新する
+        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % (sys.argv[0]))
 
     def delete(self, id):
         # 指定したidを除いた要素で配列を書き換える
@@ -103,5 +100,6 @@ class Misc(Params):
         # 削除した設定を書き込む
         self.write()
         # 変更を反映する
-        self.getStationFile(renew=True)
-        xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
+        self.setup(renew=True)
+        # 設定ダイアログを更新する
+        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % (sys.argv[0]))

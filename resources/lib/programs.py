@@ -89,11 +89,11 @@ class Programs:
             # この放送局の番組の配列を初期化
             s = self.__search_station(data['id'])
             if s is None:
-                # 未知の放送局がある場合はデータキャッシュを削除してリスタート
+                # 未知の放送局がある場合はキャッシュを削除してリスタート
                 log('unknown id:', data['id'], error=True)
                 notify('Updating station data...')
-                xbmc.executebuiltin('RunPlugin(%s?action=reset)' % (sys.argv[0]))
-                return
+                xbmc.executebuiltin('RunPlugin(%s?action=clear)' % (sys.argv[0]))
+                return None, None
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
             for p in data['progs']:
@@ -184,7 +184,7 @@ class Programs:
                     if i>0:  title += ' ' + Params.TITLE_LG % (Params.BULLET,title1)
             # リストアイテムを定義
             li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
-            li.setInfo(type='video', infoLabels={'title':s['name'] or s['name']})
+            li.setInfo(type='music', infoLabels={'title':s['name']})
             # コンテクストメニュー
             contextmenu = []
             # 番組情報を更新
@@ -224,14 +224,14 @@ class Programs:
             # キーワードと照合
             k = keywords.match(p)
             if k:
-                # とりあえず追加
-                self.matched_programs.append({
-                    'program': p,
-                    'keyword': k
-                })
-                log('program matched.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])
+                status = Downloads().exists(p['id'],p['ft'])
+                if status == 0:
+                    self.matched_programs.append({'program':p, 'keyword':k})
+                    log('program matched.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])
+                elif status > 1:
+                    log('inconsistency found.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'],'status=',status)
 
-    def reserve(self):
+    def download(self):
         now = datetime.datetime.now()
         for m in self.matched_programs:
             p = m['program']
@@ -240,7 +240,7 @@ class Programs:
             start = strptime(p['ft'], '%Y%m%d%H%M%S')
             wait = start - now
             if wait.days == 0 and wait.seconds < Const.PREP_INTERVAL:
-                Downloads().add(
+                status = Downloads().add(
                     id=p['id'],
                     name=p['name'],
                     ft=p['ft'],
@@ -250,4 +250,7 @@ class Programs:
                     source=p['source'],
                     delay=p['delay'],
                     key=k['key'])
-                log('download enqueued.','start=',p['ft'],'name=',p['name'],'title=',p['title'],'keyword=',k['key'])
+                if status:
+                    log('download scheduled.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])
+                else:
+                    log('download scheduled.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])

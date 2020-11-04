@@ -48,19 +48,18 @@ class Service:
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # radiko認証
-        self.auth, self.nextauth = self.__authenticate()
+        self.nextauth = self._authenticate()
         log('radiko authentication initialized.', 'nextauth=', self.nextauth)
         # クラスを初期化
-        self.programs = self.__update_classes()
-        log('class initialized.')
-        # 設定ダイアログを作成
-        if not os.path.isfile(Const.SETTINGS_FILE):
-            self.__settings_setup(self.radiru, self.radiko, self.jcba, self.misc)
-            log('settings initialized.')
+        self.update_classes()
         # いろいろ初期化
-        self.nextaired, self.program_hash, self.settings_hash = self.__update_params()
+        self.nextaired, self.program_hash, self.settings_hash = self.update_params()
+        # 設定ダイアログがなければ作成
+        if not os.path.isfile(Const.SETTINGS_FILE):
+            self.setup_settings()
+            log('settings initialized.')
 
-    def __authenticate(self):
+    def _authenticate(self):
         # radiko認証
         getAuthkey()
         auth = authenticate()
@@ -68,42 +67,43 @@ class Service:
         while 'authed' not in auth._response or auth._response['authed'] == 0: time.sleep(1)
         if auth._response['area_id'] == '': notify('radiko authentication failed', error=True)
         # 認証情報をファイルに書き込む
-        write_json(Const.AUTH_FILE, auth._response)
-        # 認証情報と次の更新時刻を返す
-        return auth, nexttime(Const.AUTH_INTERVAL)
+        self.auth = auth._response
+        write_json(Const.AUTH_FILE, self.auth)
+        # 次の更新時刻を返す
+        return nexttime(Const.AUTH_INTERVAL)
 
-    def __update_classes(self):
+    def update_classes(self):
         self.radiru = Radiru(renew=True)
-        self.radiko = Radiko(area=self.auth._response['area_id'], token=self.auth._response['auth_token'], renew=True)
-        self.jcba   = Jcba(renew=True)
-        self.misc   = Misc(renew=True)
-        return Programs((self.radiru, self.radiko, self.jcba, self.misc))
+        self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
+        self.jcba = Jcba(renew=True)
+        self.misc = Misc(renew=True)
+        self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
 
-    def __update_params(self):
+    def update_params(self):
         # 番組データを取得
         nextaired, program_hash = self.programs.setup(renew=True)
         # ユーザ設定のハッシュ
-        settings_hash = self.__settings_hash()
+        settings_hash = self.hash_settings()
         return nextaired, program_hash, settings_hash
 
-    def __settings_hash(self, filepath=Const.USERSETTINGS_FILE):
-        settings = read_file(filepath)
+    def hash_settings(self):
+        settings = read_file(Const.USERSETTINGS_FILE)
         return md5(settings).hexdigest() if settings else ''
 
-    def __settings_setup(self, radiru, radiko, jcba, misc):
+    def setup_settings(self):
         # テンプレート読み込み
         template = read_file(Const.TEMPLATE_FILE)
         # 放送局リスト
         s = [Const.STR(30520)]
-        stations = Programs((radiru,radiko)).stations
+        stations = Programs((self.radiru,self.radiko)).stations
         for station in stations:
             s.append(station['name'])
         # ソース作成
         source = template.format(
-            radiru = radiru.getSettingsData(),
-            radiko = radiko.getSettingsData(),
-            jcba   = jcba.getSettingsData(),
-            misc   = misc.getSettingsData(),
+            radiru = self.radiru.getSettingsData(),
+            radiko = self.radiko.getSettingsData(),
+            jcba   = self.jcba.getSettingsData(),
+            misc   = self.misc.getSettingsData(),
             bc = '|'.join(s),
             ffmpeg = '',
             os = platform.system())
@@ -126,27 +126,33 @@ class Service:
             # リセットが検出されたら（設定ダイアログ削除が検出されたら）
             if not os.path.isfile(Const.SETTINGS_FILE):
                 # クラスを更新
-                self.programs = self.__update_classes()
-                # 設定ダイアログを生成
-                self.__settings_setup(self.radiru, self.radiko, self.jcba, self.misc)
+                self.update_classes()
                 # いろいろ更新
-                self.nextaired, self.program_hash, self.settings_hash = self.__update_params()
+                self.nextaired, self.program_hash, self.settings_hash = self.update_params()
+                # 設定ダイアログを生成
+                self.setup_settings()
                 # 画面更新
                 refresh = True
                 log('settings initialized.')
             # 現在時刻がRadiko認証更新時刻を過ぎていたら
             if now > self.nextauth:
                 # radiko認証
-                self.auth, self.nextauth = self.__authenticate()
+                self.nextauth = self._authenticate()
                 log('radiko authentication updated.', 'nextauth=', self.nextauth)
                 # クラスを更新
-                self.radiko = Radiko(area=self.auth._response['area_id'], token=self.auth._response['auth_token'], renew=True)
+                self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
                 self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
                 log('class updated.')
             # 現在時刻が更新予定時刻を過ぎていたら
             if now > self.nextaired:
                 # 番組データを取得
                 self.nextaired, new_hash = self.programs.setup(renew=True)
+                # 放送局に設定変更があると番組データが取得できないので
+                if new_hash is None:
+                    # クラスを更新して
+                    self.update_classes()
+                    # 改めて番組データを取得
+                    self.nextaired, new_hash = self.programs.setup(renew=True)
                 #　番組データが更新されたら
                 if new_hash != self.program_hash:
                     self.program_hash = new_hash
@@ -158,10 +164,10 @@ class Service:
             # ダウンロードする番組が検出されたら
             if self.programs.matched_programs:
                 # ダウンロードを予約
-                self.programs.reserve()
+                self.programs.download()
             # 設定更新が検出されたら
             if monitor.settings_changed:
-                new_hash = self.__settings_hash()
+                new_hash = self.hash_settings()
                 if new_hash != self.settings_hash:
                     self.settings_hash = new_hash
                     # 画面更新

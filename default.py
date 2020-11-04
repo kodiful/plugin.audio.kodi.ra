@@ -3,6 +3,8 @@
 from resources.lib.const import Const
 from resources.lib.common import *
 
+from service import Service
+
 import sys
 import os
 import urlparse
@@ -19,20 +21,40 @@ import socket
 socket.setdefaulttimeout(60)
 
 
-def resetAll():
-    # インストール後に生成されたプロファイルの配下のファイルをすべて削除
-    for root, dirs, files in os.walk(Const.PROFILE_PATH, topdown=False):
-        for name in files:
-            os.remove(os.path.join(root, name))
-    # プロファイルディレクトリを削除
-    os.rmdir(Const.PROFILE_PATH)
-    # 設定ダイアログを削除
-    os.remove(Const.SETTINGS_FILE)
+class Manager(Service):
 
-def reset():
-    # 設定ダイアログを削除
-    if os.path.isfile(Const.SETTINGS_FILE):
+    def __init__(self):
+        # radiko認証情報を取得
+        if not os.path.isfile(Const.AUTH_FILE):
+            self._authenticate()
+        self.auth = read_json(Const.AUTH_FILE)
+
+    def update(self):
+        self.update_classes()
+        self.update_params()
+        self.setup_settings()
+        xbmc.executebuiltin("Container.Refresh")
+
+    def __clear(self, dirpath):
+        for root, dirs, files in os.walk(dirpath, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+
+    def resetAll(self):
+        # インストール後に生成されたプロファイルの配下のファイルをすべて削除
+        self.__clear(Const.PROFILE_PATH)
+        # プロファイルディレクトリを削除
+        os.rmdir(Const.PROFILE_PATH)
+        # 設定ダイアログを削除
         os.remove(Const.SETTINGS_FILE)
+
+    def clearAll(self):
+        # すべてのキャッシュを削除
+        self.__clear(Const.CACHE_PATH)
+
+    def clearData(self):
+        # データキャッシュを削除
+        self.__clear(Const.DATA_PATH)
 
 
 if __name__  == '__main__':
@@ -47,7 +69,7 @@ if __name__  == '__main__':
     # ログ
     #log('path=',xbmc.getInfoLabel('Container.FolderPath'))
     #log('argv=', sys.argv)
-    #log(params)
+    log(params)
 
     # アドオン設定をコピー
     settings = {}
@@ -67,9 +89,16 @@ if __name__  == '__main__':
 
     # リセット
     if params['action'] == 'resetAll':
-        resetAll()
-    elif params['action'] == 'reset':
-        reset()
+        Manager().resetAll()
+        notify('Restart Kodi')
+    elif params['action'] == 'clearAll':
+        Manager().clearAll()
+        notify('Restart Kodi')
+    elif params['action'] == 'clearData':
+        Manager().clearData()
+        notify('Restart Kodi')
+    elif params['action'] == 'updateDialog':
+        Manager().update()
 
     # ダウンロードの管理
     elif params['action'] == 'addDownload':
@@ -85,7 +114,7 @@ if __name__  == '__main__':
         if status:
             notify(status, error=True)
         else:
-            notify('Download reserved')
+            notify('Download scheduled')
     elif params['action'] == 'showDownloads':
         Downloads().show()
     elif params['action'] == 'clearDownloads':

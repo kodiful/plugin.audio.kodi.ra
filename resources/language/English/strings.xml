@@ -88,10 +88,10 @@
   <string id="30529">Unsupported OS</string>
 
   <string id="30700">Other Settings</string>
-  <string id="30701">[COLOR green]Reset all settings[/COLOR]</string>
-  <string id="30702">[COLOR green]Clear cache[/COLOR]</string>
-  <string id="30703">Debug</string>
-  <string id="30704">DB</string>
+  <string id="30701">[COLOR green]Reset all cache and settings[/COLOR]</string>
+  <string id="30702">[COLOR green]Clear all cache[/COLOR]</string>
+  <string id="30702">[COLOR green]Clear data cache[/COLOR]</string>
+  <string id="30704">Debug</string>
 
   <string id="30919">%m/%d(%%s)</string>
   <string id="30920">Mon,Tue,Wed,Thu,Fri,Sat,Sun</string>

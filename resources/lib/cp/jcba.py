@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from common import Common
+
 from ..const import Const
 from ..common import *
 from ..xmltodict import parse
@@ -22,14 +24,14 @@ class Params:
     SETTINGS_URL  = 'http://kodiful.com/KodiRa/downloads/jcba/settings.xml'
 
 
-class Jcba(Params):
+class Jcba(Params, Common):
 
     def __init__(self, renew=False):
         self.id = 'jcba'
         # 放送局データと設定データを初期化
-        self.getStationFile(renew)
+        self.setup(renew)
 
-    def getStationFile(self, renew=False):
+    def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
@@ -55,15 +57,6 @@ class Jcba(Params):
         data = urlread(self.SETTINGS_URL)
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, data)
-
-    def getStationData(self):
-        return read_json(self.STATION_FILE)
-
-    def getSettingsData(self):
-        return read_file(self.SETTINGS_FILE)
-
-    def getProgramFile(self):
-        return
 
     def getProgramData(self, renew=False):
         return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]

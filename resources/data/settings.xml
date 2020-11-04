@@ -55,8 +55,9 @@
     <setting label="30509" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditKeyword)" enable="!eq(-6,)" visible="eq(-10,)+eq(-9,true)+!eq(-8,)"/>
   </category>
   <category label="30700">
-    <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=reset)"/>
+    <setting label="30703" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearData)"/>
+    <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearAll)"/>
     <setting label="30701" type="action" option="close" action="RunPlugin(plugin://$ID/?action=resetAll)"/>
-    <setting label="30703" id="debug" type="bool" default="false"/>
+    <setting label="30704" id="debug" type="bool" default="false"/>
   </category>
 </settings>

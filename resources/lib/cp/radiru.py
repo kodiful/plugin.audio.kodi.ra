@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from common import Common
+
 from ..const import Const
 from ..common import *
 from ..xmltodict import parse
@@ -62,7 +64,7 @@ class Params:
     DELAY = 40
 
 
-class Radiru(Params):
+class Radiru(Params, Common):
 
     def __init__(self, renew=False):
         self.id = 'radiru'
@@ -72,9 +74,9 @@ class Radiru(Params):
         except:
             self.areajp, self.areakey = self.AREA[0]
         # 放送局データと設定データを初期化
-        self.getStationFile(renew)
+        self.setup(renew)
 
-    def getStationFile(self, renew=False):
+    def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
@@ -103,12 +105,6 @@ class Radiru(Params):
                 .format(id=s['id'], name=s['name'], offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getStationData(self):
-        return read_json(self.STATION_FILE)
-
-    def getSettingsData(self):
-        return read_file(self.SETTINGS_FILE)
 
     def getProgramFile(self):
         try:

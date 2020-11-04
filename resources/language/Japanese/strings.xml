@@ -88,10 +88,10 @@
   <string id="30529">このOSでは番組保存をサポートしていません</string>
 
   <string id="30700">その他</string>
-  <string id="30701">[COLOR green]すべての設定を初期化する[/COLOR]</string>
-  <string id="30702">[COLOR green]キャッシュをクリアする[/COLOR]</string>
-  <string id="30703">デバッグ</string>
-  <string id="30704">DB</string>
+  <string id="30701">[COLOR green]すべてのキャッシュと設定を初期化する[/COLOR]</string>
+  <string id="30702">[COLOR green]すべてのキャッシュをクリアする[/COLOR]</string>
+  <string id="30703">[COLOR green]データキャッシュをクリアする[/COLOR]</string>
+  <string id="30704">デバッグ</string>
 
   <string id="30919">%m月%d日(%%s)</string>
   <string id="30920">月,火,水,木,金,土,日</string>

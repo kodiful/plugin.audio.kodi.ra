@@ -24,7 +24,7 @@ class Params:
 
 class Logger():
 
-    def __init__(self, logfile=None):
+    def __init__(self, logfile):
         self.handle = open(logfile, 'a')
 
     def write(self, message=''):
@@ -41,15 +41,32 @@ class Downloads:
     def __init__(self):
         return
 
-    def add(self, id, name, ft, to, title, description, source, delay, key=''):
+    def status(self, id, ft):
         # 番組ID
         gtvid = '%s_%s' % (id, ft);
         # ファイルパス
         json_file  = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
-        mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
         tmp_file = os.path.join(Const.DOWNLOAD_PATH, '.%s.mp3' % gtvid)
+        mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
         # 既存の番組情報ファイルの有無をチェック
-        if os.path.isfile(json_file): return 'JSON file exists'
+        status = 0
+        if os.path.isfile(json_file): status += 1
+        if os.path.isfile(tmp_file): status += 2
+        if os.path.isfile(mp3_file): status += 4
+        return status
+
+    def add(self, id, name, ft, to, title, description, source, delay, key=''):
+        # 既存の番組情報ファイルの有無をチェック
+        status = self.status(id, ft)
+        if status & 4: return 'Already downloaded'
+        if status & 2: return 'Now downloading'
+        if status & 1: return 'Already scheduled'
+        # 番組ID
+        gtvid = '%s_%s' % (id, ft);
+        # ファイルパス
+        json_file  = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
+        tmp_file = os.path.join(Const.DOWNLOAD_PATH, '.%s.mp3' % gtvid)
+        mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
         # 現在時刻
         now = datetime.datetime.now()
         # 開始時間
