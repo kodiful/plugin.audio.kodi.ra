@@ -21,7 +21,7 @@ import socket
 socket.setdefaulttimeout(60)
 
 
-class Manager(Service):
+class Cache(Service):
 
     def __init__(self):
         # radiko認証情報を取得
@@ -43,8 +43,6 @@ class Manager(Service):
     def resetAll(self):
         # インストール後に生成されたプロファイルの配下のファイルをすべて削除
         self.__clear(Const.PROFILE_PATH)
-        # プロファイルディレクトリを削除
-        os.rmdir(Const.PROFILE_PATH)
         # 設定ダイアログを削除
         os.remove(Const.SETTINGS_FILE)
 
@@ -89,16 +87,19 @@ if __name__  == '__main__':
 
     # リセット
     if params['action'] == 'resetAll':
-        Manager().resetAll()
-        notify('Restart Kodi')
+        notify('Initializing settings...')
+        Cache().resetAll()
+        Cache().update()
     elif params['action'] == 'clearAll':
-        Manager().clearAll()
-        notify('Restart Kodi')
+        notify('Clearing cached data and images...')
+        Cache().clearAll()
+        Cache().update()
     elif params['action'] == 'clearData':
-        Manager().clearData()
-        notify('Restart Kodi')
+        notify('Clearing cached data...')
+        Cache().clearData()
+        Cache().update()
     elif params['action'] == 'updateDialog':
-        Manager().update()
+        Cache().update()
 
     # ダウンロードの管理
     elif params['action'] == 'addDownload':
