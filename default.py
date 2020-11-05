@@ -45,14 +45,20 @@ class Cache(Service):
         self.__clear(Const.PROFILE_PATH)
         # 設定ダイアログを削除
         os.remove(Const.SETTINGS_FILE)
+        # 初期化
+        self.update()
 
     def clearAll(self):
         # すべてのキャッシュを削除
         self.__clear(Const.CACHE_PATH)
+        # 初期化
+        self.update()
 
     def clearData(self):
         # データキャッシュを削除
         self.__clear(Const.DATA_PATH)
+        # 初期化
+        self.update()
 
 
 if __name__  == '__main__':
@@ -67,7 +73,7 @@ if __name__  == '__main__':
     # ログ
     #log('path=',xbmc.getInfoLabel('Container.FolderPath'))
     #log('argv=', sys.argv)
-    log(params)
+    #log(params)
 
     # アドオン設定をコピー
     settings = {}
@@ -89,15 +95,12 @@ if __name__  == '__main__':
     if params['action'] == 'resetAll':
         notify('Initializing settings...')
         Cache().resetAll()
-        Cache().update()
     elif params['action'] == 'clearAll':
         notify('Clearing cached data and images...')
         Cache().clearAll()
-        Cache().update()
     elif params['action'] == 'clearData':
         notify('Clearing cached data...')
         Cache().clearData()
-        Cache().update()
     elif params['action'] == 'updateDialog':
         Cache().update()
 

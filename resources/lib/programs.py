@@ -184,7 +184,8 @@ class Programs:
                     if i>0:  title += ' ' + Params.TITLE_LG % (Params.BULLET,title1)
             # リストアイテムを定義
             li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
-            li.setInfo(type='music', infoLabels={'title':s['name']})
+            # type='misic' crashes when rtmpe stream being played
+            li.setInfo(type='video', infoLabels={'title':s['name']})
             # コンテクストメニュー
             contextmenu = []
             # 番組情報を更新
@@ -227,9 +228,18 @@ class Programs:
                 status = Downloads().exists(p['id'],p['ft'])
                 if status == 0:
                     self.matched_programs.append({'program':p, 'keyword':k})
-                    log('program matched.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])
+                    log('program matched. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                        id = p['id'],
+                        start = p['ft'],
+                        title = p['title'],
+                        keyword = k['key']))
                 elif status > 1:
-                    log('inconsistency found.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'],'status=',status)
+                    log('inconsistency found ({status}). id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                        id = p['id'],
+                        start = p['ft'],
+                        title = p['title'],
+                        keyword = k['key'],
+                        status = status))
 
     def download(self):
         now = datetime.datetime.now()
@@ -250,7 +260,16 @@ class Programs:
                     source=p['source'],
                     delay=p['delay'],
                     key=k['key'])
-                if status:
-                    log('download scheduled.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])
+                if status is None:
+                    log('download scheduled. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                        id = p['id'],
+                        start = p['ft'],
+                        title = p['title'],
+                        keyword = k['key']))
                 else:
-                    log('download scheduled.','id=',p['id'],'start=',p['ft'],'title=',p['title'],'keyword=',k['key'])
+                    log('scheduling failed ({status}). id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                        id = p['id'],
+                        start = p['ft'],
+                        title = p['title'],
+                        keyword = k['key'],
+                        status = status))

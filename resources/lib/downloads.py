@@ -248,7 +248,7 @@ class Downloads:
             if os.path.isfile(mp3_file):
                 plist.append(read_json(json_file))
             else:
-                log('lost file=', mp3_file)
+                log('lost file:{file}'.format(file=mp3_file))
         # 日付フォーマット
         h = Holiday()
         # 時間の逆順にソートして表示

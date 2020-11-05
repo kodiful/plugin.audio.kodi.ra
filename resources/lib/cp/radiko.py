@@ -20,7 +20,7 @@ import struct
 import zlib
 import urllib, urllib2
 import xml.dom.minidom
-import threading, time
+import time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
@@ -53,257 +53,164 @@ class Params:
 
 
 #-------------------------------------------------------------------------------
-class getAuthkey(Params, object):
+class getAuthkey:
 
     def __init__(self):
+        # PLAYER_URLのオブジェクトのサイズを取得
+        response = urllib2.urlopen(Params.PLAYER_URL)
+        size = int(response.headers["content-length"])
+        # PLAYERファイルのサイズと比較、異なっている場合はダウンロードしてKEYファイルを生成
+        if not os.path.isfile(Params.KEY_FILE) or not os.path.isfile(Params.PLAYER_FILE) or size != int(os.path.getsize(Params.PLAYER_FILE)):
+            swf = response.read()
+            with open(Params.PLAYER_FILE, 'wb') as f:
+                f.write(swf)
+            # 読み込んだswfバッファ
+            self.swf = swf[:8] + zlib.decompress(swf[8:])
+            # swf読み込みポインタ
+            self.swfPos = 0
+            # ヘッダーパース
+            self.swfHeader()
+            # タブブロックがある限り
+            while self.swfBlock():
+                log(self.block['tag'], self.block['block_len'], self.block['id'])
+                if self.block['tag'] == Params.OBJECT_TAG and self.block['id'] == Params.OBJECT_ID:
+                    with open(Params.KEY_FILE, 'wb') as f:
+                        f.write(self.block['value'])
+                    break
 
-        while True:
-            try:
-                response = urllib2.urlopen(self.PLAYER_URL)
-                UrlSize = int(response.headers["content-length"])
-            except : UrlSize = 0
-
-            if os.path.exists(self.PLAYER_FILE) : PathSize = int(os.path.getsize(self.PLAYER_FILE))
-            else : PathSize = 0
-
-            if UrlSize > 0 and UrlSize != PathSize:
-                if os.path.exists(self.PLAYER_FILE) : os.remove(self.PLAYER_FILE)
-                if os.path.exists(self.KEY_FILE) : os.remove(self.KEY_FILE)
-                open(self.PLAYER_FILE, 'wb').write(response.read())
-                self.keyFileDump()
-
-            elif not os.path.exists(self.KEY_FILE) and PathSize > 0 :
-                self.keyFileDump()
-
-            if os.path.exists(self.KEY_FILE) : break
-            else : time.sleep(1)
-
-    #-----------------------------------
-    def keyFileDump(self):
-        tmpSwf = open(self.PLAYER_FILE, 'rb').read()
-        self.Swf = tmpSwf[:8] + zlib.decompress(tmpSwf[8:]) # 読み込んだswfバッファ
-        self.SwfPos = 0 # swf読み込みポインタ
-
-        self.parseSwfHead()
-        self.output_file = self.KEY_FILE
-        while self.swfBlock(): # タブブロックがある限り
-            #if __debug__: print (self.Block['tag'], self.Block['block_len'], self.Block['id'])
-            log(self.Block['tag'], self.Block['block_len'], self.Block['id'])
-
-            if self.Block['tag'] == self.OBJECT_TAG and self.Block['id'] == self.OBJECT_ID:
-                self.Save(self.KEY_FILE)
-                break
-
-    #-----------------------------------
     # ヘッダーパース
-    def parseSwfHead(self):
-        global CMN
+    def swfHeader(self):
         self.magic   = self.swfRead(3)
         self.version = ord(self.swfRead(1))
         self.file_length = self.le4Byte(self.swfRead(4))
-
         rectbits = ord(self.swfRead(1)) >> 3
         total_bytes = int(ceil((5 + rectbits * 4) / 8.0))
         twips_waste = self.swfRead(total_bytes - 1)
         self.frame_rate_decimal = ord(self.swfRead(1))
         self.frame_rate_integer = ord(self.swfRead(1))
         self.frame_count = self.le2Byte(self.swfRead(2))
+        log('magic:{magic}, version:{version}, length:{length}, frame_rate:{fr_integer}.{fr_decimal}, count:{fr_count}'.format(
+            magic = self.magic,
+            version = self.version,
+            length = self.file_length,
+            fr_integer = self.frame_rate_integer,
+            fr_decimal = self.frame_rate_decimal,
+            fr_count = self.frame_count))
 
-        '''if __debug__:
-            print ("magic: %s\nver: %d\nlen: %d\nframe_rate: %d.%d\ncount: %d\n" % ( \
-                self.magic,
-                self.version,
-                self.file_length,
-                self.frame_rate_integer,
-                self.frame_rate_decimal,
-                self.frame_count))'''
-        log("magic: %s, ver: %d, len: %d, frame_rate: %d.%d, count: %d" % ( \
-            self.magic,
-            self.version,
-            self.file_length,
-            self.frame_rate_integer,
-            self.frame_rate_decimal,
-            self.frame_count))
-
-    #-----------------------------------
     # ブロック判定
     def swfBlock(self):
-        # print "--SwfPos:", self.SwfPos
-        SwfBlockStart = self.SwfPos
-        SwfTag = self.le2Byte(self.swfRead(2))
-        BlockLen = SwfTag & 0x3f
-        if BlockLen == 0x3f:
-            BlockLen = self.le4Byte(self.swfRead(4))
-        SwfTag = SwfTag >> 6
-
-        if SwfTag == 0:
+        swfBlockStart = self.swfPos
+        swfTag = self.le2Byte(self.swfRead(2))
+        blockLen = swfTag & 0x3f
+        if blockLen == 0x3f:
+            blockLen = self.le4Byte(self.swfRead(4))
+        swfTag = swfTag >> 6
+        if swfTag == 0:
             return None
-
-        self.BlockPos = 0
-        ret = {}
-        ret[ 'block_start' ] = SwfBlockStart
-        ret[ 'tag'         ] = SwfTag
-        ret[ 'block_len'   ] = BlockLen
-        ret[ 'id'          ] = self.le2Byte(self.swfRead(2))
-        ret[ 'alpha'       ] = self.swfRead(4)
-        ret[ 'value'       ] = self.swfBlockMisc(BlockLen - 6)
-        self.Block = ret
-        return True
-
-    #-----------------------------------
-    # ブロックバイナリデータ格納
-    def swfBlockMisc(self, BlockLen):
-        if BlockLen:
-            return self.swfRead(BlockLen)
         else:
-            return None
+            self.blockPos = 0
+            self.block = {
+                'block_start': swfBlockStart,
+                'tag': swfTag,
+                'block_len': blockLen,
+                'id': self.le2Byte(self.swfRead(2)),
+                'alpha': self.swfRead(4),
+                'value': self.swfBlockMisc(blockLen - 6)
+            }
+            return True
 
-    #-----------------------------------
-    def Save(self, OutFile):
-        f = open(OutFile, 'wb')
-        f.write(self.Block['value'])
-        f.close()
+    # ブロックバイナリデータ格納
+    def swfBlockMisc(self, blockLen):
+        return self.swfRead(blockLen) if blockLen else None
 
-    def swfRead(self, Num):
-        self.SwfPos += Num
-        return self.Swf[self.SwfPos - Num: self.SwfPos]
+    # その他のユーティリティ
+    def swfRead(self, num):
+        self.swfPos += num
+        return self.swf[self.swfPos - num: self.swfPos]
 
     def le2Byte(self, s):
-        "LittleEndian to 2 Byte"
+        # LittleEndian to 2 Byte
         return struct.unpack('<H', s)[0]
 
     def le4Byte(self, s):
-        "LittleEndian to 4 Byte"
+        # LittleEndian to 4 Byte
         return struct.unpack('<L', s)[0]
 
-#-------------------------------------------------------------------------------
-class authenticate(threading.Thread):
-    _response = {}
-    _response['authed' ] = 0
-    _response['area_id'] = ''
+
+class authenticate:
 
     def __init__(self):
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
-
-    #-----------------------------------
-    def run(self):
-        self.startAppIDAuth()
-
-    #-----------------------------------
-    def startAppIDAuth(self):
-        _loc_1 = appIDAuth()
-        _loc_1.start()
-
-        if _loc_1._response['auth_token'] != "" and _loc_1._response['auth_token'] > 0:
-            self._response = _loc_1._response
-            self.startChallengeAuth()
+        # 初期化
+        response = {}
+        response['area_id'] = ''
+        response['authed'] = 0
+        self.response = response
+        # auth_token
+        response = self.appIDAuth(response)
+        if response['auth_token']:
+            # area_id
+            response = self.challengeAuth(response)
+            if response['area_id']:
+                response['authed' ] = 1
+                # インスタンス変数に格納
+                self.response = response
+            else:
+                log('failed to get area_id')
         else:
-            print 'failed get token'
+            log('failed to get auth_token')
 
-    #-----------------------------------
-    def startChallengeAuth(self):
-        _loc_1 = challengeAuth()
-        _loc_1.start(self._response)
-
-        if _loc_1._response['area_id'] != "" and _loc_1._response['area_id'] > 0:
-            self._response['area_id'] = _loc_1._response['area_id']
-            self._response['authed' ] = 1
-            #t = threading.Timer(Const.RESUME_TIMER_INTERVAL, self.resumeTimer)
-            #t.setDaemon(True)
-            #t.start()
-            #time.sleep(Const.RESUME_TIMER_INTERVAL)
-            #self.resumeTimer()
-        else:
-            print 'failed get area_id'
-
-    #-----------------------------------
-    def resetTimer(self):
-        self._response = None
-        self.startAppIDAuth()
-
-    #-----------------------------------
-    def resumeTimer(self):
-        self.startChallengeAuth()
-        #if __debug__:print ("Resume Timer\n")
-        log("Resume Timer")
-
-#-------------------------------------------------------------------------------
-class appIDAuth(Params, object):
-    #def __init__(self):
-    #    return True
-
-    #-----------------------------------
-    def start(self):
-        headers = {'pragma': 'no-cache',
-            #'X-Radiko-App': 'pc_1',
-            #'X-Radiko-App-Version': '2.0.1',
+    def appIDAuth(self, response):
+        # ヘッダ
+        headers = {
+            'pragma': 'no-cache',
             'X-Radiko-App': 'pc_ts',
             'X-Radiko-App-Version': '4.0.0',
             'X-Radiko-User': 'test-stream',
-            'X-Radiko-Device': 'pc'}
-
-        req = urllib2.Request(self.AUTH1_URL, headers=headers, data='\r\n')
+            'X-Radiko-Device': 'pc'
+        }
+        # リクエスト
+        req = urllib2.Request(Params.AUTH1_URL, headers=headers, data='\r\n')
+        # レスポンス
         auth1fms = urllib2.urlopen(req).info()
+        response['auth_token'] = auth1fms['X-Radiko-AuthToken']
+        response['key_offset'] = int(auth1fms['X-Radiko-KeyOffset'])
+        response['key_length'] = int(auth1fms['X-Radiko-KeyLength'])
+        # ログ
+        log('authtoken:{authtoken}, offset:{offset}, length:{length}'.format(
+            authtoken = response['auth_token'],
+            offset = response['key_offset'],
+            length = response['key_length']))
+        return response
 
-        self._response = {}
-        self._response['auth_token'] = auth1fms['X-Radiko-AuthToken']
-        self._response['key_offset'] = int(auth1fms['X-Radiko-KeyOffset'])
-        self._response['key_length'] = int(auth1fms['X-Radiko-KeyLength'])
-
-        '''if __debug__:
-            print ("authtoken: %s\noffset: %d length: %d\n" % ( \
-                self._response['auth_token'],
-                self._response['key_offset'],
-                self._response['key_length']))'''
-        log("authtoken: %s, offset: %d, length: %d" % ( \
-            self._response['auth_token'],
-            self._response['key_offset'],
-            self._response['key_length']))
-
-#-------------------------------------------------------------------------------
-class challengeAuth(Params, object):
-    #def __init__(self):
-    #    return True
-
-    #-----------------------------------
-    def start(self, _response):
-        self._response = _response
-
-        if 'partial_key' not in self._response or self._response['partial_key'] == '':
-            self._response['partial_key'] = self.createPartialKey()
-
-        headers = {'pragma': 'no-cache',
-            #'X-Radiko-App': 'pc_1',
-            #'X-Radiko-App-Version': '2.0.1',
+    def challengeAuth(self, response):
+        # ヘッダ
+        response['partial_key'] = self.createPartialKey(response)
+        headers = {
+            'pragma': 'no-cache',
             'X-Radiko-App': 'pc_ts',
             'X-Radiko-App-Version': '4.0.0',
             'X-Radiko-User': 'test-stream',
             'X-Radiko-Device': 'pc',
-            'X-Radiko-Authtoken': self._response['auth_token'],
-            'X-Radiko-Partialkey': self._response['partial_key']}
-
-        req = urllib2.Request(self.AUTH2_URL, headers=headers, data='\r\n')
+            'X-Radiko-Authtoken': response['auth_token'],
+            'X-Radiko-Partialkey': response['partial_key']
+        }
+        # リクエスト
+        req = urllib2.Request(Params.AUTH2_URL, headers=headers, data='\r\n')
+        # レスポンス
         auth2fms = urllib2.urlopen(req).read().decode('utf-8')
+        response['area_id'] = auth2fms.split(',')[0].strip()
+        # ログ
+        log('authtoken:{authtoken}, offset:{offset}, length:{length} partialkey:{partialkey}'.format(
+            authtoken = response['auth_token'],
+            offset = response['key_offset'],
+            length = response['key_length'],
+            partialkey = response['partial_key']))
+        return response
 
-        self._response['area_id'] = auth2fms.split(',')[0].strip()
-        '''if __debug__:
-            print ("authtoken: %s\noffset: %d length: %d \npartialkey: %s\n" % ( \
-                self._response['auth_token'],
-                self._response['key_offset'],
-                self._response['key_length'],
-                self._response['partial_key']))'''
-        log("authtoken: %s, offset: %d, length: %d, partialkey: %s" % ( \
-            self._response['auth_token'],
-            self._response['key_offset'],
-            self._response['key_length'],
-            self._response['partial_key']))
-
-    #-----------------------------------
-    def createPartialKey(self):
-        f = open(self.KEY_FILE,'rb')
-        f.seek(self._response['key_offset'])
-        partialkey = b64encode(f.read(self._response['key_length'])).decode('utf-8')
+    def createPartialKey(self, response):
+        f = open(Params.KEY_FILE, 'rb')
+        f.seek(response['key_offset'])
+        partialkey = b64encode(f.read(response['key_length'])).decode('utf-8')
         f.close()
         return partialkey
 
@@ -315,7 +222,6 @@ class Radiko(Params, Common):
         self.id = 'radiko'
         self.area = area
         self.token = token
-        log('area:%s, token:%s' % (self.area,self.token))
         # 放送局データと設定データを初期化
         self.setup(renew)
 

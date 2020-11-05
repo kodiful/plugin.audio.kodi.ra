@@ -67,10 +67,8 @@ def urlread(url, *headers):
         buf = response.read()
         response.close()
     except urllib2.HTTPError, e:
-        log('HTTPError: url=', url, error=True)
-        log('HTTPError: code=', e.code, error=True)
-        log('HTTPError: reason=', e.reason, error=True)
-        log('HTTPError: read=', e.read(), error=True)
+        log('HTTPError url:{url}, code:{code}, reason:{reason}, error={error}'.format(
+            url=url, code=e.code, reason=e.reason, error=e.read()), error=True)
         buf = ''
     return buf.encode('utf-8') if isinstance(buf,unicode) else buf
 

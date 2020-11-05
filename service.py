@@ -49,7 +49,7 @@ class Service:
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # radiko認証
         self.nextauth = self._authenticate()
-        log('radiko authentication initialized.', 'nextauth=', self.nextauth)
+        log('radiko authentication initialized. nextauth:{t}'.format(t=self.nextauth))
         # クラスを初期化
         self.update_classes()
         # いろいろ初期化
@@ -63,11 +63,9 @@ class Service:
         # radiko認証
         getAuthkey()
         auth = authenticate()
-        auth.start()
-        while 'authed' not in auth._response or auth._response['authed'] == 0: time.sleep(1)
-        if auth._response['area_id'] == '': notify('radiko authentication failed', error=True)
+        if auth.response['area_id'] == '': notify('radiko authentication failed', error=True)
         # 認証情報をファイルに書き込む
-        self.auth = auth._response
+        self.auth = auth.response
         write_json(Const.AUTH_FILE, self.auth)
         # 次の更新時刻を返す
         return nexttime(Const.AUTH_INTERVAL)
@@ -138,7 +136,7 @@ class Service:
             if now > self.nextauth:
                 # radiko認証
                 self.nextauth = self._authenticate()
-                log('radiko authentication updated.', 'nextauth=', self.nextauth)
+                log('radiko authentication updated. nextauth:{t}'.format(t=self.nextauth))
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
                 self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
@@ -160,7 +158,7 @@ class Service:
                     self.programs.match()
                     # 画面更新
                     refresh = True
-                    log('program updated.', 'nextaired=', self.nextaired)
+                    log('program updated. nextaired:{t}'.format(t=self.nextaired))
             # ダウンロードする番組が検出されたら
             if self.programs.matched_programs:
                 # ダウンロードを予約
