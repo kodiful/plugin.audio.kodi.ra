@@ -167,8 +167,8 @@ class Keywords:
                 glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')))
             # jsファイルの内容をチェック
             for file in files:
-                program = read_json(file)['program'][0]
-                if p['name'] == program['bc']:
+                program = read_json(file)
+                if p['name'] == program['name']:
                     if k['s'] == '0' and p['title'] == program['title']:
                         # 番組名が一致する
                         return False

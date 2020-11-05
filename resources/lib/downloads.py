@@ -222,29 +222,37 @@ class Downloads:
         else:
             notify('Downloaded successfully')
 
-    def deleteall(self):
+    def delete(self, gtvid=None, key=None):
         # ファイル削除
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.*')):
-            if os.path.isfile(file): os.remove(file)
-        # rssファイル生成
-        RSS().create()
-        # 再表示
-        xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
-
-    def delete(self, gtvid):
+        if gtvid is None and key is None:
+            files = glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json'))
+        elif gtvid is not None:
+            files = glob.glob(os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid))
+        elif key is not None:
+            files = filter(lambda file:read_json(file).get('key','')==key, glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')))
+        else:
+            files = []
         # ファイル削除
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '%s.*' % (gtvid))):
-            if os.path.isfile(file): os.remove(file)
-        # rssファイル生成
-        RSS().create()
-        # 再表示
-        xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
+        if len(files) == 0:
+            notify('Nothing to delete')
+        else:
+            for file in files:
+                os.remove(file)
+                mp3_file  = file.replace('.json', '.mp3')
+                if os.path.isfile(mp3_file):
+                    os.remove(mp3_file)
+                else:
+                    log('lost file:{file}'.format(file=mp3_file))
+            # rssファイル生成
+            RSS().create()
+            # 再表示
+            xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
 
     def show(self, key=''):
         plist = []
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
-            json_file = os.path.join(Const.DOWNLOAD_PATH, file)
-            mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.json','.mp3'))
+            json_file = file
+            mp3_file = file.replace('.json', '.mp3')
             if os.path.isfile(mp3_file):
                 plist.append(read_json(json_file))
             else:
@@ -253,11 +261,7 @@ class Downloads:
         h = Holiday()
         # 時間の逆順にソートして表示
         for p in sorted(plist, key=lambda item: item['ft'], reverse=True):
-            try:
-                p['key']
-            except:
-                p['key'] = ''
-            if key == '' or key==p['key']:
+            if key == '' or key==p.get('key',''):
                 # title
                 title = '%s [COLOR khaki]%s[/COLOR] [COLOR lightgreen](%s)[/COLOR]' % (h.format(p['ft']),p['title'], p['name'])
                 # logo

@@ -67,11 +67,11 @@ class getAuthkey:
             # 読み込んだswfバッファ
             self.swf = swf[:8] + zlib.decompress(swf[8:])
             # swf読み込みポインタ
-            self.swfPos = 0
+            self.pos = 0
             # ヘッダーパース
-            self.swfHeader()
+            self.__header()
             # タブブロックがある限り
-            while self.swfBlock():
+            while self.__block():
                 log(self.block['tag'], self.block['block_len'], self.block['id'])
                 if self.block['tag'] == Params.OBJECT_TAG and self.block['id'] == Params.OBJECT_ID:
                     with open(Params.KEY_FILE, 'wb') as f:
@@ -79,16 +79,16 @@ class getAuthkey:
                     break
 
     # ヘッダーパース
-    def swfHeader(self):
-        self.magic   = self.swfRead(3)
-        self.version = ord(self.swfRead(1))
-        self.file_length = self.le4Byte(self.swfRead(4))
-        rectbits = ord(self.swfRead(1)) >> 3
+    def __header(self):
+        self.magic   = self.__read(3)
+        self.version = ord(self.__read(1))
+        self.file_length = self.__le4Byte(self.__read(4))
+        rectbits = ord(self.__read(1)) >> 3
         total_bytes = int(ceil((5 + rectbits * 4) / 8.0))
-        twips_waste = self.swfRead(total_bytes - 1)
-        self.frame_rate_decimal = ord(self.swfRead(1))
-        self.frame_rate_integer = ord(self.swfRead(1))
-        self.frame_count = self.le2Byte(self.swfRead(2))
+        twips_waste = self.__read(total_bytes - 1)
+        self.frame_rate_decimal = ord(self.__read(1))
+        self.frame_rate_integer = ord(self.__read(1))
+        self.frame_count = self.__le2Byte(self.__read(2))
         log('magic:{magic}, version:{version}, length:{length}, frame_rate:{fr_integer}.{fr_decimal}, count:{fr_count}'.format(
             magic = self.magic,
             version = self.version,
@@ -98,41 +98,37 @@ class getAuthkey:
             fr_count = self.frame_count))
 
     # ブロック判定
-    def swfBlock(self):
-        swfBlockStart = self.swfPos
-        swfTag = self.le2Byte(self.swfRead(2))
-        blockLen = swfTag & 0x3f
+    def __block(self):
+        blockStart = self.pos
+        tag = self.__le2Byte(self.__read(2))
+        blockLen = tag & 0x3f
         if blockLen == 0x3f:
-            blockLen = self.le4Byte(self.swfRead(4))
-        swfTag = swfTag >> 6
-        if swfTag == 0:
+            blockLen = self.__le4Byte(self.__read(4))
+        tag = tag >> 6
+        if tag == 0:
             return None
         else:
             self.blockPos = 0
             self.block = {
-                'block_start': swfBlockStart,
-                'tag': swfTag,
+                'block_start': blockStart,
+                'tag': tag,
                 'block_len': blockLen,
-                'id': self.le2Byte(self.swfRead(2)),
-                'alpha': self.swfRead(4),
-                'value': self.swfBlockMisc(blockLen - 6)
+                'id': self.__le2Byte(self.__read(2)),
+                'alpha': self.__read(4),
+                'value': self.__read(blockLen-6) or None
             }
             return True
 
-    # ブロックバイナリデータ格納
-    def swfBlockMisc(self, blockLen):
-        return self.swfRead(blockLen) if blockLen else None
+    # ユーティリティ
+    def __read(self, num):
+        self.pos += num
+        return self.swf[self.pos - num: self.pos]
 
-    # その他のユーティリティ
-    def swfRead(self, num):
-        self.swfPos += num
-        return self.swf[self.swfPos - num: self.swfPos]
-
-    def le2Byte(self, s):
+    def __le2Byte(self, s):
         # LittleEndian to 2 Byte
         return struct.unpack('<H', s)[0]
 
-    def le4Byte(self, s):
+    def __le4Byte(self, s):
         # LittleEndian to 4 Byte
         return struct.unpack('<L', s)[0]
 

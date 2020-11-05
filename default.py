@@ -122,9 +122,9 @@ if __name__  == '__main__':
     elif params['action'] == 'showDownloads':
         Downloads().show()
     elif params['action'] == 'clearDownloads':
-        Downloads().deleteall()
+        Downloads().delete()
     elif params['action'] == 'deleteDownload':
-        Downloads().delete(params['id'])
+        Downloads().delete(gtvid=params['id'])
     elif params['action'] == 'showContents':
         Downloads().show(params['key'])
     elif params['action'] == 'updateRSS':

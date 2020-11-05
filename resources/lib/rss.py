@@ -32,15 +32,12 @@ class RSS:
         # RSSファイルを生成する
         with open(Params.RSS_FILE, 'w') as f:
             # header
-            f.write(
-                header.format(
-                    image=Params.RSS_URL+'icon.png')
-                )
+            f.write(header.format(image=Params.RSS_URL+'icon.png'))
             # body
             plist = []
             for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
-                json_file = os.path.join(Const.DOWNLOAD_PATH, file)
-                mp3_file = os.path.join(Const.DOWNLOAD_PATH, file.replace('.json','.mp3'))
+                json_file = file
+                mp3_file = file.replace('.json', '.mp3')
                 if os.path.isfile(mp3_file):
                     plist.append(read_json(json_file))
                 else:
