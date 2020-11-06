@@ -77,7 +77,7 @@ def urlread(url, *headers):
 
 def nexttime(seconds=0):
     now = datetime.datetime.now()
-    nexttime = now + datetime.timedelta(seconds)
+    nexttime = now + datetime.timedelta(seconds=seconds)
     return nexttime.strftime('%Y%m%d%H%M%S')
 
 # workaround for encode problems for strftime on Windows
