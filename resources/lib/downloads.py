@@ -237,12 +237,12 @@ class Downloads:
             notify('Nothing to delete')
         else:
             for file in files:
-                os.remove(file)
+                json_file = file
+                tmp_file = '.%s' % file
                 mp3_file  = file.replace('.json', '.mp3')
-                if os.path.isfile(mp3_file):
-                    os.remove(mp3_file)
-                else:
-                    log('lost file:{file}'.format(file=mp3_file))
+                os.remove(json_file)
+                if os.path.isfile(tmp_file): os.remove(tmp_file)
+                if os.path.isfile(mp3_file): os.remove(mp3_file)
             # rssファイル生成
             RSS().create()
             # 再表示
@@ -250,13 +250,15 @@ class Downloads:
 
     def show(self, key=''):
         plist = []
-        for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
-            json_file = file
-            mp3_file = file.replace('.json', '.mp3')
+        for json_file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
+            tmp_file = '.%s' % json_file
+            mp3_file = json_file.replace('.json', '.mp3')
             if os.path.isfile(mp3_file):
                 plist.append(read_json(json_file))
             else:
-                log('lost file:{file}'.format(file=mp3_file))
+                os.remove(json_file)
+                if os.path.isfile(tmp_file): os.remove(tmp_file)
+                log('fix lost file:{file}'.format(file=mp3_file))
         # 日付フォーマット
         h = Holiday()
         # 時間の逆順にソートして表示
