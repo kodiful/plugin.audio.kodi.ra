@@ -46,7 +46,7 @@ class Params:
     PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now'
     STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
     # 遅延
-    DELAY           = 3
+    DELAY         = 3
     # その他
     OBJECT_TAG    = 87
     OBJECT_ID     = 12
@@ -54,28 +54,29 @@ class Params:
 
 class Authkey:
 
-    def __init__(self):
-        # PLAYER_URLのオブジェクトのサイズを取得
-        response = urllib2.urlopen(Params.PLAYER_URL)
-        size = int(response.headers["content-length"])
-        # PLAYERファイルのサイズと比較、異なっている場合はダウンロードしてKEYファイルを生成
-        if not os.path.isfile(Params.KEY_FILE) or not os.path.isfile(Params.PLAYER_FILE) or size != int(os.path.getsize(Params.PLAYER_FILE)):
-            swf = response.read()
-            with open(Params.PLAYER_FILE, 'wb') as f:
-                f.write(swf)
-            # 読み込んだswfバッファ
-            self.swf = swf[:8] + zlib.decompress(swf[8:])
-            # swf読み込みポインタ
-            self.pos = 0
-            # ヘッダーパース
-            self.__header()
-            # タブブロックがある限り
-            while self.__block():
-                log(self.block['tag'], self.block['block_len'], self.block['id'])
-                if self.block['tag'] == Params.OBJECT_TAG and self.block['id'] == Params.OBJECT_ID:
-                    with open(Params.KEY_FILE, 'wb') as f:
-                        f.write(self.block['value'])
-                    break
+    def __init__(self, renew=False):
+        if renew or not os.path.isfile(Params.KEY_FILE):
+            # PLAYER_URLのオブジェクトのサイズを取得
+            response = urllib2.urlopen(Params.PLAYER_URL)
+            size = int(response.headers["content-length"])
+            # PLAYERファイルのサイズと比較、異なっている場合はダウンロードしてKEYファイルを生成
+            if not os.path.isfile(Params.PLAYER_FILE) or size != int(os.path.getsize(Params.PLAYER_FILE)):
+                swf = response.read()
+                with open(Params.PLAYER_FILE, 'wb') as f:
+                    f.write(swf)
+                # 読み込んだswfバッファ
+                self.swf = swf[:8] + zlib.decompress(swf[8:])
+                # swf読み込みポインタ
+                self.pos = 0
+                # ヘッダーパース
+                self.__header()
+                # タブブロックがある限り
+                while self.__block():
+                    log(self.block['tag'], self.block['block_len'], self.block['id'])
+                    if self.block['tag'] == Params.OBJECT_TAG and self.block['id'] == Params.OBJECT_ID:
+                        with open(Params.KEY_FILE, 'wb') as f:
+                            f.write(self.block['value'])
+                        break
 
     # ヘッダーパース
     def __header(self):
@@ -246,8 +247,8 @@ class Radiko(Params, Common):
         buf = []
         for i, s in enumerate(station):
             buf.append(
-                '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'
-                .format(id=s['id'],
+                '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'.format(
+                    id=s['id'],
                     name=s['name'],
                     offset=-1-i))
         # 設定データを書き込む

@@ -48,7 +48,7 @@ class Service:
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # radiko認証
-        self.nextauth = self.authenticate()
+        self.nextauth = self.authenticate(renew=True)
         log('radiko authentication initialized. nextauth:{t}'.format(t=self.nextauth))
         # クラスを初期化
         self.update_classes()
@@ -59,9 +59,9 @@ class Service:
             self.setup_settings()
             log('settings initialized.')
 
-    def authenticate(self):
+    def authenticate(self, renew=False):
         # radiko認証
-        Authkey()
+        Authkey(renew)
         auth = Authenticate()
         if auth.response['area_id'] == '': notify('radiko authentication failed', error=True)
         # 認証情報をファイルに書き込む
@@ -135,7 +135,7 @@ class Service:
             # 現在時刻がRadiko認証更新時刻を過ぎていたら
             if now > self.nextauth:
                 # radiko認証
-                self.nextauth = self.authenticate()
+                self.nextauth = self.authenticate(renew=True)
                 log('radiko authentication updated. nextauth:{t}'.format(t=self.nextauth))
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)

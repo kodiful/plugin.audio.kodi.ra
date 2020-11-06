@@ -225,7 +225,7 @@ class Programs:
             # キーワードと照合
             k = keywords.match(p)
             if k:
-                status = Downloads().exists(p['id'],p['ft'])
+                status = Downloads().status(p['id'],p['ft'])
                 if status == 0:
                     self.matched_programs.append({'program':p, 'keyword':k})
                     log('program matched. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
