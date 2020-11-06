@@ -168,11 +168,11 @@ class Keywords:
 
     def __match_duplicate(self, k, p):
         if k['duplicate'] == '1':
-            # ダウンロードフォルダで対応するmp3ファイルが存在するjsファイルを抽出する
+            # ダウンロードフォルダで対応するmp3ファイルが存在するjsonファイルを抽出する
             files = filter(
                 lambda file: os.path.isfile(os.path.join(Const.DOWNLOAD_PATH, file.replace('.json','.mp3'))),
                 glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')))
-            # jsファイルの内容をチェック
+            # jsonファイルの内容をチェック
             for file in files:
                 program = read_json(file)
                 if p['name'] == program['name']:
