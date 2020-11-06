@@ -52,7 +52,6 @@ class Params:
     OBJECT_ID     = 12
 
 
-#-------------------------------------------------------------------------------
 class Authkey:
 
     def __init__(self):
@@ -211,7 +210,6 @@ class Authenticate:
         return partialkey
 
 
-#-------------------------------------------------------------------------------
 class Radiko(Params, Common):
 
     def __init__(self, area, token, renew=False):
