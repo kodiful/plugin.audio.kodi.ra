@@ -10,6 +10,9 @@ import re
 import glob
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
+from downloads import Downloads
+
+
 class Keywords:
 
     def __init__(self):
@@ -45,7 +48,8 @@ class Keywords:
             # context menu
             contextmenu = []
             contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
-            contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=deleteKeyword&id=%d&deletefiles=false)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30322), 'RunPlugin(%s?action=deleteKeyword&id=%d&deletefiles=true)' % (sys.argv[0],i)))
             contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=%s' % (sys.argv[0],s['key']), listitem=li, isFolder=True)
@@ -115,12 +119,15 @@ class Keywords:
         # 変更した設定を書き込む
         self.write()
 
-    def delete(self, id):
+    def delete(self, id, deletefiles):
         if int(id) < len(self.keywords):
             # id番目の要素を削除
-            self.keywords.pop(int(id))
+            key = self.keywords.pop(int(id))
             # 変更した設定を書き込む
             self.write()
+            # ファイルを削除する
+            if deletefiles == 'true':
+                Downloads().delete(key=key['key'])
             # 再表示
             xbmc.executebuiltin("Container.Refresh")
 

@@ -53,7 +53,7 @@ class Params:
 
 
 #-------------------------------------------------------------------------------
-class getAuthkey:
+class Authkey:
 
     def __init__(self):
         # PLAYER_URLのオブジェクトのサイズを取得
@@ -133,7 +133,7 @@ class getAuthkey:
         return struct.unpack('<L', s)[0]
 
 
-class authenticate:
+class Authenticate:
 
     def __init__(self):
         # 初期化

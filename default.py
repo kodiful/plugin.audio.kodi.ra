@@ -26,7 +26,7 @@ class Cache(Service):
     def __init__(self):
         # radiko認証情報を取得
         if not os.path.isfile(Const.AUTH_FILE):
-            self._authenticate()
+            self.authenticate()
         self.auth = read_json(Const.AUTH_FILE)
 
     def update(self):
@@ -149,7 +149,7 @@ if __name__  == '__main__':
             ch=settings['ch'],
             duplicate=settings['duplicate'])
     elif params['action'] == 'deleteKeyword':
-        Keywords().delete(params['id'])
+        Keywords().delete(params['id'], params['deletefiles'])
 
     # 放送局の追加、変更、削除
     elif params['action'] == 'beginEditStation':

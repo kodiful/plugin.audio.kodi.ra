@@ -11,7 +11,7 @@ import xbmc, xbmcgui
 
 from hashlib import md5
 
-from resources.lib.cp.radiko import Radiko, getAuthkey, authenticate
+from resources.lib.cp.radiko import Radiko, Authkey, Authenticate
 from resources.lib.cp.radiru import Radiru
 from resources.lib.cp.jcba   import Jcba
 from resources.lib.cp.misc   import Misc
@@ -48,7 +48,7 @@ class Service:
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # radiko認証
-        self.nextauth = self._authenticate()
+        self.nextauth = self.authenticate()
         log('radiko authentication initialized. nextauth:{t}'.format(t=self.nextauth))
         # クラスを初期化
         self.update_classes()
@@ -59,10 +59,10 @@ class Service:
             self.setup_settings()
             log('settings initialized.')
 
-    def _authenticate(self):
+    def authenticate(self):
         # radiko認証
-        getAuthkey()
-        auth = authenticate()
+        Authkey()
+        auth = Authenticate()
         if auth.response['area_id'] == '': notify('radiko authentication failed', error=True)
         # 認証情報をファイルに書き込む
         self.auth = auth.response
@@ -135,7 +135,7 @@ class Service:
             # 現在時刻がRadiko認証更新時刻を過ぎていたら
             if now > self.nextauth:
                 # radiko認証
-                self.nextauth = self._authenticate()
+                self.nextauth = self.authenticate()
                 log('radiko authentication updated. nextauth:{t}'.format(t=self.nextauth))
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
