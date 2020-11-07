@@ -31,7 +31,6 @@ class Cache(Service):
 
     def update(self):
         self.update_classes()
-        self.update_params()
         self.setup_settings()
         xbmc.executebuiltin("Container.Refresh")
 

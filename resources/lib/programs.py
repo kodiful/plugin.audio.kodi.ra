@@ -31,6 +31,38 @@ class Params:
     BULLET   = '\xe2\x96\xb6'
 
 
+class MatchList:
+
+    def __init__(self, pending_programs=[]):
+        # リストに加える番組
+        self.matched_programs = []
+        # 既知の番組のインデクス
+        self.index = map(lambda p: self.__gtvid(p), pending_programs)
+        # キーワード照合
+        self.keywords = Keywords()
+
+    def match(self, programs):
+        for p in programs:
+            # キーワードと照合
+            k = self.keywords.match(p)
+            # ダウンロード、既知のリストと照合
+            if k and Downloads().status(p['id'],p['ft']) == 0 and self.__maintain(p, k):
+                log('program matched. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                    id = p['id'],
+                    start = p['ft'],
+                    title = p['title'],
+                    keyword = k['key']))
+        return self.matched_programs
+
+    def __gtvid(self, p):
+        p = p.get('program', p)
+        return '%s_%s' % (p['id'],p['ft'])
+
+    def __maintain(self, p, k):
+        self.matched_programs.append({'program':p, 'keyword':k})
+        return self.__gtvid(p) not in self.index
+
+
 class Programs:
 
     def __init__(self, services=()):
@@ -38,7 +70,6 @@ class Programs:
         self.services = services
         self.stations = []
         self.programs = []
-        self.matched_programs = []
         # データ抽出
         for data in reduce(lambda x,y:x+y, [service.getStationData() for service in self.services], []):
             # ロゴ画像をダウンロード
@@ -89,10 +120,8 @@ class Programs:
             # この放送局の番組の配列を初期化
             s = self.__search_station(data['id'])
             if s is None:
-                # 未知の放送局がある場合はキャッシュを削除してリスタート
-                log('unknown id:', data['id'], error=True)
-                notify('Updating station data...')
-                xbmc.executebuiltin('RunPlugin(%s?action=clear)' % (sys.argv[0]))
+                # 未知の放送局がある場合はserviceに通知
+                log('unknown id:{id}'.format(id=data['id']), error=True)
                 return None, None
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
@@ -217,39 +246,21 @@ class Programs:
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
-    def match(self):
-        self.matched_programs = []
-        keywords = Keywords()
-        # 開始時間、終了時間が規定されている番組について
-        for p in filter(lambda p: p['ft'] and p['to'], self.programs):
-            # キーワードと照合
-            k = keywords.match(p)
-            if k:
-                status = Downloads().status(p['id'],p['ft'])
-                if status == 0:
-                    self.matched_programs.append({'program':p, 'keyword':k})
-                    log('program matched. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                        id = p['id'],
-                        start = p['ft'],
-                        title = p['title'],
-                        keyword = k['key']))
-                elif status > 1:
-                    log('inconsistency found ({status}). id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                        id = p['id'],
-                        start = p['ft'],
-                        title = p['title'],
-                        keyword = k['key'],
-                        status = status))
+    def match(self, pending_programs=[]):
+        # 開始時間、終了時間が規定されている番組について照合
+        return MatchList(pending_programs).match(filter(lambda p: p['ft'] and p['to'], self.programs))
 
-    def download(self):
+    def download(self, matched_programs):
+        remaining_programs = []
         now = datetime.datetime.now()
-        for m in self.matched_programs:
+        for m in matched_programs:
             p = m['program']
             k = m['keyword']
             # 開始直前であれば保存処理を開始
             start = strptime(p['ft'], '%Y%m%d%H%M%S')
             wait = start - now
             if wait.days == 0 and wait.seconds < Const.PREP_INTERVAL:
+                # ダウンロード実行
                 status = Downloads().add(
                     id=p['id'],
                     name=p['name'],
@@ -260,16 +271,15 @@ class Programs:
                     source=p['source'],
                     delay=p['delay'],
                     key=k['key'])
+                # 正常終了したらログに書き出す
                 if status is None:
                     log('download scheduled. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
                         id = p['id'],
                         start = p['ft'],
                         title = p['title'],
                         keyword = k['key']))
-                else:
-                    log('scheduling failed ({status}). id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                        id = p['id'],
-                        start = p['ft'],
-                        title = p['title'],
-                        keyword = k['key'],
-                        status = status))
+                # 次の番組の保存処理
+                continue
+            # ダウンロードも実行の番組をリストに追加
+            remaining_programs.append(m)
+        return remaining_programs

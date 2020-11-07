@@ -47,13 +47,16 @@ class Service:
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
+        # いろいろ初期化
+        self.matched_programs = []
+        self.nextaired = ''
+        self.program_hash = ''
+        self.settings_hash = self.hash_settings()
         # radiko認証
         self.nextauth = self.authenticate(renew=True)
         log('radiko authentication initialized. nextauth:{t}'.format(t=self.nextauth))
         # クラスを初期化
         self.update_classes()
-        # いろいろ初期化
-        self.nextaired, self.program_hash, self.settings_hash = self.update_params()
         # 設定ダイアログがなければ作成
         if not os.path.isfile(Const.SETTINGS_FILE):
             self.setup_settings()
@@ -76,17 +79,7 @@ class Service:
         self.jcba = Jcba(renew=True)
         self.misc = Misc(renew=True)
         self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
-
-    def update_params(self):
-        # 番組データを取得
-        nextaired, program_hash = self.programs.setup(renew=True)
-        # ユーザ設定のハッシュ
-        settings_hash = self.hash_settings()
-        return nextaired, program_hash, settings_hash
-
-    def hash_settings(self):
-        settings = read_file(Const.USERSETTINGS_FILE)
-        return md5(settings).hexdigest() if settings else ''
+        return self.programs.setup(renew=True)
 
     def setup_settings(self):
         # テンプレート読み込み
@@ -108,11 +101,17 @@ class Service:
         # ファイル書き込み
         write_file(Const.SETTINGS_FILE, source)
 
+    def hash_settings(self):
+        settings = read_file(Const.USERSETTINGS_FILE)
+        return md5(settings).hexdigest() if settings else ''
+
     def monitor(self, refresh=False):
         # 開始
         log('enter monitor.')
         # 監視処理開始を通知
         notify('Starting service')
+        # 初期化
+        matched_programs = []
         # 監視処理を実行
         monitor = Monitor()
         while not monitor.abortRequested():
@@ -124,11 +123,11 @@ class Service:
             # リセットが検出されたら（設定ダイアログ削除が検出されたら）
             if not os.path.isfile(Const.SETTINGS_FILE):
                 # クラスを更新
-                self.update_classes()
-                # いろいろ更新
-                self.nextaired, self.program_hash, self.settings_hash = self.update_params()
+                self.nextaired, self.program_hash = self.update_classes()
                 # 設定ダイアログを生成
                 self.setup_settings()
+                # ユーザ設定のハッシュ
+                self.settings_hash = self.hash_settings()
                 # 画面更新
                 refresh = True
                 log('settings initialized.')
@@ -147,22 +146,20 @@ class Service:
                 self.nextaired, new_hash = self.programs.setup(renew=True)
                 # 放送局に設定変更があると番組データが取得できないので
                 if new_hash is None:
-                    # クラスを更新して
-                    self.update_classes()
-                    # 改めて番組データを取得
-                    self.nextaired, new_hash = self.programs.setup(renew=True)
+                    # クラスを更新して改めて番組データを取得
+                    self.nextaired, new_hash = self.update_classes()
                 #　番組データが更新されたら
                 if new_hash != self.program_hash:
                     self.program_hash = new_hash
                     # ダウンロードする番組を抽出
-                    self.programs.match()
+                    matched_programs = self.programs.match(matched_programs)
                     # 画面更新
                     refresh = True
                     log('program updated. nextaired:{t}'.format(t=self.nextaired))
             # ダウンロードする番組が検出されたら
-            if self.programs.matched_programs:
+            if matched_programs:
                 # ダウンロードを予約
-                self.programs.download()
+                matched_programs = self.programs.download(matched_programs)
             # 設定更新が検出されたら
             if monitor.settings_changed:
                 new_hash = self.hash_settings()

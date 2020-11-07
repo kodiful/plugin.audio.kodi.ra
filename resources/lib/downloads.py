@@ -143,7 +143,7 @@ class Downloads:
             'title': title,
             'description': description,
             'source': source,
-            'key': '',
+            'key': key,
             'duration': duration
         }
         # 番組情報を保存
@@ -164,8 +164,9 @@ class Downloads:
             'date': start.strftime('%Y-%m-%dT%H:%M:%SZ'),
             'tit1': key,
             'tit3': description,
-            'mp3_file': mp3_file,
-            'tmp_file': tmp_file
+            'json_file': json_file,
+            'tmp_file': tmp_file,
+            'mp3_file': mp3_file
         }
         threading.Thread(target=self.__thread, args=[data]).start()
 
@@ -195,13 +196,13 @@ class Downloads:
                 tmp_file=data['tmp_file'])
         # 開始待機
         if data['wait'] > 0: time.sleep(data['wait'])
-        # 開始通知
-        notify('Download started')
-        # ログ
-        logger = Logger(Params.LOG_FILE)
-        logger.write('downloading \'%s\' to \'%s\' ...' % (data['title'], data['mp3_file']))
         # ダウンロード開始
         p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
+        # 開始通知
+        notify('Download started "{title}"'.format(title=data['title']))
+        # ログ
+        logger = Logger(Params.LOG_FILE)
+        logger.write('[{pid}] Download started. title:"{title}" file:"{mp3_file}"'.format(pid=p.pid, title=data['title'], mp3_file=data['mp3_file']))
         # ダウンロード終了を待つ
         p.wait()
         # ダウンロード結果に応じて後処理
@@ -214,13 +215,15 @@ class Downloads:
             os.rename(data['tmp_file'], data['mp3_file'])
             # rssファイル生成
             RSS().create()
-        # ダウンロード終了
-        logger.write('done (returncode=%d).' % p.returncode)
         # 完了通知
         if p.returncode:
-            notify('Download failed (returncode=%d)' % p.returncode, error=True)
+            notify('Download failed "{title}"'.format(title=data['title']), error=True)
+            # ログ
+            logger.write('[{pid}] Download failed. returncode:{returncode}'.format(pid=p.pid, returncode=p.returncode))
         else:
-            notify('Downloaded successfully')
+            notify('Download completed "{title}"'.format(title=data['title']))
+            # ログ
+            logger.write('[{pid}] Download completed.')
 
     def delete(self, gtvid=None, key=None):
         # ファイル削除
