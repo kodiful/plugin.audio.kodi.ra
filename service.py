@@ -66,10 +66,12 @@ class Service:
         # radiko認証
         Authkey(renew)
         auth = Authenticate()
-        if auth.response['area_id'] == '': notify('radiko authentication failed', error=True)
-        # 認証情報をファイルに書き込む
-        self.auth = auth.response
-        write_json(Const.AUTH_FILE, self.auth)
+        if auth.response['area_id']:
+            # 認証情報をファイルに書き込む
+            self.auth = auth.response
+            write_json(Const.AUTH_FILE, self.auth)
+        else:
+            notify('radiko authentication failed', error=True)
         # 次の更新時刻を返す
         return nexttime(Const.AUTH_INTERVAL)
 
@@ -139,7 +141,6 @@ class Service:
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
                 self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
-                log('class updated.')
             # 現在時刻が更新予定時刻を過ぎていたら
             if now > self.nextaired:
                 # 番組データを取得

@@ -47,9 +47,10 @@ class Keywords:
             li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
-            contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
-            contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=deleteKeyword&id=%d&deletefiles=false)' % (sys.argv[0],i)))
-            contextmenu.append((Const.STR(30322), 'RunPlugin(%s?action=deleteKeyword&id=%d&deletefiles=true)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
+            #contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=1)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30322), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=2)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30323), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=3)' % (sys.argv[0],i)))
             contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
             li.addContextMenuItems(contextmenu, replaceItems=True)
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=%s' % (sys.argv[0],s['key']), listitem=li, isFolder=True)
@@ -96,8 +97,6 @@ class Keywords:
             elem['ch'] = ch
             elem['duplicate'] = duplicate
             self.keywords.append(elem)
-            # キーワードを表示
-            xbmc.executebuiltin("Container.Update(%s?action=showKeywords)" % (sys.argv[0]))
         else:
             if self.keywords[int(id)]['key'] == key:
                 pass
@@ -112,24 +111,24 @@ class Keywords:
             elem['day'] = day
             elem['ch'] = ch
             elem['duplicate'] = duplicate
-            # 再表示
-            xbmc.executebuiltin("Container.Refresh")
         # キーワード順にソート
         self.keywords = sorted(self.keywords, key=lambda item: item['key'])
         # 変更した設定を書き込む
         self.write()
 
-    def delete(self, id, deletefiles):
+    def delete(self, id, level):
         if int(id) < len(self.keywords):
-            # id番目の要素を削除
-            key = self.keywords.pop(int(id))
-            # 変更した設定を書き込む
-            self.write()
             # ファイルを削除する
-            if deletefiles == 'true':
+            if int(level) & 2:
+                # id番目のキーワードのファイルを削除
+                key = self.keywords[int(id)]
                 Downloads().delete(key=key['key'])
-            # 再表示
-            xbmc.executebuiltin("Container.Refresh")
+            # キーワードを削除する
+            if int(level) & 1:
+                # id番目の要素を削除
+                self.keywords.pop(int(id))
+                # 変更した設定を書き込む
+                self.write()
 
     def match(self, p):
         for k in self.keywords:

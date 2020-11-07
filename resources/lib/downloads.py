@@ -196,12 +196,13 @@ class Downloads:
                 tmp_file=data['tmp_file'])
         # 開始待機
         if data['wait'] > 0: time.sleep(data['wait'])
-        # ダウンロード開始
-        p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
         # 開始通知
         notify('Download started "{title}"'.format(title=data['title']))
-        # ログ
+        # ログ書き込み初期化
         logger = Logger(Params.LOG_FILE)
+        # ダウンロード開始
+        p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
+        # ログ
         logger.write('[{pid}] Download started. title:"{title}" file:"{mp3_file}"'.format(pid=p.pid, title=data['title'], mp3_file=data['mp3_file']))
         # ダウンロード終了を待つ
         p.wait()
@@ -223,7 +224,7 @@ class Downloads:
         else:
             notify('Download completed "{title}"'.format(title=data['title']))
             # ログ
-            logger.write('[{pid}] Download completed.')
+            logger.write('[{pid}] Download completed.'.format(pid=p.pid))
 
     def delete(self, gtvid=None, key=None):
         # ファイル削除
@@ -236,9 +237,7 @@ class Downloads:
         else:
             files = []
         # ファイル削除
-        if len(files) == 0:
-            notify('Nothing to delete')
-        else:
+        if len(files) > 0:
             for file in files:
                 json_file = file
                 tmp_file = '.%s' % file
@@ -248,8 +247,6 @@ class Downloads:
                 if os.path.isfile(mp3_file): os.remove(mp3_file)
             # rssファイル生成
             RSS().create()
-            # 再表示
-            xbmc.executebuiltin('Container.Update(%s,replace)' % (sys.argv[0]))
 
     def show(self, key=''):
         plist = []
@@ -259,9 +256,10 @@ class Downloads:
             if os.path.isfile(mp3_file):
                 plist.append(read_json(json_file))
             else:
-                os.remove(json_file)
-                if os.path.isfile(tmp_file): os.remove(tmp_file)
-                log('fix lost file:{file}'.format(file=mp3_file))
+                # ダウンロード中の場合もあるので削除はしない
+                #os.remove(json_file)
+                #if os.path.isfile(tmp_file): os.remove(tmp_file)
+                log('file lost (or in downloading):{file}'.format(file=mp3_file))
         # 日付フォーマット
         h = Holiday()
         # 時間の逆順にソートして表示
@@ -275,7 +273,6 @@ class Downloads:
                 if not os.path.isfile(logopath): logopath = 'DefaultFile.png'
                 # listitemを追加
                 li = xbmcgui.ListItem(title, iconImage=logopath, thumbnailImage=logopath)
-                #li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['bc'],'comment':p['description']})
                 comment = p['description']
                 comment = re.sub(r'&lt;.*?&gt;','\n', comment)
                 comment = re.sub(r'\n{2,}', '\n', comment)

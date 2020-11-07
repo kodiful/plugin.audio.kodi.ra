@@ -32,7 +32,6 @@ class Cache(Service):
     def update(self):
         self.update_classes()
         self.setup_settings()
-        xbmc.executebuiltin("Container.Refresh")
 
     def __clear(self, dirpath):
         for root, dirs, files in os.walk(dirpath, topdown=False):
@@ -94,14 +93,18 @@ if __name__  == '__main__':
     if params['action'] == 'resetAll':
         notify('Initializing settings...')
         Cache().resetAll()
+        xbmc.executebuiltin("Container.Refresh")
     elif params['action'] == 'clearAll':
         notify('Clearing cached data and images...')
         Cache().clearAll()
+        xbmc.executebuiltin("Container.Refresh")
     elif params['action'] == 'clearData':
         notify('Clearing cached data...')
         Cache().clearData()
+        xbmc.executebuiltin("Container.Refresh")
     elif params['action'] == 'updateDialog':
         Cache().update()
+        xbmc.executebuiltin("Container.Refresh")
 
     # ダウンロードの管理
     elif params['action'] == 'addDownload':
@@ -122,8 +125,10 @@ if __name__  == '__main__':
         Downloads().show()
     elif params['action'] == 'clearDownloads':
         Downloads().delete()
+        xbmc.executebuiltin('Container.Refresh()')
     elif params['action'] == 'deleteDownload':
         Downloads().delete(gtvid=params['id'])
+        xbmc.executebuiltin('Container.Refresh()')
     elif params['action'] == 'showContents':
         Downloads().show(params['key'])
     elif params['action'] == 'updateRSS':
@@ -147,8 +152,10 @@ if __name__  == '__main__':
             day=settings['day'],
             ch=settings['ch'],
             duplicate=settings['duplicate'])
+        xbmc.executebuiltin("Container.Refresh")
     elif params['action'] == 'deleteKeyword':
-        Keywords().delete(params['id'], params['deletefiles'])
+        Keywords().delete(params['id'], params['level'])
+        xbmc.executebuiltin("Container.Refresh")
 
     # 放送局の追加、変更、削除
     elif params['action'] == 'beginEditStation':
