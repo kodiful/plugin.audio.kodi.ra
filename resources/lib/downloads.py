@@ -172,7 +172,7 @@ class Downloads:
 
     def __thread(self, data):
         # コマンドライン
-        command = ('{ffmpeg} -y -v warning -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} '
+        command = ('"{ffmpeg}" -y -v warning -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} '
             + '-metadata title="{title}" '
             + '-metadata artist="{artist}" '
             + '-metadata copyright="{copyright}" '
