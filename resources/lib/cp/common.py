@@ -37,5 +37,6 @@ class Common(Params):
     def getProgramFile(self):
         return
 
+
     def getProgramData(self, renew=False):
-        return
+        return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]

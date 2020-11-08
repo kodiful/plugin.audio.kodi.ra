@@ -57,6 +57,3 @@ class Jcba(Params, Common):
         data = urlread(self.SETTINGS_URL)
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, data)
-
-    def getProgramData(self, renew=False):
-        return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]

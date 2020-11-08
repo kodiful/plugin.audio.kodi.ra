@@ -56,27 +56,14 @@ class Keywords:
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=%s' % (sys.argv[0],s['key']), listitem=li, isFolder=True)
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
-    def add(self, key, s='0', day='0', ch='0', duplicate='false'):
-        Const.SET('id','')
-        Const.SET('key',key)
-        Const.SET('s',s)
-        Const.SET('day',day)
-        Const.SET('ch',ch)
-        Const.SET('duplicate',duplicate)
-        Const.SET('name','')
-        Const.SET('stream','')
-        xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
-        xbmc.executebuiltin('SetFocus(105)') # select 6th category
-        xbmc.executebuiltin('SetFocus(204)') # select 5th control
-
-    def beginEdit(self, id):
-        elem = self.keywords[int(id)]
-        Const.SET('id',str(id))
-        Const.SET('key',elem['key'])
-        Const.SET('s',elem['s'])
-        Const.SET('day',elem['day'])
-        Const.SET('ch',elem['ch'])
-        Const.SET('duplicate',elem['duplicate'])
+    def beginEdit(self, id='', key='', s='0', day='0', ch='0', duplicate='false'):
+        elem = self.keywords[int(id)] if id else {}
+        Const.SET('id', id)
+        Const.SET('key', elem.get('key',key))
+        Const.SET('s', elem.get('s',s))
+        Const.SET('day', elem.get('day',day))
+        Const.SET('ch', elem.get('ch',ch))
+        Const.SET('duplicate', elem.get('duplicate',duplicate))
         Const.SET('name','')
         Const.SET('stream','')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
@@ -84,7 +71,7 @@ class Keywords:
         xbmc.executebuiltin('SetFocus(204)') # select 5th control
 
     def endEdit(self, id, key, s, day, ch, duplicate):
-        key = re.sub(r'(^\s+|\s+$)','',key)
+        key = re.sub(r'(^\s+|\s+$)', '', key)
         if id=='':
             for elem in self.keywords:
                 if elem['key'] == key:

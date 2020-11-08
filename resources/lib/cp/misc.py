@@ -53,7 +53,7 @@ class Misc(Params, Common):
                 'name': ch['name'],
                 'logo_large': '',
                 'url': ch['stream'],
-                'onair': ''
+                'onair': 'n/a'
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)
@@ -65,9 +65,6 @@ class Misc(Params, Common):
                 .format(id=ch['id'], name=ch['name'], offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getProgramData(self, renew=False):
-        return [{'id': s['id'], 'progs': [{'title': s.get('onair','n/a')}]} for s in self.getStationData()]
 
     def beginEdit(self, id):
         ch = filter(lambda x:x['id']==id, self.getStationData())[0]

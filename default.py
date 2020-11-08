@@ -121,29 +121,25 @@ if __name__  == '__main__':
             notify(status, error=True)
         else:
             notify('Download scheduled')
-    elif params['action'] == 'showDownloads':
-        Downloads().show()
     elif params['action'] == 'clearDownloads':
         Downloads().delete()
         xbmc.executebuiltin('Container.Refresh()')
     elif params['action'] == 'deleteDownload':
         Downloads().delete(gtvid=params['id'])
         xbmc.executebuiltin('Container.Refresh()')
-    elif params['action'] == 'showContents':
-        Downloads().show(params['key'])
+
+    # RSS
     elif params['action'] == 'updateRSS':
         RSS().create()
 
     # キーワードの追加、変更、削除
     elif params['action'] == 'addKeyword':
-        Keywords().add(
+        Keywords().beginEdit(
             key=params['title'],
             day=str(int(strptime(params['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
             ch=params['name'])
-    elif params['action'] == 'showKeywords':
-        Keywords().show()
     elif params['action'] == 'beginEditKeyword':
-        Keywords().beginEdit(params['id'])
+        Keywords().beginEdit(id=params['id'])
     elif params['action'] == 'endEditKeyword':
         Keywords().endEdit(
             id=settings['id'],
@@ -183,6 +179,12 @@ if __name__  == '__main__':
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
 
     # 表示
+    elif params['action'] == 'showDownloads':
+        Downloads().show()
+    elif params['action'] == 'showContents':
+        Downloads().show(params['key'])
+    elif params['action'] == 'showKeywords':
+        Keywords().show()
     elif params['action'] == 'showPrograms':
         Programs().show()
     else:
