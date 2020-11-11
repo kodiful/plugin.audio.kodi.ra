@@ -7,6 +7,7 @@ import inspect
 import urllib2
 import json
 import re
+import exceptions
 
 
 # workaround for encoding problems
@@ -36,41 +37,49 @@ def convert(obj, strip=False):
 def read_file(filepath):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
         with open(filepath, 'r') as f:
-            return f.read()
+            data = f.read()
+        return data
     else:
         return None
 
 def write_file(filepath, data):
     with open(filepath, 'w') as f:
-        return f.write(data)
+        f.write(data)
 
 def read_json(filepath):
-    if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-        with open(filepath, 'r') as f:
-            data  = json.loads(f.read())
-        return convert(data)
+    data = read_file(filepath)
+    if data:
+        try:
+            return convert(json.loads(data))
+        except exceptions.ValueError as e:
+            log(filepath, str(e), error=True)
+            return None
     else:
         return None
 
 def write_json(filepath, data):
-    with open(filepath, 'w') as f:
-        f.write(json.dumps(data, sort_keys=True, ensure_ascii=False, indent=4))
+    write_file(filepath, json.dumps(data, sort_keys=True, ensure_ascii=False, indent=4))
 
-def urlread(url, *headers):
+def urlread(url, headers={}):
     opener = urllib2.build_opener()
     h = [('User-Agent', 'Mozilla/5.0')] # User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0) Gecko/20100101 Firefox/68.0
-    for header in headers:
-        h.append(header)
+    for key, val in headers.items():
+        h.append((key, val))
     opener.addheaders = h
     try:
         response = opener.open(url)
         buf = response.read()
         response.close()
     except urllib2.HTTPError, e:
-        log('HTTPError url:{url}, code:{code}, reason:{reason}, error={error}'.format(
-            url=url, code=e.code, reason=e.reason, error=e.read()), error=True)
+        log('HTTPError url:{url}, code:{code}'.format(url=url, code=e.code), error=True)
         buf = ''
-    return buf.encode('utf-8') if isinstance(buf,unicode) else buf
+    except urllib2.URLError as e:
+        log('URLError url:{url}, reason:{reason}'.format(url=url, reason=e.reason), error=True)
+        buf = ''
+    except Exception as e:
+        log(url, str(e), error=True)
+        buf = ''
+    return buf
 
 
 # datetime utilities

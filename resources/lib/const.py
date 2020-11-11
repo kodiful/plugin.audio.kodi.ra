@@ -35,11 +35,15 @@ class Const:
 
     DOWNLOAD_PATH     = GET('download_path')
 
+    # database
+    DB_PATH           = xbmc.translatePath('special://database')
+    CACHE_DB          = os.path.join(DB_PATH, 'Textures13.db')
+
     # intervals
-    AUTH_INTERVAL         = 3600
-    CHECK_INTERVAL        = 30
-    PREP_INTERVAL         = 180
-    MARGIN_INTERVAL       = 5
+    AUTH_INTERVAL     = 3600
+    CHECK_INTERVAL    = 30
+    PREP_INTERVAL     = 180
+    MARGIN_INTERVAL   = 5
 
     # others
-    LOGO_URL = 'http://kodiful.com/KodiRa/downloads/jcba/icon.png'
+    LOGO_URL          = 'http://kodiful.com/KodiRa/downloads/jcba/icon.png'

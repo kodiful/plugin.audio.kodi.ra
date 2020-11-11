@@ -66,12 +66,11 @@ class Service:
         # radiko認証
         Authkey(renew)
         auth = Authenticate()
-        if auth.response['area_id']:
-            # 認証情報をファイルに書き込む
-            self.auth = auth.response
-            write_json(Const.AUTH_FILE, self.auth)
-        else:
+        if auth.response['authed'] == 0:
             notify('radiko authentication failed', error=True)
+        # 認証情報をファイルに書き込む
+        self.auth = auth.response
+        write_json(Const.AUTH_FILE, self.auth)
         # 次の更新時刻を返す
         return nexttime(Const.AUTH_INTERVAL)
 

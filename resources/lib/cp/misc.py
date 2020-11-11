@@ -7,8 +7,6 @@ from ..common import *
 from ..xmltodict import parse
 
 import os, sys
-import urllib
-import xml.dom.minidom
 import re
 import json
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
@@ -51,9 +49,8 @@ class Misc(Params, Common):
             buf.append({
                 'id': ch['id'],
                 'name': ch['name'],
-                'logo_large': '',
                 'url': ch['stream'],
-                'onair': 'n/a'
+                'logo_large': ch.get('logo_large','')
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)
@@ -71,24 +68,29 @@ class Misc(Params, Common):
         Const.SET('id',id)
         Const.SET('name',ch['name'])
         Const.SET('stream',ch['url'])
+        Const.SET('logo',ch.get('logo_large',''))
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 
-    def endEdit(self, id, name, stream):
+    def endEdit(self, id, name, stream, logo):
         if id == '':
-            self.ch.append({'name':name, 'stream':stream})
+            self.ch.append({'name':name, 'stream':stream, 'logo':logo})
         else:
             data = filter(lambda x:x['id']==id, self.getStationData())[0]
             ch = filter(lambda x:x['name']==data['name'] and x['stream']==data['url'], self.ch)[0]
             ch['name'] = name
             ch['stream'] = stream
+            ch['logo_large'] = logo
+            # ロゴ画像があれば削除
+            logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
+            if os.path.isfile(logopath): os.remove(logopath)
         # 追加/編集した設定を書き込む
         self.write()
         # 変更を反映する
         self.setup(renew=True)
         # 設定ダイアログを更新する
-        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % (sys.argv[0]))
+        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % sys.argv[0])
 
     def delete(self, id):
         # 指定したidを除いた要素で配列を書き換える
@@ -99,4 +101,4 @@ class Misc(Params, Common):
         # 変更を反映する
         self.setup(renew=True)
         # 設定ダイアログを更新する
-        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % (sys.argv[0]))
+        xbmc.executebuiltin('RunPlugin(%s?action=updateDialog)' % sys.argv[0])

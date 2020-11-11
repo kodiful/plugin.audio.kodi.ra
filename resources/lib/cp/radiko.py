@@ -19,7 +19,6 @@ import os
 import struct
 import zlib
 import urllib, urllib2
-import xml.dom.minidom
 import time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
@@ -41,9 +40,9 @@ class Params:
     AUTH1_URL     = 'https://radiko.jp/v2/api/auth1_fms'
     AUTH2_URL     = 'https://radiko.jp/v2/api/auth2_fms'
     PLAYER_URL    = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
-    STATION_URL   = 'http://radiko.jp/v2/station/list/'
+    STATION_URL   = 'http://radiko.jp/v2/station/list/%s.xml'
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
-    PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now'
+    PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now?area_id=%s'
     STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
     # 遅延
     DELAY         = 3
@@ -57,8 +56,12 @@ class Authkey:
     def __init__(self, renew=False):
         if renew or not os.path.isfile(Params.KEY_FILE):
             # PLAYER_URLのオブジェクトのサイズを取得
-            response = urllib2.urlopen(Params.PLAYER_URL)
-            size = int(response.headers["content-length"])
+            try:
+                response = urllib2.urlopen(Params.PLAYER_URL)
+                size = int(response.headers["content-length"])
+            except Exception as e:
+                log(str(e), error=True)
+                return
             # PLAYERファイルのサイズと比較、異なっている場合はダウンロードしてKEYファイルを生成
             if not os.path.isfile(Params.PLAYER_FILE) or size != int(os.path.getsize(Params.PLAYER_FILE)):
                 swf = response.read()
@@ -137,17 +140,14 @@ class Authenticate:
 
     def __init__(self):
         # 初期化
-        response = {}
-        response['area_id'] = ''
-        response['authed'] = 0
-        self.response = response
-        # auth_token
+        self.response = response = {'auth_token':'', 'area_id':'', 'authed':0}
+        # auth_tokenを取得
         response = self.appIDAuth(response)
-        if response['auth_token']:
-            # area_id
+        if response and response['auth_token']:
+            # area_idを取得
             response = self.challengeAuth(response)
-            if response['area_id']:
-                response['authed' ] = 1
+            if response and response['area_id']:
+                response['authed'] = 1
                 # インスタンス変数に格納
                 self.response = response
             else:
@@ -164,10 +164,14 @@ class Authenticate:
             'X-Radiko-User': 'test-stream',
             'X-Radiko-Device': 'pc'
         }
-        # リクエスト
-        req = urllib2.Request(Params.AUTH1_URL, headers=headers, data='\r\n')
-        # レスポンス
-        auth1fms = urllib2.urlopen(req).info()
+        try:
+            # リクエスト
+            req = urllib2.Request(Params.AUTH1_URL, headers=headers, data='\r\n')
+            # レスポンス
+            auth1fms = urllib2.urlopen(req).info()
+        except Exception as e:
+            log(str(e), error=True)
+            return
         response['auth_token'] = auth1fms['X-Radiko-AuthToken']
         response['key_offset'] = int(auth1fms['X-Radiko-KeyOffset'])
         response['key_length'] = int(auth1fms['X-Radiko-KeyLength'])
@@ -190,10 +194,14 @@ class Authenticate:
             'X-Radiko-Authtoken': response['auth_token'],
             'X-Radiko-Partialkey': response['partial_key']
         }
-        # リクエスト
-        req = urllib2.Request(Params.AUTH2_URL, headers=headers, data='\r\n')
-        # レスポンス
-        auth2fms = urllib2.urlopen(req).read().decode('utf-8')
+        try:
+            # リクエスト
+            req = urllib2.Request(Params.AUTH2_URL, headers=headers, data='\r\n')
+            # レスポンス
+            auth2fms = urllib2.urlopen(req).read().decode('utf-8')
+        except Exception as e:
+            log(str(e), error=True)
+            return
         response['area_id'] = auth2fms.split(',')[0].strip()
         # ログ
         log('authtoken:{authtoken}, offset:{offset}, length:{length} partialkey:{partialkey}'.format(
@@ -218,77 +226,89 @@ class Radiko(Params, Common):
         self.area = area
         self.token = token
         # 放送局データと設定データを初期化
-        self.setup(renew)
+        if self.area and self.token:
+            self.setup(renew)
 
     def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
         # キャッシュがなければウェブから読み込む
-        url = '%s%s.xml' % (self.STATION_URL ,self.area)
-        data = urlread(url)
-        # データ変換
-        dom = convert(parse(data))
-        station = dom['stations'].get('station',[]) if dom['stations'] else []
-        station = station if isinstance(station,list) else [station]
-        # 放送局データ
-        buf = []
-        for s in station:
-            buf.append({
-                'id': 'radiko_%s' % s['id'],
-                'name': s['name'],
-                'logo_large': s['logo_large'],
-                'url': '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
-                'delay': self.DELAY
-            })
-        # 放送局データを書き込む
-        write_json(self.STATION_FILE, buf)
-        # 設定データ
-        buf = []
-        for i, s in enumerate(station):
-            buf.append(
-                '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'.format(
-                    id=s['id'],
-                    name=s['name'],
-                    offset=-1-i))
-        # 設定データを書き込む
-        write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getProgramFile(self):
-        try:
-            url = '%s?area_id=%s'  % (self.PROGRAM_URL, self.area)
-            data = urlread(url, ('Referer', self.REFERER_URL))
-            write_file(self.PROGRAM_FILE, data)
-        except:
-            log('failed')
+        data = urlread(self.STATION_URL % self.area)
+        if data:
+            # データ変換
+            dom = convert(parse(data))
+            station = dom['stations'].get('station',[]) if dom['stations'] else []
+            station = station if isinstance(station,list) else [station]
+            # 放送局データ
+            buf = []
+            for s in station:
+                buf.append({
+                    'id': 'radiko_%s' % s['id'],
+                    'name': s['name'],
+                    'logo_large': s['logo_large'],
+                    'url': '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
+                    'delay': self.DELAY
+                })
+            # 放送局データを書き込む
+            write_json(self.STATION_FILE, buf)
+            # 設定データ
+            buf = []
+            for i, s in enumerate(station):
+                buf.append(
+                    '    <setting label="{name}" type="bool" id="radiko_{id}" default="true" enable="eq({offset},2)"/>'.format(
+                        id=s['id'],
+                        name=s['name'],
+                        offset=-1-i))
+            # 設定データを書き込む
+            write_file(self.SETTINGS_FILE, '\n'.join(buf))
+        else:
+            # 放送局データを書き込む
+            write_json(self.STATION_FILE, [])
+            # 設定データを書き込む
+            write_file(self.SETTINGS_FILE, '')
 
     def getProgramData(self, renew=False):
+        # キャッシュを確認
         if renew or not os.path.isfile(self.PROGRAM_FILE):
-            self.getProgramFile()
+            # キャッシュがなければウェブから読み込む
+            try:
+                url = self.PROGRAM_URL % self.area
+                if self.area:
+                    data = urlread(url, {'Referer':self.REFERER_URL})
+                    write_file(self.PROGRAM_FILE, data)
+                else:
+                    raise urllib2.URLError
+            except:
+                write_file(self.PROGRAM_FILE, '')
+                log('failed to get data from url:%s' % url)
         # データ抽出
         data = read_file(self.PROGRAM_FILE)
-        dom = convert(parse(data))
-        buf = []
-        # 放送局
-        station = dom['radiko']['stations']['station']
-        station = station if isinstance(station,list) else [station]
-        for s in station:
-            progs = []
-            # 放送中のプログラム
-            program = s['scd']['progs']['prog']
-            program = program if isinstance(program,list) else [program]
-            for p in program:
-                progs.append({
-                    'ft': p.get('@ft',''),
-                    'ftl': p.get('@ftl',''),
-                    'to': p.get('@to',''),
-                    'tol': p.get('@tol',''),
-                    'title': p.get('title','n/a'),
-                    'subtitle': p.get('subtitle',''),
-                    'content': p.get('content',''),
-                    'act': p.get('act',''),
-                    'music': p.get('music',''),
-                    'free': p.get('free','')
-                })
-            buf.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
-        return buf
+        if data:
+            dom = convert(parse(data))
+            buf = []
+            # 放送局
+            station = dom['radiko']['stations']['station']
+            station = station if isinstance(station,list) else [station]
+            for s in station:
+                progs = []
+                # 放送中のプログラム
+                program = s['scd']['progs']['prog']
+                program = program if isinstance(program,list) else [program]
+                for p in program:
+                    progs.append({
+                        'ft': p.get('@ft',''),
+                        'ftl': p.get('@ftl',''),
+                        'to': p.get('@to',''),
+                        'tol': p.get('@tol',''),
+                        'title': p.get('title','n/a'),
+                        'subtitle': p.get('subtitle',''),
+                        'content': p.get('content',''),
+                        'act': p.get('act',''),
+                        'music': p.get('music',''),
+                        'free': p.get('free','')
+                    })
+                buf.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
+            return buf
+        else:
+            return []

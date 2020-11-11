@@ -8,10 +8,14 @@ import os
 import sys
 import glob
 import re
-import urllib, urllib2
+import urllib
 import datetime, time
-import xml.dom.minidom
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
+
+try:
+    from sqlite3 import dbapi2 as sqlite
+except:
+    from pysqlite2 import dbapi2 as sqlite
 
 from hashlib import md5
 from PIL import Image
@@ -83,6 +87,7 @@ class Programs:
                 'delay': data.get('delay',0),
                 'logo_path': logopath,
                 'fanart_artist': logopath,
+                'programs': ''
             }
             # 配列に追加
             self.stations.append(s)
@@ -90,6 +95,7 @@ class Programs:
     def __save_logo(self, id, url):
         logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
         if not os.path.isfile(logopath):
+            # urlから画像ファイルを取得
             try:
                 if url:
                     buffer = urlread(url)
@@ -110,6 +116,11 @@ class Programs:
             except:
                 background.paste(img, (int((216-w)/2), int((216-h)/2)))
             background.save(logopath, 'PNG')
+            # DBから画像のキャッシュを削除
+            conn = sqlite.connect(Const.CACHE_DB)
+            conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % logopath)
+            conn.commit()
+            conn.close()
         return logopath
 
     def setup(self, renew=False):
@@ -186,7 +197,7 @@ class Programs:
         # 開始/終了時刻が定義された番組を抽出
         p = filter(lambda x:x['ft'] and x['to'], self.programs)
         # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
-        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p))
+        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p), '')
         hash = md5(data).hexdigest()
         # 終了済みの番組は現在時刻を、それ以外は開始時刻を抽出
         now = nexttime()
@@ -203,7 +214,9 @@ class Programs:
         # 放送局表示
         for s in filter(lambda x:self.__showhide(x['id']), self.stations):
             title = '[COLOR white]%s[/COLOR]' % s['name']
-            if len(s['programs']) == 0:
+            if s['programs'] == '':
+                title += ' ' + Params.TITLE_KK % (Params.BULLET,Const.STR(30059))
+            elif len(s['programs']) == 0:
                 title += ' ' + Params.TITLE_KK % (Params.BULLET,Const.STR(30058))
             else:
                 for i, p in enumerate(s['programs']):
@@ -218,10 +231,10 @@ class Programs:
             # コンテクストメニュー
             contextmenu = []
             # 番組情報を更新
-            contextmenu.append((Const.STR(30055), 'Container.Update(%s?action=showPrograms,replace)' % (sys.argv[0])))
+            contextmenu.append((Const.STR(30055), 'Container.Update(%s?action=updatePrograms,replace)' % sys.argv[0]))
             # ダウンロード設定
             if Const.GET('download') == 'true':
-                for i, p in enumerate(s['programs']):
+                for i, p in enumerate(s['programs'] or []):
                     if p['ft'].isdigit() and p['to'].isdigit():
                         # 保存
                         if i==0: menu = Params.TITLE_KK % (Const.STR(30056),p['title'])
@@ -238,7 +251,7 @@ class Programs:
                 # 削除
                 contextmenu.append((Const.STR(30318), 'RunPlugin(%s?action=deleteStation&id=%s)' % (sys.argv[0],s['id'])))
             # アドオン設定
-            contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % (sys.argv[0])))
+            contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
             # コンテクストメニュー設定
             li.addContextMenuItems(contextmenu, replaceItems=True)
             # リストアイテムを追加

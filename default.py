@@ -65,17 +65,24 @@ if __name__  == '__main__':
     args = urlparse.parse_qs(sys.argv[2][1:], keep_blank_values=True)
     for key in args.keys():
         args[key] = args[key][0]
-    params = {'action':''}
-    params.update(args)
+
+    # action
+    action = args.get('action')
+    if action:
+        pass
+    elif Const.GET('download') == 'true':
+        action = 'showKeywords'
+    else:
+        action = 'showPrograms'
 
     # ログ
     #log('path=',xbmc.getInfoLabel('Container.FolderPath'))
     #log('argv=', sys.argv)
-    #log(params)
+    #log(args)
 
     # アドオン設定をコピー
     settings = {}
-    for key in ['id','key','s','day','ch','duplicate','name','stream']:
+    for key in ['id','key','s','day','ch','duplicate','name','stream','logo']:
         settings[key] = Const.GET(key)
     # アドオン設定をリセット
     Const.SET('id','')
@@ -86,61 +93,62 @@ if __name__  == '__main__':
     Const.SET('duplicate','0')
     Const.SET('name','')
     Const.SET('stream','')
+    Const.SET('logo','')
 
     # actionに応じた処理
 
     # リセット
-    if params['action'] == 'resetAll':
+    if action == 'resetAll':
         notify('Initializing settings...')
         Cache().resetAll()
         xbmc.executebuiltin("Container.Refresh")
-    elif params['action'] == 'clearAll':
+    elif action == 'clearAll':
         notify('Clearing cached data and images...')
         Cache().clearAll()
         xbmc.executebuiltin("Container.Refresh")
-    elif params['action'] == 'clearData':
+    elif action == 'clearData':
         notify('Clearing cached data...')
         Cache().clearData()
         xbmc.executebuiltin("Container.Refresh")
-    elif params['action'] == 'updateDialog':
+    elif action == 'updateDialog':
         Cache().update()
         xbmc.executebuiltin("Container.Refresh")
 
     # ダウンロードの管理
-    elif params['action'] == 'addDownload':
+    elif action == 'addDownload':
         status = Downloads().add(
-            id=params['id'],
-            name=params['name'],
-            ft=params['ft'],
-            to=params['to'],
-            title=params['title'],
-            description=params['description'],
-            source=params['source'],
-            delay=params['delay'])
+            id=args['id'],
+            name=args['name'],
+            ft=args['ft'],
+            to=args['to'],
+            title=args['title'],
+            description=args['description'],
+            source=args['source'],
+            delay=args['delay'])
         if status:
             notify(status, error=True)
         else:
             notify('Download scheduled')
-    elif params['action'] == 'clearDownloads':
+    elif action == 'clearDownloads':
         Downloads().delete()
         xbmc.executebuiltin('Container.Refresh()')
-    elif params['action'] == 'deleteDownload':
-        Downloads().delete(gtvid=params['id'])
+    elif action == 'deleteDownload':
+        Downloads().delete(gtvid=args['id'])
         xbmc.executebuiltin('Container.Refresh()')
 
     # RSS
-    elif params['action'] == 'updateRSS':
+    elif action == 'updateRSS':
         RSS().create()
 
     # キーワードの追加、変更、削除
-    elif params['action'] == 'addKeyword':
+    elif action == 'addKeyword':
         Keywords().beginEdit(
-            key=params['title'],
-            day=str(int(strptime(params['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
-            ch=params['name'])
-    elif params['action'] == 'beginEditKeyword':
-        Keywords().beginEdit(id=params['id'])
-    elif params['action'] == 'endEditKeyword':
+            key=args['title'],
+            day=str(int(strptime(args['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
+            ch=args['name'])
+    elif action == 'beginEditKeyword':
+        Keywords().beginEdit(id=args['id'])
+    elif action == 'endEditKeyword':
         Keywords().endEdit(
             id=settings['id'],
             key=settings['key'],
@@ -149,25 +157,26 @@ if __name__  == '__main__':
             ch=settings['ch'],
             duplicate=settings['duplicate'])
         xbmc.executebuiltin("Container.Refresh")
-    elif params['action'] == 'deleteKeyword':
-        Keywords().delete(params['id'], params['level'])
+    elif action == 'deleteKeyword':
+        Keywords().delete(args['id'], args['level'])
         xbmc.executebuiltin("Container.Refresh")
 
     # 放送局の追加、変更、削除
-    elif params['action'] == 'beginEditStation':
-        Misc().beginEdit(params['id'])
-    elif params['action'] == 'endEditStation':
+    elif action == 'beginEditStation':
+        Misc().beginEdit(args['id'])
+    elif action == 'endEditStation':
         Misc().endEdit(
             settings['id'],
             settings['name'],
-            settings['stream'])
+            settings['stream'],
+            settings['logo'])
         xbmc.executebuiltin('Container.Refresh()')
-    elif params['action'] == 'deleteStation':
-        Misc().delete(params['id'])
+    elif action == 'deleteStation':
+        Misc().delete(args['id'])
         xbmc.executebuiltin('Container.Refresh()')
 
     # アドオン設定
-    elif params['action'] == 'settings':
+    elif action == 'settings':
         Const.SET('id','')
         Const.SET('key','')
         Const.SET('s','0')
@@ -179,16 +188,18 @@ if __name__  == '__main__':
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
 
     # 表示
-    elif params['action'] == 'showDownloads':
+    elif action == 'showDownloads':
         Downloads().show()
-    elif params['action'] == 'showContents':
-        Downloads().show(params['key'])
-    elif params['action'] == 'showKeywords':
+    elif action == 'showContents':
+        Downloads().show(args['key'])
+    elif action == 'showKeywords':
         Keywords().show()
-    elif params['action'] == 'showPrograms':
+    elif action == 'showPrograms':
         Programs().show()
+    elif action == 'updatePrograms':
+        Cache().update()
+        Programs().show()
+
+    # 未定義
     else:
-        if Const.GET('download') == 'true':
-            Keywords().show()
-        else:
-            Programs().show()
+        log('undefined action:', action)

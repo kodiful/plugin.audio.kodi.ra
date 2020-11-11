@@ -14,6 +14,7 @@
   <string id="30056">Save: </string>
   <string id="30057">Add keyword: </string>
   <string id="30058">Suspending</string>
+  <string id="30059">No dataし</string>
 
   <string id="30100">NHK Radio</string>
   <string id="30001">Station</string>
@@ -42,6 +43,7 @@
   <string id="30353">[COLOR green]Update[/COLOR]</string>
   <string id="30354">[COLOR green]Add[/COLOR]</string>
   <string id="30355">Stations to be displayed</string>
+  <string id="30356">Image(optional)</string>
 
   <string id="30312">Saved programs</string>
   <string id="30314">Delete</string>
@@ -65,6 +67,7 @@
   <string id="30409">Create RSS</string>
   <string id="30410">URL of download folder</string>
   <string id="30411">[COLOR green]Update RSS[/COLOR]</string>
+  <string id="30412">Number of items</string>
 
   <string id="30500">Keyword</string>
   <string id="30501">Keyword</string>

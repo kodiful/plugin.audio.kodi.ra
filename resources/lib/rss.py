@@ -41,7 +41,9 @@ class RSS:
                 if os.path.isfile(mp3_file):
                     plist.append(read_json(json_file))
             # 開始時間の降順に各番組情報を書き込む
-            for p in sorted(plist, key=lambda item: item['ft'], reverse=True):
+            limit = Const.GET('rss_num')
+            limit = None if limit == 'unlimited' else int(limit)
+            for p in sorted(plist, key=lambda item: item['ft'], reverse=True)[:limit]:
                 # gtvid
                 gtvid = p['gtvid']
                 # url

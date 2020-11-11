@@ -7,7 +7,6 @@ from ..common import *
 from ..xmltodict import parse
 
 import os
-import xml.dom.minidom
 import re
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import exceptions
@@ -82,72 +81,81 @@ class Radiru(Params, Common):
             return
         # キャッシュがなければウェブから読み込む
         data = urlread(self.STATION_URL)
-        # データ変換
-        dom = convert(parse(data))
-        index = map(lambda x:x['areajp'], dom['radiru_config']['stream_url']['data']).index(self.areajp)
-        station = dom['radiru_config']['stream_url']['data'][index]
-        # 放送局データ
-        buf = []
-        for s in self.STATION:
-            buf.append({
-                'id': 'radiru_%s' % s['id'],
-                'name': s['name'],
-                'logo_large': s['logo'],
-                'url': station[s['hls']],
-                'delay': self.DELAY
-            })
-        # 放送局データを書き込む
-        write_json(self.STATION_FILE, buf)
-        # 設定データ
-        buf = []
-        for i, s in enumerate(self.STATION):
-            buf.append('    <setting label="{name}" type="bool" id="radiru_{id}" default="true" enable="eq({offset},2)"/>'
-                .format(id=s['id'], name=s['name'], offset=-1-i))
-        # 設定データを書き込む
-        write_file(self.SETTINGS_FILE, '\n'.join(buf))
-
-    def getProgramFile(self):
-        try:
-            url = self.PROGRAM_URL % self.areakey
-            data = urlread(url)
-            write_json(self.PROGRAM_FILE, convert(json.loads(data)))
-        except:
-            log('failed')
+        if data:
+            # データ変換
+            dom = convert(parse(data))
+            index = map(lambda x:x['areajp'], dom['radiru_config']['stream_url']['data']).index(self.areajp)
+            station = dom['radiru_config']['stream_url']['data'][index]
+            # 放送局データ
+            buf = []
+            for s in self.STATION:
+                buf.append({
+                    'id': 'radiru_%s' % s['id'],
+                    'name': s['name'],
+                    'logo_large': s['logo'],
+                    'url': station[s['hls']],
+                    'delay': self.DELAY
+                })
+            # 放送局データを書き込む
+            write_json(self.STATION_FILE, buf)
+            # 設定データ
+            buf = []
+            for i, s in enumerate(self.STATION):
+                buf.append('    <setting label="{name}" type="bool" id="radiru_{id}" default="true" enable="eq({offset},2)"/>'
+                    .format(id=s['id'], name=s['name'], offset=-1-i))
+            # 設定データを書き込む
+            write_file(self.SETTINGS_FILE, '\n'.join(buf))
+        else:
+            # 放送局データを書き込む
+            write_json(self.STATION_FILE, [])
+            # 設定データを書き込む
+            write_file(self.SETTINGS_FILE, '')
 
     def getProgramData(self, renew=False):
+        # キャッシュを確認
         if renew or not os.path.isfile(self.PROGRAM_FILE):
-            self.getProgramFile()
-        data = read_json(self.PROGRAM_FILE)
-        data = convert(data, True)
-        buf = []
-        for s in self.STATION:
-            progs = []
-            # 放送中のプログラム
-            for order in ('present','following'):
-                # 時刻情報をパース
-                try:
-                    r = data['nowonair_list'][s['id1']][order]
-                    t = r['start_time']
-                    ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
-                    ftl = str(t[11:13])+str(t[14:16])
-                    t = r['end_time']
-                    to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
-                    tol = str(t[11:13])+str(t[14:16])
-                except exceptions.IndexError:
-                    break
-                except exceptions.KeyError:
-                    continue
-                progs.append({
-                    'ft': ft,
-                    'ftl': ftl,
-                    'to': to,
-                    'tol': tol,
-                    'title': r.get('title','n/a'),
-                    'subtitle': r.get('subtitle',''),
-                    'content': r.get('content',''),
-                    'act': r.get('act',''),
-                    'music': r.get('music',''),
-                    'free': r.get('free','')
-                })
-            buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
-        return buf
+            # キャッシュがなければウェブから読み込む
+            try:
+                url = self.PROGRAM_URL % self.areakey
+                data = urlread(url)
+                write_json(self.PROGRAM_FILE, convert(json.loads(data)))
+            except:
+                write_file(self.PROGRAM_FILE, '')
+                log('failed to get data from url:%s' % url)
+        data = read_file(self.PROGRAM_FILE)
+        if data:
+            data = convert(json.loads(data), strip=True)
+            buf = []
+            for s in self.STATION:
+                progs = []
+                # 放送中のプログラム
+                for order in ('present','following'):
+                    # 時刻情報をパース
+                    try:
+                        r = data['nowonair_list'][s['id1']][order]
+                        t = r['start_time']
+                        ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                        ftl = str(t[11:13])+str(t[14:16])
+                        t = r['end_time']
+                        to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
+                        tol = str(t[11:13])+str(t[14:16])
+                    except exceptions.IndexError:
+                        break
+                    except exceptions.KeyError:
+                        continue
+                    progs.append({
+                        'ft': ft,
+                        'ftl': ftl,
+                        'to': to,
+                        'tol': tol,
+                        'title': r.get('title','n/a'),
+                        'subtitle': r.get('subtitle',''),
+                        'content': r.get('content',''),
+                        'act': r.get('act',''),
+                        'music': r.get('music',''),
+                        'free': r.get('free','')
+                    })
+                buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
+            return buf
+        else:
+            return []

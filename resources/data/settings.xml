@@ -23,8 +23,9 @@
     <setting id="id" type="text" visible="false"/>
     <setting id="name" label="30351" type="text" default=""/>
     <setting id="stream" label="30352" type="text" default=""/>
-    <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-1,)+!eq(-2,)" visible="!eq(-3,)"/>
-    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-2,)+!eq(-3,)" visible="eq(-4,)"/>
+    <setting id="logo" label="30356" type="text" default=""/>
+    <setting label="30353" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-2,)+!eq(-3,)" visible="!eq(-4,)"/>
+    <setting label="30354" type="action" option="close" action="RunPlugin(plugin://$ID/?action=endEditStation)" enable="!eq(-3,)+!eq(-4,)" visible="eq(-5,)"/>
     <setting id="misc" label="30355" type="enum" lvalues="30052|30053|30054" default="0" visible="true"/>
 {misc}
   </category>
@@ -34,12 +35,13 @@
     <setting label="30403" id="download" type="bool" default="false" visible="eq(-2,Darwin)|eq(-2,Windows)"/>
     <setting label="30404" id="bitrate" type="labelenum" default="192k" values="auto|192k|160k|128k|96k|64k" enable="eq(-1,true)" visible="eq(-3,Darwin)|eq(-3,Windows)"/>
     <setting label="30405" id="download_path" type="folder" default="" enable="eq(-2,true)" visible="eq(-4,Darwin)|eq(-4,Windows)"/>
-    <setting label="30407" id="ffmpeg" type="file" default="{ffmpeg}" enable="eq(-3,true)+!eq(-2,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
-    <setting label="30408" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearDownloads)" enable="eq(-4,true)+!eq(-3,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
+    <setting label="30407" id="ffmpeg" type="file" default="{ffmpeg}" enable="eq(-3,true)+!eq(-1,)" visible="eq(-5,Darwin)|eq(-5,Windows)"/>
+    <setting label="30408" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearDownloads)" enable="eq(-4,true)+!eq(-2,)" visible="eq(-6,Darwin)|eq(-6,Windows)"/>
     <!--RSS-->
-    <setting label="30409" id="rss" type="bool" default="false" enable="eq(-5,true)+!eq(-4,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
-    <setting label="30410" id="rss_url" type="text" default="http://" enable="eq(-1,true)+eq(-6,true)+!eq(-5,)" visible="eq(-8,Darwin)|eq(-8,Windows)"/>
-    <setting label="30411" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="eq(-2,true)+eq(-7,true)+!eq(-6,)" visible="eq(-9,Darwin)|eq(-9,Windows)"/>
+    <setting label="30409" id="rss" type="bool" default="false" enable="eq(-5,true)+!eq(-3,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
+    <setting label="30412" id="rss_num" type="labelenum" values="5|10|20|50|100|unlimited" default="unlimited" enable="eq(-1,true)+eq(-6,true)+!eq(-4,)" visible="eq(-8,Darwin)|eq(-8,Windows)"/>
+    <setting label="30410" id="rss_url" type="text" default="http://" enable="eq(-2,true)+eq(-7,true)+!eq(-5,)" visible="eq(-9,Darwin)|eq(-9,Windows)"/>
+    <setting label="30411" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="eq(-3,true)+eq(-8,true)+!eq(-6,)" visible="eq(-10,Darwin)|eq(-10,Windows)"/>
   </category>
   <category label="30500">
     <setting id="id" type="text" visible="false"/>
