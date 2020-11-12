@@ -30,6 +30,7 @@ class Cache(Service):
         self.auth = read_json(Const.AUTH_FILE)
 
     def update(self):
+        self.authenticate(renew=True)
         self.update_classes()
         self.setup_settings()
 
