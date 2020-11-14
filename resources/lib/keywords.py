@@ -25,22 +25,20 @@ class Keywords:
         write_json(Const.KEYWORDS_FILE, self.keywords)
 
     def show(self):
-        # すべて表示
-        if Const.GET('download') == 'true':
-            # 放送中の番組
-            li = xbmcgui.ListItem(Const.STR(30316), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
-            # アドオン設定
-            contextmenu = []
-            contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
-            li.addContextMenuItems(contextmenu, replaceItems=True)
-            xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showPrograms' % sys.argv[0], listitem=li, isFolder=True)
-            # すべての保存済み番組
-            li = xbmcgui.ListItem(Const.STR(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
-            # アドオン設定
-            contextmenu = []
-            contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
-            li.addContextMenuItems(contextmenu, replaceItems=True)
-            xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % sys.argv[0], listitem=li, isFolder=True)
+        # 放送中の番組
+        li = xbmcgui.ListItem(Const.STR(30316), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+        # アドオン設定
+        contextmenu = []
+        contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
+        li.addContextMenuItems(contextmenu, replaceItems=True)
+        xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showPrograms' % sys.argv[0], listitem=li, isFolder=True)
+        # すべての保存済み番組
+        li = xbmcgui.ListItem(Const.STR(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+        # アドオン設定
+        contextmenu = []
+        contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
+        li.addContextMenuItems(contextmenu, replaceItems=True)
+        xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % sys.argv[0], listitem=li, isFolder=True)
         # キーワードを表示
         for i, s in enumerate(self.keywords):
             # listitemを追加

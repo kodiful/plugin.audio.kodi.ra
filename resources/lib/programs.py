@@ -25,6 +25,9 @@ from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords
 
 class Params:
+    # ファイルパス
+    DATA_PATH = os.path.join(Const.DATA_PATH, 'programs')
+    if not os.path.isdir(DATA_PATH): os.makedirs(DATA_PATH)
     # ファイル
     PROGRAM_FILE = os.path.join(Const.DATA_PATH, 'program.json')
     STATION_FILE = os.path.join(Const.DATA_PATH, 'station.json')
@@ -147,7 +150,6 @@ class Programs:
                     'ftl': p.get('ftl',''),
                     'to': p.get('to',''),
                     'tol': p.get('tol',''),
-                    'sub_title': p.get('sub_title',''),
                     'pfm': p.get('pfm',''),
                     'desc': p.get('desc',''),
                     'info': p.get('info',''),
@@ -176,11 +178,16 @@ class Programs:
             return None
 
     def __description(self, p):
-        description = []
-        for attr in ('sub_title','pfm','desc','info','url','subtitle','content','act','music','free'):
+        desc = []
+        uniq = []
+        for attr in ('pfm','act','music','url','subtitle','desc','content','info','free'):
             q = p.get(attr)
-            if q: description.append('&lt;div title=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=q))
-        return ' '.join(description)
+            if isinstance(q, str):
+                content = convert(re.sub(r'<.*?>','',q), strip=True)
+                if content and content not in uniq:
+                    desc.append('&lt;div title=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=content))
+                    uniq.append(content)
+        return ''.join(desc)
 
     def __showhide(self, id):
         category = id.split('_')[0]
@@ -263,6 +270,13 @@ class Programs:
         # 開始時間、終了時間が規定されている番組について照合
         return MatchList(pending_programs).match(filter(lambda p: p['ft'] and p['to'], self.programs))
 
+    def record(self):
+        # 開始時間、終了時間が規定されている番組データを保存
+        for p in filter(lambda p: p['ft'] and p['to'], self.programs):
+            json_file = os.path.join(Params.DATA_PATH, '%s_%s.json' % (p['id'], p['ft']))
+            if not os.path.isfile(json_file):
+                write_json(json_file, p)
+
     def download(self, matched_programs):
         remaining_programs = []
         now = datetime.datetime.now()
@@ -270,9 +284,14 @@ class Programs:
             p = m['program']
             k = m['keyword']
             # 開始直前であれば保存処理を開始
-            start = strptime(p['ft'], '%Y%m%d%H%M%S')
-            wait = start - now
-            if wait.days == 0 and wait.seconds < Const.PREP_INTERVAL:
+            start = strptime(p['ft'], '%Y%m%d%H%M%S') - now
+            end = strptime(p['to'], '%Y%m%d%H%M%S') - now
+            # すでに終了している番組
+            if end.days < 0:
+                # 次の番組のダウンロード処理へ
+                continue
+            # すでに開始している番組、開始していないがConst.PREP_INTERVAL以内に開始する番組
+            elif start.days < 0 or (start.days == 0 and start.seconds < Const.PREP_INTERVAL):
                 # ダウンロード実行
                 status = Downloads().add(
                     id=p['id'],
@@ -291,8 +310,10 @@ class Programs:
                         start = p['ft'],
                         title = p['title'],
                         keyword = k['key']))
-                # 次の番組の保存処理
+                # 次の番組のダウンロード処理へ
                 continue
-            # ダウンロードも実行の番組をリストに追加
-            remaining_programs.append(m)
+            # Const.PREP_INTERVAL以降に開始する番組
+            else:
+                # ダウンロード待ちの番組としてリストに追加
+                remaining_programs.append(m)
         return remaining_programs

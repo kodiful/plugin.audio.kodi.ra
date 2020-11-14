@@ -24,14 +24,14 @@ socket.setdefaulttimeout(60)
 class Cache(Service):
 
     def __init__(self):
-        # radiko認証情報を取得
-        if not os.path.isfile(Const.AUTH_FILE):
-            self.authenticate()
-        self.auth = read_json(Const.AUTH_FILE)
+        return
 
     def update(self):
-        self.authenticate(renew=True)
+        # radiko認証情報を更新
+        self.authenticate()
+        # クラスを更新
         self.update_classes()
+        # 設定ダイアログを更新
         self.setup_settings()
 
     def __clear(self, dirpath):

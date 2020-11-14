@@ -113,6 +113,7 @@ class Radiru(Params, Common):
 
     def getProgramData(self, renew=False):
         # キャッシュを確認
+        data = ''
         if renew or not os.path.isfile(self.PROGRAM_FILE):
             # キャッシュがなければウェブから読み込む
             try:
@@ -122,7 +123,8 @@ class Radiru(Params, Common):
             except:
                 write_file(self.PROGRAM_FILE, '')
                 log('failed to get data from url:%s' % url)
-        data = read_file(self.PROGRAM_FILE)
+        # キャッシュから番組データを抽出
+        data = data or read_file(self.PROGRAM_FILE)
         if data:
             data = convert(json.loads(data), strip=True)
             buf = []
@@ -132,11 +134,11 @@ class Radiru(Params, Common):
                 for order in ('present','following'):
                     # 時刻情報をパース
                     try:
-                        r = data['nowonair_list'][s['id1']][order]
-                        t = r['start_time']
+                        p = data['nowonair_list'][s['id1']][order]
+                        t = p['start_time']
                         ft = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                         ftl = str(t[11:13])+str(t[14:16])
-                        t = r['end_time']
+                        t = p['end_time']
                         to = str(t[0:4])+str(t[5:7])+str(t[8:10])+str(t[11:13])+str(t[14:16])+str(t[17:19])
                         tol = str(t[11:13])+str(t[14:16])
                     except exceptions.IndexError:
@@ -148,12 +150,26 @@ class Radiru(Params, Common):
                         'ftl': ftl,
                         'to': to,
                         'tol': tol,
-                        'title': r.get('title','n/a'),
-                        'subtitle': r.get('subtitle',''),
-                        'content': r.get('content',''),
-                        'act': r.get('act',''),
-                        'music': r.get('music',''),
-                        'free': r.get('free','')
+                        'title': p.get('title','n/a'),
+                        'subtitle': p.get('subtitle',''),
+                        'pfm': p.get('pfm',''),
+                        'desc': p.get('desc',''),
+                        'info': p.get('info',''),
+                        #
+                        # "url": {
+                        #   "e": "http://p.nhk.jp/radionews/",
+                        #   "i": "http://p.nhk.jp/radionews/",
+                        #   "pc": "http://www.nhk.or.jp/radionews/",
+                        #   "short": "https://nhk.jp/P1336",
+                        #   "v": "http://p.nhk.jp/radionews/"
+                        # }
+                        #
+                        #'url': p.get('url',''),
+                        'url': p.get('url') and p.get('url').get('pc') or '',
+                        'content': p.get('content',''),
+                        'act': p.get('act',''),
+                        'music': p.get('music',''),
+                        'free': p.get('free','')
                     })
                 buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
             return buf

@@ -23,6 +23,7 @@ class Const:
     MEDIA_PATH        = os.path.join(CACHE_PATH, 'media')
     DATA_PATH         = os.path.join(CACHE_PATH, 'data')
     AUTH_FILE         = os.path.join(DATA_PATH, 'auth.json')
+    STATUS_FILE       = os.path.join(DATA_PATH, 'status.json')
 
     PLUGIN_PATH       = xbmc.translatePath(ADDON.getAddonInfo('path'))
     RESOURCES_PATH    = os.path.join(PLUGIN_PATH, 'resources')

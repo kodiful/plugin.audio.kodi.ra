@@ -11,7 +11,7 @@ import xbmc, xbmcgui
 
 from hashlib import md5
 
-from resources.lib.cp.radiko import Radiko, Authkey, Authenticate
+from resources.lib.cp.radiko import Radiko, Authenticate
 from resources.lib.cp.radiru import Radiru
 from resources.lib.cp.jcba   import Jcba
 from resources.lib.cp.misc   import Misc
@@ -48,29 +48,34 @@ class Service:
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # いろいろ初期化
-        self.matched_programs = []
-        self.nextaired = ''
-        self.program_hash = ''
+        self.lastdiff = ''
+        self.nextdiff = ''
+        self.lastauth = ''
+        self.nextauth = ''
+        self.programs_hash = ''
         self.settings_hash = self.hash_settings()
         # radiko認証
-        self.nextauth = self.authenticate(renew=True)
-        log('radiko authentication initialized. nextauth:{t}'.format(t=self.nextauth))
+        self.nextauth = self.authenticate()
         # クラスを初期化
         self.update_classes()
         # 設定ダイアログがなければ作成
         if not os.path.isfile(Const.SETTINGS_FILE):
             self.setup_settings()
-            log('settings initialized.')
 
-    def authenticate(self, renew=False):
+    def authenticate(self):
         # radiko認証
-        Authkey(renew)
         auth = Authenticate()
         if auth.response['authed'] == 0:
+            # 認証失敗を通知
             notify('radiko authentication failed', error=True)
+        else:
+            # 時刻を記録
+            self.lastauth = nexttime()
         # 認証情報をファイルに書き込む
         self.auth = auth.response
         write_json(Const.AUTH_FILE, self.auth)
+        # ログ
+        log('radiko authentication status:{status}'.format(status=auth.response['authed']))
         # 次の更新時刻を返す
         return nexttime(Const.AUTH_INTERVAL)
 
@@ -83,13 +88,13 @@ class Service:
         return self.programs.setup(renew=True)
 
     def setup_settings(self):
-        # テンプレート読み込み
-        template = read_file(Const.TEMPLATE_FILE)
         # 放送局リスト
         s = [Const.STR(30520)]
         stations = Programs((self.radiru,self.radiko)).stations
         for station in stations:
             s.append(station['name'])
+        # テンプレート読み込み
+        template = read_file(Const.TEMPLATE_FILE)
         # ソース作成
         source = template.format(
             radiru = self.radiru.getSettingsData(),
@@ -101,6 +106,8 @@ class Service:
             os = platform.system())
         # ファイル書き込み
         write_file(Const.SETTINGS_FILE, source)
+        # ログ
+        log('settings initialized.')
 
     def hash_settings(self):
         settings = read_file(Const.USERSETTINGS_FILE)
@@ -109,22 +116,26 @@ class Service:
     def monitor(self, refresh=False):
         # 開始
         log('enter monitor.')
-        # 監視処理開始を通知
+        # 監視開始を通知
         notify('Starting service')
         # 初期化
-        matched_programs = []
+        now = ''
+        pending_programs = []
         # 監視処理を実行
         monitor = Monitor()
         while not monitor.abortRequested():
+            # 初回のみ待機しない
+            if now == '':
+                pass
             # Const.CHECK_INTERVALの間待機
-            if monitor.waitForAbort(Const.CHECK_INTERVAL):
+            elif monitor.waitForAbort(Const.CHECK_INTERVAL):
                 break
             # 現在時刻
             now = nexttime()
             # リセットが検出されたら（設定ダイアログ削除が検出されたら）
             if not os.path.isfile(Const.SETTINGS_FILE):
                 # クラスを更新
-                self.nextaired, self.program_hash = self.update_classes()
+                self.nextdiff, self.programs_hash = self.update_classes()
                 # 設定ダイアログを生成
                 self.setup_settings()
                 # ユーザ設定のハッシュ
@@ -135,31 +146,32 @@ class Service:
             # 現在時刻がRadiko認証更新時刻を過ぎていたら
             if now > self.nextauth:
                 # radiko認証
-                self.nextauth = self.authenticate(renew=True)
-                log('radiko authentication updated. nextauth:{t}'.format(t=self.nextauth))
+                self.nextauth = self.authenticate()
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
                 self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
             # 現在時刻が更新予定時刻を過ぎていたら
-            if now > self.nextaired:
+            if now > self.nextdiff:
                 # 番組データを取得
-                self.nextaired, new_hash = self.programs.setup(renew=True)
+                self.nextdiff, new_hash = self.programs.setup(renew=True)
                 # 放送局に設定変更があると番組データが取得できないので
                 if new_hash is None:
                     # クラスを更新して改めて番組データを取得
-                    self.nextaired, new_hash = self.update_classes()
+                    self.nextdiff, new_hash = self.update_classes()
                 #　番組データが更新されたら
-                if new_hash != self.program_hash:
-                    self.program_hash = new_hash
+                if new_hash != self.programs_hash:
+                    self.lastdiff = now
+                    self.programs_hash = new_hash
+                    # 番組情報を記録
+                    #self.programs.record()
                     # ダウンロードする番組を抽出
-                    matched_programs = self.programs.match(matched_programs)
+                    pending_programs = self.programs.match(pending_programs)
                     # 画面更新
                     refresh = True
-                    log('program updated. nextaired:{t}'.format(t=self.nextaired))
             # ダウンロードする番組が検出されたら
-            if matched_programs:
+            if pending_programs:
                 # ダウンロードを予約
-                matched_programs = self.programs.download(matched_programs)
+                pending_programs = self.programs.download(pending_programs)
             # 設定更新が検出されたら
             if monitor.settings_changed:
                 new_hash = self.hash_settings()
@@ -177,7 +189,16 @@ class Service:
                     argv = 'plugin://%s/' % Const.ADDON_ID
                     if (path == argv and Const.GET('download') == 'false') or (path == '%s?action=showPrograms' % argv):
                         xbmc.executebuiltin('Container.Update(%s?action=showPrograms,replace)' % argv)
-                        refresh = False
+                    refresh = False
+            # 状態を出力
+            write_json(Const.STATUS_FILE, {
+                'now': now,
+                'lastdiff': self.lastdiff,
+                'nextdiff': self.nextdiff,
+                'lastauth': self.lastauth,
+                'nextauth': self.nextauth,
+                'pending_programs': len(pending_programs)
+            })
         # 終了
         log('exit monitor.')
 

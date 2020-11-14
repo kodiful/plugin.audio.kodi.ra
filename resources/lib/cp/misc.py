@@ -4,11 +4,10 @@ from common import Common
 
 from ..const import Const
 from ..common import *
-from ..xmltodict import parse
 
-import os, sys
+import os
+import sys
 import re
-import json
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from hashlib import md5

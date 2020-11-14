@@ -195,7 +195,7 @@ class Downloads:
                 tit3=data['tit3'],
                 tmp_file=data['tmp_file'])
         # 開始待機
-        if data['wait'] > 0: time.sleep(data['wait'])
+        time.sleep(data['wait'])
         # 開始通知
         notify('Download started "{title}"'.format(title=data['title']))
         # ログ書き込み初期化
