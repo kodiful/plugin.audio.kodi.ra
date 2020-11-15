@@ -95,8 +95,9 @@
   <string id="30700">Other Settings</string>
   <string id="30701">[COLOR green]Reset all cache and settings[/COLOR]</string>
   <string id="30702">[COLOR green]Clear all cache[/COLOR]</string>
-  <string id="30702">[COLOR green]Clear data cache[/COLOR]</string>
-  <string id="30704">Debug</string>
+  <string id="30703">[COLOR green]Clear data cache[/COLOR]</string>
+  <string id="30704">Check compatibility with older version</string>
+  <string id="30705">Debug</string>
 
   <string id="30919">%m/%d(%%s)</string>
   <string id="30920">Mon,Tue,Wed,Thu,Fri,Sat,Sun</string>

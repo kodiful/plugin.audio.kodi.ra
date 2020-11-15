@@ -17,7 +17,7 @@ from resources.lib.cp.jcba   import Jcba
 from resources.lib.cp.misc   import Misc
 
 from resources.lib.programs  import Programs
-from resources.lib.keywords  import Keywords
+from resources.lib.downloads import Downloads
 
 # HTTP接続におけるタイムアウト(秒)
 import socket
@@ -37,12 +37,14 @@ class Monitor(xbmc.Monitor):
 class Service:
 
     def __init__(self):
-        # 古い形式ののファイルの変換
-        status = Compatibility().converter()
-        # 古い形式のファイルが更新されたときは設定ダイアログを再作成
-        if status:
-            os.remove(Const.SETTINGS_FILE)
-            notify('Settings updated')
+        # 互換性チェック
+        if Const.GET('compatibility') == 'true':
+            # 古い形式ののファイルの変換
+            status = Compatibility().converter()
+            # 古い形式のファイルが更新されたときは設定ダイアログを再作成
+            if status:
+                os.remove(Const.SETTINGS_FILE)
+                notify('Settings updated')
         # ディレクトリをチェック
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
@@ -120,7 +122,7 @@ class Service:
         notify('Starting service')
         # 初期化
         now = ''
-        pending_programs = []
+        downloader = Downloads(cleanup=True)
         # 監視処理を実行
         monitor = Monitor()
         while not monitor.abortRequested():
@@ -165,13 +167,19 @@ class Service:
                     # 番組情報を記録
                     #self.programs.record()
                     # ダウンロードする番組を抽出
-                    pending_programs = self.programs.match(pending_programs)
+                    downloader.pending = self.programs.match(downloader.pending)
                     # 画面更新
                     refresh = True
+            # キューファイルが検出されたら
+            if os.path.isfile(Const.QUEUE_FILE):
+                queue = read_json(Const.QUEUE_FILE)
+                for p in queue:
+                    downloader.pending.append({'program':p, 'keyword':{'key':''}})
+                os.remove(Const.QUEUE_FILE)
             # ダウンロードする番組が検出されたら
-            if pending_programs:
-                # ダウンロードを予約
-                pending_programs = self.programs.download(pending_programs)
+            if downloader.pending:
+                # ダウンロードキューを処理
+                downloader.filter()
             # 設定更新が検出されたら
             if monitor.settings_changed:
                 new_hash = self.hash_settings()
@@ -190,16 +198,28 @@ class Service:
                     if (path == argv and Const.GET('download') == 'false') or (path == '%s?action=showPrograms' % argv):
                         xbmc.executebuiltin('Container.Update(%s?action=showPrograms,replace)' % argv)
                     refresh = False
-            # 状態を出力
+            # スレッドリストのメンテナンス
+            downloader.thread = filter(lambda t:t.is_alive(), downloader.thread)
+            downloader.process = filter(lambda p:p.returncode is None, downloader.process)
+            # ステータスを出力
             write_json(Const.STATUS_FILE, {
                 'now': now,
-                'lastdiff': self.lastdiff,
-                'nextdiff': self.nextdiff,
-                'lastauth': self.lastauth,
-                'nextauth': self.nextauth,
-                'pending_programs': len(pending_programs)
+                'auth': {
+                    'last': self.lastauth,
+                    'next': self.nextauth
+                },
+                'diff': {
+                    'last': self.lastdiff,
+                    'next': self.nextdiff
+                },
+                'downloads': {
+                    'pending': len(downloader.pending),
+                    'threads': len(downloader.thread),
+                    'ongoing': len(downloader.process)
+                }
             })
         # 終了
+        downloader.abort()
         log('exit monitor.')
 
 

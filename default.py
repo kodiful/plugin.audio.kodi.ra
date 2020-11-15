@@ -116,8 +116,8 @@ if __name__  == '__main__':
         xbmc.executebuiltin("Container.Refresh")
 
     # ダウンロードの管理
-    elif action == 'addDownload':
-        status = Downloads().add(
+    elif action == 'enqueueDownload':
+        status = Downloads().enqueue(
             id=args['id'],
             name=args['name'],
             ft=args['ft'],
@@ -129,7 +129,7 @@ if __name__  == '__main__':
         if status:
             notify(status, error=True)
         else:
-            notify('Download scheduled')
+            notify('Download enqueued')
     elif action == 'clearDownloads':
         Downloads().delete()
         xbmc.executebuiltin('Container.Refresh()')

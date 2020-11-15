@@ -34,6 +34,7 @@ class Const:
     CHANNELS_FILE     = os.path.join(PROFILE_PATH, 'channels.json')
     USERSETTINGS_FILE = os.path.join(PROFILE_PATH, 'settings.xml')
 
+    QUEUE_FILE        = os.path.join(DATA_PATH, 'queue.json')
     DOWNLOAD_PATH     = GET('download_path')
 
     # database

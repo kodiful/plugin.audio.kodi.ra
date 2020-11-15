@@ -60,6 +60,7 @@
     <setting label="30703" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearData)"/>
     <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearAll)"/>
     <setting label="30701" type="action" option="close" action="RunPlugin(plugin://$ID/?action=resetAll)"/>
-    <setting label="30704" id="debug" type="bool" default="false"/>
+    <setting label="30704" id="compatibility" type="bool" default="true"/>
+    <setting label="30705" id="debug" type="bool" default="false"/>
   </category>
 </settings>

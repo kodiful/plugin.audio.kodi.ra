@@ -246,7 +246,7 @@ class Programs:
                         # 保存
                         if i==0: menu = Params.TITLE_KK % (Const.STR(30056),p['title'])
                         if i>0:  menu = Params.TITLE_LG % (Const.STR(30056),p['title'])
-                        contextmenu.append((menu, 'RunPlugin({url}?action=addDownload&{query})'.format(url=sys.argv[0], query=urllib.urlencode(p))))
+                        contextmenu.append((menu, 'RunPlugin({url}?action=enqueueDownload&{query})'.format(url=sys.argv[0], query=urllib.urlencode(p))))
                         # キーワード追加
                         if i==0: menu = Params.TITLE_KK % (Const.STR(30057),p['title'])
                         if i>0:  menu = Params.TITLE_LG % (Const.STR(30057),p['title'])
@@ -276,44 +276,3 @@ class Programs:
             json_file = os.path.join(Params.DATA_PATH, '%s_%s.json' % (p['id'], p['ft']))
             if not os.path.isfile(json_file):
                 write_json(json_file, p)
-
-    def download(self, matched_programs):
-        remaining_programs = []
-        now = datetime.datetime.now()
-        for m in matched_programs:
-            p = m['program']
-            k = m['keyword']
-            # 開始直前であれば保存処理を開始
-            start = strptime(p['ft'], '%Y%m%d%H%M%S') - now
-            end = strptime(p['to'], '%Y%m%d%H%M%S') - now
-            # すでに終了している番組
-            if end.days < 0:
-                # 次の番組のダウンロード処理へ
-                continue
-            # すでに開始している番組、開始していないがConst.PREP_INTERVAL以内に開始する番組
-            elif start.days < 0 or (start.days == 0 and start.seconds < Const.PREP_INTERVAL):
-                # ダウンロード実行
-                status = Downloads().add(
-                    id=p['id'],
-                    name=p['name'],
-                    ft=p['ft'],
-                    to=p['to'],
-                    title=p['title'],
-                    description=p['description'],
-                    source=p['source'],
-                    delay=p['delay'],
-                    key=k['key'])
-                # 正常終了したらログに書き出す
-                if status is None:
-                    log('download scheduled. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                        id = p['id'],
-                        start = p['ft'],
-                        title = p['title'],
-                        keyword = k['key']))
-                # 次の番組のダウンロード処理へ
-                continue
-            # Const.PREP_INTERVAL以降に開始する番組
-            else:
-                # ダウンロード待ちの番組としてリストに追加
-                remaining_programs.append(m)
-        return remaining_programs
