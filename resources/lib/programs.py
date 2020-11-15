@@ -212,7 +212,7 @@ class Programs:
         # 現在時刻以降の時刻を抽出
         p = filter(lambda t: t>=now, p)
         # 直近の時刻を抽出
-        nextaired = min(p) if p else '99999999999999'
+        nextaired = min(p) if p else nexttime(Const.CHECK_INTERVAL)
         return nextaired, hash
 
     def show(self):

@@ -29,7 +29,7 @@ class RSS:
         header = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-header.xml'))
         body = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-body.xml'))
         footer = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-footer.xml'))
-        # RSSファイルを生成する
+        # rssファイルを生成する
         with open(Params.RSS_FILE, 'w') as f:
             # header
             f.write(header.format(image=Params.RSS_URL+'icon.png'))

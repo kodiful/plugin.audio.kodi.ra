@@ -17,11 +17,6 @@ import threading
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 
-class Params:
-    # ログファイル
-    LOG_FILE = os.path.join(Const.DOWNLOAD_PATH, 'download.log')
-
-
 class Logger():
 
     def __init__(self, logfile):
@@ -60,6 +55,7 @@ class Downloads:
     def abort(self):
         self.alive = False
         for p in self.process:
+            # 実行中のffmepegを強制終了
             if p.returncode is None: p.kill()
 
     def status(self, id, ft):
@@ -286,7 +282,7 @@ class Downloads:
             # 開始通知
             notify('Download started "{title}"'.format(title=data['title']))
             # ログ書き込み初期化
-            logger = Logger(Params.LOG_FILE)
+            logger = Logger(Const.LOG_FILE)
             # ダウンロード開始
             p = subprocess.Popen(command, stderr=logger.handle, stdout=logger.handle, shell=True)
             self.process.append(p)
@@ -295,24 +291,23 @@ class Downloads:
             # ダウンロード終了を待つ
             p.wait()
             # ダウンロード結果に応じて後処理
-            if p.returncode:
-                # 失敗したときはjsonファイル、一時ファイルを削除
-                os.remove(data['json_file'])
-                os.remove(data['tmp_file'])
-            else:
+            if p.returncode == 0:
                 # 一時ファイルをリネーム
                 os.rename(data['tmp_file'], data['mp3_file'])
                 # rssファイル生成
                 RSS().create()
-            # 完了通知
-            if p.returncode:
-                notify('Download failed "{title}"'.format(title=data['title']), error=True)
-                # ログ
-                logger.write('[{pid}] Download failed. returncode:{returncode}'.format(pid=p.pid, returncode=p.returncode))
-            else:
+                # 完了通知
                 notify('Download completed "{title}"'.format(title=data['title']))
                 # ログ
                 logger.write('[{pid}] Download completed.'.format(pid=p.pid))
+            else:
+                # 失敗したときはjsonファイル、一時ファイルを削除
+                os.remove(data['json_file'])
+                os.remove(data['tmp_file'])
+                # 完了通知
+                notify('Download failed "{title}"'.format(title=data['title']), error=True)
+                # ログ
+                logger.write('[{pid}] Download failed. returncode:{returncode}'.format(pid=p.pid, returncode=p.returncode))
         else:
             # 中断した時はjsonファイルを削除
             os.remove(data['json_file'])

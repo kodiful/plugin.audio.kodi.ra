@@ -69,6 +69,6 @@ class Compatibility:
         # shファイルをすべて削除
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.sh')):
             os.remove(file)
-        # RSSファイルを更新
+        # rssファイルを更新
         if status: RSS().create()
         return status

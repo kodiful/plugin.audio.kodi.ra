@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import datetime, time
+import datetime, time, _strptime
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import inspect
 import urllib2

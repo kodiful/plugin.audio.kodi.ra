@@ -35,6 +35,7 @@ class Const:
     USERSETTINGS_FILE = os.path.join(PROFILE_PATH, 'settings.xml')
 
     QUEUE_FILE        = os.path.join(DATA_PATH, 'queue.json')
+    LOG_FILE          = os.path.join(DATA_PATH, 'download.log')
     DOWNLOAD_PATH     = GET('download_path')
 
     # database
