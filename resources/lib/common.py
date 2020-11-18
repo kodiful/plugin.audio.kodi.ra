@@ -136,7 +136,7 @@ def log(*messages, **options):
             elif isinstance(message, unicode):
                 m.append(message.encode('utf-8'))
             else:
-                #m.append(str(message))
-                m.append(json.dumps(message, sort_keys=True, ensure_ascii=False, indent=4))
+                m.append(str(message))
+                #m.append(json.dumps(message, sort_keys=True, ensure_ascii=False, indent=4))
         frame = inspect.currentframe(1)
         xbmc.log(str('%s: %s(%d): %s: %s') % (addon.getAddonInfo('id'), os.path.basename(frame.f_code.co_filename), frame.f_lineno, frame.f_code.co_name, str(' ').join(m)), level)

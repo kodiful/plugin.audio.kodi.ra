@@ -232,8 +232,12 @@ class Radiko(Params, Common):
                 buf.append({
                     'id': 'radiko_%s' % s['id'],
                     'name': s['name'],
+                    'url': s['href'],
                     'logo_large': s['logo_large'],
-                    'url': '%s/%s/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:%s' % (self.STREAM_URL, s['id'], self.token),
+                    'stream': '{stream}/{id}/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:{token}'.format(
+                        stream=self.STREAM_URL,
+                        id=s['id'],
+                        token=self.token),
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む

@@ -72,11 +72,13 @@ class Downloads:
         if os.path.isfile(mp3_file): status += 4
         return status
 
-    def enqueue(self, id, name, ft, to, title, description, source, delay):
+    def enqueue(self, id, name, ft, to, title, description, stream, url, delay):
+        # 時刻をチェック
+        if to < nexttime(): return 'Already over'
         # 既存の番組情報ファイルの有無をチェック
         status = self.status(id, ft)
         if status & 4: return 'Already downloaded'
-        if status & 2: return 'Now downloading'
+        if status & 2: return 'Already scheduled and now downloading'
         if status & 1: return 'Already scheduled'
         # 既存のキューをファイルから読み込む
         queue = []
@@ -90,7 +92,8 @@ class Downloads:
             'to': to,
             'title': title,
             'description': description,
-            'source': source,
+            'stream': stream,
+            'url': url,
             'delay': delay
         })
         # キューをファイルにに書き込む
@@ -119,8 +122,9 @@ class Downloads:
                     to=p['to'],
                     title=p['title'],
                     description=p['description'],
-                    source=p['source'],
+                    stream=p['stream'],
                     delay=p['delay'],
+                    url=p['url'],
                     key=k['key'])
                 # 正常終了したらログに書き出す
                 if status is None:
@@ -137,7 +141,7 @@ class Downloads:
                 remaining.append(m)
         self.pending = remaining
 
-    def start(self, id, name, ft, to, title, description, source, delay, key=''):
+    def start(self, id, name, ft, to, title, description, stream, delay, url='', key=''):
         # 番組ID
         gtvid = '%s_%s' % (id, ft);
         # ファイルパス
@@ -200,16 +204,16 @@ class Downloads:
                 bitrate = '64k'
         # ソース
         conn = []
-        match = re.findall(r'conn=[^ ]+', source)
+        match = re.findall(r'conn=[^ ]+', stream)
         for m in match:
             conn.append(re.sub(r'conn=', '', m))
         if len(conn) > 0:
             rtmp_conn = '-rtmp_conn "%s"' % ' '.join(conn)
         else:
             rtmp_conn = ''
-        match = re.match(r'(?:rtmp|rtmps|rtmpe|rtmpt)://[^ ]+', source)
+        match = re.match(r'(?:rtmp|rtmps|rtmpe|rtmpt)://[^ ]+', stream)
         if match:
-            source = match.group()
+            stream = match.group()
         # 番組情報
         data = {
             'gtvid': gtvid,
@@ -219,7 +223,8 @@ class Downloads:
             'to': to,
             'title': title,
             'description': description,
-            'source': source,
+            'stream': stream,
+            'url': url,
             'key': key,
             'duration': duration
         }
@@ -232,7 +237,7 @@ class Downloads:
             'start': start,
             'duration': duration,
             'rtmp_conn': rtmp_conn,
-            'source': source,
+            'stream': stream,
             'bitrate': bitrate,
             'title': title,
             'artist': name,
@@ -251,7 +256,7 @@ class Downloads:
 
     def __thread(self, data):
         # コマンドライン
-        command = ('"{ffmpeg}" -y -v warning -t {duration} {rtmp_conn} -i "{source}" -acodec libmp3lame -b:a {bitrate} '
+        command = ('"{ffmpeg}" -y -v warning -t {duration} {rtmp_conn} -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
             + '-metadata title="{title}" '
             + '-metadata artist="{artist}" '
             + '-metadata copyright="{copyright}" '
@@ -263,7 +268,7 @@ class Downloads:
                 ffmpeg=data['ffmpeg'],
                 duration=data['duration'],
                 rtmp_conn=data['rtmp_conn'],
-                source=data['source'],
+                stream=data['stream'],
                 bitrate=data['bitrate'],
                 title=data['title'],
                 artist=data['artist'],

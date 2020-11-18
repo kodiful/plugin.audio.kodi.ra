@@ -124,7 +124,8 @@ if __name__  == '__main__':
             to=args['to'],
             title=args['title'],
             description=args['description'],
-            source=args['source'],
+            stream=args['stream'],
+            url=args['url'],
             delay=args['delay'])
         if status:
             notify(status, error=True)

@@ -3,6 +3,7 @@
 // RSSのテンプレート
 $header = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="stylesheet.xsl"?>
 <rss
     xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -11,13 +12,13 @@ $header = <<<EOF
   <channel>
     <ttl>60</ttl>
     <title>{rsstitle}</title>
-    <link></link>
+    <link>http://kodiful.com/radio/</link>
     <language>ja</language>
     <copyright></copyright>
     <description></description>
     <image>
       <url>{image}</url>
-      <link></link>
+      <link>http://kodiful.com/radio/</link>
       <title>{rsstitle}</title>
     </image>
     <itunes:image href="{image}" />

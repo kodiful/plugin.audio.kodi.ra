@@ -47,8 +47,9 @@ class Jcba(Params, Common):
                 buf.append({
                     'id': s['id'],
                     'name': s['name'],
+                    'url': '',
                     'logo_large': s['logo_large'],
-                    'url': s['url'],
+                    'stream': s['url'],
                     'onair': s['onair']
                 })
             # 放送局データを書き込む

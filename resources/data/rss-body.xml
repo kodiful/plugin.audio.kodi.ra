@@ -5,12 +5,12 @@
       <category></category>
       <pubDate>{startdate}</pubDate>
       <guid>{gtvid}</guid>
-      <source>{bc}</source>
-      <author>{bc}</author>
-      <enclosure url="{url}" length="{filesize}" type="audio/mp3" />
+      <source>{name}</source>
+      <author>{name}</author>
+      <enclosure url="{source}" length="{filesize}" type="audio/mp3" />
       <itunes:explicit>no</itunes:explicit>
       <itunes:duration>{duration}</itunes:duration>
       <itunes:summary>{description}</itunes:summary>
-      <itunes:author>{bc}</itunes:author>
-      <dc:creator>{bc}</dc:creator>
+      <itunes:author>{name}</itunes:author>
+      <dc:creator>{name}</dc:creator>
     </item>

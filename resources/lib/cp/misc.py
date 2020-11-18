@@ -48,8 +48,9 @@ class Misc(Params, Common):
             buf.append({
                 'id': ch['id'],
                 'name': ch['name'],
-                'url': ch['stream'],
-                'logo_large': ch.get('logo_large','')
+                'url': ch.get('url',''),
+                'logo_large': ch.get('logo_large',''),
+                'stream': ch['stream']
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)
@@ -66,7 +67,7 @@ class Misc(Params, Common):
         ch = filter(lambda x:x['id']==id, self.getStationData())[0]
         Const.SET('id',id)
         Const.SET('name',ch['name'])
-        Const.SET('stream',ch['url'])
+        Const.SET('stream',ch['stream'])
         Const.SET('logo',ch.get('logo_large',''))
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
@@ -77,7 +78,7 @@ class Misc(Params, Common):
             self.ch.append({'name':name, 'stream':stream, 'logo':logo})
         else:
             data = filter(lambda x:x['id']==id, self.getStationData())[0]
-            ch = filter(lambda x:x['name']==data['name'] and x['stream']==data['url'], self.ch)[0]
+            ch = filter(lambda x:x['name']==data['name'] and x['stream']==data['stream'], self.ch)[0]
             ch['name'] = name
             ch['stream'] = stream
             ch['logo_large'] = logo

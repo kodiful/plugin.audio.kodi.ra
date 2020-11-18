@@ -24,6 +24,7 @@ class Params:
     # URL
     STATION_URL   = 'https://www.nhk.or.jp/radio/config/config_web.xml'
     PROGRAM_URL   = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
+    DEFAULT_URL   = 'https://www.nhk.or.jp/radio'
     # 地域
     AREA  = [
         ('東京', '130'),
@@ -92,8 +93,9 @@ class Radiru(Params, Common):
                 buf.append({
                     'id': 'radiru_%s' % s['id'],
                     'name': s['name'],
+                    'url': self.DEFAULT_URL,
                     'logo_large': s['logo'],
-                    'url': station[s['hls']],
+                    'stream': station[s['hls']],
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む

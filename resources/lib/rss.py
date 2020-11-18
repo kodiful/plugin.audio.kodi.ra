@@ -46,8 +46,8 @@ class RSS:
             for p in sorted(plist, key=lambda item: item['ft'], reverse=True)[:limit]:
                 # gtvid
                 gtvid = p['gtvid']
-                # url
-                url = Params.RSS_URL + gtvid + '.mp3'
+                # source
+                source = Params.RSS_URL + gtvid + '.mp3'
                 # file
                 mp3_file = os.path.join(Const.DOWNLOAD_PATH, gtvid + '.mp3')
                 # startdate
@@ -62,9 +62,10 @@ class RSS:
                     body.format(
                         title=p['title'],
                         gtvid=gtvid,
-                        url=url,
+                        url=p.get('url',''),
+                        source=source,
                         startdate=startdate,
-                        bc=p['name'],
+                        name=p['name'],
                         duration=duration,
                         filesize=filesize,
                         description=p['description']))
@@ -74,6 +75,10 @@ class RSS:
         iconpath = os.path.join(Const.DOWNLOAD_PATH, 'icon.png')
         if not os.path.isfile(iconpath):
             shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), iconpath)
+        # copy xsl if necessary
+        xslpath = os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl')
+        if not os.path.isfile(xslpath):
+            shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), xslpath)
         # copy script if necessary
         phppath = os.path.join(Const.DOWNLOAD_PATH, 'rss.php')
         if not os.path.isfile(phppath):

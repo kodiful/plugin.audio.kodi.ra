@@ -85,8 +85,9 @@ class Programs:
             s = {
                 'id': data['id'],
                 'name': data['name'],
-                'logo_large': data.get('logo_large',''),
                 'url': data.get('url',''),
+                'logo_large': data.get('logo_large',''),
+                'stream': data.get('stream',''),
                 'delay': data.get('delay',0),
                 'logo_path': logopath,
                 'fanart_artist': logopath,
@@ -140,20 +141,21 @@ class Programs:
             # この放送局のDOMからデータを抽出して配列に格納
             buf = []
             for p in data['progs']:
+                self.__normalize(p)
                 q = {
                     'id': s['id'],
                     'name': s['name'],
-                    'source': s['url'],
+                    'stream': s['stream'],
                     'delay': s['delay'],
                     'title': p.get('title',''),
                     'ft': p.get('ft',''),
                     'ftl': p.get('ftl',''),
                     'to': p.get('to',''),
                     'tol': p.get('tol',''),
+                    'url': p.get('url') or s.get('url') or '',
                     'pfm': p.get('pfm',''),
                     'desc': p.get('desc',''),
                     'info': p.get('info',''),
-                    'url': p.get('url',''),
                     'subtitle': p.get('subtitle',''),
                     'content': p.get('content',''),
                     'act': p.get('act',''),
@@ -177,16 +179,27 @@ class Programs:
         else:
             return None
 
+    def __normalize(self, p):
+        for key, val in p.items():
+            if isinstance(val, str):
+                val = re.sub(r'<.*?>',             ' ', val) # <>で括られた部分をhtmlタグとして削除
+                val = re.sub(r'(?:　|\r\n|\n|\t)', ' ', val) # 全角スペース、改行、タブを半角スペースに置換
+                val = re.sub(r'\s{2,}',            ' ', val) # 二つ以上続く半角スペースは一つに置換
+                val = re.sub(r'(^\s+|\s+$)',        '', val) # 先頭と末尾の半角スペースを削除
+                p[key] = val.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;')
+            else:
+                p[key] = ''
+
     def __description(self, p):
         desc = []
         uniq = []
-        for attr in ('pfm','act','music','url','subtitle','desc','content','info','free'):
+        for attr in ('pfm','act','music','subtitle','desc','content','info','free'):
             q = p.get(attr)
-            if isinstance(q, str):
-                content = convert(re.sub(r'<.*?>','',q), strip=True)
-                if content and content not in uniq:
-                    desc.append('&lt;div title=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=content))
-                    uniq.append(content)
+            if q:
+                r = re.sub(r'(?: |　|,|\.|、|，|。|．)', '', q)
+                if r and r not in uniq:
+                    desc.append('&lt;div class=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=q))
+                    uniq.append(r)
         return ''.join(desc)
 
     def __showhide(self, id):
@@ -262,7 +275,7 @@ class Programs:
             # コンテクストメニュー設定
             li.addContextMenuItems(contextmenu, replaceItems=True)
             # リストアイテムを追加
-            xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['url'], listitem=li, isFolder=False)
+            xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['stream'], listitem=li, isFolder=False)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 

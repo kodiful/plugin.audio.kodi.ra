@@ -55,7 +55,7 @@ class Compatibility:
                     "id": p['ch'],
                     "key": p['key'],
                     "name": p['bc'],
-                    "source": "",
+                    "stream": '',
                     "title": p['title'],
                     "to": ""
                 }
