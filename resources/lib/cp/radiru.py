@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common import Common
+from jcba import Jcba
 
 from ..const import Const
 from ..common import *
@@ -64,10 +64,9 @@ class Params:
     DELAY = 40
 
 
-class Radiru(Params, Common):
+class Radiru(Params, Jcba):
 
     def __init__(self, renew=False):
-        self.id = 'radiru'
         try:
             area = Const.GET('area')
             self.areajp, self.areakey = self.AREA[int(area)]

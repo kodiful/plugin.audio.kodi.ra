@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common import Common
+from jcba import Jcba
 
 from ..const import Const
 from ..common import *
@@ -22,10 +22,9 @@ class Params:
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
 
 
-class Misc(Params, Common):
+class Misc(Params, Jcba):
 
     def __init__(self, renew=False):
-        self.id = 'misc'
         # 放送局データをファイルから読み込む
         self.read()
         # 放送局データと設定データを初期化

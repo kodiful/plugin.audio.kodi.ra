@@ -41,10 +41,6 @@ class Service:
         if Const.GET('compatibility') == 'true':
             # 古い形式ののファイルの変換
             status = Compatibility().converter()
-            # 古い形式のファイルが更新されたときは設定ダイアログを再作成
-            if status:
-                os.remove(Const.SETTINGS_FILE)
-                notify('Settings updated')
         # ディレクトリをチェック
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
@@ -60,9 +56,8 @@ class Service:
         self.nextauth = self.authenticate()
         # クラスを初期化
         self.update_classes()
-        # 設定ダイアログがなければ作成
-        if not os.path.isfile(Const.SETTINGS_FILE):
-            self.setup_settings()
+        # 設定ダイアログを作成
+        self.setup_settings()
 
     def authenticate(self):
         # radiko認証
@@ -165,7 +160,7 @@ class Service:
                     self.lastdiff = now
                     self.programs_hash = new_hash
                     # 番組情報を記録
-                    self.programs.record()
+                    #self.programs.record()
                     # ダウンロードする番組を抽出
                     downloader.pending = self.programs.match(downloader.pending)
                     # 画面更新

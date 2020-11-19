@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from common import Common
+from jcba import Jcba
 
 from ..const import Const
 from ..common import *
@@ -97,7 +97,6 @@ class Authenticate:
             self.__header()
             # タブブロックがある限り
             while self.__block():
-                log(self.block['tag'], self.block['block_len'], self.block['id'])
                 if self.block['tag'] == self.OBJECT_TAG and self.block['id'] == self.OBJECT_ID:
                     with open(self.KEY_FILE, 'wb') as f:
                         f.write(self.block['value'])
@@ -205,10 +204,9 @@ class Authenticate:
         return response
 
 
-class Radiko(Params, Common):
+class Radiko(Params, Jcba):
 
     def __init__(self, area, token, renew=False):
-        self.id = 'radiko'
         self.area = area
         self.token = token
         # 放送局データと設定データを初期化
