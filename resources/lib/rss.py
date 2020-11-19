@@ -72,7 +72,7 @@ class RSS:
             # footer
             f.write(footer)
         # アイコン画像がRSSから参照できるように、画像をダウンロードフォルダにコピーする
-        shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), os.path.join(Const.DOWNLOAD_PATH, 'icon.png')
+        shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), os.path.join(Const.DOWNLOAD_PATH, 'icon.png'))
         # copy stylesheet
         shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl'))
         # copy php script
