@@ -19,7 +19,7 @@ class Params:
     STATION_FILE = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
-    STATION_URL   = 'http://kodiful.com/KodiRa/jcba/station.xml'
+    STATION_URL   = 'http://kodiful.com/KodiRa/jcba/station.json'
     SETTINGS_URL  = 'http://kodiful.com/KodiRa/jcba/settings.xml'
 
 
@@ -37,23 +37,8 @@ class Jcba(Params, Common):
         # 放送局データをウェブから読み込む
         data = urlread(self.STATION_URL)
         if data:
-            # データ変換
-            dom = convert(parse('<stations>%s</stations>' % data))
-            station = dom['stations'].get('station',[]) if dom['stations'] else []
-            station = station if isinstance(station,list) else [station]
-            # 放送局データ
-            buf = []
-            for s in station:
-                buf.append({
-                    'id': s['id'],
-                    'name': s['name'],
-                    'url': s['url'],
-                    'logo_large': s['logo_large'],
-                    'stream': s['stream'],
-                    'onair': s['onair']
-                })
             # 放送局データを書き込む
-            write_json(self.STATION_FILE, buf)
+            write_file(self.STATION_FILE, data)
             # 設定データをウェブから読み込む
             data = urlread(self.SETTINGS_URL)
             # 設定データを書き込む

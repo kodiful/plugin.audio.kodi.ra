@@ -3,6 +3,7 @@
 import os, sys
 import urllib, urllib2
 import re
+import json
 
 from bs4 import BeautifulSoup
 
@@ -52,7 +53,7 @@ class Jcba(Base):
     def parse(self, data):
         buf1 = []
         buf2 = []
-        buf3 = [u'|地域|放送局|',u'|:---|:---|']
+        buf3 = ['|地域|放送局|','|:---|:---|']
         i = -1
         divs = BeautifulSoup(data, features='lxml').find_all('div', class_='areaList')
         for div in divs:
@@ -67,24 +68,23 @@ class Jcba(Base):
                     stream = 'https://musicbird-hls.leanstream.co/musicbird/{id}.stream/playlist.m3u8'.format(id=jcbid)
                     onair = li.find('div', class_='text').find('p').string or ''
                     url = li.find('div', class_='officialLink').find('a').get('href')
-                    buf1.append(u'<station><id>{id}</id><name>{name}({place})</name><url>{url}</url><logo_large>{logo}</logo_large><stream>{stream}</stream><opt></opt><onair>{onair}</onair></station>'.format(
+                    buf1.append({
+                        'id': id,
+                        'name': '%s(%s)' % (name.encode('utf-8'), place.encode('utf-8')),
+                        'url': url,
+                        'logo_large': logo,
+                        'stream': stream,
+                        'onair': onair.encode('utf-8')
+                    })
+                    buf2.append('    <setting label="{name}({place})" type="bool" id="{id}" default="false" enable="eq({i},2)"/>'.format(
                         id=id,
-                        name=name,
-                        place=place,
-                        url=url,
-                        logo=logo,
-                        stream=stream,
-                        onair=onair
-                    ))
-                    buf2.append(u'    <setting label="{name}({place})" type="bool" id="{id}" default="false" enable="eq({i},2)"/>'.format(
-                        id=id,
-                        name=name,
-                        place=place,
+                        name=name.encode('utf-8'),
+                        place=place.encode('utf-8'),
                         i=i
                     ))
-                    buf3.append(u'|{place}|[{name}]({url})|'.format(
-                        place=place,
-                        name=name,
+                    buf3.append('|{place}|[{name}]({url})|'.format(
+                        place=place.encode('utf-8'),
+                        name=name.encode('utf-8'),
                         url=url
                     ))
                     i = i-1
@@ -94,9 +94,9 @@ class Jcba(Base):
 if __name__  == '__main__':
 
     buf1, buf2, buf3 = Jcba().run()
-    with open('station.xml', 'w') as f:
-        f.write('\n'.join(buf1).replace('&','&amp;').encode('utf-8'))
+    with open('station.json', 'w') as f:
+        f.write(json.dumps(buf1, sort_keys=True, ensure_ascii=False, indent=4))
     with open('settings.xml', 'w') as f:
-        f.write('\n'.join(buf2).replace('&','&amp;').encode('utf-8'))
+        f.write('\n'.join(buf2).replace('&','&amp;'))
     with open('wiki.md', 'w') as f:
-        f.write('\n'.join(buf3).replace('&','&amp;').encode('utf-8'))
+        f.write('\n'.join(buf3).replace('&','&amp;'))

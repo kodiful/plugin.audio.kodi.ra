@@ -1,0 +1,946 @@
+[
+    {
+        "id": "jcba_001",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area01_fmhana.png",
+        "name": "FMはな(北海道)",
+        "onair": "宇宙から見える格子状防風林の中心空とみどりの交流拠点中標津町から繋がる、ひろがる地域情報を発信中",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB001.stream/playlist.m3u8",
+        "url": "http://fmhana.jp"
+    },
+    {
+        "id": "jcba_002",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2015/12/ed3a9cc3b21b677ae43c048520e627f9.png",
+        "name": "エフエムもえる(北海道)",
+        "onair": "北海道の左上、留萌市の『マチの聴こえる回覧版』。ボランティアパーソナリティを中心に毎日情報発信！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB002.stream/playlist.m3u8",
+        "url": "http://www.moeru.fm/"
+    },
+    {
+        "id": "jcba_003",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area01_airtesshi.jpg",
+        "name": "Airてっし(北海道)",
+        "onair": "天塩川流れる街。「日本最北の○○」がたくさんある「名寄市」から、地域の話題を２４時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB003.stream/playlist.m3u8",
+        "url": "http://www.nayoro.fm/"
+    },
+    {
+        "id": "jcba_106",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/05/d67e017d2114754c6782b0b19bedde53.png",
+        "name": "FM AZUR(青森県)",
+        "onair": "本州最北端のコミュニティ放送局。アジュールは「紺碧」。２４時間放送で、むつ下北の情報を発信中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB106.stream/playlist.m3u8",
+        "url": "http://www.fmazur.jp/"
+    },
+    {
+        "id": "jcba_004",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_applewave.jpg",
+        "name": "アップルウェーブ(青森県)",
+        "onair": "お城と桜とりんごの街ひろさきから、地域情報中心に放送します。災害時などは随時割り込みします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB004.stream/playlist.m3u8",
+        "url": "http://www.applewave.co.jp/"
+    },
+    {
+        "id": "jcba_005",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_fmone.jpg",
+        "name": "FMONE(岩手県)",
+        "onair": "宮沢賢治の故郷、花巻市。岩手県のほぼ中央から花巻の今を伝えるFM One、まんず、聞いてけでぇ～！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB005.stream/playlist.m3u8",
+        "url": "http://fm-one.net/"
+    },
+    {
+        "id": "jcba_011",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_fmiwanuma.jpg",
+        "name": "エフエムいわぬま(宮城県)",
+        "onair": "宮城県岩沼市より24時間放送中。地域の話題や、市民の声が盛りだくさん！ぜひお聴きください♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB011.stream/playlist.m3u8",
+        "url": "http://www.fm779.com/"
+    },
+    {
+        "id": "jcba_012",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_hatfm.jpg",
+        "name": "H＠！FM(宮城県)",
+        "onair": "宮城県北部にある登米市のH＠！FMです。たっぷりの生放送で、タイムリーな登米市の話題を随時放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB012.stream/playlist.m3u8",
+        "url": "http://hat-fm.net/"
+    },
+    {
+        "id": "jcba_006",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_radiomonster.jpg",
+        "name": "ラジオ モンスター(山形県)",
+        "onair": "東北で一番最初に開局した、山形市の黄色い壁がトレードマークのラジオ局。山形の魅力を毎日発信中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB006.stream/playlist.m3u8",
+        "url": "http://www.fm762.co.jp/"
+    },
+    {
+        "id": "jcba_007",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_fmncv.jpg",
+        "name": "エフエムNCV(山形県)",
+        "onair": "山形県南、置賜地方の情報・魅力がつまったエフエムNCVおきたまGO！米沢市から放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB007.stream/playlist.m3u8",
+        "url": "http://fm834.jp/"
+    },
+    {
+        "id": "jcba_008",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_orandaradio.jpg",
+        "name": "えふえむい～じゃんおらんだらじお(山形県)",
+        "onair": "山形県長井市より個性豊かな多数の地元パーソナリティ＆地元出演者がお送りする癒しと笑いの耳空間",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB008.stream/playlist.m3u8",
+        "url": "http://oranda-radio.jp/"
+    },
+    {
+        "id": "jcba_009",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_sakatafm.jpg",
+        "name": "ハーバーラジオ(山形県)",
+        "onair": "酒田市はじめ庄内地域に密着した話題を満載。地域住民の安心・安全に備え、24時間放送中です。 ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB009.stream/playlist.m3u8",
+        "url": "http://www.sakatafm.com/"
+    },
+    {
+        "id": "jcba_111",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/12/a68b92fadfa9dfe77d362171402bb457.jpg",
+        "name": "ウルトラFM(福島県)",
+        "onair": "ウルトラマンの故郷『Ｍ７８星雲』とは姉妹都市！福島県須賀川市から地元情報を中心に２４時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB111.stream/playlist.m3u8",
+        "url": "http://ultrafm868.jp/"
+    },
+    {
+        "id": "jcba_010",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2015/06/35c25cba3eede28ef4ee650028402d6f.png",
+        "name": "FMポコ(福島県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB010.stream/playlist.m3u8",
+        "url": "http://www.fm-poco.co.jp/"
+    },
+    {
+        "id": "jcba_013",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area02_kitakata.png",
+        "name": "エフエムきたかた(福島県)",
+        "onair": "蔵とラーメンの街、福島県喜多方市のFMきたかた。ライブ感あふれる放送で24時間元気を発信中！！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB013.stream/playlist.m3u8",
+        "url": "http://www.fm-kitakata.co.jp/"
+    },
+    {
+        "id": "jcba_023",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmdaigo.jpg",
+        "name": "FMだいご(茨城県)",
+        "onair": "茨城県最北端の町、大子町のステキな情報や防災情報を発信する、地域に密着した放送局です。 ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB023.stream/playlist.m3u8",
+        "url": "http://www.town.daigo.ibaraki.jp/page/page000779.html"
+    },
+    {
+        "id": "jcba_024",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmkashima.gif",
+        "name": "FMかしま(茨城県)",
+        "onair": "「鹿行情報満載」～生放送は元気と癒しをモットーに～ サッカーホームゲーム中継もお聞き逃しなく！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB024.stream/playlist.m3u8",
+        "url": "http://www.767fm.com/"
+    },
+    {
+        "id": "jcba_028",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_takasakifm.jpg",
+        "name": "ラジオ高崎(群馬県)",
+        "onair": "アーティスト、タレント、俳優など多数レギュラー出演中。大人な音楽を聴けるRADIO　STATION",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB028.stream/playlist.m3u8",
+        "url": "http://www.takasaki.fm/"
+    },
+    {
+        "id": "jcba_029",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmtaro.jpg",
+        "name": "エフエム太郎(群馬県)",
+        "onair": "Always By Your Side FM TARO 76.7",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB029.stream/playlist.m3u8",
+        "url": "http://www.fmtaro.co.jp/"
+    },
+    {
+        "id": "jcba_030",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmoze.jpg",
+        "name": "FM OZE(群馬県)",
+        "onair": "真田の里上州沼田！イメージキャラクター瑞葉翔子ちゃんを中心に、利根沼田の情報を発信しています！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB030.stream/playlist.m3u8",
+        "url": "http://www.fm-oze.co.jp/"
+    },
+    {
+        "id": "jcba_103",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/274-165.jpg",
+        "name": "ラヂオななみ(群馬県)",
+        "onair": "“ラヂオななみ（FM77.3）”。群馬県玉村町の情報を元気に発信！24時間放送。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB103.stream/playlist.m3u8",
+        "url": "http://www.fm773.co.jp/"
+    },
+    {
+        "id": "jcba_019",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmchappy.jpg",
+        "name": "FMチャッピー(埼玉県)",
+        "onair": "狭山茶の産地（埼玉県西部地域）から、地域の旬の話題や音楽を、24時間毎日お届けいたします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB019.stream/playlist.m3u8",
+        "url": "http://www.fmchappy.jp/"
+    },
+    {
+        "id": "jcba_098",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_hassurufm.png",
+        "name": "発するＦＭ(埼玉県)",
+        "onair": "みんなが主役！地域密着！東入間地域（富士見市・ふじみ野市・三芳町）の魅力と情報をお届けします♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB098.stream/playlist.m3u8",
+        "url": "http://fm840.com/"
+    },
+    {
+        "id": "jcba_020",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_urarafm.jpg",
+        "name": "市川うららＦＭ(I&U-LaLaFM)(千葉県)",
+        "onair": "千葉県市川市にある市川うららFMは８３MHzで２４時間３６５日情報とエンタメ満載で放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB020.stream/playlist.m3u8",
+        "url": "http://www.fmu.co.jp/"
+    },
+    {
+        "id": "jcba_021",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_kazusafm.jpg",
+        "name": "かずさエフエム(千葉県)",
+        "onair": "木更津市・君津市・富津市・袖ケ浦市、かずさ地域に密着したジモット情報をお届けします♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB021.stream/playlist.m3u8",
+        "url": "http://www.kazusafm.net/"
+    },
+    {
+        "id": "jcba_022",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2015/06/17610629def09d20a35e49608b6fa4a2.png",
+        "name": "ラジオ成田(千葉県)",
+        "onair": "国際空港や成田山のある成田から地元の話題、楽しい情報をお届けします。ハミング成田８３.７。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB022.stream/playlist.m3u8",
+        "url": "http://narita.fm/"
+    },
+    {
+        "id": "jcba_100",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fukurofm.png",
+        "name": "ふくろうFM(千葉県)",
+        "onair": "千葉県八千代市緑ヶ丘本社スタジオから地域の情報をお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB100.stream/playlist.m3u8",
+        "url": "http://296.fm/"
+    },
+    {
+        "id": "jcba_033",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmedogawa.gif",
+        "name": "FMえどがわ(東京都)",
+        "onair": "地域情報いっぱい。心の琴線を震わす音楽。そしてパーソナリティの語りが耳にやさしく響きます。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB033.stream/playlist.m3u8",
+        "url": "http://www.fm843.co.jp/"
+    },
+    {
+        "id": "jcba_032",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_musashinofm.jpg",
+        "name": "むさしのFM(東京都)",
+        "onair": "住みたい街で全国から注目エリアの放送局！吉祥寺発の旬の情報と音楽をオンエア。JAZZも必聴。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB032.stream/playlist.m3u8",
+        "url": "http://www.musashino-fm.co.jp/"
+    },
+    {
+        "id": "jcba_115",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/05/e091e0e0173c2ca181ffdb577e8da33b.png",
+        "name": "FMしながわ(東京都)",
+        "onair": "東京都品川区のコミュニティ放送局です。地域のさまざまな情報を発信しています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB115.stream/playlist.m3u8",
+        "url": "https://www.fm-shinagawa.co.jp/"
+    },
+    {
+        "id": "jcba_015",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmblueshonan.jpg",
+        "name": "FMブルー湘南(神奈川県)",
+        "onair": "橫須賀のコミュニティ放送局。地元横須賀の地域情報満載でお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB015.stream/playlist.m3u8",
+        "url": "http://www.yokosukafm.com/"
+    },
+    {
+        "id": "jcba_016",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_kamakurafm.png",
+        "name": "鎌倉FM(神奈川県)",
+        "onair": "海風が吹き抜けるスタジオから地元の情報をお届けする街のラジオです。鎌倉時間をお楽しみください♪♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB016.stream/playlist.m3u8",
+        "url": "http://www.kamakurafm.co.jp/"
+    },
+    {
+        "id": "jcba_014",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmsyonannapasa.png",
+        "name": "FM湘南ナパサ(神奈川県)",
+        "onair": "湘南ベルマーレのＪリーグ中継、イベント中継、地域情報満載のＦＭ湘南ナパサは７８．３ＭＨｚで放送中",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB014.stream/playlist.m3u8",
+        "url": "http://www.fmshonan783.co.jp/"
+    },
+    {
+        "id": "jcba_017",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2017/02/afb0d7da061c4ae907fcd92cb48b40a7.jpg",
+        "name": "FMおだわら(神奈川県)",
+        "onair": "FMおだわらは神奈川県小田原市から、地域のニュースや交通情報、観光情報など24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB017.stream/playlist.m3u8",
+        "url": "http://fm-odawara.com/"
+    },
+    {
+        "id": "jcba_018",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmsmw.jpg",
+        "name": "湘南マジックウェイブ(神奈川県)",
+        "onair": "湘南マジックウェイブの「MAGIC」は魔法、「WAVE」は波。小さな放送局が大きな社会に挑戦。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB018.stream/playlist.m3u8",
+        "url": "http://fm-smw.jp/"
+    },
+    {
+        "id": "jcba_096",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmyamato.png",
+        "name": "FMやまと(神奈川県)",
+        "onair": "神奈川県大和市にある「ＦＭやまと」です。地域の皆さんの応援団として心を込めて放送しています。　",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB096.stream/playlist.m3u8",
+        "url": "http://www.fmyamato.co.jp/"
+    },
+    {
+        "id": "jcba_101",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_radioshonan.jpg",
+        "name": "レディオ湘南(神奈川県)",
+        "onair": "神奈川県藤沢市のラジオ局です。湘南地域の情報や音楽を、多彩なプログラムで24時間お届けします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB101.stream/playlist.m3u8",
+        "url": "http://www.radioshonan.co.jp/index.php"
+    },
+    {
+        "id": "jcba_117",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/09/e417f2f33828212e36aed01633540ecc.jpg",
+        "name": "FMサルース(神奈川県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB117.stream/playlist.m3u8",
+        "url": "http://www.fm-salus.jp/index.php"
+    },
+    {
+        "id": "jcba_025",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmkofu.png",
+        "name": "エフエム甲府(山梨県)",
+        "onair": "山梨学院大学キャンパス内にある放送局。学生が制作した番組、Ｊ２ヴァンフォーレ甲府生中継も放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB025.stream/playlist.m3u8",
+        "url": "http://www.fm-kofu.co.jp/"
+    },
+    {
+        "id": "jcba_026",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmfujiyama.jpg",
+        "name": "FMふじやま(山梨県)",
+        "onair": "世界文化遺産の富士北麓から地域情報を懐かしのヒット曲と共にお送りしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB026.stream/playlist.m3u8",
+        "url": "http://fujiyama776.jp/"
+    },
+    {
+        "id": "jcba_027",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area03_fmfujigoko.jpg",
+        "name": "エフエム　ふじごこ(山梨県)",
+        "onair": "富士山の麓にあるラジオ局！富士五湖の情報や防災情報を中心に放送中です。皆で聴くじゃん！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB027.stream/playlist.m3u8",
+        "url": "http://www.fm2255.jp/"
+    },
+    {
+        "id": "jcba_109",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/07/5aa185011a805d08f65694c41a84b10d.jpg",
+        "name": "ＦＭ八ヶ岳(山梨県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB109.stream/playlist.m3u8",
+        "url": "http://www.yatsugatake.ne.jp/"
+    },
+    {
+        "id": "jcba_107",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/05/FM-niitsu-player.jpg",
+        "name": "ラジオチャット・ＦＭにいつ(新潟県)",
+        "onair": "新潟市新津鉄道資料館に隣接するラジオチャット・エフエム新津は、地域に密着した情報をお届けします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB107.stream/playlist.m3u8",
+        "url": "http://www.chat761.com/index.html"
+    },
+    {
+        "id": "jcba_105",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/05/4eb2d4079e8ff15f92dbbe822e0b75de.png",
+        "name": "FMうおぬま(新潟県)",
+        "onair": "コシヒカリと日本酒、そして豪雪の郷であたたかなコミュニティFM放送をお送りしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB105.stream/playlist.m3u8",
+        "url": "http://www.fm-u814.sakura.ne.jp/"
+    },
+    {
+        "id": "jcba_053",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_fmnagaoka.png",
+        "name": "エフエムながおか(新潟県)",
+        "onair": "放送エリアは長岡市、小千谷市、見附市、出雲崎町。地域に密着した放送局として自主番組を発信します。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB053.stream/playlist.m3u8",
+        "url": "http://www.fmnagaoka.com/"
+    },
+    {
+        "id": "jcba_052",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_radioagatt.png",
+        "name": "エフエムしばた(新潟県)",
+        "onair": "新潟県阿賀北地域、歴史と文化のまち新発田市とその近隣地域へ、地域に密着した情報を放送しています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB052.stream/playlist.m3u8",
+        "url": "http://www.agatt769.co.jp/"
+    },
+    {
+        "id": "jcba_094",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_fmkento.jpg",
+        "name": "FM KENTO(新潟県)",
+        "onair": "感度の高い洋楽を中心に24時間オンエア。詳しくはFM KENTOウェブサイトをチェック。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB094.stream/playlist.m3u8",
+        "url": "http://www.fmkento.com/"
+    },
+    {
+        "id": "jcba_054",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_fmyukiguni.png",
+        "name": "ＦＭゆきぐに(新潟県)",
+        "onair": "関東からの玄関口、新潟県南魚沼市と湯沢町のFMゆきぐにです。だんだんどうも。田舎の風をお届け中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB054.stream/playlist.m3u8",
+        "url": "http://www.fm762.jp/"
+    },
+    {
+        "id": "jcba_095",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_fmj.jpg",
+        "name": "FM-J エフエム上越(新潟県)",
+        "onair": "新潟県南西部にある北陸新幹線沿線の街、上越市。地域の話題、声をお届けしています。２４時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB095.stream/playlist.m3u8",
+        "url": "http://www.fmj761.com/"
+    },
+    {
+        "id": "jcba_055",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area04_lcvfm.jpg",
+        "name": "LCV FM(長野県)",
+        "onair": "「高原と湖のある街」長野県諏訪地域（６市町村）に密着した話題・情報をお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB055.stream/playlist.m3u8",
+        "url": "http://lcvfm769.jp/"
+    },
+    {
+        "id": "jcba_108",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2015/06/8691ab7e1aa2f9b784d2b4d01258d025.jpg",
+        "name": "FM軽井沢(長野県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB108.stream/playlist.m3u8",
+        "url": "http://www.fm-karuizawa.co.jp/"
+    },
+    {
+        "id": "jcba_043",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmpipi.jpg",
+        "name": "FMPiPi(岐阜県)",
+        "onair": "東濃地方が育んできた歴史や美濃焼文化を大切にし街の活性化、地域の防災を目指し放送しています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB043.stream/playlist.m3u8",
+        "url": "http://www.fmpipi.co.jp/"
+    },
+    {
+        "id": "jcba_044",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmwatch.png",
+        "name": "FMわっち(岐阜県)",
+        "onair": "岐阜市神田町からお届けする、地域密着型ラジオ局FM WATCH！自社制作番組を中心に毎日配信中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB044.stream/playlist.m3u8",
+        "url": "http://www.fm-watch.jp/"
+    },
+    {
+        "id": "jcba_045",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_hitsfm.png",
+        "name": "Hits FM(岐阜県)",
+        "onair": "日本一広い面積を持つ高山市から飛騨の地域・観光・行政・防災情報を発信。春秋の高山祭は生中継！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB045.stream/playlist.m3u8",
+        "url": "http://www.hidanet.ne.jp/~hitsfm/"
+    },
+    {
+        "id": "jcba_034",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmharo.jpg",
+        "name": "FM Haro！(静岡県)",
+        "onair": "感謝のきもちを電波にのせて日本のまん中から元気と笑顔を発信中　７６．１ＭＨｚ　ＦＭ Ｈａｒｏ！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB034.stream/playlist.m3u8",
+        "url": "http://www.fmharo.co.jp/"
+    },
+    {
+        "id": "jcba_035",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmis.jpg",
+        "name": "FM IS(静岡県)",
+        "onair": "誰でも参加できるアットホームなラジオ局を目指し、地域密着の情報発信で伊豆市を盛り上げます！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB035.stream/playlist.m3u8",
+        "url": "http://fmis.jp/"
+    },
+    {
+        "id": "jcba_036",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_g-sky765.png",
+        "name": "g-sky76.5(静岡県)",
+        "onair": "島田市は静岡県の中央にあり緑茶の茶畑のある町です。懐かしい歌謡曲をお楽しみください。24ｈ放送。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB036.stream/playlist.m3u8",
+        "url": "http://www.gsky765.jp/"
+    },
+    {
+        "id": "jcba_037",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fujisangogo.jpg",
+        "name": "富士山GOGOFM(静岡県)",
+        "onair": "富士山の麓、静岡県御殿場市から発信中♪地域・観光・富士山情報は、富士山ＧＯＧＯエフエム!!",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB037.stream/playlist.m3u8",
+        "url": "http://www.863.fm/"
+    },
+    {
+        "id": "jcba_038",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_voicecue.jpg",
+        "name": "ボイスキュー(静岡県)",
+        "onair": "箱根西麓の三島市と函南町を中心に、静岡県東部をカバー！24時間365日、富士を望む街から放送中です♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB038.stream/playlist.m3u8",
+        "url": "http://777fm.com/"
+    },
+    {
+        "id": "jcba_039",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_mrnpal.jpg",
+        "name": "マリンパル(静岡県)",
+        "onair": "清水港と富士山を一望できるスタジオから元気に放送中！観光・イベントから防災関連まで、24時間放送！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB039.stream/playlist.m3u8",
+        "url": "http://www.mrn-pal.com/"
+    },
+    {
+        "id": "jcba_040",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmhi.jpg",
+        "name": "FM-Hi！(静岡県)",
+        "onair": "しずおか♪音の回覧板をキャッチコピーに静岡のまちを応援。地域情報から特化番組まで、幅広くお届け！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB040.stream/playlist.m3u8",
+        "url": "http://www.fmhi.co.jp/"
+    },
+    {
+        "id": "jcba_041",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_radiof.jpg",
+        "name": "Radio-f(静岡県)",
+        "onair": "静岡県富士市から地元らしさにこだわってOA。平日７時～１９時、土９時～１２時、日８時～９時。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB041.stream/playlist.m3u8",
+        "url": "http://radio-f.jp/index.html"
+    },
+    {
+        "id": "jcba_042",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_coastfm.jpg",
+        "name": "COAST－FM76.7MHｚ(静岡県)",
+        "onair": "豊かな自然に恵まれた静岡県沼津市から、コミュニケーションを大切にする楽しい番組をお届けします！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB042.stream/playlist.m3u8",
+        "url": "http://www.coast-fm.com/"
+    },
+    {
+        "id": "jcba_116",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/06/95080c15431908681e037aaac54417bb.jpg",
+        "name": "エフエムなぎさステーション(静岡県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB116.stream/playlist.m3u8",
+        "url": "https://www.fmito.com/"
+    },
+    {
+        "id": "jcba_049",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fmnanami.png",
+        "name": "エフエム　ななみ(愛知県)",
+        "onair": "海部地域７市町村の情報ならエフエムななみ！発災時には各自治体と協力し避難情報や災害情報をお届け！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB049.stream/playlist.m3u8",
+        "url": "http://www.clovernet.co.jp/nanami/"
+    },
+    {
+        "id": "jcba_046",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_unitednorth.png",
+        "name": "United North(愛知県)",
+        "onair": "愛知県犬山市のシンボル、国宝犬山城・城下町にある古民家をそのまま利用したコミュニティFM局です。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB046.stream/playlist.m3u8",
+        "url": "http://842fm.jp/"
+    },
+    {
+        "id": "jcba_047",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_radiosanq.jpg",
+        "name": "RADIO SANQ(愛知県)",
+        "onair": "瀬戸・尾張旭・長久手の情報発信。あなたと私の８４５（ハシゴ）になりたい。いつもあなたのそばに。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB047.stream/playlist.m3u8",
+        "url": "http://845.fm/"
+    },
+    {
+        "id": "jcba_048",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_iwave.png",
+        "name": "i-wave(愛知県)",
+        "onair": "尾張の国 一宮市から人・町・文化・防災情報を発信する地域密着型のラジオ局。周波数FM76.5MHｚ ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB048.stream/playlist.m3u8",
+        "url": "http://iwave765.com/"
+    },
+    {
+        "id": "jcba_050",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area05_fminabee.png",
+        "name": "いなBee(三重県)",
+        "onair": "三重県最北端の緑豊かな街いなべ市。地元の情報から防災情報まで地域密着型ラジオ局として24時間放送中",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB050.stream/playlist.m3u8",
+        "url": "http://fm861.com/"
+    },
+    {
+        "id": "jcba_057",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_toyamacity_fm.jpg",
+        "name": "富山シティエフエム株式会社(富山県)",
+        "onair": "富山湾から立山まで「雄大な自然」と「新鮮な食」。キトキト富山、24時間ふるさとの情報満載です。 ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB057.stream/playlist.m3u8",
+        "url": "http://www.city-fm.co.jp/"
+    },
+    {
+        "id": "jcba_059",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_fmtonami.jpg",
+        "name": "エフエムとなみ(富山県)",
+        "onair": "チューリップで有名な富山県砺波市から、砺波地域の話題を中心にお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB059.stream/playlist.m3u8",
+        "url": "http://www.fmtonami.jp/"
+    },
+    {
+        "id": "jcba_058",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_radiotakaoka.jpg",
+        "name": "ラジオたかおか(富山県)",
+        "onair": "加賀前田家ゆかりの町民文化と歴史の街・高岡から懐かしい音楽と共に24時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB058.stream/playlist.m3u8",
+        "url": "http://www.radiotakaoka.co.jp/"
+    },
+    {
+        "id": "jcba_062",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_radiokomatsu.jpg",
+        "name": "ラジオこまつ(石川県)",
+        "onair": "空港の街、歌舞伎の街・小松の情報を中心に放送中。（月～金６～１９時、土・日７時～１９時） ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB062.stream/playlist.m3u8",
+        "url": "http://www.radio-komatsu-new.com/"
+    },
+    {
+        "id": "jcba_060",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_radionanao.jpg",
+        "name": "ラジオななお(石川県)",
+        "onair": "能登半島の港町・七尾からお送りしています。放送時間　月～木7～19時　金・土7～21時 日7～16時",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB060.stream/playlist.m3u8",
+        "url": "http://www.radionanao.co.jp/"
+    },
+    {
+        "id": "jcba_061",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area06_radiokanazawa.jpg",
+        "name": "ラジオかなざわ(石川県)",
+        "onair": "加賀百万石の城下町・金沢の情報と懐かしい音楽を放送。月～木6時～19時、金～21時、土・日7時～19時",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB061.stream/playlist.m3u8",
+        "url": "http://www.radiokanazawa.co.jp/"
+    },
+    {
+        "id": "jcba_063",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmkusatsu.jpg",
+        "name": "えふえむ草津(滋賀県)",
+        "onair": "東海道と中山道が出会う街滋賀県草津市くさつ夢本陣から地域の話題、防災情報等をお届けしています",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB063.stream/playlist.m3u8",
+        "url": "http://www.fm785.jp/"
+    },
+    {
+        "id": "jcba_064",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmikaru.gif",
+        "name": "FMいかる(京都府)",
+        "onair": "綾部市は京都府中央に位置する美しい田園都市。世界連邦都市宣言第1号の平和都市から放送局しています",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB064.stream/playlist.m3u8",
+        "url": "http://www.fmikaru.jp/"
+    },
+    {
+        "id": "jcba_065",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmuzi.png",
+        "name": "FMうじ(京都府)",
+        "onair": "宇治市、城陽市、久御山町の地域の情報を放送中！詳しい配信時間はホームページをご覧下さい。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB065.stream/playlist.m3u8",
+        "url": "https://www.fmuji.com/"
+    },
+    {
+        "id": "jcba_066",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmmaizuru.jpg",
+        "name": "FMまいづる(京都府)",
+        "onair": "Marine Station Kyotoをキャッチフレーズに海軍ゆかりの町、舞鶴から24時間放送。観光情報もいっぱい！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB066.stream/playlist.m3u8",
+        "url": "http://775maizuru.jp"
+    },
+    {
+        "id": "jcba_104",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/05/FM845logo.jpg",
+        "name": "FM845(京都府)",
+        "onair": "ＦＭ845は演歌、歌謡曲、懐メロ、フォーク中心の選曲と、耳に心地よい語りを京都伏見から届けます。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB104.stream/playlist.m3u8",
+        "url": "http://www.fm-845.com/"
+    },
+    {
+        "id": "jcba_112",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/03/27bb15e546cc315bc258225faa975e7f.jpg",
+        "name": "FM千里(大阪府)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB112.stream/playlist.m3u8",
+        "url": "http://www.senri-fm.jp/"
+    },
+    {
+        "id": "jcba_067",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmchao.jpg",
+        "name": "FMちゃお(大阪府)",
+        "onair": "大阪府八尾市は河内音頭の故郷。ＦＭちゃおは地元の地域情報を大切にしています。２４時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB067.stream/playlist.m3u8",
+        "url": "http://792.jp/"
+    },
+    {
+        "id": "jcba_068",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmbehappy.jpg",
+        "name": "ウメダFM Be Happy!789(大阪府)",
+        "onair": "良質な『音』と控えめなおしゃべりでラジオ・ライフもＢｅＨａｐｐｙ！ウメダ発、大人なエフエムです。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB068.stream/playlist.m3u8",
+        "url": "http://www.be-happy789.com/"
+    },
+    {
+        "id": "jcba_069",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmhanako.jpg",
+        "name": "FM-HANAKO 82.4MHz(大阪府)",
+        "onair": "守口市・門真市密着の話題と行政情報、安心・安全情報をはじめ、バラエティ豊かな内容でお届けします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB069.stream/playlist.m3u8",
+        "url": "http://fmhanako.jp/"
+    },
+    {
+        "id": "jcba_102",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/8bd06e0d379455d1d1c2859b6a38ae80.jpg",
+        "name": "タッキー816みのおエフエム(大阪府)",
+        "onair": "タッキー８１６は名所・箕面大滝と周波数から。箕面情報満載で音楽もジャズ、ブルーグラスなど多彩に。 ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB102.stream/playlist.m3u8",
+        "url": "http://fm.minoh.net/"
+    },
+    {
+        "id": "jcba_070",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_happyfmitami.jpg",
+        "name": "エフエムいたみ(兵庫県)",
+        "onair": "「清酒発祥の地」兵庫県伊丹市から、地域に密着した番組や音楽番組を24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB070.stream/playlist.m3u8",
+        "url": "http://www.itami.fm/"
+    },
+    {
+        "id": "jcba_071",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_hummingfmtakarazuka.jpg",
+        "name": "ハミングFM宝塚(兵庫県)",
+        "onair": "宝塚歌劇・マンガの神様 手塚治虫さんが育った街、兵庫県宝塚市にある放送局です。２４時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB071.stream/playlist.m3u8",
+        "url": "http://835.jp/"
+    },
+    {
+        "id": "jcba_072",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_sakurafm.png",
+        "name": "さくらFM(兵庫県)",
+        "onair": "甲子園球場のある兵庫県西宮市から78.7MHzで、市民生活に密着した身近な情報を24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB072.stream/playlist.m3u8",
+        "url": "http://sakura-fm.co.jp/"
+    },
+    {
+        "id": "jcba_110",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/12/b093bdb096a7238a7c9ae1353669174f.jpg",
+        "name": "エフエムみっきぃ(兵庫県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB110.stream/playlist.m3u8",
+        "url": "http://www.fm-miki.jp/"
+    },
+    {
+        "id": "jcba_118",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/09/c5b7c9df73cac762635ce55409d5ca66.jpg",
+        "name": "805たんば(兵庫県)",
+        "onair": "丹波の里山から地域の話題と情報を音楽にのせて、丹波弁とスローテンポが心和む放送をお届けします。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB118.stream/playlist.m3u8",
+        "url": "http://805.tanba.info/"
+    },
+    {
+        "id": "jcba_073",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_naradotfm.png",
+        "name": "なら どっと FM(奈良県)",
+        "onair": "奈良市の歴史ある街並に続く商店街のスタジオから、地域情報満載でお届けしています。24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB073.stream/playlist.m3u8",
+        "url": "http://narafm.jp/"
+    },
+    {
+        "id": "jcba_074",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmhaiho.png",
+        "name": "エフエムハイホー(奈良県)",
+        "onair": "奈良県内最大級ターミナル・王寺駅近くのサテライトスタジオを中心に、奈良中西部の地域情報を発信中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB074.stream/playlist.m3u8",
+        "url": "http://www.fm814.co.jp/"
+    },
+    {
+        "id": "jcba_097",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_fmgojo.jpg",
+        "name": "FM五條(奈良県)",
+        "onair": "あなたが創る市民のためのラジオ局。こちら吉野川の見える放送局ＦＭ五條！24時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB097.stream/playlist.m3u8",
+        "url": "http://www.shousuien.or.jp/fm_gojo/"
+    },
+    {
+        "id": "jcba_075",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area07_bananafm.jpg",
+        "name": "バナナエフエム(和歌山県)",
+        "onair": "和歌山市から24時間放送。周波数87.7だから「バナナエフエム」",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB075.stream/playlist.m3u8",
+        "url": "http://877.fm/"
+    },
+    {
+        "id": "jcba_114",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/05/dbf59e14e5023294b815816217c476e9.jpg",
+        "name": "FM TANABE(和歌山県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB114.stream/playlist.m3u8",
+        "url": "https://www.fm885.jp/index.php"
+    },
+    {
+        "id": "jcba_120",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2020/03/b6df71e5cd25ac028819b1e5e1ff048f.png",
+        "name": "FMはしもと(和歌山県)",
+        "onair": "世界遺産高野山麓の橋本市と高野町、九度山町、かつらぎ町の地域密着情報を24時間発信中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB120.stream/playlist.m3u8",
+        "url": "http://816.fm/"
+    },
+    {
+        "id": "jcba_121",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2020/09/65188ce35d4a96beef6eaa7d4d91fe54.png",
+        "name": "FMビーチステーション(和歌山県)",
+        "onair": "パンダのまち南紀白浜から紀南の地域情報・防災情報をお届けしています♪放送時間はＨＰをご覧ください",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB121.stream/playlist.m3u8",
+        "url": "https://www.fm764.com/"
+    },
+    {
+        "id": "jcba_079",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_radiomomo.jpg",
+        "name": "レディオ モモ(岡山県)",
+        "onair": "岡山市を中心とした約100万人に向けて、ニュース、天気＆交通、お出かけ情報など幅広い話題を発信！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB079.stream/playlist.m3u8",
+        "url": "http://www.fm790.co.jp/"
+    },
+    {
+        "id": "jcba_080",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_fmkurashiki.jpg",
+        "name": "エフエムくらしき(岡山県)",
+        "onair": "岡山県倉敷市から地域密着市民参加型の番組を通じ街の活性化と地域の防災を目指し放送しています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB080.stream/playlist.m3u8",
+        "url": "http://www.fmkurashiki.com/"
+    },
+    {
+        "id": "jcba_078",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_radiobingo.png",
+        "name": "FMふくやま(広島県)",
+        "onair": "24時間放送中。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB078.stream/playlist.m3u8",
+        "url": "http://fm777.co.jp/pc/index.html"
+    },
+    {
+        "id": "jcba_081",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_fmonomichi.jpg",
+        "name": "エフエムおのみち(広島県)",
+        "onair": "もっとこまかく もっとくわしく。尾道の暮らしが100倍楽しくなるラジオ",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB081.stream/playlist.m3u8",
+        "url": "http://www.fmo.co.jp/"
+    },
+    {
+        "id": "jcba_082",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_fmchupea.jpg",
+        "name": "ＦＭちゅーピー(広島県)",
+        "onair": "広島市中区のコミュニティＦＭ放送局。中国新聞ビルのスタジオから２４時間オンエアしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB082.stream/playlist.m3u8",
+        "url": "http://chupea.fm/"
+    },
+    {
+        "id": "jcba_083",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_fmhatsukaichi.jpg",
+        "name": "FMはつかいち(広島県)",
+        "onair": "世界遺産宮島のある広島県廿日市市、大型商業施設「ゆめタウン廿日市」オープンスタジオから放送！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB083.stream/playlist.m3u8",
+        "url": "http://www.761.jp/"
+    },
+    {
+        "id": "jcba_087",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_fmhigashihiroshima.jpg",
+        "name": "FM東広島(広島県)",
+        "onair": "年間延べ約１２００人の市民が出演し、地域密着の情報をお届け。酒都・西条から５時〜２２時放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB087.stream/playlist.m3u8",
+        "url": "http://fmhigashi.jp/"
+    },
+    {
+        "id": "jcba_113",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/04/cb6c204a4b6776b1f9f033ff94b6db0b.jpg",
+        "name": "FOR　LIFE　RADIO(広島県)",
+        "onair": "",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB113.stream/playlist.m3u8",
+        "url": "https://www.fm-mihara.jp/index.html"
+    },
+    {
+        "id": "jcba_084",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_comeonfm.jpg",
+        "name": "COME ON ! FM(山口県)",
+        "onair": "「オールリスナー　オールパーソナリティ」を合言葉に「街の応援団」として毎日元気に放送中！！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB084.stream/playlist.m3u8",
+        "url": "http://www.c-fm.co.jp/index.php"
+    },
+    {
+        "id": "jcba_085",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area08_shunanfm.png",
+        "name": "しゅうなんFM(山口県)",
+        "onair": "「超ローカル・ご近所ラヂオ」！周南・下松・光市をエリアに、オープンスタジオから24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB085.stream/playlist.m3u8",
+        "url": "http://www.fms784.co.jp/index.php"
+    },
+    {
+        "id": "jcba_119",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2019/10/10d61450caf2fc9328348ca8ea1e914a.jpg",
+        "name": "RADIO BIRD(鳥取県)",
+        "onair": "鳥取県鳥取市より地域の話題や行政情報 安心・安全・防災情報を心地よい音楽と共にお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB119.stream/playlist.m3u8",
+        "url": "http://www.radiobird.net/"
+    },
+    {
+        "id": "jcba_076",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area09_radiobaribari.jpg",
+        "name": "FMラヂオバリバリ(愛媛県)",
+        "onair": "今治市は気候温暖な白砂青松の美しい町です。24時間365日元気を発信しています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB076.stream/playlist.m3u8",
+        "url": "http://www.baribari789.com/"
+    },
+    {
+        "id": "jcba_077",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area09_fmgaiya.png",
+        "name": "FMがいや(愛媛県)",
+        "onair": "愛媛県の南部　宇和島市の話題を元気にお届けしています。２４時間放送♪　いっぺん聴いてみさいや♪♪",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB077.stream/playlist.m3u8",
+        "url": "http://www.gaiya769.jp/"
+    },
+    {
+        "id": "jcba_099",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area09_hellonewniihama.png",
+        "name": "Hello! NEW 新居浜 FM(愛媛県)",
+        "onair": "愛媛県新居浜市のコミュニティFMです！みんなでつくるにぎわいラジオ！をモットーに元気に放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB099.stream/playlist.m3u8",
+        "url": "http://www.heartnetwork.jp/"
+    },
+    {
+        "id": "jcba_093",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_dreamsfm.png",
+        "name": "DreamsFM(福岡県)",
+        "onair": "「まちに夢をひろげよう」を掲げ、地域情報や久留米市の防災情報発信を行っています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB093.stream/playlist.m3u8",
+        "url": "http://www.dreamsfm.co.jp/"
+    },
+    {
+        "id": "jcba_086",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_fmyame.png",
+        "name": "FM八女(福岡県)",
+        "onair": "ＦＭ八女は、福岡県八女市の放送局です。地域密着、八女弁丸出しでホットな情報をお届けしています。",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB086.stream/playlist.m3u8",
+        "url": "http://www.fmyame.jp/"
+    },
+    {
+        "id": "jcba_092",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_fmkaratsu.png",
+        "name": "FMからつ(佐賀県)",
+        "onair": "佐賀県唐津市より地域に特化した生活情報やエンタメ情報、防災情報を発信しています",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB092.stream/playlist.m3u8",
+        "url": "http://www.fmkaratsu.com/"
+    },
+    {
+        "id": "jcba_090",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_kappafm.jpg",
+        "name": "Kappa　FM(熊本県)",
+        "onair": "畳表、冬トマト生産日本一の熊本県八代市から地域情報を中心に放送中！番組表など詳しくはHPで",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB090.stream/playlist.m3u8",
+        "url": "http://www.kappafm.com/"
+    },
+    {
+        "id": "jcba_091",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_kumamotocityfm.png",
+        "name": "FM791(熊本県)",
+        "onair": "熊本県熊本市を中心に約100万人をカバー。地域密着、市民参加、防災をスローガンに24時間放送中！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB091.stream/playlist.m3u8",
+        "url": "http://fm791.jp/"
+    },
+    {
+        "id": "jcba_088",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2015/06/7240698bcf3b3498d3f97c1f0d440321.jpg",
+        "name": "ゆふいんラヂオ局(大分県)",
+        "onair": "美術館の中にあるラヂオ局。独自選曲を追求しつつ、地域・観光・防災情報を２４時間放送！SNSも好評",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB088.stream/playlist.m3u8",
+        "url": "http://874.fm/"
+    },
+    {
+        "id": "jcba_089",
+        "logo_large": "https://www.jcbasimul.com/wp2018/wp-content/uploads/2018/03/area10_noas-fm.png",
+        "name": "NOASFM(大分県)",
+        "onair": "大分県中津市より大分県北部／福岡県京築エリアをダッシュ！地域密着で24時間365日放送中です！",
+        "stream": "https://musicbird-hls.leanstream.co/musicbird/JCB089.stream/playlist.m3u8",
+        "url": "http://789.fm/"
+    }
+]
