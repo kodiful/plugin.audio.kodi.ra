@@ -72,14 +72,8 @@ class RSS:
             # footer
             f.write(footer)
         # アイコン画像がRSSから参照できるように、画像をダウンロードフォルダにコピーする
-        iconpath = os.path.join(Const.DOWNLOAD_PATH, 'icon.png')
-        if not os.path.isfile(iconpath):
-            shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), iconpath)
-        # copy xsl if necessary
-        xslpath = os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl')
-        if not os.path.isfile(xslpath):
-            shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), xslpath)
-        # copy script if necessary
-        phppath = os.path.join(Const.DOWNLOAD_PATH, 'rss.php')
-        if not os.path.isfile(phppath):
-            shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), phppath)
+        shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), os.path.join(Const.DOWNLOAD_PATH, 'icon.png')
+        # copy stylesheet
+        shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl'))
+        # copy php script
+        shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), os.path.join(Const.DOWNLOAD_PATH, 'rss.php'))

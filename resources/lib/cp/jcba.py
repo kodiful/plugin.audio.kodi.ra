@@ -19,8 +19,8 @@ class Params:
     STATION_FILE = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
     # URL
-    STATION_URL   = 'http://kodiful.com/KodiRa/downloads/jcba/station.xml'
-    SETTINGS_URL  = 'http://kodiful.com/KodiRa/downloads/jcba/settings.xml'
+    STATION_URL   = 'http://kodiful.com/KodiRa/jcba/station.xml'
+    SETTINGS_URL  = 'http://kodiful.com/KodiRa/jcba/settings.xml'
 
 
 class Jcba(Params, Common):
@@ -47,9 +47,9 @@ class Jcba(Params, Common):
                 buf.append({
                     'id': s['id'],
                     'name': s['name'],
-                    'url': '',
+                    'url': s['url'],
                     'logo_large': s['logo_large'],
-                    'stream': s['url'],
+                    'stream': s['stream'],
                     'onair': s['onair']
                 })
             # 放送局データを書き込む

@@ -1,100 +1,118 @@
     <setting label="FMはな(北海道)" type="bool" id="jcba_001" default="false" enable="eq(-1,2)"/>
     <setting label="エフエムもえる(北海道)" type="bool" id="jcba_002" default="false" enable="eq(-2,2)"/>
     <setting label="Airてっし(北海道)" type="bool" id="jcba_003" default="false" enable="eq(-3,2)"/>
-    <setting label="アップルウェーブ(青森県)" type="bool" id="jcba_004" default="false" enable="eq(-4,2)"/>
-    <setting label="FMONE(岩手県)" type="bool" id="jcba_005" default="false" enable="eq(-5,2)"/>
-    <setting label="エフエムいわぬま(宮城県)" type="bool" id="jcba_011" default="false" enable="eq(-6,2)"/>
-    <setting label="H＠！FM(宮城県)" type="bool" id="jcba_012" default="false" enable="eq(-7,2)"/>
-    <setting label="ラジオ モンスター(山形県)" type="bool" id="jcba_006" default="false" enable="eq(-8,2)"/>
-    <setting label="エフエムNCV(山形県)" type="bool" id="jcba_007" default="false" enable="eq(-9,2)"/>
-    <setting label="えふえむい～じゃんおらんだらじお(山形県)" type="bool" id="jcba_008" default="false" enable="eq(-10,2)"/>
-    <setting label="ハーバーラジオ(山形県)" type="bool" id="jcba_009" default="false" enable="eq(-11,2)"/>
-    <setting label="FMポコ(福島県)" type="bool" id="jcba_010" default="false" enable="eq(-12,2)"/>
-    <setting label="エフエムきたかた(福島県)" type="bool" id="jcba_013" default="false" enable="eq(-13,2)"/>
-    <setting label="FMだいご(茨城県)" type="bool" id="jcba_023" default="false" enable="eq(-14,2)"/>
-    <setting label="FMかしま(茨城県)" type="bool" id="jcba_024" default="false" enable="eq(-15,2)"/>
-    <setting label="ラジオ高崎(群馬県)" type="bool" id="jcba_028" default="false" enable="eq(-16,2)"/>
-    <setting label="エフエム太郎(群馬県)" type="bool" id="jcba_029" default="false" enable="eq(-17,2)"/>
-    <setting label="FM　OZE(群馬県)" type="bool" id="jcba_030" default="false" enable="eq(-18,2)"/>
-    <setting label="FMチャッピー(埼玉県)" type="bool" id="jcba_019" default="false" enable="eq(-19,2)"/>
-    <setting label="発するＦＭ(埼玉県)" type="bool" id="jcba_098" default="false" enable="eq(-20,2)"/>
-    <setting label="市川うららＦＭ(I&amp;U-LaLaFM)(千葉県)" type="bool" id="jcba_020" default="false" enable="eq(-21,2)"/>
-    <setting label="かずさエフエム(千葉県)" type="bool" id="jcba_021" default="false" enable="eq(-22,2)"/>
-    <setting label="ラジオ成田(千葉県)" type="bool" id="jcba_022" default="false" enable="eq(-23,2)"/>
-    <setting label="ふくろうFM(千葉県)" type="bool" id="jcba_100" default="false" enable="eq(-24,2)"/>
-    <setting label="FMえどがわ(東京都)" type="bool" id="jcba_033" default="false" enable="eq(-25,2)"/>
-    <setting label="FM西東京(東京都)" type="bool" id="jcba_031" default="false" enable="eq(-26,2)"/>
-    <setting label="むさしのFM(東京都)" type="bool" id="jcba_032" default="false" enable="eq(-27,2)"/>
-    <setting label="FMブルー湘南(神奈川県)" type="bool" id="jcba_015" default="false" enable="eq(-28,2)"/>
-    <setting label="鎌倉FM(神奈川県)" type="bool" id="jcba_016" default="false" enable="eq(-29,2)"/>
-    <setting label="FM湘南ナパサ(神奈川県)" type="bool" id="jcba_014" default="false" enable="eq(-30,2)"/>
-    <setting label="FMおだわら(神奈川県)" type="bool" id="jcba_017" default="false" enable="eq(-31,2)"/>
-    <setting label="湘南マジックウェイブ(神奈川県)" type="bool" id="jcba_018" default="false" enable="eq(-32,2)"/>
-    <setting label="FMやまと(神奈川県)" type="bool" id="jcba_096" default="false" enable="eq(-33,2)"/>
-    <setting label="エフエムながおか(新潟県)" type="bool" id="jcba_053" default="false" enable="eq(-34,2)"/>
-    <setting label="エフエムしばた(新潟県)" type="bool" id="jcba_052" default="false" enable="eq(-35,2)"/>
-    <setting label="FM KENTO(新潟県)" type="bool" id="jcba_094" default="false" enable="eq(-36,2)"/>
-    <setting label="ＦＭゆきぐに(新潟県)" type="bool" id="jcba_054" default="false" enable="eq(-37,2)"/>
-    <setting label="FM-J エフエム上越(新潟県)" type="bool" id="jcba_095" default="false" enable="eq(-38,2)"/>
-    <setting label="富山シティエフエム株式会社(富山県)" type="bool" id="jcba_057" default="false" enable="eq(-39,2)"/>
-    <setting label="エフエムとなみ(富山県)" type="bool" id="jcba_059" default="false" enable="eq(-40,2)"/>
-    <setting label="ラジオたかおか(富山県)" type="bool" id="jcba_058" default="false" enable="eq(-41,2)"/>
-    <setting label="ラジオこまつ(石川県)" type="bool" id="jcba_062" default="false" enable="eq(-42,2)"/>
-    <setting label="ラジオななお(石川県)" type="bool" id="jcba_060" default="false" enable="eq(-43,2)"/>
-    <setting label="ラジオかなざわ(石川県)" type="bool" id="jcba_061" default="false" enable="eq(-44,2)"/>
-    <setting label="エフエム甲府(山梨県)" type="bool" id="jcba_025" default="false" enable="eq(-45,2)"/>
-    <setting label="FMふじやま(山梨県)" type="bool" id="jcba_026" default="false" enable="eq(-46,2)"/>
-    <setting label="エフエム　ふじごこ(山梨県)" type="bool" id="jcba_027" default="false" enable="eq(-47,2)"/>
-    <setting label="いいだエフエム(長野県)" type="bool" id="jcba_056" default="false" enable="eq(-48,2)"/>
-    <setting label="LCV FM(長野県)" type="bool" id="jcba_055" default="false" enable="eq(-49,2)"/>
-    <setting label="FMPiPi(岐阜県)" type="bool" id="jcba_043" default="false" enable="eq(-50,2)"/>
-    <setting label="FMわっち(岐阜県)" type="bool" id="jcba_044" default="false" enable="eq(-51,2)"/>
-    <setting label="Hits FM(岐阜県)" type="bool" id="jcba_045" default="false" enable="eq(-52,2)"/>
-    <setting label="FM Haro！(静岡県)" type="bool" id="jcba_034" default="false" enable="eq(-53,2)"/>
-    <setting label="FM IS(静岡県)" type="bool" id="jcba_035" default="false" enable="eq(-54,2)"/>
-    <setting label="g-sky76.5(静岡県)" type="bool" id="jcba_036" default="false" enable="eq(-55,2)"/>
-    <setting label="富士山GOGOFM(静岡県)" type="bool" id="jcba_037" default="false" enable="eq(-56,2)"/>
-    <setting label="ボイスキュー(静岡県)" type="bool" id="jcba_038" default="false" enable="eq(-57,2)"/>
-    <setting label="マリンパル(静岡県)" type="bool" id="jcba_039" default="false" enable="eq(-58,2)"/>
-    <setting label="FM-Hi！(静岡県)" type="bool" id="jcba_040" default="false" enable="eq(-59,2)"/>
-    <setting label="Radio-f(静岡県)" type="bool" id="jcba_041" default="false" enable="eq(-60,2)"/>
-    <setting label="COAST－FM76.7MHｚ(静岡県)" type="bool" id="jcba_042" default="false" enable="eq(-61,2)"/>
-    <setting label="エフエム　ななみ(愛知県)" type="bool" id="jcba_049" default="false" enable="eq(-62,2)"/>
-    <setting label="United North(愛知県)" type="bool" id="jcba_046" default="false" enable="eq(-63,2)"/>
-    <setting label="RADIO SANQ(愛知県)" type="bool" id="jcba_047" default="false" enable="eq(-64,2)"/>
-    <setting label="i-wave(愛知県)" type="bool" id="jcba_048" default="false" enable="eq(-65,2)"/>
-    <setting label="いなBee(三重県)" type="bool" id="jcba_050" default="false" enable="eq(-66,2)"/>
-    <setting label="ＦＭなばり(三重県)" type="bool" id="jcba_051" default="false" enable="eq(-67,2)"/>
-    <setting label="えふえむ草津(滋賀県)" type="bool" id="jcba_063" default="false" enable="eq(-68,2)"/>
-    <setting label="FMいかる(京都府)" type="bool" id="jcba_064" default="false" enable="eq(-69,2)"/>
-    <setting label="FMうじ(京都府)" type="bool" id="jcba_065" default="false" enable="eq(-70,2)"/>
-    <setting label="FMまいづる(京都府)" type="bool" id="jcba_066" default="false" enable="eq(-71,2)"/>
-    <setting label="FMちゃお(大阪府)" type="bool" id="jcba_067" default="false" enable="eq(-72,2)"/>
-    <setting label="うめだFM Be Happy!789(大阪府)" type="bool" id="jcba_068" default="false" enable="eq(-73,2)"/>
-    <setting label="FM-HANAKO 82.4MHz(大阪府)" type="bool" id="jcba_069" default="false" enable="eq(-74,2)"/>
-    <setting label="ハッピーエフエムいたみ(兵庫県)" type="bool" id="jcba_070" default="false" enable="eq(-75,2)"/>
-    <setting label="ハミングFM宝塚(兵庫県)" type="bool" id="jcba_071" default="false" enable="eq(-76,2)"/>
-    <setting label="さくらFM(兵庫県)" type="bool" id="jcba_072" default="false" enable="eq(-77,2)"/>
-    <setting label="なら どっと FM(奈良県)" type="bool" id="jcba_073" default="false" enable="eq(-78,2)"/>
-    <setting label="エフエムハイホー(奈良県)" type="bool" id="jcba_074" default="false" enable="eq(-79,2)"/>
-    <setting label="FM五條(奈良県)" type="bool" id="jcba_097" default="false" enable="eq(-80,2)"/>
-    <setting label="バナナエフエム(和歌山県)" type="bool" id="jcba_075" default="false" enable="eq(-81,2)"/>
-    <setting label="レディオ モモ(岡山県)" type="bool" id="jcba_079" default="false" enable="eq(-82,2)"/>
-    <setting label="エフエムくらしき(岡山県)" type="bool" id="jcba_080" default="false" enable="eq(-83,2)"/>
-    <setting label="レディオBINGO(広島県)" type="bool" id="jcba_078" default="false" enable="eq(-84,2)"/>
-    <setting label="エフエムおのみち(広島県)" type="bool" id="jcba_081" default="false" enable="eq(-85,2)"/>
-    <setting label="ＦＭちゅーピー(広島県)" type="bool" id="jcba_082" default="false" enable="eq(-86,2)"/>
-    <setting label="FMはつかいち(広島県)" type="bool" id="jcba_083" default="false" enable="eq(-87,2)"/>
-    <setting label="FM東広島(広島県)" type="bool" id="jcba_087" default="false" enable="eq(-88,2)"/>
-    <setting label="COME ON ! FM(山口県)" type="bool" id="jcba_084" default="false" enable="eq(-89,2)"/>
-    <setting label="しゅうなんFM(山口県)" type="bool" id="jcba_085" default="false" enable="eq(-90,2)"/>
-    <setting label="FMラヂオバリバリ(愛媛県)" type="bool" id="jcba_076" default="false" enable="eq(-91,2)"/>
-    <setting label="FMがいや(愛媛県)" type="bool" id="jcba_077" default="false" enable="eq(-92,2)"/>
-    <setting label="Hello! NEW 新居浜 FM(愛媛県)" type="bool" id="jcba_099" default="false" enable="eq(-93,2)"/>
-    <setting label="DreamsFM(福岡県)" type="bool" id="jcba_093" default="false" enable="eq(-94,2)"/>
-    <setting label="FM八女(福岡県)" type="bool" id="jcba_086" default="false" enable="eq(-95,2)"/>
-    <setting label="FMからつ(佐賀県)" type="bool" id="jcba_092" default="false" enable="eq(-96,2)"/>
-    <setting label="Kappa　FM(熊本県)" type="bool" id="jcba_090" default="false" enable="eq(-97,2)"/>
-    <setting label="FM791(熊本県)" type="bool" id="jcba_091" default="false" enable="eq(-98,2)"/>
-    <setting label="ゆふいんラヂオ局(大分県)" type="bool" id="jcba_088" default="false" enable="eq(-99,2)"/>
-    <setting label="NOASFM(大分県)" type="bool" id="jcba_089" default="false" enable="eq(-100,2)"/>
+    <setting label="FM AZUR(青森県)" type="bool" id="jcba_106" default="false" enable="eq(-4,2)"/>
+    <setting label="アップルウェーブ(青森県)" type="bool" id="jcba_004" default="false" enable="eq(-5,2)"/>
+    <setting label="FMONE(岩手県)" type="bool" id="jcba_005" default="false" enable="eq(-6,2)"/>
+    <setting label="エフエムいわぬま(宮城県)" type="bool" id="jcba_011" default="false" enable="eq(-7,2)"/>
+    <setting label="H＠！FM(宮城県)" type="bool" id="jcba_012" default="false" enable="eq(-8,2)"/>
+    <setting label="ラジオ モンスター(山形県)" type="bool" id="jcba_006" default="false" enable="eq(-9,2)"/>
+    <setting label="エフエムNCV(山形県)" type="bool" id="jcba_007" default="false" enable="eq(-10,2)"/>
+    <setting label="えふえむい～じゃんおらんだらじお(山形県)" type="bool" id="jcba_008" default="false" enable="eq(-11,2)"/>
+    <setting label="ハーバーラジオ(山形県)" type="bool" id="jcba_009" default="false" enable="eq(-12,2)"/>
+    <setting label="ウルトラFM(福島県)" type="bool" id="jcba_111" default="false" enable="eq(-13,2)"/>
+    <setting label="FMポコ(福島県)" type="bool" id="jcba_010" default="false" enable="eq(-14,2)"/>
+    <setting label="エフエムきたかた(福島県)" type="bool" id="jcba_013" default="false" enable="eq(-15,2)"/>
+    <setting label="FMだいご(茨城県)" type="bool" id="jcba_023" default="false" enable="eq(-16,2)"/>
+    <setting label="FMかしま(茨城県)" type="bool" id="jcba_024" default="false" enable="eq(-17,2)"/>
+    <setting label="ラジオ高崎(群馬県)" type="bool" id="jcba_028" default="false" enable="eq(-18,2)"/>
+    <setting label="エフエム太郎(群馬県)" type="bool" id="jcba_029" default="false" enable="eq(-19,2)"/>
+    <setting label="FM OZE(群馬県)" type="bool" id="jcba_030" default="false" enable="eq(-20,2)"/>
+    <setting label="ラヂオななみ(群馬県)" type="bool" id="jcba_103" default="false" enable="eq(-21,2)"/>
+    <setting label="FMチャッピー(埼玉県)" type="bool" id="jcba_019" default="false" enable="eq(-22,2)"/>
+    <setting label="発するＦＭ(埼玉県)" type="bool" id="jcba_098" default="false" enable="eq(-23,2)"/>
+    <setting label="市川うららＦＭ(I&amp;U-LaLaFM)(千葉県)" type="bool" id="jcba_020" default="false" enable="eq(-24,2)"/>
+    <setting label="かずさエフエム(千葉県)" type="bool" id="jcba_021" default="false" enable="eq(-25,2)"/>
+    <setting label="ラジオ成田(千葉県)" type="bool" id="jcba_022" default="false" enable="eq(-26,2)"/>
+    <setting label="ふくろうFM(千葉県)" type="bool" id="jcba_100" default="false" enable="eq(-27,2)"/>
+    <setting label="FMえどがわ(東京都)" type="bool" id="jcba_033" default="false" enable="eq(-28,2)"/>
+    <setting label="むさしのFM(東京都)" type="bool" id="jcba_032" default="false" enable="eq(-29,2)"/>
+    <setting label="FMしながわ(東京都)" type="bool" id="jcba_115" default="false" enable="eq(-30,2)"/>
+    <setting label="FMブルー湘南(神奈川県)" type="bool" id="jcba_015" default="false" enable="eq(-31,2)"/>
+    <setting label="鎌倉FM(神奈川県)" type="bool" id="jcba_016" default="false" enable="eq(-32,2)"/>
+    <setting label="FM湘南ナパサ(神奈川県)" type="bool" id="jcba_014" default="false" enable="eq(-33,2)"/>
+    <setting label="FMおだわら(神奈川県)" type="bool" id="jcba_017" default="false" enable="eq(-34,2)"/>
+    <setting label="湘南マジックウェイブ(神奈川県)" type="bool" id="jcba_018" default="false" enable="eq(-35,2)"/>
+    <setting label="FMやまと(神奈川県)" type="bool" id="jcba_096" default="false" enable="eq(-36,2)"/>
+    <setting label="レディオ湘南(神奈川県)" type="bool" id="jcba_101" default="false" enable="eq(-37,2)"/>
+    <setting label="FMサルース(神奈川県)" type="bool" id="jcba_117" default="false" enable="eq(-38,2)"/>
+    <setting label="エフエム甲府(山梨県)" type="bool" id="jcba_025" default="false" enable="eq(-39,2)"/>
+    <setting label="FMふじやま(山梨県)" type="bool" id="jcba_026" default="false" enable="eq(-40,2)"/>
+    <setting label="エフエム　ふじごこ(山梨県)" type="bool" id="jcba_027" default="false" enable="eq(-41,2)"/>
+    <setting label="ＦＭ八ヶ岳(山梨県)" type="bool" id="jcba_109" default="false" enable="eq(-42,2)"/>
+    <setting label="ラジオチャット・ＦＭにいつ(新潟県)" type="bool" id="jcba_107" default="false" enable="eq(-43,2)"/>
+    <setting label="FMうおぬま(新潟県)" type="bool" id="jcba_105" default="false" enable="eq(-44,2)"/>
+    <setting label="エフエムながおか(新潟県)" type="bool" id="jcba_053" default="false" enable="eq(-45,2)"/>
+    <setting label="エフエムしばた(新潟県)" type="bool" id="jcba_052" default="false" enable="eq(-46,2)"/>
+    <setting label="FM KENTO(新潟県)" type="bool" id="jcba_094" default="false" enable="eq(-47,2)"/>
+    <setting label="ＦＭゆきぐに(新潟県)" type="bool" id="jcba_054" default="false" enable="eq(-48,2)"/>
+    <setting label="FM-J エフエム上越(新潟県)" type="bool" id="jcba_095" default="false" enable="eq(-49,2)"/>
+    <setting label="LCV FM(長野県)" type="bool" id="jcba_055" default="false" enable="eq(-50,2)"/>
+    <setting label="FM軽井沢(長野県)" type="bool" id="jcba_108" default="false" enable="eq(-51,2)"/>
+    <setting label="FMPiPi(岐阜県)" type="bool" id="jcba_043" default="false" enable="eq(-52,2)"/>
+    <setting label="FMわっち(岐阜県)" type="bool" id="jcba_044" default="false" enable="eq(-53,2)"/>
+    <setting label="Hits FM(岐阜県)" type="bool" id="jcba_045" default="false" enable="eq(-54,2)"/>
+    <setting label="FM Haro！(静岡県)" type="bool" id="jcba_034" default="false" enable="eq(-55,2)"/>
+    <setting label="FM IS(静岡県)" type="bool" id="jcba_035" default="false" enable="eq(-56,2)"/>
+    <setting label="g-sky76.5(静岡県)" type="bool" id="jcba_036" default="false" enable="eq(-57,2)"/>
+    <setting label="富士山GOGOFM(静岡県)" type="bool" id="jcba_037" default="false" enable="eq(-58,2)"/>
+    <setting label="ボイスキュー(静岡県)" type="bool" id="jcba_038" default="false" enable="eq(-59,2)"/>
+    <setting label="マリンパル(静岡県)" type="bool" id="jcba_039" default="false" enable="eq(-60,2)"/>
+    <setting label="FM-Hi！(静岡県)" type="bool" id="jcba_040" default="false" enable="eq(-61,2)"/>
+    <setting label="Radio-f(静岡県)" type="bool" id="jcba_041" default="false" enable="eq(-62,2)"/>
+    <setting label="COAST－FM76.7MHｚ(静岡県)" type="bool" id="jcba_042" default="false" enable="eq(-63,2)"/>
+    <setting label="エフエムなぎさステーション(静岡県)" type="bool" id="jcba_116" default="false" enable="eq(-64,2)"/>
+    <setting label="エフエム　ななみ(愛知県)" type="bool" id="jcba_049" default="false" enable="eq(-65,2)"/>
+    <setting label="United North(愛知県)" type="bool" id="jcba_046" default="false" enable="eq(-66,2)"/>
+    <setting label="RADIO SANQ(愛知県)" type="bool" id="jcba_047" default="false" enable="eq(-67,2)"/>
+    <setting label="i-wave(愛知県)" type="bool" id="jcba_048" default="false" enable="eq(-68,2)"/>
+    <setting label="いなBee(三重県)" type="bool" id="jcba_050" default="false" enable="eq(-69,2)"/>
+    <setting label="富山シティエフエム株式会社(富山県)" type="bool" id="jcba_057" default="false" enable="eq(-70,2)"/>
+    <setting label="エフエムとなみ(富山県)" type="bool" id="jcba_059" default="false" enable="eq(-71,2)"/>
+    <setting label="ラジオたかおか(富山県)" type="bool" id="jcba_058" default="false" enable="eq(-72,2)"/>
+    <setting label="ラジオこまつ(石川県)" type="bool" id="jcba_062" default="false" enable="eq(-73,2)"/>
+    <setting label="ラジオななお(石川県)" type="bool" id="jcba_060" default="false" enable="eq(-74,2)"/>
+    <setting label="ラジオかなざわ(石川県)" type="bool" id="jcba_061" default="false" enable="eq(-75,2)"/>
+    <setting label="えふえむ草津(滋賀県)" type="bool" id="jcba_063" default="false" enable="eq(-76,2)"/>
+    <setting label="FMいかる(京都府)" type="bool" id="jcba_064" default="false" enable="eq(-77,2)"/>
+    <setting label="FMうじ(京都府)" type="bool" id="jcba_065" default="false" enable="eq(-78,2)"/>
+    <setting label="FMまいづる(京都府)" type="bool" id="jcba_066" default="false" enable="eq(-79,2)"/>
+    <setting label="FM845(京都府)" type="bool" id="jcba_104" default="false" enable="eq(-80,2)"/>
+    <setting label="FM千里(大阪府)" type="bool" id="jcba_112" default="false" enable="eq(-81,2)"/>
+    <setting label="FMちゃお(大阪府)" type="bool" id="jcba_067" default="false" enable="eq(-82,2)"/>
+    <setting label="ウメダFM Be Happy!789(大阪府)" type="bool" id="jcba_068" default="false" enable="eq(-83,2)"/>
+    <setting label="FM-HANAKO 82.4MHz(大阪府)" type="bool" id="jcba_069" default="false" enable="eq(-84,2)"/>
+    <setting label="タッキー816みのおエフエム(大阪府)" type="bool" id="jcba_102" default="false" enable="eq(-85,2)"/>
+    <setting label="エフエムいたみ(兵庫県)" type="bool" id="jcba_070" default="false" enable="eq(-86,2)"/>
+    <setting label="ハミングFM宝塚(兵庫県)" type="bool" id="jcba_071" default="false" enable="eq(-87,2)"/>
+    <setting label="さくらFM(兵庫県)" type="bool" id="jcba_072" default="false" enable="eq(-88,2)"/>
+    <setting label="エフエムみっきぃ(兵庫県)" type="bool" id="jcba_110" default="false" enable="eq(-89,2)"/>
+    <setting label="805たんば(兵庫県)" type="bool" id="jcba_118" default="false" enable="eq(-90,2)"/>
+    <setting label="なら どっと FM(奈良県)" type="bool" id="jcba_073" default="false" enable="eq(-91,2)"/>
+    <setting label="エフエムハイホー(奈良県)" type="bool" id="jcba_074" default="false" enable="eq(-92,2)"/>
+    <setting label="FM五條(奈良県)" type="bool" id="jcba_097" default="false" enable="eq(-93,2)"/>
+    <setting label="バナナエフエム(和歌山県)" type="bool" id="jcba_075" default="false" enable="eq(-94,2)"/>
+    <setting label="FM TANABE(和歌山県)" type="bool" id="jcba_114" default="false" enable="eq(-95,2)"/>
+    <setting label="FMはしもと(和歌山県)" type="bool" id="jcba_120" default="false" enable="eq(-96,2)"/>
+    <setting label="FMビーチステーション(和歌山県)" type="bool" id="jcba_121" default="false" enable="eq(-97,2)"/>
+    <setting label="レディオ モモ(岡山県)" type="bool" id="jcba_079" default="false" enable="eq(-98,2)"/>
+    <setting label="エフエムくらしき(岡山県)" type="bool" id="jcba_080" default="false" enable="eq(-99,2)"/>
+    <setting label="FMふくやま(広島県)" type="bool" id="jcba_078" default="false" enable="eq(-100,2)"/>
+    <setting label="エフエムおのみち(広島県)" type="bool" id="jcba_081" default="false" enable="eq(-101,2)"/>
+    <setting label="ＦＭちゅーピー(広島県)" type="bool" id="jcba_082" default="false" enable="eq(-102,2)"/>
+    <setting label="FMはつかいち(広島県)" type="bool" id="jcba_083" default="false" enable="eq(-103,2)"/>
+    <setting label="FM東広島(広島県)" type="bool" id="jcba_087" default="false" enable="eq(-104,2)"/>
+    <setting label="FOR　LIFE　RADIO(広島県)" type="bool" id="jcba_113" default="false" enable="eq(-105,2)"/>
+    <setting label="COME ON ! FM(山口県)" type="bool" id="jcba_084" default="false" enable="eq(-106,2)"/>
+    <setting label="しゅうなんFM(山口県)" type="bool" id="jcba_085" default="false" enable="eq(-107,2)"/>
+    <setting label="RADIO BIRD(鳥取県)" type="bool" id="jcba_119" default="false" enable="eq(-108,2)"/>
+    <setting label="FMラヂオバリバリ(愛媛県)" type="bool" id="jcba_076" default="false" enable="eq(-109,2)"/>
+    <setting label="FMがいや(愛媛県)" type="bool" id="jcba_077" default="false" enable="eq(-110,2)"/>
+    <setting label="Hello! NEW 新居浜 FM(愛媛県)" type="bool" id="jcba_099" default="false" enable="eq(-111,2)"/>
+    <setting label="DreamsFM(福岡県)" type="bool" id="jcba_093" default="false" enable="eq(-112,2)"/>
+    <setting label="FM八女(福岡県)" type="bool" id="jcba_086" default="false" enable="eq(-113,2)"/>
+    <setting label="FMからつ(佐賀県)" type="bool" id="jcba_092" default="false" enable="eq(-114,2)"/>
+    <setting label="Kappa　FM(熊本県)" type="bool" id="jcba_090" default="false" enable="eq(-115,2)"/>
+    <setting label="FM791(熊本県)" type="bool" id="jcba_091" default="false" enable="eq(-116,2)"/>
+    <setting label="ゆふいんラヂオ局(大分県)" type="bool" id="jcba_088" default="false" enable="eq(-117,2)"/>
+    <setting label="NOASFM(大分県)" type="bool" id="jcba_089" default="false" enable="eq(-118,2)"/>
