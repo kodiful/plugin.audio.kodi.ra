@@ -132,13 +132,13 @@ class Programs:
         self.programs = []
         # データ抽出
         for data in reduce(lambda x,y:x+y, [service.getProgramData(renew) for service in self.services]):
-            # この放送局の番組の配列を初期化
+            # 放送局データを検索
             s = self.__search_station(data['id'])
+            # 放送局データが見つからない場合はスキップ
             if s is None:
-                # 未知の放送局がある場合はserviceに通知
-                log('unknown id:{id}'.format(id=data['id']), error=True)
-                return None, None
-            # この放送局のDOMからデータを抽出して配列に格納
+                log('%s not found' % data['id'])
+                continue
+            # 放送局データ、番組データを配列に格納
             buf = []
             for p in data['progs']:
                 self.__normalize(p)
@@ -191,15 +191,21 @@ class Programs:
                 p[key] = ''
 
     def __description(self, p):
-        desc = []
-        uniq = []
+        cset = []
         for attr in ('pfm','act','music','subtitle','desc','content','info','free'):
-            q = p.get(attr)
-            if q:
-                r = re.sub(r'(?: |　|,|\.|、|，|。|．)', '', q)
-                if r and r not in uniq:
-                    desc.append('&lt;div class=&quot;{attr}&quot;&gt;{content}&lt;/div&gt;'.format(attr=attr, content=q))
-                    uniq.append(r)
+            text = p.get(attr, '')
+            hash = set(text.decode('utf-8'))
+            cset.append((attr, hash))
+        q = {}
+        index = set(u'　、，・。．')
+        for attr, hash in sorted(cset, key=lambda x: len(x[1]), reverse=True):
+            if index != index|hash:
+                q[attr] = p[attr]
+                index = index|hash
+        desc = []
+        for attr in ('pfm','act','music','subtitle','desc','content','info','free'):
+            text = q.get(attr, '')
+            if text: desc.append('&lt;div class=&quot;{attr}&quot;&gt;{text}&lt;/div&gt;'.format(attr=attr, text=text))
         return ''.join(desc)
 
     def __showhide(self, id):

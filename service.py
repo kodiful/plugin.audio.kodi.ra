@@ -39,8 +39,8 @@ class Service:
     def __init__(self):
         # 互換性チェック
         if Const.GET('compatibility') == 'true':
-            # 古い形式ののファイルの変換
-            status = Compatibility().converter()
+            # 古い形式のファイルの変換
+            Compatibility().converter()
         # ディレクトリをチェック
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
