@@ -160,7 +160,7 @@ class Service:
                     self.lastdiff = now
                     self.programs_hash = new_hash
                     # 番組情報を記録
-                    #self.programs.record()
+                    if Const.GET('record'): self.programs.record()
                     # ダウンロードする番組を抽出
                     downloader.pending = self.programs.match(downloader.pending)
                     # 画面更新

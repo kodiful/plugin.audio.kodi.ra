@@ -55,7 +55,7 @@
   <string id="30320">Edit keyword</string>
   <string id="30321">Delete keyword</string>
   <string id="30322">Delete files</string>
-  <string id="30323">Delete keyword and files</string>
+  <string id="30323">Delete files and keyword</string>
 
   <string id="30400">Save</string>
   <string id="30403">Save streaming</string>
@@ -94,10 +94,14 @@
 
   <string id="30700">Other Settings</string>
   <string id="30701">[COLOR green]Reset all cache and settings[/COLOR]</string>
-  <string id="30702">[COLOR green]Clear all cache[/COLOR]</string>
+  <string id="30702">[COLOR green]Clear image cache[/COLOR]</string>
   <string id="30703">[COLOR green]Clear data cache[/COLOR]</string>
-  <string id="30704">Check compatibility with older version</string>
-  <string id="30705">Debug</string>
+  <string id="30704">[COLOR green]Update settings dialog[/COLOR]</string>
+  <string id="30705">Check compatibility with older versions</string>
+  <string id="30706">Record program data</string>
+  <string id="30707">Debug</string>
+
+  <string id="30800">Delete files completely?</string>
 
   <string id="30919">%m/%d(%%s)</string>
   <string id="30920">Mon,Tue,Wed,Thu,Fri,Sat,Sun</string>

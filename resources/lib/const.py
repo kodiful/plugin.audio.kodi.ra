@@ -9,6 +9,7 @@ class Const:
     # addon
     ADDON = xbmcaddon.Addon()
     ADDON_ID = ADDON.getAddonInfo('id')
+    ADDON_NAME = ADDON.getAddonInfo('name')
 
     GET = ADDON.getSetting
     SET = ADDON.setSetting

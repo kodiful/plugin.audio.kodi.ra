@@ -53,6 +53,12 @@ class Cache(Service):
         # 初期化
         self.update()
 
+    def clearMedia(self):
+        # メディアキャッシュを削除
+        self.__clear(Const.MEDIA_PATH)
+        # 初期化
+        self.update()
+
     def clearData(self):
         # データキャッシュを削除
         self.__clear(Const.DATA_PATH)
@@ -78,7 +84,7 @@ if __name__  == '__main__':
 
     # ログ
     #log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-    #log('argv=', sys.argv)
+    #log('argv=',sys.argv)
     #log(args)
 
     # アドオン設定をコピー
@@ -107,6 +113,10 @@ if __name__  == '__main__':
         notify('Clearing cached data and images...')
         Cache().clearAll()
         xbmc.executebuiltin("Container.Refresh")
+    elif action == 'clearMedia':
+        notify('Clearing cached images...')
+        Cache().clearMedia()
+        xbmc.executebuiltin("Container.Refresh")
     elif action == 'clearData':
         notify('Clearing cached data...')
         Cache().clearData()
@@ -131,12 +141,13 @@ if __name__  == '__main__':
             notify(status, error=True)
         else:
             notify('Download enqueued')
-    elif action == 'clearDownloads':
-        Downloads().delete()
-        xbmc.executebuiltin('Container.Refresh()')
     elif action == 'deleteDownload':
         Downloads().delete(gtvid=args['id'])
         xbmc.executebuiltin('Container.Refresh()')
+    elif action == 'clearDownloads':
+        if xbmcgui.Dialog().yesno(Const.ADDON_NAME, Const.STR(30800)):
+            Downloads().delete()
+            xbmc.executebuiltin('Container.Refresh()')
 
     # RSS
     elif action == 'updateRSS':

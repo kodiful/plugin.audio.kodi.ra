@@ -110,6 +110,11 @@ class Downloads:
             end = strptime(p['to'], '%Y%m%d%H%M%S') - now
             # すでに終了している番組
             if end.days < 0:
+                log('download abandoned. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
+                    id = p['id'],
+                    start = p['ft'],
+                    title = p['title'],
+                    keyword = k['key']))
                 # 次の番組のダウンロード処理へ
                 continue
             # すでに開始している番組、開始していないがConst.PREP_INTERVAL以内に開始する番組

@@ -102,18 +102,17 @@ class Keywords:
         self.write()
 
     def delete(self, id, level):
-        if int(id) < len(self.keywords):
-            # ファイルを削除する
-            if int(level) & 2:
-                # id番目のキーワードのファイルを削除
-                key = self.keywords[int(id)]
-                Downloads().delete(key=key['key'])
-            # キーワードを削除する
-            if int(level) & 1:
-                # id番目の要素を削除
-                self.keywords.pop(int(id))
-                # 変更した設定を書き込む
-                self.write()
+        # ファイルを削除する
+        if int(level) & 2:
+            # id番目のキーワードのファイルを削除
+            key = self.keywords[int(id)]
+            Downloads().delete(key=key['key'])
+        # キーワードを削除する
+        if int(level) & 1:
+            # id番目の要素を削除
+            self.keywords.pop(int(id))
+            # 変更した設定を書き込む
+            self.write()
 
     def match(self, p):
         for k in self.keywords:

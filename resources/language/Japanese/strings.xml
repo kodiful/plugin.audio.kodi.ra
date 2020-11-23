@@ -55,7 +55,7 @@
   <string id="30320">保存キーワードを変更する</string>
   <string id="30321">保存キーワードを削除する</string>
   <string id="30322">ファイルを削除する</string>
-  <string id="30323">保存キーワードとファイルを削除する</string>
+  <string id="30323">ファイルと保存キーワードを削除する</string>
 
   <string id="30400">番組保存</string>
   <string id="30403">番組保存</string>
@@ -94,10 +94,14 @@
 
   <string id="30700">その他</string>
   <string id="30701">[COLOR green]すべてのキャッシュと設定を初期化する[/COLOR]</string>
-  <string id="30702">[COLOR green]すべてのキャッシュをクリアする[/COLOR]</string>
+  <string id="30702">[COLOR green]イメージキャッシュをクリアする[/COLOR]</string>
   <string id="30703">[COLOR green]データキャッシュをクリアする[/COLOR]</string>
-  <string id="30704">旧バージョンとの互換性をチェックする</string>
-  <string id="30705">デバッグ</string>
+  <string id="30704">[COLOR green]設定ダイアログを更新する[/COLOR]</string>
+  <string id="30705">旧バージョンとの互換性をチェックする</string>
+  <string id="30706">番組データを記録する</string>
+  <string id="30707">デバッグ</string>
+
+  <string id="30800">保存フォルダのファイルをすべて削除しますか？</string>
 
   <string id="30919">%m月%d日(%%s)</string>
   <string id="30920">月,火,水,木,金,土,日</string>
