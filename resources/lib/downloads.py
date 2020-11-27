@@ -74,7 +74,7 @@ class Downloads:
 
     def enqueue(self, id, name, ft, to, title, description, stream, url, delay):
         # 時刻をチェック
-        if to < nexttime(): return 'Already over'
+        if to < timestamp(): return 'Already over'
         # 既存の番組情報ファイルの有無をチェック
         status = self.status(id, ft)
         if status & 4: return 'Already downloaded'

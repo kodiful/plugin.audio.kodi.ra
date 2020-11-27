@@ -26,11 +26,11 @@ class Cache(Service):
     def __init__(self):
         return
 
-    def update(self):
+    def update(self, renew=False):
         # radiko認証情報を更新
         self.authenticate()
         # クラスを更新
-        self.update_classes()
+        self.update_classes(renew)
         # 設定ダイアログを更新
         self.setup_settings()
 
@@ -210,7 +210,7 @@ if __name__  == '__main__':
     elif action == 'showPrograms':
         Programs().show()
     elif action == 'updatePrograms':
-        Cache().update()
+        Cache().update(renew=True)
         Programs().show()
 
     # 未定義

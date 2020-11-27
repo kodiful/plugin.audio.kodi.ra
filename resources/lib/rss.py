@@ -9,8 +9,6 @@ import shutil
 
 
 class Params:
-    # RSS設定
-    ENABLED  = Const.GET('rss')
     # ファイルパス
     RSS_FILE = os.path.join(Const.DOWNLOAD_PATH, 'rss.xml')
     # URL

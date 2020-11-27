@@ -84,7 +84,7 @@ def urlread(url, headers={}):
 
 # datetime utilities
 
-def nexttime(seconds=0):
+def timestamp(seconds=0):
     t = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
     return t.strftime('%Y%m%d%H%M%S')
 

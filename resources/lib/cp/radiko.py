@@ -24,6 +24,7 @@ class Params:
     PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.xml')
     STATION_FILE  = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
+    NEXTUPDT_FILE = os.path.join(DATA_PATH, 'nextupdt.json')
     # URL
     STATION_URL   = 'http://radiko.jp/v2/station/list/%s.xml'
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
@@ -257,10 +258,13 @@ class Radiko(Params, Jcba):
             write_file(self.SETTINGS_FILE, '')
 
     def getProgramData(self, renew=False):
-        # キャッシュを確認
+        # 初期化
         data = ''
-        if renew or not os.path.isfile(self.PROGRAM_FILE):
-            # キャッシュがなければウェブから読み込む
+        results = []
+        nextupdate = '0'*14
+        # キャッシュを確認
+        if renew or not os.path.isfile(self.PROGRAM_FILE) or timestamp() > read_file(self.NEXTUPDT_FILE):
+            # ウェブから読み込む
             try:
                 url = self.PROGRAM_URL % self.area
                 if self.area:
@@ -301,7 +305,10 @@ class Radiko(Params, Jcba):
                         'music': p.get('music',''),
                         'free': p.get('free','')
                     })
-                buf.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
-            return buf
-        else:
-            return []
+                results.append({'id':'radiko_%s' % s['@id'], 'progs':progs})
+                buf += progs
+            # 次の更新時刻
+            nextupdate = self.getNextUpdate(buf)
+        # 次の更新時刻をファイルに書き込む
+        write_file(self.NEXTUPDT_FILE, nextupdate)
+        return results, nextupdate

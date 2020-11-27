@@ -21,6 +21,7 @@ class Params:
     PROGRAM_FILE  = os.path.join(DATA_PATH, 'program.json')
     STATION_FILE  = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
+    NEXTUPDT_FILE = os.path.join(DATA_PATH, 'nextupdt.json')
     # URL
     STATION_URL   = 'https://www.nhk.or.jp/radio/config/config_web.xml'
     PROGRAM_URL   = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
@@ -113,10 +114,13 @@ class Radiru(Params, Jcba):
             write_file(self.SETTINGS_FILE, '')
 
     def getProgramData(self, renew=False):
-        # キャッシュを確認
+        # 初期化
         data = ''
-        if renew or not os.path.isfile(self.PROGRAM_FILE):
-            # キャッシュがなければウェブから読み込む
+        results = []
+        nextupdate = '0'*14
+        # キャッシュを確認
+        if renew or not os.path.isfile(self.PROGRAM_FILE) or timestamp() > read_file(self.NEXTUPDT_FILE):
+            # ウェブから読み込む
             try:
                 url = self.PROGRAM_URL % self.areakey
                 data = urlread(url)
@@ -172,7 +176,10 @@ class Radiru(Params, Jcba):
                         'music': p.get('music',''),
                         'free': p.get('free','')
                     })
-                buf.append({'id':'radiru_%s' % s['id'], 'progs':progs})
-            return buf
-        else:
-            return []
+                results.append({'id':'radiru_%s' % s['id'], 'progs':progs})
+                buf += progs
+            # 次の更新時刻
+            nextupdate = self.getNextUpdate(buf)
+        # 次の更新時刻をファイルに書き込む
+        write_file(self.NEXTUPDT_FILE, nextupdate)
+        return results, nextupdate

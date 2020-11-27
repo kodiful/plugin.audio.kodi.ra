@@ -24,6 +24,7 @@ from cStringIO import StringIO
 from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords
 
+
 class Params:
     # ファイルパス
     DATA_PATH = os.path.join(Const.DATA_PATH, 'programs')
@@ -131,7 +132,9 @@ class Programs:
         # 全番組の配列を初期化
         self.programs = []
         # データ抽出
-        for data in reduce(lambda x,y:x+y, [service.getProgramData(renew) for service in self.services]):
+        programdata = [service.getProgramData(renew) for service in self.services]
+        programdata, updt = zip(*programdata)
+        for data in reduce(lambda x,y:x+y, programdata):
             # 放送局データを検索
             s = self.__search_station(data['id'])
             # 放送局データが見つからない場合はスキップ
@@ -140,37 +143,47 @@ class Programs:
                 continue
             # 放送局データ、番組データを配列に格納
             buf = []
+            now = timestamp()
             for p in data['progs']:
-                self.__normalize(p)
-                q = {
-                    'id': s['id'],
-                    'name': s['name'],
-                    'stream': s['stream'],
-                    'delay': s['delay'],
-                    'title': p.get('title',''),
-                    'ft': p.get('ft',''),
-                    'ftl': p.get('ftl',''),
-                    'to': p.get('to',''),
-                    'tol': p.get('tol',''),
-                    'url': p.get('url') or s.get('url') or '',
-                    'pfm': p.get('pfm',''),
-                    'desc': p.get('desc',''),
-                    'info': p.get('info',''),
-                    'subtitle': p.get('subtitle',''),
-                    'content': p.get('content',''),
-                    'act': p.get('act',''),
-                    'music': p.get('music',''),
-                    'free': p.get('free',''),
-                    'description': self.__description(p)
-                }
-                # 配列に追加
-                self.programs.append(q)
-                buf.append(q)
+                if p.get('to','9'*14) < now:
+                    # 終了した番組はスキップ
+                    continue
+                else:
+                    self.__normalize(p)
+                    q = {
+                        'id': s['id'],
+                        'name': s['name'],
+                        'stream': s['stream'],
+                        'delay': s['delay'],
+                        'title': p.get('title',''),
+                        'ft': p.get('ft',''),
+                        'ftl': p.get('ftl',''),
+                        'to': p.get('to',''),
+                        'tol': p.get('tol',''),
+                        'url': p.get('url') or s.get('url') or '',
+                        'pfm': p.get('pfm',''),
+                        'desc': p.get('desc',''),
+                        'info': p.get('info',''),
+                        'subtitle': p.get('subtitle',''),
+                        'content': p.get('content',''),
+                        'act': p.get('act',''),
+                        'music': p.get('music',''),
+                        'free': p.get('free',''),
+                        'description': self.__description(p)
+                    }
+                    # 配列に追加
+                    self.programs.append(q)
+                    buf.append(q)
             s['programs'] = buf
         # ファイルに書き込む
         write_json(Params.STATION_FILE, self.stations)
-        # ダイジェストを返す
-        return self.__digest()
+        # 開始/終了時刻が定義された番組を抽出
+        p = filter(lambda x:x['ft'] and x['to'], self.programs)
+        # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
+        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p), '')
+        hash = md5(data).hexdigest()
+        # 直近の更新時刻を返す
+        return min(updt), hash
 
     def __search_station(self, id):
         results = filter(lambda s: s['id']==id, self.stations)
@@ -218,21 +231,6 @@ class Programs:
         except:
             pass
         return True
-
-    def __digest(self):
-        # 開始/終了時刻が定義された番組を抽出
-        p = filter(lambda x:x['ft'] and x['to'], self.programs)
-        # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
-        data = reduce(lambda x,y:x+y, map(lambda x:x['ft']+x['to'], p), '')
-        hash = md5(data).hexdigest()
-        # 終了済みの番組は現在時刻を、それ以外は開始時刻を抽出
-        now = nexttime()
-        p = map(lambda x:now if x['to']<now else x['ft'], p)
-        # 現在時刻以降の時刻を抽出
-        p = filter(lambda t: t>=now, p)
-        # 直近の時刻を抽出
-        nextaired = min(p) if p else nexttime(Const.CHECK_INTERVAL)
-        return nextaired, hash
 
     def show(self):
         # ファイルから読み込む

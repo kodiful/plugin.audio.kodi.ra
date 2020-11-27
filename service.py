@@ -46,8 +46,8 @@ class Service:
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
         # いろいろ初期化
-        self.lastdiff = ''
-        self.nextdiff = ''
+        self.lastupdt = ''
+        self.nextupdt = ''
         self.lastauth = ''
         self.nextauth = ''
         self.programs_hash = ''
@@ -55,7 +55,7 @@ class Service:
         # radiko認証
         self.nextauth = self.authenticate()
         # クラスを初期化
-        self.update_classes()
+        self.update_classes(renew=True)
         # 設定ダイアログを作成
         self.setup_settings()
 
@@ -67,22 +67,22 @@ class Service:
             notify('radiko authentication failed', error=True)
         else:
             # 時刻を記録
-            self.lastauth = nexttime()
+            self.lastauth = timestamp()
         # 認証情報をファイルに書き込む
         self.auth = auth.response
         write_json(Const.AUTH_FILE, self.auth)
         # ログ
         log('radiko authentication status:{status}'.format(status=auth.response['authed']))
         # 次の更新時刻を返す
-        return nexttime(Const.AUTH_INTERVAL)
+        return timestamp(Const.AUTH_INTERVAL)
 
-    def update_classes(self):
-        self.radiru = Radiru(renew=True)
-        self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
-        self.jcba = Jcba(renew=True)
-        self.misc = Misc(renew=True)
+    def update_classes(self, renew=False):
+        self.radiru = Radiru(renew)
+        self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=renew)
+        self.jcba = Jcba(renew)
+        self.misc = Misc(renew)
         self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
-        return self.programs.setup(renew=True)
+        return self.programs.setup(renew)
 
     def setup_settings(self):
         # 放送局リスト
@@ -121,18 +121,18 @@ class Service:
         # 監視処理を実行
         monitor = Monitor()
         while not monitor.abortRequested():
-            # 初回のみ待機しない
+            # 初回は待機しない
             if now == '':
                 pass
             # Const.CHECK_INTERVALの間待機
             elif monitor.waitForAbort(Const.CHECK_INTERVAL):
                 break
             # 現在時刻
-            now = nexttime()
+            now = timestamp()
             # リセットが検出されたら（設定ダイアログ削除が検出されたら）
             if not os.path.isfile(Const.SETTINGS_FILE):
                 # クラスを更新
-                self.nextdiff, self.programs_hash = self.update_classes()
+                self.nextupdt, self.programs_hash = self.update_classes()
                 # 設定ダイアログを生成
                 self.setup_settings()
                 # ユーザ設定のハッシュ
@@ -148,16 +148,12 @@ class Service:
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
                 self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
             # 現在時刻が更新予定時刻を過ぎていたら
-            if now > self.nextdiff:
+            if now > self.nextupdt:
                 # 番組データを取得
-                self.nextdiff, new_hash = self.programs.setup(renew=True)
-                # 放送局に設定変更があると番組データが取得できないので
-                if new_hash is None:
-                    # クラスを更新して改めて番組データを取得
-                    self.nextdiff, new_hash = self.update_classes()
+                self.nextupdt, new_hash = self.programs.setup()
                 #　番組データが更新されたら
                 if new_hash != self.programs_hash:
-                    self.lastdiff = now
+                    self.lastupdt = now
                     self.programs_hash = new_hash
                     # 番組情報を記録
                     if Const.GET('record'): self.programs.record()
@@ -203,9 +199,13 @@ class Service:
                     'last': self.lastauth,
                     'next': self.nextauth
                 },
-                'diff': {
-                    'last': self.lastdiff,
-                    'next': self.nextdiff
+                'updt': {
+                    'last': self.lastupdt,
+                    'next': self.nextupdt
+                },
+                'hash': {
+                    'programs': self.programs_hash,
+                    'settings': self.settings_hash
                 },
                 'downloads': {
                     'pending': len(downloader.pending),
