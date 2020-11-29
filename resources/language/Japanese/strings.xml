@@ -27,21 +27,21 @@
   <string id="30007">松山</string>
   <string id="30008">福岡</string>
   <string id="30101">表示する放送局</string>
-  <string id="30102">[COLOR green]表示を更新する[/COLOR]</string>
+  <string id="30102">[COLOR lightgreen]表示を更新する[/COLOR]</string>
 
   <string id="30200">民放ラジオ</string>
   <string id="30201">表示する放送局</string>
-  <string id="30202">[COLOR green]表示を更新する[/COLOR]</string>
+  <string id="30202">[COLOR lightgreen]表示を更新する[/COLOR]</string>
 
   <string id="30300">コミュニティラジオ</string>
   <string id="30301">表示する放送局</string>
-  <string id="30302">[COLOR green]表示を更新する[/COLOR]</string>
+  <string id="30302">[COLOR lightgreen]表示を更新する[/COLOR]</string>
 
   <string id="30350">その他のラジオ</string>
   <string id="30351">放送局名</string>
   <string id="30352">ストリームのURL</string>
-  <string id="30353">[COLOR green]変更する[/COLOR]</string>
-  <string id="30354">[COLOR green]追加する[/COLOR]</string>
+  <string id="30353">[COLOR lightgreen]変更する[/COLOR]</string>
+  <string id="30354">[COLOR lightgreen]追加する[/COLOR]</string>
   <string id="30355">表示する放送局</string>
   <string id="30356">サムネイルのURL</string>
 
@@ -49,7 +49,7 @@
   <string id="30314">削除する</string>
   <string id="30315">変更する</string>
   <string id="30316">[COLOR orange]放送中の番組[/COLOR]</string>
-  <string id="30317">[COLOR yellow]すべての保存済み番組[/COLOR]</string>
+  <string id="30317">[COLOR khaki]すべての保存済み番組[/COLOR]</string>
   <string id="30318">ラジオを削除する</string>
   <string id="30319">ラジオを変更する</string>
   <string id="30320">保存キーワードを変更する</string>
@@ -63,10 +63,10 @@
   <string id="30405">保存フォルダのパス</string>
   <string id="30406">rtmpdumpのパス</string>
   <string id="30407">ffmpegのパス</string>
-  <string id="30408">[COLOR green]保存フォルダをクリアする[/COLOR]</string>
+  <string id="30408">[COLOR lightgreen]保存フォルダをクリアする[/COLOR]</string>
   <string id="30409">RSS生成</string>
   <string id="30410">保存フォルダのURL</string>
-  <string id="30411">[COLOR green]RSSを更新する[/COLOR]</string>
+  <string id="30411">[COLOR lightgreen]RSSを更新する[/COLOR]</string>
   <string id="30412">アイテム数</string>
 
   <string id="30500">保存キーワード</string>
@@ -75,8 +75,8 @@
   <string id="30503">曜日</string>
   <string id="30504">放送局</string>
   <string id="30505">保存済み番組の情報と重複する場合</string>
-  <string id="30508">[COLOR green]変更する[/COLOR]</string>
-  <string id="30509">[COLOR green]追加する[/COLOR]</string>
+  <string id="30508">[COLOR lightgreen]変更する[/COLOR]</string>
+  <string id="30509">[COLOR lightgreen]追加する[/COLOR]</string>
   <string id="30511">番組名のみ</string>
   <string id="30512">番組名と詳細情報</string>
   <string id="30513">保存する</string>
@@ -93,10 +93,10 @@
   <string id="30529">このOSでは番組保存をサポートしていません</string>
 
   <string id="30700">その他</string>
-  <string id="30701">[COLOR green]すべてのキャッシュと設定を初期化する[/COLOR]</string>
-  <string id="30702">[COLOR green]イメージキャッシュをクリアする[/COLOR]</string>
-  <string id="30703">[COLOR green]データキャッシュをクリアする[/COLOR]</string>
-  <string id="30704">[COLOR green]設定ダイアログを更新する[/COLOR]</string>
+  <string id="30701">[COLOR lightgreen]すべてのキャッシュと設定を初期化する[/COLOR]</string>
+  <string id="30702">[COLOR lightgreen]イメージキャッシュをクリアする[/COLOR]</string>
+  <string id="30703">[COLOR lightgreen]データキャッシュをクリアする[/COLOR]</string>
+  <string id="30704">[COLOR lightgreen]設定ダイアログを更新する[/COLOR]</string>
   <string id="30705">旧バージョンとの互換性をチェックする</string>
   <string id="30706">番組データを記録する</string>
   <string id="30707">デバッグ</string>

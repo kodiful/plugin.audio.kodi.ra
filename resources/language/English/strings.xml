@@ -27,21 +27,21 @@
   <string id="30007">Matsuyama</string>
   <string id="30008">Fukuoka</string>
   <string id="30101">Stations to be displayed</string>
-  <string id="30102">[COLOR green]Update display[/COLOR]</string>
+  <string id="30102">[COLOR lightgreen]Update display[/COLOR]</string>
 
   <string id="30200">NCommercial Radio</string>
   <string id="30201">Stations to be displayed</string>
-  <string id="30202">[COLOR green]Update display[/COLOR]</string>
+  <string id="30202">[COLOR lightgreen]Update display[/COLOR]</string>
 
   <string id="30300">Community Radio</string>
   <string id="30301">Stations to be displayed</string>
-  <string id="30302">[COLOR green]Update display[/COLOR]</string>
+  <string id="30302">[COLOR lightgreen]Update display[/COLOR]</string>
 
   <string id="30350">Other Radio</string>
   <string id="30351">Station</string>
   <string id="30352">Stream URL</string>
-  <string id="30353">[COLOR green]Update[/COLOR]</string>
-  <string id="30354">[COLOR green]Add[/COLOR]</string>
+  <string id="30353">[COLOR lightgreen]Update[/COLOR]</string>
+  <string id="30354">[COLOR lightgreen]Add[/COLOR]</string>
   <string id="30355">Stations to be displayed</string>
   <string id="30356">Thumbnail URL</string>
 
@@ -63,10 +63,10 @@
   <string id="30405">Path to folder</string>
   <string id="30406">Path to rtmpdump</string>
   <string id="30407">Path to ffmpeg</string>
-  <string id="30408">[COLOR green]Clear Folder[/COLOR]</string>
+  <string id="30408">[COLOR lightgreen]Clear Folder[/COLOR]</string>
   <string id="30409">Create RSS</string>
   <string id="30410">URL of download folder</string>
-  <string id="30411">[COLOR green]Update RSS[/COLOR]</string>
+  <string id="30411">[COLOR lightgreen]Update RSS[/COLOR]</string>
   <string id="30412">Number of items</string>
 
   <string id="30500">Keyword</string>
@@ -75,8 +75,8 @@
   <string id="30503">Day</string>
   <string id="30504">Station</string>
   <string id="30505">Duplicate title or info</string>
-  <string id="30508">[COLOR green]Update[/COLOR]</string>
-  <string id="30509">[COLOR green]Add[/COLOR]</string>
+  <string id="30508">[COLOR lightgreen]Update[/COLOR]</string>
+  <string id="30509">[COLOR lightgreen]Add[/COLOR]</string>
   <string id="30511">Title only</string>
   <string id="30512">Title &amp; detail info</string>
   <string id="30513">Save</string>
@@ -93,10 +93,10 @@
   <string id="30529">Unsupported OS</string>
 
   <string id="30700">Other Settings</string>
-  <string id="30701">[COLOR green]Reset all cache and settings[/COLOR]</string>
-  <string id="30702">[COLOR green]Clear image cache[/COLOR]</string>
-  <string id="30703">[COLOR green]Clear data cache[/COLOR]</string>
-  <string id="30704">[COLOR green]Update settings dialog[/COLOR]</string>
+  <string id="30701">[COLOR lightgreen]Reset all cache and settings[/COLOR]</string>
+  <string id="30702">[COLOR lightgreen]Clear image cache[/COLOR]</string>
+  <string id="30703">[COLOR lightgreen]Clear data cache[/COLOR]</string>
+  <string id="30704">[COLOR lightgreen]Update settings dialog[/COLOR]</string>
   <string id="30705">Check compatibility with older versions</string>
   <string id="30706">Record program data</string>
   <string id="30707">Debug</string>

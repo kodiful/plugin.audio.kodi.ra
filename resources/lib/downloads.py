@@ -359,7 +359,7 @@ class Downloads:
         for p in sorted(plist, key=lambda item: item['ft'], reverse=True):
             if key == '' or key==p.get('key',''):
                 # title
-                title = '%s [COLOR khaki]%s[/COLOR] [COLOR lightgreen](%s)[/COLOR]' % (h.format(p['ft']),p['title'], p['name'])
+                title = '%s [COLOR khaki]%s[/COLOR] [COLOR khaki](%s)[/COLOR]' % (h.format(p['ft']),p['title'], p['name'])
                 # logo
                 id = p['gtvid'].split('_')
                 logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s_%s.png' % (id[0],id[1]))
