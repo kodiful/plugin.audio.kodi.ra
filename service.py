@@ -114,7 +114,7 @@ class Service:
         # 開始
         log('enter monitor.')
         # 監視開始を通知
-        notify('Starting service')
+        notify('Starting service', time=3000)
         # 初期化
         now = ''
         downloader = Downloads(cleanup=True)

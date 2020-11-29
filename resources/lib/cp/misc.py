@@ -31,10 +31,10 @@ class Misc(Params, Jcba):
         self.setup(renew)
 
     def read(self):
-        self.ch = read_json(Const.CHANNELS_FILE) or []
+        self.data = read_json(Const.CHANNELS_FILE) or []
 
     def write(self):
-        write_json(Const.CHANNELS_FILE, self.ch)
+        write_json(Const.CHANNELS_FILE, self.data)
 
     def setup(self, renew=False):
         # キャッシュがあれば何もしない
@@ -42,45 +42,45 @@ class Misc(Params, Jcba):
             return
         # 放送局データ
         buf = []
-        for ch in self.ch:
-            ch['id'] = 'misc_%s' % md5(ch['stream']).hexdigest()
+        for data in self.data:
+            data['id'] = 'misc_%s' % md5(data['stream']).hexdigest()
             buf.append({
-                'id': ch['id'],
-                'name': ch['name'],
-                'url': ch.get('url',''),
-                'logo_large': ch.get('logo_large',''),
-                'stream': ch['stream']
+                'id': data['id'],
+                'name': data['name'],
+                'url': data.get('url',''),
+                'logo_large': data.get('logo_large',''),
+                'stream': data['stream']
             })
         # 放送局データを書き込む
         write_json(self.STATION_FILE, buf)
         # 設定データ
         buf = []
-        for i, ch in enumerate(self.ch):
+        for i, data in enumerate(self.data):
             buf.append(
                 '    <setting label="{name}" type="bool" id="{id}" default="true" enable="eq({offset},2)" visible="true"/>'
-                .format(id=ch['id'], name=ch['name'], offset=-1-i))
+                .format(id=data['id'], name=data['name'], offset=-1-i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
 
     def beginEdit(self, id):
-        ch = filter(lambda x:x['id']==id, self.getStationData())[0]
+        data = filter(lambda x:x['id']==id, self.getStationData())[0]
         Const.SET('id',id)
-        Const.SET('name',ch['name'])
-        Const.SET('stream',ch['stream'])
-        Const.SET('logo',ch.get('logo_large',''))
+        Const.SET('name',data['name'])
+        Const.SET('stream',data['stream'])
+        Const.SET('logo',data.get('logo_large',''))
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
         xbmc.executebuiltin('SetFocus(103)') # select 4th category
         xbmc.executebuiltin('SetFocus(201)') # select 2nd control
 
     def endEdit(self, id, name, stream, logo):
         if id == '':
-            self.ch.append({'name':name, 'stream':stream, 'logo':logo})
+            self.data.append({'name':name, 'stream':stream, 'logo':logo})
         else:
-            data = filter(lambda x:x['id']==id, self.getStationData())[0]
-            ch = filter(lambda x:x['name']==data['name'] and x['stream']==data['stream'], self.ch)[0]
-            ch['name'] = name
-            ch['stream'] = stream
-            ch['logo_large'] = logo
+            target = filter(lambda x:x['id']==id, self.getStationData())[0]
+            data = filter(lambda x:x['name']==target['name'] and x['stream']==target['stream'], self.data)[0]
+            data['name'] = name
+            data['stream'] = stream
+            data['logo_large'] = logo
             # ロゴ画像があれば削除
             logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
             if os.path.isfile(logopath): os.remove(logopath)
@@ -93,8 +93,8 @@ class Misc(Params, Jcba):
 
     def delete(self, id):
         # 指定したidを除いた要素で配列を書き換える
-        ch = filter(lambda x:x['id']==id, self.getStationData())[0]
-        self.ch = filter(lambda x:x['name']!=ch['name'] or x['stream']!=ch['url'], self.ch)
+        target = filter(lambda x:x['id']==id, self.getStationData())[0]
+        self.data = filter(lambda x:x['name']!=target['name'] or x['stream']!=target['stream'], self.data)
         # 削除した設定を書き込む
         self.write()
         # 変更を反映する
