@@ -7,12 +7,10 @@ from ..common import *
 from ..xmltodict import parse
 
 import os
-import base64
 import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
-from math import ceil
 
 
 class Params:
@@ -77,18 +75,16 @@ class Authenticate:
             log(str(e), error=True)
             return
         # PLAYERファイルを保存
-        with open(self.PLAYER_FILE, 'w') as f:
-            f.write(player)
+        write_file(self.PLAYER_FILE, player)
 
     # authkeyを取得
     def getAuthKey(self):
         # PLAYERファイルを読み込む
-        with open(self.PLAYER_FILE, 'r') as f:
-            player = f.read()
+        player = read_file(self.PLAYER_FILE)
         # PLAYERファイルからauthkeyを取得
         # player = new RadikoJSPlayer($audio[0], 'pc_html5', 'bcd151073c03b352e1ef2fd66c32209da9ca0afa', {
-        m = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
-        return m.group(2) if m else ''
+        match = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
+        return match.group(2) if match else ''
 
     # auth_tokenを取得
     def appIDAuth(self, response):
@@ -115,7 +111,7 @@ class Authenticate:
     # partialkeyを取得
     def createPartialKey(self, response):
         partial_key = response['auth_key'][response['key_offset']:response['key_offset']+response['key_length']]
-        return base64.b64encode(partial_key)
+        return b64encode(partial_key)
 
     # area_idを取得
     def challengeAuth(self, response):
