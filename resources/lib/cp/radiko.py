@@ -7,8 +7,7 @@ from ..common import *
 from ..xmltodict import parse
 
 import os
-import struct
-import zlib
+import base64
 import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
@@ -36,172 +35,107 @@ class Params:
 
 class Authenticate:
 
-    # radikoのプレーヤ(player.swf)をダウンロード
-    # player.swfに潜むRadikoPlayer_keyImageを抽出
-    # https://radiko.jp/v2/api/auth1_fmsへPOSTでアクセスしてauthtokenとKeyLength、KeyOffsetを取得
-    # KeyLength、KeyOffsetを基にRadikoPlayer_keyImageからバイナリデータを取得しBASE64で符号化(PartialKey)
-    # authtokenとPartialKeyをリクエストヘッダに載せてhttps://radiko.jp/v2/api/auth2_fmsへPOSTでアクセス
-    # 認証に成功すればauth_tokenを使ってrtmpdumpでデータを受信
-
-    # cf. http://d.hatena.ne.jp/zariganitosh/20130124/rtmpdump_radiko_access
-
     # ファイル
-    KEY_FILE    = os.path.join(Params.DATA_PATH, 'authkey.dat')
-    PLAYER_FILE = os.path.join(Params.DATA_PATH, 'player.swf')
+    PLAYER_FILE = os.path.join(Params.DATA_PATH, 'player.js')
+    PLAYER_URL  = 'https://radiko.jp/apps/js/playerCommon.js'
     # URL
-    AUTH1_URL   = 'https://radiko.jp/v2/api/auth1_fms'
-    AUTH2_URL   = 'https://radiko.jp/v2/api/auth2_fms'
-    PLAYER_URL  = 'http://radiko.jp/apps/js/flash/myplayer-release.swf'
-    # その他
-    OBJECT_TAG  = 87
-    OBJECT_ID   = 12
+    AUTH1_URL   = 'https://radiko.jp/v2/api/auth1'
+    AUTH2_URL   = 'https://radiko.jp/v2/api/auth2'
 
     def __init__(self, renew=True):
-        # キーファイル作成
-        if renew or not os.path.isfile(self.KEY_FILE):
-            self.createKeyFile()
-        # responseを初期化
-        self.response = response = {'auth_token':'', 'area_id':'', 'authed':0}
-        # auth_tokenを取得
-        response = self.appIDAuth(response)
-        if response and response['auth_token']:
-            # area_idを取得
-            response = self.challengeAuth(response)
-            if response and response['area_id']:
-                response['authed'] = 1
-                # インスタンス変数に格納
-                self.response = response
+        # プレイヤーを取得
+        if renew or not os.path.isfile(self.PLAYER_FILE):
+            self.getPlayerFile()
+        # authkeyを取得
+        authkey = self.getAuthKey()
+        if authkey:
+            # responseを初期化
+            self.response = response = {'auth_key':authkey, 'auth_token':'', 'area_id':'', 'authed':0}
+            # auth_tokenを取得
+            response = self.appIDAuth(response)
+            if response and response['auth_token']:
+                # area_idを取得
+                response = self.challengeAuth(response)
+                if response and response['area_id']:
+                    response['authed'] = 1
+                    # インスタンス変数に格納
+                    self.response = response
+                else:
+                    log('challengeAuth failed.')
             else:
-                log('challengeAuth failed.')
+                log('appIDAuth failed.')
         else:
-            log('appIDAuth failed.')
+            log('getAuthKey failed.')
 
-    # キーファイルを作成
-    def createKeyFile(self):
-        # PLAYER_URLのオブジェクトのサイズを取得
+    # auth_keyを取得
+    def getPlayerFile(self):
+        # PLAYERファイルを取得する
         try:
-            response = urllib2.urlopen(self.PLAYER_URL)
-            size = int(response.headers["content-length"])
+            req = urllib2.Request(self.PLAYER_URL)
+            player = urllib2.urlopen(req).read()
         except Exception as e:
             log(str(e), error=True)
             return
-        # PLAYERファイルのサイズと比較、異なっている場合はダウンロードしてKEYファイルを生成
-        if not os.path.isfile(self.PLAYER_FILE) or size != int(os.path.getsize(self.PLAYER_FILE)):
-            swf = response.read()
-            with open(self.PLAYER_FILE, 'wb') as f:
-                f.write(swf)
-            # 読み込んだswfバッファ
-            self.swf = swf[:8] + zlib.decompress(swf[8:])
-            # swf読み込みポインタ
-            self.pos = 0
-            # ヘッダーパース
-            self.__header()
-            # タブブロックがある限り
-            while self.__block():
-                if self.block['tag'] == self.OBJECT_TAG and self.block['id'] == self.OBJECT_ID:
-                    with open(self.KEY_FILE, 'wb') as f:
-                        f.write(self.block['value'])
-                    break
+        # PLAYERファイルを保存
+        with open(self.PLAYER_FILE, 'w') as f:
+            f.write(player)
 
-    # パーシャルキーを生成
-    def createPartialKey(self, response):
-        with open(self.KEY_FILE, 'rb') as f:
-            f.seek(response['key_offset'])
-            partialkey = b64encode(f.read(response['key_length'])).decode('utf-8')
-        return partialkey
-
-    # ヘッダーパース
-    def __header(self):
-        self.magic   = self.__read(3)
-        self.version = ord(self.__read(1))
-        self.file_length = self.__le4Byte(self.__read(4))
-        rectbits = ord(self.__read(1)) >> 3
-        total_bytes = int(ceil((5 + rectbits * 4) / 8.0))
-        twips_waste = self.__read(total_bytes - 1)
-        self.frame_rate_decimal = ord(self.__read(1))
-        self.frame_rate_integer = ord(self.__read(1))
-        self.frame_count = self.__le2Byte(self.__read(2))
-
-    # ブロック判定
-    def __block(self):
-        blockStart = self.pos
-        tag = self.__le2Byte(self.__read(2))
-        blockLen = tag & 0x3f
-        if blockLen == 0x3f:
-            blockLen = self.__le4Byte(self.__read(4))
-        tag = tag >> 6
-        if tag == 0:
-            return None
-        else:
-            self.blockPos = 0
-            self.block = {
-                'block_start': blockStart,
-                'tag': tag,
-                'block_len': blockLen,
-                'id': self.__le2Byte(self.__read(2)),
-                'alpha': self.__read(4),
-                'value': self.__read(blockLen-6) or None
-            }
-            return True
-
-    # ユーティリティ
-    def __read(self, num):
-        self.pos += num
-        return self.swf[self.pos - num: self.pos]
-
-    def __le2Byte(self, s):
-        # LittleEndian to 2 Byte
-        return struct.unpack('<H', s)[0]
-
-    def __le4Byte(self, s):
-        # LittleEndian to 4 Byte
-        return struct.unpack('<L', s)[0]
+    # authkeyを取得
+    def getAuthKey(self):
+        # PLAYERファイルを読み込む
+        with open(self.PLAYER_FILE, 'r') as f:
+            player = f.read()
+        # PLAYERファイルからauthkeyを取得
+        # player = new RadikoJSPlayer($audio[0], 'pc_html5', 'bcd151073c03b352e1ef2fd66c32209da9ca0afa', {
+        m = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
+        return m.group(2) if m else ''
 
     # auth_tokenを取得
     def appIDAuth(self, response):
         # ヘッダ
         headers = {
-            'pragma': 'no-cache',
-            'X-Radiko-App': 'pc_ts',
-            'X-Radiko-App-Version': '4.0.0',
-            'X-Radiko-User': 'test-stream',
-            'X-Radiko-Device': 'pc'
+            'x-radiko-device': 'pc',
+            'x-radiko-app-version': '0.0.1',
+            'x-radiko-user': 'dummy_user',
+            'x-radiko-app': 'pc_html5'
         }
         try:
             # リクエスト
-            req = urllib2.Request(self.AUTH1_URL, headers=headers, data='\r\n')
+            req = urllib2.Request(self.AUTH1_URL, headers=headers)
             # レスポンス
-            auth1fms = urllib2.urlopen(req).info()
+            auth1 = urllib2.urlopen(req).info()
         except Exception as e:
             log(str(e), error=True)
             return
-        response['auth_token'] = auth1fms['X-Radiko-AuthToken']
-        response['key_offset'] = int(auth1fms['X-Radiko-KeyOffset'])
-        response['key_length'] = int(auth1fms['X-Radiko-KeyLength'])
+        response['auth_token'] = auth1['X-Radiko-AuthToken']
+        response['key_offset'] = int(auth1['X-Radiko-KeyOffset'])
+        response['key_length'] = int(auth1['X-Radiko-KeyLength'])
         return response
+
+    # partialkeyを取得
+    def createPartialKey(self, response):
+        partial_key = response['auth_key'][response['key_offset']:response['key_offset']+response['key_length']]
+        return base64.b64encode(partial_key)
 
     # area_idを取得
     def challengeAuth(self, response):
         # ヘッダ
         response['partial_key'] = self.createPartialKey(response)
         headers = {
-            'pragma': 'no-cache',
-            'X-Radiko-App': 'pc_ts',
-            'X-Radiko-App-Version': '4.0.0',
-            'X-Radiko-User': 'test-stream',
-            'X-Radiko-Device': 'pc',
-            'X-Radiko-Authtoken': response['auth_token'],
-            'X-Radiko-Partialkey': response['partial_key']
+            'x-radiko-authtoken': response['auth_token'],
+            'x-radiko-device': 'pc',
+            'x-radiko-partialkey': response['partial_key'],
+            'x-radiko-user': 'dummy_user'
         }
         try:
             # リクエスト
-            req = urllib2.Request(self.AUTH2_URL, headers=headers, data='\r\n')
+            req = urllib2.Request(self.AUTH2_URL, headers=headers)
             # レスポンス
-            auth2fms = urllib2.urlopen(req).read().decode('utf-8')
+            auth2 = urllib2.urlopen(req).read().decode('utf-8')
         except Exception as e:
             log(str(e), error=True)
             return
-        response['area_id'] = auth2fms.split(',')[0].strip()
+        response['area_id'] = auth2.split(',')[0].strip()
         return response
 
 
