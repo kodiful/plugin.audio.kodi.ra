@@ -7,6 +7,7 @@ from ..common import *
 from ..xmltodict import parse
 
 import os
+import time, datetime
 import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
@@ -34,11 +35,12 @@ class Params:
 class Authenticate:
 
     # ファイル
-    PLAYER_FILE = os.path.join(Params.DATA_PATH, 'player.js')
-    PLAYER_URL  = 'https://radiko.jp/apps/js/playerCommon.js'
+    PLAYER_FILE  = os.path.join(Params.DATA_PATH, 'player.js')
+    AUTHKEY_FILE = os.path.join(Params.DATA_PATH, 'authkey.txt')
     # URL
-    AUTH1_URL   = 'https://radiko.jp/v2/api/auth1'
-    AUTH2_URL   = 'https://radiko.jp/v2/api/auth2'
+    PLAYER_URL   = 'https://radiko.jp/apps/js/playerCommon.js'
+    AUTH1_URL    = 'https://radiko.jp/v2/api/auth1'
+    AUTH2_URL    = 'https://radiko.jp/v2/api/auth2'
 
     def __init__(self, renew=True):
         # プレイヤーを取得
@@ -69,22 +71,38 @@ class Authenticate:
     def getPlayerFile(self):
         # PLAYERファイルを取得する
         try:
+            # リクエスト
             req = urllib2.Request(self.PLAYER_URL)
-            player = urllib2.urlopen(req).read()
+            # レスポンス
+            res = urllib2.urlopen(req)
         except Exception as e:
             log(str(e), error=True)
             return
-        # PLAYERファイルを保存
-        write_file(self.PLAYER_FILE, player)
+        # PLAYERファイルからauthkeyを抽出して保存
+        if res.code == 200:
+            # ファイル変更日時
+            mod = strptime(res.info().get('Last-Modified'), '%a, %d %b %Y %H:%M:%S GMT')
+            if os.path.isfile(self.PLAYER_FILE):
+                # 更新されていない場合はなにもしない
+                if mod <= datetime.datetime.fromtimestamp(int(os.path.getmtime(self.PLAYER_FILE))):
+                    return
+            # PLAYERをダウンロードしてファイルに書き込む
+            player = res.read()
+            write_file(self.PLAYER_FILE, player)
+            # タイムスタンプをLast-Modifiedの日時に設定する
+            os.utime(self.PLAYER_FILE, (-1, int(time.mktime(mod.timetuple()))))
+            # PLAYERファイルからauthkeyを取得
+            # player = new RadikoJSPlayer($audio[0], 'pc_html5', 'bcd151073c03b352e1ef2fd66c32209da9ca0afa', {
+            match = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
+            authkey = match.group(2) if match else ''
+            write_file(self.AUTHKEY_FILE, authkey)
+            log('player and authkey updated')
+        else:
+            log('player nor authkey unchanged (%d)' % res.code)
 
     # authkeyを取得
     def getAuthKey(self):
-        # PLAYERファイルを読み込む
-        player = read_file(self.PLAYER_FILE)
-        # PLAYERファイルからauthkeyを取得
-        # player = new RadikoJSPlayer($audio[0], 'pc_html5', 'bcd151073c03b352e1ef2fd66c32209da9ca0afa', {
-        match = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
-        return match.group(2) if match else ''
+        return read_file(self.AUTHKEY_FILE) or ''
 
     # auth_tokenを取得
     def appIDAuth(self, response):
