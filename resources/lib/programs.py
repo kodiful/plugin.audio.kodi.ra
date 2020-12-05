@@ -101,10 +101,16 @@ class Programs:
         logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s.png' % id)
         if not os.path.isfile(logopath):
             # urlから画像ファイルを取得
-            buffer = ''
-            if url: buffer = urlread(url)
-            if buffer == '': buffer = read_file(Const.LOGO_FILE, mode='rb')
-            img = Image.open(StringIO(buffer))
+            img = None
+            if url:
+                buffer = urlread(url)
+                try:
+                    img = Image.open(StringIO(buffer))
+                except:
+                    img = None
+            if img is None:
+                buffer = read_file(Const.LOGO_FILE, mode='rb')
+                img = Image.open(StringIO(buffer))
             w = img.size[0]
             h = img.size[1]
             if w > 216:
