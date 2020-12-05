@@ -50,4 +50,4 @@ class Const:
     MARGIN_INTERVAL   = 5
 
     # others
-    LOGO_URL          = 'http://kodiful.com/KodiRa/downloads/jcba/icon.png'
+    LOGO_FILE         = os.path.join(TEMPLATE_PATH, 'icon.png')

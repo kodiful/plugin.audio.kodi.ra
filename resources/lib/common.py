@@ -34,16 +34,16 @@ def convert(obj, strip=False):
 
 # file i/o
 
-def read_file(filepath):
+def read_file(filepath, mode='r'):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-        with open(filepath, 'r') as f:
+        with open(filepath, mode) as f:
             data = f.read()
         return data
     else:
         return None
 
-def write_file(filepath, data):
-    with open(filepath, 'w') as f:
+def write_file(filepath, data, mode='w'):
+    with open(filepath, mode) as f:
         f.write(data)
 
 def read_json(filepath):
