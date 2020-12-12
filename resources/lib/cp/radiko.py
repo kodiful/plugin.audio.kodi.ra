@@ -46,11 +46,9 @@ class Authenticate:
         # プレイヤーを取得
         if renew or not os.path.isfile(self.PLAYER_FILE):
             self.getPlayerFile()
-        # authkeyを取得
-        authkey = self.getAuthKey()
-        if authkey:
-            # responseを初期化
-            self.response = response = {'auth_key':authkey, 'auth_token':'', 'area_id':'', 'authed':0}
+        # authkeyを取得してresponseを初期化
+        self.response = response = {'auth_key':self.getAuthKey(), 'auth_token':'', 'area_id':'', 'authed':0}
+        if response['auth_key']:
             # auth_tokenを取得
             response = self.appIDAuth(response)
             if response and response['auth_token']:

@@ -30,7 +30,7 @@ class RSS:
         # rssファイルを生成する
         with open(Params.RSS_FILE, 'w') as f:
             # header
-            f.write(header.format(image=Params.RSS_URL+'icon.png'))
+            f.write(header.format(image='icon.png'))
             # body
             plist = []
             for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
