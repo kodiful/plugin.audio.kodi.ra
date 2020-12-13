@@ -45,7 +45,7 @@ class RSS:
                 # gtvid
                 gtvid = p['gtvid']
                 # source
-                source = Params.RSS_URL + gtvid + '.mp3'
+                source = gtvid + '.mp3'
                 # file
                 mp3_file = os.path.join(Const.DOWNLOAD_PATH, gtvid + '.mp3')
                 # startdate
