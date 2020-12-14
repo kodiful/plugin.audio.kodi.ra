@@ -11,9 +11,6 @@ import shutil
 class Params:
     # ファイルパス
     RSS_FILE = os.path.join(Const.DOWNLOAD_PATH, 'rss.xml')
-    # URL
-    RSS_URL  = Const.GET('rss_url')
-    if not RSS_URL.endswith('/'): RSS_URL = RSS_URL+'/'
 
 
 class RSS:
