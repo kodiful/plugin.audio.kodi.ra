@@ -16,10 +16,11 @@ class Params:
 class RSS:
 
     def __init__(self):
-        return
+        # for backward compatibility
+        if Const.GET('rss') == 'false': Const.SET('rss', '0')
 
     def create(self):
-        if Const.GET('rss') == 'false': return
+        if Const.GET('rss') == '0': return
         # テンプレート
         header = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-header.xml'))
         body = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-body.xml'))
@@ -36,7 +37,7 @@ class RSS:
                 if os.path.isfile(mp3_file):
                     plist.append(read_json(json_file))
             # 開始時間の降順に各番組情報を書き込む
-            limit = Const.GET('rss_num')
+            limit = Const.GET('rss')
             limit = None if limit == 'unlimited' else int(limit)
             for p in sorted(plist, key=lambda item: item['ft'], reverse=True)[:limit]:
                 # gtvid
