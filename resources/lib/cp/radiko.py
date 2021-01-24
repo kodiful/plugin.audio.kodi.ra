@@ -27,7 +27,8 @@ class Params:
     STATION_URL   = 'http://radiko.jp/v2/station/list/%s.xml'
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
     PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now?area_id=%s'
-    STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
+    #STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
+    STREAM_URL    = 'https://f-radiko.smartstream.ne.jp'
     # 遅延
     DELAY         = 3
 
@@ -179,10 +180,14 @@ class Radiko(Params, Jcba):
                     'name': s['name'],
                     'url': s['href'],
                     'logo_large': s['logo_large'],
-                    'stream': '{stream}/{id}/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:{token}'.format(
+                    #'stream': '{stream}/{id}/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:{token}'.format(
+                    #    stream=self.STREAM_URL,
+                    #    id=s['id'],
+                    #    token=self.token),
+                    'stream': '{stream}/{id}/_definst_/simul-stream.stream/playlist.m3u'.format(
                         stream=self.STREAM_URL,
-                        id=s['id'],
-                        token=self.token),
+                        id=s['id'].replace('radiko_','')),
+                    'token': self.token,
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む
