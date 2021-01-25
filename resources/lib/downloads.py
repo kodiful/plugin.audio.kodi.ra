@@ -72,7 +72,7 @@ class Downloads:
         if os.path.isfile(mp3_file): status += 4
         return status
 
-    def enqueue(self, id, name, ft, to, title, description, stream, token, url, delay):
+    def enqueue(self, id, name, ft, to, title, description, stream, url, delay):
         # 時刻をチェック
         if to < timestamp(): return 'Already over'
         # 既存の番組情報ファイルの有無をチェック
@@ -93,7 +93,6 @@ class Downloads:
             'title': title,
             'description': description,
             'stream': stream,
-            'token': token,
             'url': url,
             'delay': delay
         })
@@ -129,7 +128,6 @@ class Downloads:
                     title=p['title'],
                     description=p['description'],
                     stream=p['stream'],
-                    token=p['token'],
                     delay=p['delay'],
                     url=p['url'],
                     key=k['key'])
@@ -148,7 +146,7 @@ class Downloads:
                 remaining.append(m)
         self.pending = remaining
 
-    def start(self, id, name, ft, to, title, description, stream, token, delay, url='', key=''):
+    def start(self, id, name, ft, to, title, description, stream, delay, url='', key=''):
         # 番組ID
         gtvid = '%s_%s' % (id, ft);
         # ファイルパス
@@ -227,7 +225,6 @@ class Downloads:
             'title': title,
             'description': description,
             'stream': stream,
-            'token': token,
             'url': url,
             'key': key,
             'duration': duration
@@ -241,7 +238,6 @@ class Downloads:
             'start': start,
             'duration': duration,
             'stream': stream,
-            'token': token,
             'bitrate': bitrate,
             'title': title,
             'artist': name,
@@ -260,7 +256,7 @@ class Downloads:
 
     def __thread(self, data):
         # コマンドライン
-        command = ('"{ffmpeg}" -y -v warning -t {duration} -headers "X-Radiko-AuthToken: {token}" -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
+        command = ('"{ffmpeg}" -y -v warning -t {duration} -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
             + '-metadata title="{title}" '
             + '-metadata artist="{artist}" '
             + '-metadata copyright="{copyright}" '
@@ -272,7 +268,6 @@ class Downloads:
                 ffmpeg=data['ffmpeg'],
                 duration=data['duration'],
                 stream=data['stream'],
-                token=data['token'],
                 bitrate=data['bitrate'],
                 title=data['title'],
                 artist=data['artist'],

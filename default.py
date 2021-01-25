@@ -135,7 +135,6 @@ if __name__  == '__main__':
             title=args['title'],
             description=args['description'],
             stream=args['stream'],
-            token=args['token'],
             url=args['url'],
             delay=args['delay'])
         if status:

@@ -8,7 +8,7 @@ from ..xmltodict import parse
 
 import os
 import time, datetime
-import urllib2
+import urllib, urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
@@ -27,8 +27,9 @@ class Params:
     STATION_URL   = 'http://radiko.jp/v2/station/list/%s.xml'
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
     PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now?area_id=%s'
-    #STREAM_URL    = 'rtmpe://f-radiko.smartstream.ne.jp'
-    STREAM_URL    = 'https://f-radiko.smartstream.ne.jp'
+    STREAM_URL    = 'https://f-radiko.smartstream.ne.jp/%s/_definst_/simul-stream.stream/playlist.m3u'
+    # プロキシ
+    PROXY_ID      = 'script.local.proxy'
     # 遅延
     DELAY         = 3
 
@@ -165,6 +166,13 @@ class Radiko(Params, Jcba):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
+        # プロキシ設定
+        try:
+            addon = xbmcaddon.Addon(self.PROXY_ID)
+            port = addon.getSetting('port')
+            port = int(port)
+        except:
+            port = 0
         # キャッシュがなければウェブから読み込む
         data = urlread(self.STATION_URL % self.area)
         if data:
@@ -180,14 +188,7 @@ class Radiko(Params, Jcba):
                     'name': s['name'],
                     'url': s['href'],
                     'logo_large': s['logo_large'],
-                    #'stream': '{stream}/{id}/_definst_/simul-stream.stream live=1 conn=S: conn=S: conn=S: conn=S:{token}'.format(
-                    #    stream=self.STREAM_URL,
-                    #    id=s['id'],
-                    #    token=self.token),
-                    'stream': '{stream}/{id}/_definst_/simul-stream.stream/playlist.m3u'.format(
-                        stream=self.STREAM_URL,
-                        id=s['id'].replace('radiko_','')),
-                    'token': self.token,
+                    'stream': 'http://127.0.0.1:%d/%s' % (int(port), urllib.urlencode({'X-Radiko-AuthToken':self.token, '_':self.STREAM_URL % s['id']})) if port else '',
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む
