@@ -172,7 +172,7 @@ class Radiko(Params, Jcba):
             port = addon.getSetting('port')
             port = int(port)
         except:
-            notify('Local proxy required to play Radiko', 3000)
+            notify('Local proxy is required to play radiko.jp', error=True)
             port = 0
         # キャッシュがなければウェブから読み込む
         data = urlread(self.STATION_URL % self.area)
