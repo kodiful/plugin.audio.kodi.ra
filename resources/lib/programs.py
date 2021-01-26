@@ -251,9 +251,13 @@ class Programs:
                     if i==0: title += ' ' + Params.TITLE_KK % (Params.BULLET,title1)
                     if i>0:  title += ' ' + Params.TITLE_LG % (Params.BULLET,title1)
             # リストアイテムを定義
-            li = xbmcgui.ListItem(title, iconImage=s['fanart_artist'], thumbnailImage=s['fanart_artist'])
-            # type='misic' crashes when rtmpe stream being played
-            li.setInfo(type='video', infoLabels={'title':s['name']})
+            labels = {
+                'title': s['name']
+            }
+            li = xbmcgui.ListItem(title)
+            li.setArt({'icon':s['fanart_artist'], 'thumb':s['fanart_artist'], 'poster':s['fanart_artist']})
+            li.setInfo(type='music', infoLabels=labels)
+            li.setProperty('IsPlayable', 'true')
             # コンテクストメニュー
             contextmenu = []
             # 番組情報を更新
