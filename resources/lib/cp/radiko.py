@@ -31,7 +31,7 @@ class Params:
     # プロキシ
     PROXY_ID      = 'script.local.proxy'
     # 遅延
-    DELAY         = 3
+    DELAY         = 20
 
 
 class Authenticate:
