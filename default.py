@@ -11,6 +11,7 @@ import urlparse
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from resources.lib.cp.misc   import Misc
+from resources.lib.cp.radiko import LocalProxy
 from resources.lib.programs  import Programs
 from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords
@@ -212,6 +213,10 @@ if __name__  == '__main__':
     elif action == 'updatePrograms':
         Cache().update(renew=True)
         Programs().show()
+
+    # ローカルプロキシ
+    elif action == 'proxySettings':
+        LocalProxy().settings()
 
     # 未定義
     else:

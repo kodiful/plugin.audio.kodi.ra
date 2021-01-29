@@ -153,6 +153,33 @@ class Authenticate:
         return response
 
 
+class LocalProxy(Params):
+
+    def __init__(self):
+        self.addon = None
+        self.port = ''
+        self.apikey = ''
+        try:
+            self.addon = xbmcaddon.Addon(self.PROXY_ID)
+            self.port = self.addon.getSetting('port')
+            self.apikey = self.addon.getSetting('apikey')
+        except:
+            notify('Local proxy is required to play radiko.jp', error=True)
+
+    def proxy(self, url, headers):
+        if self.port:
+            params = {'_': url}
+            params.update(headers)
+            url = 'http://127.0.0.1:%s/%s/?%s' % (self.port, self.apikey, urllib.urlencode(params))
+        return url
+
+    def settings(self):
+        if self.addon:
+            xbmc.executebuiltin('Addon.OpenSettings(%s)' % self.PROXY_ID)
+        else:
+            notify('Local proxy is required to play radiko.jp', error=True)
+
+
 class Radiko(Params, Jcba):
 
     def __init__(self, area, token, renew=False):
@@ -166,14 +193,8 @@ class Radiko(Params, Jcba):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
-        # プロキシ設定
-        try:
-            addon = xbmcaddon.Addon(self.PROXY_ID)
-            port = addon.getSetting('port')
-            port = int(port)
-        except:
-            notify('Local proxy is required to play radiko.jp', error=True)
-            port = 0
+        # プロキシ
+        proxy = LocalProxy()
         # キャッシュがなければウェブから読み込む
         data = urlread(self.STATION_URL % self.area)
         if data:
@@ -189,7 +210,7 @@ class Radiko(Params, Jcba):
                     'name': s['name'],
                     'url': s['href'],
                     'logo_large': s['logo_large'],
-                    'stream': 'http://127.0.0.1:%d/%s' % (int(port), urllib.urlencode({'X-Radiko-AuthToken':self.token, '_':self.STREAM_URL % s['id']})) if port else '',
+                    'stream': proxy.proxy(self.STREAM_URL % s['id'], {'x-radiko-authtoken': self.token}),
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む

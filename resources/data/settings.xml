@@ -59,6 +59,7 @@
     <setting label="30702" type="action" option="close" action="RunPlugin(plugin://$ID/?action=clearMedia)"/>
     <setting label="30701" type="action" option="close" action="RunPlugin(plugin://$ID/?action=resetAll)"/>
     <setting label="30704" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateDialog)"/>
+    <setting label="30708" type="action" option="close" action="RunPlugin(plugin://$ID/?action=proxySettings)"/>
     <setting label="30705" id="compatibility" type="bool" default="true" visible="false"/>
     <setting label="30706" id="record" type="bool" default="false"/>
     <setting label="30707" id="debug" type="bool" default="false"/>

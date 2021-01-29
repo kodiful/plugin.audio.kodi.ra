@@ -96,10 +96,11 @@
   <string id="30701">[COLOR lightgreen]Reset all cache and settings[/COLOR]</string>
   <string id="30702">[COLOR lightgreen]Clear image cache[/COLOR]</string>
   <string id="30703">[COLOR lightgreen]Clear data cache[/COLOR]</string>
-  <string id="30704">[COLOR lightgreen]Update settings dialog[/COLOR]</string>
+  <string id="30704">[COLOR lightgreen]Update settings dialog</string>
   <string id="30705">Check compatibility with older versions</string>
   <string id="30706">Record program data</string>
   <string id="30707">Debug</string>
+  <string id="30708">[COLOR lightgreen]Local proxy settings[/COLOR]</string>
 
   <string id="30800">Delete files completely?</string>
 
