@@ -92,6 +92,10 @@
   <string id="30528">番組保存設定を行ってください</string>
   <string id="30529">このOSでは番組保存をサポートしていません</string>
 
+  <string id="30600">ローカルプロキシ</string>
+  <string id="30601">ポート番号</string>
+  <string id="30602">APIキー</string>
+
   <string id="30700">その他</string>
   <string id="30701">[COLOR lightgreen]すべてのキャッシュと設定を初期化する[/COLOR]</string>
   <string id="30702">[COLOR lightgreen]イメージキャッシュをクリアする[/COLOR]</string>
@@ -100,8 +104,6 @@
   <string id="30705">旧バージョンとの互換性をチェックする</string>
   <string id="30706">番組データを記録する</string>
   <string id="30707">デバッグ</string>
-  <string id="30708">[COLOR lightgreen]ローカルプロキシを設定する[/COLOR]</string>
-
   <string id="30800">保存フォルダのファイルをすべて削除しますか？</string>
 
   <string id="30919">%m月%d日(%%s)</string>

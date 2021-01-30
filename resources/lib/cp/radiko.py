@@ -28,8 +28,6 @@ class Params:
     REFERER_URL   = 'http://radiko.jp/player/timetable.html'
     PROGRAM_URL   = 'http://radiko.jp/v2/api/program/now?area_id=%s'
     STREAM_URL    = 'https://f-radiko.smartstream.ne.jp/%s/_definst_/simul-stream.stream/playlist.m3u'
-    # プロキシ
-    PROXY_ID      = 'script.local.proxy'
     # 遅延
     DELAY         = 20
 
@@ -153,33 +151,6 @@ class Authenticate:
         return response
 
 
-class LocalProxy(Params):
-
-    def __init__(self):
-        self.addon = None
-        self.port = ''
-        self.apikey = ''
-        try:
-            self.addon = xbmcaddon.Addon(self.PROXY_ID)
-            self.port = self.addon.getSetting('port')
-            self.apikey = self.addon.getSetting('apikey')
-        except:
-            notify('Local proxy is required to play radiko.jp', error=True)
-
-    def proxy(self, url, headers):
-        if self.port:
-            params = {'_': url}
-            params.update(headers)
-            url = 'http://127.0.0.1:%s/%s/?%s' % (self.port, self.apikey, urllib.urlencode(params))
-        return url
-
-    def settings(self):
-        if self.addon:
-            xbmc.executebuiltin('Addon.OpenSettings(%s)' % self.PROXY_ID)
-        else:
-            notify('Local proxy is required to play radiko.jp', error=True)
-
-
 class Radiko(Params, Jcba):
 
     def __init__(self, area, token, renew=False):
@@ -189,12 +160,18 @@ class Radiko(Params, Jcba):
         if self.area and self.token:
             self.setup(renew)
 
+    def proxy(self, url, headers):
+        port = Const.GET('port')
+        apikey = Const.GET('apikey')
+        params = {'_': url}
+        params.update(headers)
+        url = 'http://127.0.0.1:%s/%s/?%s' % (port, apikey, urllib.urlencode(params))
+        return url
+
     def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
             return
-        # プロキシ
-        proxy = LocalProxy()
         # キャッシュがなければウェブから読み込む
         data = urlread(self.STATION_URL % self.area)
         if data:
@@ -210,7 +187,7 @@ class Radiko(Params, Jcba):
                     'name': s['name'],
                     'url': s['href'],
                     'logo_large': s['logo_large'],
-                    'stream': proxy.proxy(self.STREAM_URL % s['id'], {'x-radiko-authtoken': self.token}),
+                    'stream': self.proxy(self.STREAM_URL % s['id'], {'x-radiko-authtoken': self.token}),
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む

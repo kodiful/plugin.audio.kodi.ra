@@ -92,6 +92,10 @@
   <string id="30528">Save program settings required</string>
   <string id="30529">Unsupported OS</string>
 
+  <string id="30600">Local Proxy</string>
+  <string id="30601">Port number</string>
+  <string id="30602">API key</string>
+
   <string id="30700">Other Settings</string>
   <string id="30701">[COLOR lightgreen]Reset all cache and settings[/COLOR]</string>
   <string id="30702">[COLOR lightgreen]Clear image cache[/COLOR]</string>

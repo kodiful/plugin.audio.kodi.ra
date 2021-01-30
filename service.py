@@ -11,6 +11,13 @@ import xbmc, xbmcgui
 
 from hashlib import md5
 
+from SimpleHTTPServer import SimpleHTTPRequestHandler
+from BaseHTTPServer import HTTPServer
+
+import urllib2
+import urlparse
+import random
+
 from resources.lib.cp.radiko import Radiko, Authenticate
 from resources.lib.cp.radiru import Radiru
 from resources.lib.cp.jcba   import Jcba
@@ -220,4 +227,78 @@ class Service:
         log('exit monitor.')
 
 
-if __name__  == '__main__': Service().monitor()
+class LocalProxy(HTTPServer):
+
+    KEY_CHRSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    KEY_LENGTH = 8
+
+    def __init__(self, *args, **kwargs):
+        # ローカルプロキシ起動時にAPIキーを生成する
+        self.apikey = ''.join([self.KEY_CHRSET[random.randrange(len(self.KEY_CHRSET))] for i in range(self.KEY_LENGTH)])
+        # APIキーをアドオン設定に書き込む
+        Const.SET('apikey', self.apikey)
+        log('apikey', self.apikey)
+        # HTTPServerを初期化する
+        HTTPServer.__init__(self, *args, **kwargs)
+
+
+class LocalProxyHandler(SimpleHTTPRequestHandler):
+
+    def do_HEAD(self):
+        self.body = False
+        self.do_request()
+
+    def do_GET(self):
+        self.body = True
+        self.do_request()
+
+    def do_response(self, code, message):
+        # レスポンスヘッダ
+        self.send_response(code)
+        self.end_headers()
+        # レスポンスボディ
+        if self.body:
+            self.wfile.write('%d %s' % (code, message))
+
+    def do_request(self):
+        try:
+            # HTTPリクエスト
+            #
+            # GET /pBVVfZdW/?x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u HTTP/1.1"
+            #
+            if self.path[1:1+LocalProxy.KEY_LENGTH] == self.server.apikey:
+                # 引数を分解
+                args = urlparse.parse_qs(self.path[3+LocalProxy.KEY_LENGTH:], keep_blank_values=True)
+                url = ''
+                headers = {}
+                for key in args.keys():
+                    if key == '_':
+                        url = args[key][0]
+                    else:
+                        headers[key] = args[key][0]
+                if url:
+                    # レスポンスヘッダ（OK）
+                    self.send_response(200)
+                    self.end_headers()
+                    # レスポンスボディ
+                    if self.body:
+                        req = urllib2.Request(url, headers=headers)
+                        self.copyfile(urllib2.urlopen(req), self.wfile)
+                else:
+                    self.do_response(404, 'Not Found')
+            else:
+                self.do_response(403, 'Forbidden')
+        except:
+            self.do_response(500, 'Internal Server Error')
+
+
+if __name__  == '__main__':
+
+    # サービス
+    thread = threading.Thread(target=Service().monitor)
+    thread.start()
+
+    # ローカルプロキシ
+    port = Const.GET('port')
+    proxy = LocalProxy(('', int(port)), LocalProxyHandler)
+    proxy.serve_forever()
