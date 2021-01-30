@@ -67,6 +67,8 @@ class RSS:
                         duration=duration,
                         filesize=filesize,
                         description=escape(unescape(p['description']))
+                    )
+                )
             # footer
             f.write(footer)
         # アイコン画像がRSSから参照できるように、画像をダウンロードフォルダにコピーする
