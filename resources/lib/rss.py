@@ -7,6 +7,8 @@ import os
 import glob
 import shutil
 
+from xml.sax.saxutils import escape
+
 
 class Params:
     # ファイルパス
@@ -56,7 +58,7 @@ class RSS:
                 # 各番組情報を書き込む
                 f.write(
                     body.format(
-                        title=p['title'],
+                        title=escape(p['title']),
                         gtvid=gtvid,
                         url=p.get('url',''),
                         source=source,
