@@ -7,7 +7,7 @@ import os
 import glob
 import shutil
 
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape, unescape
 
 
 class Params:
@@ -58,7 +58,7 @@ class RSS:
                 # 各番組情報を書き込む
                 f.write(
                     body.format(
-                        title=escape(p['title']),
+                        title=escape(unescape(p['title'])),
                         gtvid=gtvid,
                         url=p.get('url',''),
                         source=source,
@@ -66,7 +66,7 @@ class RSS:
                         name=p['name'],
                         duration=duration,
                         filesize=filesize,
-                        description=p['description']))
+                        description=escape(unescape(p['description']))
             # footer
             f.write(footer)
         # アイコン画像がRSSから参照できるように、画像をダウンロードフォルダにコピーする
