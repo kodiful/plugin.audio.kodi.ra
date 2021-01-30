@@ -6,9 +6,11 @@ from ..const import Const
 from ..common import *
 from ..xmltodict import parse
 
+from ..service.localproxy import LocalProxy
+
 import os
 import time, datetime
-import urllib, urllib2
+import urllib2
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from base64 import b64encode
@@ -160,14 +162,6 @@ class Radiko(Params, Jcba):
         if self.area and self.token:
             self.setup(renew)
 
-    def proxy(self, url, headers):
-        port = Const.GET('port')
-        apikey = Const.GET('apikey')
-        params = {'_': url}
-        params.update(headers)
-        url = 'http://127.0.0.1:%s/%s/?%s' % (port, apikey, urllib.urlencode(params))
-        return url
-
     def setup(self, renew=False):
         # キャッシュがあれば何もしない
         if renew == False and os.path.isfile(self.STATION_FILE) and os.path.isfile(self.SETTINGS_FILE):
@@ -187,7 +181,7 @@ class Radiko(Params, Jcba):
                     'name': s['name'],
                     'url': s['href'],
                     'logo_large': s['logo_large'],
-                    'stream': self.proxy(self.STREAM_URL % s['id'], {'x-radiko-authtoken': self.token}),
+                    'stream': LocalProxy.proxy(self.STREAM_URL % s['id'], {'x-radiko-authtoken': self.token}),
                     'delay': self.DELAY
                 })
             # 放送局データを書き込む

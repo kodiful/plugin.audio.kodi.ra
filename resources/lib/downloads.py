@@ -5,6 +5,8 @@ from .common import *
 from .holiday import Holiday
 from .rss import RSS
 
+from .service.localproxy import LocalProxy
+
 import datetime, time
 import os
 import subprocess
@@ -207,14 +209,8 @@ class Downloads:
                 bitrate = '96k'
             else:
                 bitrate = '64k'
-        # ソース
-        conn = []
-        match = re.findall(r'conn=[^ ]+', stream)
-        for m in match:
-            conn.append(re.sub(r'conn=', '', m))
-        match = re.match(r'(?:rtmp|rtmps|rtmpe|rtmpt)://[^ ]+', stream)
-        if match:
-            stream = match.group()
+        # ソースのURL
+        stream, headers = LocalProxy.parse(stream)
         # 番組情報
         data = {
             'gtvid': gtvid,
@@ -231,13 +227,14 @@ class Downloads:
         }
         # 番組情報を保存
         write_json(json_file, data)
-        # 別スレッドでダウンロードを実行
+        # ダウンロード実行のパラメータ
         data = {
             'ffmpeg': Const.GET('ffmpeg'),
             'wait': wait,
             'start': start,
             'duration': duration,
             'stream': stream,
+            'headers': headers,
             'bitrate': bitrate,
             'title': title,
             'artist': name,
@@ -250,13 +247,18 @@ class Downloads:
             'tmp_file': tmp_file,
             'mp3_file': mp3_file
         }
+        # 別スレッドでダウンロード実行
         t = threading.Thread(target=self.__thread, args=[data])
         t.start()
         self.thread.append(t)
 
     def __thread(self, data):
+        # ヘッダ
+        headers = ''
+        for key, val in data['headers'].items():
+            headers += '%s: %s\r\n' % (key, val)
         # コマンドライン
-        command = ('"{ffmpeg}" -y -v warning -t {duration} -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
+        command = ('"{ffmpeg}" -y -v warning -t {duration} -headers "{headers}" -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
             + '-metadata title="{title}" '
             + '-metadata artist="{artist}" '
             + '-metadata copyright="{copyright}" '
@@ -267,6 +269,7 @@ class Downloads:
             + '"{tmp_file}"').format(
                 ffmpeg=data['ffmpeg'],
                 duration=data['duration'],
+                headers=headers,
                 stream=data['stream'],
                 bitrate=data['bitrate'],
                 title=data['title'],
