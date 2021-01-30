@@ -201,7 +201,8 @@ class Programs:
                 val = re.sub(r'(?:　|\r\n|\n|\t)', ' ', val) # 全角スペース、改行、タブを半角スペースに置換
                 val = re.sub(r'\s{2,}',            ' ', val) # 二つ以上続く半角スペースは一つに置換
                 val = re.sub(r'(^\s+|\s+$)',        '', val) # 先頭と末尾の半角スペースを削除
-                p[key] = val.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;')
+                #p[key] = val.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;')
+                p[key] = val
             else:
                 p[key] = ''
 
