@@ -58,7 +58,7 @@ class RSS:
                 # 各番組情報を書き込む
                 f.write(
                     body.format(
-                        title=escape(unescape(p['title'])),
+                        title=escape(unescape(p['title'], entities={'&quot;':'"'}), entities={'"':'&quot;'}),
                         gtvid=gtvid,
                         url=p.get('url',''),
                         source=source,
@@ -66,7 +66,7 @@ class RSS:
                         name=p['name'],
                         duration=duration,
                         filesize=filesize,
-                        description=escape(unescape(p['description']))
+                        description=escape(unescape(p['description'], entities={'&quot;':'"'}), entities={'"':'&quot;'})
                     )
                 )
             # footer
