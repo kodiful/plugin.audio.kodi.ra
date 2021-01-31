@@ -42,6 +42,8 @@ class RSS:
             limit = Const.GET('rss')
             limit = None if limit == 'unlimited' else int(limit)
             for p in sorted(plist, key=lambda item: item['ft'], reverse=True)[:limit]:
+                # title
+                title = self.escape(p['title'])
                 # gtvid
                 gtvid = p['gtvid']
                 # source
@@ -55,10 +57,12 @@ class RSS:
                 duration = '%02d:%02d:%02d' % (int(duration/3600),int(duration/60)%60,duration%60)
                 # filesize
                 filesize = os.path.getsize(mp3_file) if os.path.isfile(mp3_file) else 0
+                # description
+                description = self.escape(p['description'])
                 # 各番組情報を書き込む
                 f.write(
                     body.format(
-                        title=escape(unescape(p['title'], entities={'&quot;':'"'}), entities={'"':'&quot;'}),
+                        title=title,
                         gtvid=gtvid,
                         url=p.get('url',''),
                         source=source,
@@ -66,7 +70,7 @@ class RSS:
                         name=p['name'],
                         duration=duration,
                         filesize=filesize,
-                        description=escape(unescape(p['description'], entities={'&quot;':'"'}), entities={'"':'&quot;'})
+                        description=description
                     )
                 )
             # footer
@@ -77,3 +81,9 @@ class RSS:
         shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl'))
         # copy php script
         shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), os.path.join(Const.DOWNLOAD_PATH, 'rss.php'))
+
+    @staticmethod
+    def esacpe(test):
+        text = unescape(text, entities={'&quot;':'"'})
+        text = escape(text, entities={'"':'&quot;'})
+        return text

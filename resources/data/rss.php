@@ -125,10 +125,8 @@ foreach (glob("*.mp3") as $filename) {
       $t = strptime($json['ft'], "%Y%m%d%H%M%S");
       $starttime = mktime($t['tm_hour'], $t['tm_min'], $t['tm_sec'], $t['tm_mon']+1, $t['tm_mday'], $t['tm_year']+1900);
       // title
-      $title = $json['title'];
-      $title .= ' ';
-      //$title .= strftime('%F %R', $starttime);
-      $title .= strftime('%F', $starttime);
+      $title = htmlspecialchars(htmlspecialchars_decode($json['title']));
+      $source = str_replace("{title}", $title, $source);
       // startdate
       $startdate = strftime('%a, %d %b %Y %H:%M:%S +0900', $starttime);
       $source = str_replace("{startdate}", $startdate, $source);
@@ -136,10 +134,11 @@ foreach (glob("*.mp3") as $filename) {
       $duration = $json['duration'];
       $duration = sprintf("%02d:%02d:%02d", intval($duration/3600), intval($duration/60)%60, $duration%60);
       $source = str_replace("{duration}", $duration, $source);
+      // description
+      $description = htmlspecialchars(htmlspecialchars_decode($json['description']));
+      $source = str_replace("{description}", $description, $source);
       // others
-      $source = str_replace("{title}", $title, $source);
       $source = str_replace("{url}", $url . $filename . ".mp3", $source);
-      $source = str_replace("{description}", $json['description'], $source);
       $source = str_replace("{gtvid}", $json['gtvid'], $source);
       $source = str_replace("{name}", $json['name'], $source);
       $source = str_replace("{filesize}", filesize($filename . ".mp3"), $source);

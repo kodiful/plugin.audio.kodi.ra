@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 
+# デバッグ用
+# http://127.0.0.1:8088/proxy;12345678?_=http://kodiful.com
+class Const:
+    @staticmethod
+    def SET(attr, value):
+        return
+    @staticmethod
+    def GET(attr):
+        if attr == 'apikey': return '12345678'
+        if attr == 'port': return '8088'
+
 try:
     from ..const import Const
     from ..common import *
 except:
-    # デバッグ用
-    #
-    # http://127.0.0.1:8088/12345678/?_=http://kodiful.com
-    #
-    class Const:
-        @staticmethod
-        def GET(attr):
-            if attr == 'apikey': return '12345678'
-            if attr == 'port': return '8088'
-
+    pass
 
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from BaseHTTPServer import HTTPServer
@@ -23,36 +25,48 @@ import urllib, urllib2
 import urlparse
 
 
-class APIKey:
+class LocalProxy(HTTPServer):
 
     # 文字セット
-    CHRSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     # キーの長さ
     LENGTH = 8
-
-    def generate(self):
-        return ''.join([self.CHRSET[random.randrange(len(self.CHRSET))] for i in range(self.LENGTH)])
-
-
-class LocalProxy(HTTPServer):
 
     def __init__(self):
         # ポート番号
         port = Const.GET('port')
+        # APIキー
+        self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
+        # APIキーを保存
+        Const.SET('apikey', self.apikey)
         # HTTPServerを初期化
         HTTPServer.__init__(self, ('', int(port)), LocalProxyHandler)
 
     @staticmethod
-    def proxy(url, headers):
+    def abort():
         # ポート番号
         port = Const.GET('port')
         # APIキー
         apikey = Const.GET('apikey')
-        # パスとクエリに設定する
+        # URLを生成
+        exit_url = 'http://127.0.0.1:%s/abort;%s' % (port, apikey)
+        # リクエスト
+        res = urllib.urlopen(exit_url)
+        data = res.read()
+        res.close()
+        return data
+
+    @staticmethod
+    def proxy(url='', headers={}):
+        # ポート番号
+        port = Const.GET('port')
+        # APIキー
+        apikey = Const.GET('apikey')
+        # URLを生成
         params = {'_': url}
         params.update(headers)
-        url = 'http://127.0.0.1:%s/%s/?%s' % (port, apikey, urllib.urlencode(params))
-        return url
+        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (port, apikey, urllib.urlencode(params))
+        return proxy_url
 
     @staticmethod
     def parse(proxy_url):
@@ -62,7 +76,7 @@ class LocalProxy(HTTPServer):
         # プロキシURLを展開
         parsed = urlparse.urlparse(proxy_url)
         # プロキシURLのパスとAPIキーが一致したらソースURLとリクエストヘッダを抽出する
-        if parsed.path.strip('/') == Const.GET('apikey'):
+        if parsed.path == '/proxy' and parsed.params == Const.GET('apikey'):
             for key, val in urlparse.parse_qs(parsed.query, keep_blank_values=True).items():
                 if key == '_':
                     url = val[0]
@@ -81,7 +95,7 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
         self.body = True
         self.do_request()
 
-    def do_response(self, code, message):
+    def do_respond(self, code, message):
         # レスポンスヘッダ
         self.send_response(code)
         self.end_headers()
@@ -91,33 +105,42 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
 
     def do_request(self):
         try:
-            # HTTPリクエスト
-            #
-            # GET /pBVVfZdW/?x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u HTTP/1.1"
-            #
+            # HTTPリクエストをパースする
+            # HTTPリクエスト：GET /proxy;pBVVfZdW?x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u HTTP/1.1"
+            # パース結果：ParseResult(scheme='', netloc='', path='/proxy', params='pBVVfZdW', query='x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u', fragment='')
             parsed = urlparse.urlparse(self.path)
-            #
-            # ParseResult(scheme='', netloc='', path='/pBVVfZdW/', params='', query='x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u', fragment='')
-            #
             # APIキーをチェック
-            if parsed.path.strip('/') == Const.GET('apikey'):
-                # クエリを展開
-                url, headers = LocalProxy.parse(self.path)
-                # レスポンス
-                if url:
-                    # レスポンスヘッダ（OK）
-                    self.send_response(200)
-                    self.end_headers()
-                    # レスポンスボディ
-                    if self.body:
-                        req = urllib2.Request(url, headers=headers)
-                        self.copyfile(urllib2.urlopen(req), self.wfile)
+            if parsed.params == self.server.apikey:
+                # パスに応じて処理
+                if parsed.path == '/proxy':
+                    # クエリを展開
+                    url, headers = LocalProxy.parse(self.path)
+                    # レスポンス
+                    if url:
+                        # レスポンスヘッダ（OK）
+                        self.send_response(200)
+                        self.end_headers()
+                        # レスポンスボディ
+                        if self.body:
+                            req = urllib2.Request(url, headers=headers)
+                            self.copyfile(urllib2.urlopen(req), self.wfile)
+                    else:
+                        self.do_respond(404, 'Not Found')
+                elif parsed.path == '/abort':
+                    # レスポンス
+                    self.do_respond(200, 'OK')
+                    # APIキーを削除
+                    self.server.apikey = ''
                 else:
-                    self.do_response(404, 'Not Found')
+                    self.do_respond(404, 'Not Found')
             else:
-                self.do_response(403, 'Forbidden')
+                self.do_respond(403, 'Forbidden')
         except:
-            self.do_response(500, 'Internal Server Error')
+            self.do_respond(500, 'Internal Server Error')
 
 
-if __name__  == '__main__': LocalProxy().serve_forever()
+if __name__  == '__main__':
+    # ローカルプロキシ
+    proxy = LocalProxy()
+    while proxy.apikey:
+        proxy.handle_request()

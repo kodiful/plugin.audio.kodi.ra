@@ -1,5 +1,6 @@
 *~
 *.pyo
+*.pyc
 *.work
 .DS_Store
 /resources/settings.xml

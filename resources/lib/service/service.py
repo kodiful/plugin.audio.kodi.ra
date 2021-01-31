@@ -18,7 +18,7 @@ from ..cp.misc   import Misc
 from ..programs  import Programs
 from ..downloads import Downloads
 
-from .localproxy import APIKey
+from .localproxy import LocalProxy
 
 
 class Monitor(xbmc.Monitor):
@@ -44,8 +44,6 @@ class Service:
         if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
-        # APIキーを生成
-        Const.SET('apikey', APIKey().generate())
         # いろいろ初期化
         self.lastupdt = ''
         self.nextupdt = ''
@@ -216,4 +214,7 @@ class Service:
             })
         # 終了
         downloader.abort()
+        # ロカールプロキシを終了
+        LocalProxy.abort()
+        # 通知
         log('exit monitor.')
