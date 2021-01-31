@@ -257,7 +257,8 @@ class Programs:
             }
             li = xbmcgui.ListItem(title)
             li.setArt({'icon':s['fanart_artist'], 'thumb':s['fanart_artist'], 'poster':s['fanart_artist']})
-            li.setInfo(type='music', infoLabels=labels)
+            #li.setInfo(type='music', infoLabels=labels)
+            li.setInfo(type='video', infoLabels=labels) #type='video'とした方が音の途切れが少ないような気がする
             li.setProperty('IsPlayable', 'true')
             # コンテクストメニュー
             contextmenu = []
