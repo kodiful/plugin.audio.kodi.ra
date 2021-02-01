@@ -142,5 +142,6 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
 if __name__  == '__main__':
     # ローカルプロキシ
     proxy = LocalProxy()
+    print proxy.apikey
     while proxy.apikey:
         proxy.handle_request()
