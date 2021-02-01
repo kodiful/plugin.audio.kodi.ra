@@ -83,7 +83,7 @@ class RSS:
         shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), os.path.join(Const.DOWNLOAD_PATH, 'rss.php'))
 
     @staticmethod
-    def escape(test):
+    def escape(text):
         text = unescape(text, entities={'&quot;':'"'})
         text = escape(text, entities={'"':'&quot;'})
         return text
