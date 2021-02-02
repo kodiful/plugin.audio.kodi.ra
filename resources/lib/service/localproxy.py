@@ -1,21 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# デバッグ用
-# http://127.0.0.1:8088/proxy;12345678?_=http://kodiful.com
-class Const:
-    @staticmethod
-    def SET(attr, value):
-        return
-    @staticmethod
-    def GET(attr):
-        if attr == 'apikey': return '12345678'
-        if attr == 'port': return '8088'
-
-try:
-    from ..const import Const
-    from ..common import *
-except:
-    pass
 
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from BaseHTTPServer import HTTPServer
@@ -23,6 +7,22 @@ from BaseHTTPServer import HTTPServer
 import random
 import urllib, urllib2
 import urlparse
+
+if __name__  == '__main__':
+    # デバッグ用
+    class Const:
+        @staticmethod
+        def SET(attr, value):
+            return
+        @staticmethod
+        def GET(attr):
+            if attr == 'apikey': return httpd.apikey
+            if attr == 'port': return '8088'
+    def log(message):
+        print(message)
+else:
+    from ..const import Const
+    from ..common import *
 
 
 class LocalProxy(HTTPServer):
@@ -95,6 +95,11 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
         self.body = True
         self.do_request()
 
+    def log_message(self, format, *args):
+        # デフォルトのログ出力を抑制する
+        # ('GET /abort;pBVVfZdW HTTP/1.1', '200', '-')
+        return
+
     def do_respond(self, code, message):
         # レスポンスヘッダ
         self.send_response(code)
@@ -124,24 +129,32 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
                         if self.body:
                             req = urllib2.Request(url, headers=headers)
                             self.copyfile(urllib2.urlopen(req), self.wfile)
+                            # ログ
+                            log('forwarded to: %s' % url)
                     else:
                         self.do_respond(404, 'Not Found')
+                        log('not found: %s' % self.path)
                 elif parsed.path == '/abort':
                     # レスポンス
                     self.do_respond(200, 'OK')
                     # APIキーを削除
                     self.server.apikey = ''
+                    # ログ
+                    log('aborted')
                 else:
                     self.do_respond(404, 'Not Found')
+                    log('not found: %s' % self.path)
             else:
                 self.do_respond(403, 'Forbidden')
+                log('forbidden: %s' % self.path)
         except:
             self.do_respond(500, 'Internal Server Error')
+            log('internal server error: %s' % self.path)
 
 
 if __name__  == '__main__':
     # ローカルプロキシ
-    proxy = LocalProxy()
-    print proxy.apikey
-    while proxy.apikey:
-        proxy.handle_request()
+    httpd = LocalProxy()
+    print 'apikey: %s' % httpd.apikey
+    while httpd.apikey:
+        httpd.handle_request()
