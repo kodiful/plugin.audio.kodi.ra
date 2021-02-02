@@ -9,12 +9,12 @@ socket.setdefaulttimeout(60)
 
 
 if __name__  == '__main__':
-    # ローカルプロキシ（APIキーを作成）
-    proxy = LocalProxy()
-    # サービス
+    # ローカルプロキシを初期化（APIキーを生成）
+    httpd = LocalProxy()
+    # 別スレッドでサービスを起動（APIキーを使ってURLを生成）
     import threading
     thread = threading.Thread(target=Service().monitor)
     thread.start()
     # ローカルプロキシを起動
-    while proxy.apikey:
-        proxy.handle_request()
+    while httpd.apikey:
+        httpd.handle_request()

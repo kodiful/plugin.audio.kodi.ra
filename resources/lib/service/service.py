@@ -214,7 +214,7 @@ class Service:
             })
         # 終了
         downloader.abort()
-        # ロカールプロキシを終了
+        # ローカルプロキシを終了
         LocalProxy.abort()
         # 通知
         log('exit monitor.')
