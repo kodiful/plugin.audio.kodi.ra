@@ -56,6 +56,7 @@
   </category>
   <category label="30600">
     <setting label="30601" id="port" type="number" default="8088"/>
+    <setting id="activeport" type="number" default="8088" visible="false"/>
     <setting label="30602" id="apikey" type="text" default="" enable="false"/>
   </category>
   <category label="30700">

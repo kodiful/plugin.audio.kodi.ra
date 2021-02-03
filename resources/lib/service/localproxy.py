@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from BaseHTTPServer import HTTPServer
 
@@ -16,8 +15,7 @@ if __name__  == '__main__':
             return
         @staticmethod
         def GET(attr):
-            if attr == 'apikey': return '12345678'
-            if attr == 'port': return '8088'
+            return
     def log(message):
         print(message)
 else:
@@ -27,6 +25,10 @@ else:
 
 class LocalProxy(HTTPServer):
 
+    # ポート番号（デバッグ用）
+    PORT = 8088
+    # APIキー（デバッグ用）
+    APIKEY = '12345678'
     # 文字セット
     CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     # キーの長さ
@@ -34,7 +36,9 @@ class LocalProxy(HTTPServer):
 
     def __init__(self):
         # ポート番号
-        port = Const.GET('port')
+        self.activeport = Const.GET('port') or LocalProxy.PORT
+        # アクティブなポート番号として保存
+        Const.SET('activeport', self.activeport)
         # APIキー
         self.apikey = self.newkey()
         # APIキーを保存
@@ -42,12 +46,12 @@ class LocalProxy(HTTPServer):
         # ログ
         log('apikey initialized: %s' % self.apikey)
         # HTTPServerを初期化
-        HTTPServer.__init__(self, ('', int(port)), LocalProxyHandler)
+        HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
 
     @staticmethod
     def newkey():
         if __name__  == '__main__':
-            apikey = Const.GET('apikey') # デバッグ用
+            apikey = LocalProxy.APIKEY
         else:
             apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
         return apikey
@@ -55,11 +59,11 @@ class LocalProxy(HTTPServer):
     @staticmethod
     def abort():
         # ポート番号
-        port = Const.GET('port')
+        activeport = Const.GET('activeport') or LocalProxy.PORT
         # APIキー
-        apikey = Const.GET('apikey')
+        apikey = Const.GET('apikey') or LocalProxy.APIKEY
         # URLを生成
-        abort_url = 'http://127.0.0.1:%s/abort;%s' % (port, apikey)
+        abort_url = 'http://127.0.0.1:%s/abort;%s' % (activeport, apikey)
         # リクエスト
         res = urllib.urlopen(abort_url)
         data = res.read()
@@ -69,24 +73,26 @@ class LocalProxy(HTTPServer):
     @staticmethod
     def proxy(url='', headers={}):
         # ポート番号
-        port = Const.GET('port')
+        activeport = Const.GET('activeport') or LocalProxy.PORT
         # APIキー
-        apikey = Const.GET('apikey')
+        apikey = Const.GET('apikey') or LocalProxy.APIKEY
         # URLを生成
         params = {'_': url}
         params.update(headers)
-        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (port, apikey, urllib.urlencode(params))
+        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (activeport, apikey, urllib.urlencode(params))
         return proxy_url
 
     @staticmethod
     def parse(proxy_url):
+        # APIキー
+        apikey = Const.GET('apikey') or LocalProxy.APIKEY
         # ソースURLとリクエストヘッダの既定値
         url = proxy_url
         headers = {}
         # プロキシURLを展開
         parsed = urlparse.urlparse(proxy_url)
         # URLのパスとAPIキーが一致したらソースURLとリクエストヘッダを抽出する
-        if parsed.path == '/proxy' and parsed.params == Const.GET('apikey'):
+        if parsed.path == '/proxy' and parsed.params == apikey:
             for key, val in urlparse.parse_qs(parsed.query, keep_blank_values=True).items():
                 if key == '_':
                     url = val[0]
