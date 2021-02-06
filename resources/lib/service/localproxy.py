@@ -21,6 +21,7 @@ class LocalProxy(HTTPServer):
     def __init__(self):
         # ポート番号
         self.activeport = Const.GET('port')
+        # 通常起動時
         if self.activeport:
             # アクティブなポート番号として保存
             Const.SET('activeport', self.activeport)
@@ -44,13 +45,15 @@ class LocalProxy(HTTPServer):
         activeport = Const.GET('activeport')
         # APIキー
         apikey = Const.GET('apikey')
-        # URLを生成
-        abort_url = 'http://127.0.0.1:%s/abort;%s' % (activeport, apikey)
-        # リクエスト
-        res = urllib.urlopen(abort_url)
-        data = res.read()
-        res.close()
-        return data
+        # 通常起動時
+        if activeport and apikey:
+            # URLを生成
+            abort_url = 'http://127.0.0.1:%s/abort;%s' % (activeport, apikey)
+            # リクエスト
+            res = urllib.urlopen(abort_url)
+            data = res.read()
+            res.close()
+            return data
 
     @staticmethod
     def proxy(url='', headers={}):
@@ -58,29 +61,35 @@ class LocalProxy(HTTPServer):
         activeport = Const.GET('activeport')
         # APIキー
         apikey = Const.GET('apikey')
-        # URLを生成
-        params = {'_': url}
-        params.update(headers)
-        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (activeport, apikey, urllib.urlencode(params))
-        return proxy_url
+        # 通常起動時
+        if activeport and apikey:
+            # URLを生成
+            params = {'_': url}
+            params.update(headers)
+            proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (activeport, apikey, urllib.urlencode(params))
+            return proxy_url
 
     @staticmethod
     def parse(proxy_url):
+        # ポート番号
+        activeport = Const.GET('activeport')
         # APIキー
         apikey = Const.GET('apikey')
-        # ソースURLとリクエストヘッダの既定値
-        url = proxy_url
-        headers = {}
-        # プロキシURLを展開
-        parsed = urlparse.urlparse(proxy_url)
-        # URLのパスとAPIキーが一致したらソースURLとリクエストヘッダを抽出する
-        if parsed.path == '/proxy' and parsed.params == apikey:
-            for key, val in urlparse.parse_qs(parsed.query, keep_blank_values=True).items():
-                if key == '_':
-                    url = val[0]
-                else:
-                    headers[key] = val[0]
-        return url, headers
+        # 通常起動時
+        if activeport and apikey:
+            # ソースURLとリクエストヘッダの既定値
+            url = proxy_url
+            headers = {}
+            # プロキシURLを展開
+            parsed = urlparse.urlparse(proxy_url)
+            # URLのパスとAPIキーが一致したらソースURLとリクエストヘッダを抽出する
+            if parsed.path == '/proxy' and parsed.params == apikey:
+                for key, val in urlparse.parse_qs(parsed.query, keep_blank_values=True).items():
+                    if key == '_':
+                        url = val[0]
+                    else:
+                        headers[key] = val[0]
+            return url, headers
 
 
 class LocalProxyHandler(SimpleHTTPRequestHandler):
