@@ -13,8 +13,6 @@ from ..common import *
 
 class LocalProxy(HTTPServer):
 
-    # ポート番号
-    DEFAULT_PORT = '8088'
     # 文字セット
     CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     # キーの長さ
@@ -22,24 +20,27 @@ class LocalProxy(HTTPServer):
 
     def __init__(self):
         # ポート番号
-        self.activeport = Const.GET('port') or LocalProxy.DEFAULT_PORT
-        # アクティブなポート番号として保存
-        Const.SET('activeport', self.activeport)
-        # APIキー
-        self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
-        # APIキーを保存
-        Const.SET('apikey', self.apikey)
-        # ログ
-        log('apikey initialized: %s' % self.apikey)
-        # HTTPServerを初期化
-        HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
+        self.activeport = Const.GET('port')
+        if self.activeport:
+            # アクティブなポート番号として保存
+            Const.SET('activeport', self.activeport)
+            # APIキー
+            self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
+            # APIキーを保存
+            Const.SET('apikey', self.apikey)
+            # ログ
+            log('apikey initialized: %s' % self.apikey)
+            # HTTPServerを初期化
+            HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
+        else:
+            notify('Restart Kodi to enable local proxy')
 
     @staticmethod
     def abort():
         # ポート番号
-        activeport = Const.GET('activeport') or LocalProxy.PORT
+        activeport = Const.GET('activeport')
         # APIキー
-        apikey = Const.GET('apikey') or LocalProxy.APIKEY
+        apikey = Const.GET('apikey')
         # URLを生成
         abort_url = 'http://127.0.0.1:%s/abort;%s' % (activeport, apikey)
         # リクエスト
@@ -51,9 +52,9 @@ class LocalProxy(HTTPServer):
     @staticmethod
     def proxy(url='', headers={}):
         # ポート番号
-        activeport = Const.GET('activeport') or LocalProxy.PORT
+        activeport = Const.GET('activeport')
         # APIキー
-        apikey = Const.GET('apikey') or LocalProxy.APIKEY
+        apikey = Const.GET('apikey')
         # URLを生成
         params = {'_': url}
         params.update(headers)
@@ -63,7 +64,7 @@ class LocalProxy(HTTPServer):
     @staticmethod
     def parse(proxy_url):
         # APIキー
-        apikey = Const.GET('apikey') or LocalProxy.APIKEY
+        apikey = Const.GET('apikey')
         # ソースURLとリクエストヘッダの既定値
         url = proxy_url
         headers = {}
