@@ -36,73 +36,28 @@ class Params:
 
 class Authenticate:
 
-    # ファイル
-    PLAYER_FILE  = os.path.join(Params.DATA_PATH, 'player.js')
-    AUTHKEY_FILE = os.path.join(Params.DATA_PATH, 'authkey.txt')
+    # キー
+    AUTH_KEY  = 'bcd151073c03b352e1ef2fd66c32209da9ca0afa'
     # URL
-    PLAYER_URL   = 'https://radiko.jp/apps/js/playerCommon.js'
-    AUTH1_URL    = 'https://radiko.jp/v2/api/auth1'
-    AUTH2_URL    = 'https://radiko.jp/v2/api/auth2'
+    AUTH1_URL = 'https://radiko.jp/v2/api/auth1'
+    AUTH2_URL = 'https://radiko.jp/v2/api/auth2'
 
     def __init__(self, renew=True):
-        # プレイヤーを取得
-        if renew or not os.path.isfile(self.PLAYER_FILE):
-            self.getPlayerFile()
-        # authkeyを取得してresponseを初期化
-        self.response = response = {'auth_key':self.getAuthKey(), 'auth_token':'', 'area_id':'', 'authed':0}
-        if response['auth_key']:
-            # auth_tokenを取得
-            response = self.appIDAuth(response)
-            if response and response['auth_token']:
-                # area_idを取得
-                response = self.challengeAuth(response)
-                if response and response['area_id']:
-                    response['authed'] = 1
-                    # インスタンス変数に格納
-                    self.response = response
-                else:
-                    log('challengeAuth failed.')
+        # responseを初期化
+        self.response = response = {'auth_key':self.AUTH_KEY, 'auth_token':'', 'area_id':'', 'authed':0}
+        # auth_tokenを取得
+        response = self.appIDAuth(response)
+        if response and response['auth_token']:
+            # area_idを取得
+            response = self.challengeAuth(response)
+            if response and response['area_id']:
+                response['authed'] = 1
+                # インスタンス変数に格納
+                self.response = response
             else:
-                log('appIDAuth failed.')
+                log('challengeAuth failed.')
         else:
-            log('getAuthKey failed.')
-
-    # auth_keyを取得
-    def getPlayerFile(self):
-        # PLAYERファイルを取得する
-        try:
-            # リクエスト
-            req = urllib2.Request(self.PLAYER_URL)
-            # レスポンス
-            res = urllib2.urlopen(req)
-        except Exception as e:
-            log(str(e), error=True)
-            return
-        # PLAYERファイルからauthkeyを抽出して保存
-        if res.code == 200:
-            # ファイル変更日時
-            mod = strptime(res.info().get('Last-Modified'), '%a, %d %b %Y %H:%M:%S GMT')
-            if os.path.isfile(self.PLAYER_FILE):
-                # 更新されていない場合はなにもしない
-                if mod <= datetime.datetime.fromtimestamp(int(os.path.getmtime(self.PLAYER_FILE))):
-                    return
-            # PLAYERをダウンロードしてファイルに書き込む
-            player = res.read()
-            write_file(self.PLAYER_FILE, player)
-            # タイムスタンプをLast-Modifiedの日時に設定する
-            os.utime(self.PLAYER_FILE, (-1, int(time.mktime(mod.timetuple()))))
-            # PLAYERファイルからauthkeyを取得
-            # player = new RadikoJSPlayer($audio[0], 'pc_html5', 'bcd151073c03b352e1ef2fd66c32209da9ca0afa', {
-            match = re.search(r'new\s+RadikoJSPlayer\(.*?,\s+\'(.*?)\',\s+\'(.*?)\',', player)
-            authkey = match.group(2) if match else ''
-            write_file(self.AUTHKEY_FILE, authkey)
-            log('player and authkey updated')
-        else:
-            log('player nor authkey unchanged (%d)' % res.code)
-
-    # authkeyを取得
-    def getAuthKey(self):
-        return read_file(self.AUTHKEY_FILE) or ''
+            log('appIDAuth failed.')
 
     # auth_tokenを取得
     def appIDAuth(self, response):

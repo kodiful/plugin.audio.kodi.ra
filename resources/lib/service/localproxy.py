@@ -7,28 +7,14 @@ import random
 import urllib, urllib2
 import urlparse
 
-if __name__  == '__main__':
-    # デバッグ用
-    class Const:
-        @staticmethod
-        def SET(attr, value):
-            return
-        @staticmethod
-        def GET(attr):
-            return
-    def log(message):
-        print(message)
-else:
-    from ..const import Const
-    from ..common import *
+from ..const import Const
+from ..common import *
 
 
 class LocalProxy(HTTPServer):
 
-    # ポート番号（デバッグ用）
-    PORT = '8088'
-    # APIキー（デバッグ用）
-    APIKEY = '12345678'
+    # ポート番号
+    DEFAULT_PORT = '8088'
     # 文字セット
     CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     # キーの長さ
@@ -36,25 +22,17 @@ class LocalProxy(HTTPServer):
 
     def __init__(self):
         # ポート番号
-        self.activeport = Const.GET('port') or LocalProxy.PORT
+        self.activeport = Const.GET('port') or LocalProxy.DEFAULT_PORT
         # アクティブなポート番号として保存
         Const.SET('activeport', self.activeport)
         # APIキー
-        self.apikey = self.newkey()
+        self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
         # APIキーを保存
         Const.SET('apikey', self.apikey)
         # ログ
         log('apikey initialized: %s' % self.apikey)
         # HTTPServerを初期化
         HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
-
-    @staticmethod
-    def newkey():
-        if __name__  == '__main__':
-            apikey = LocalProxy.APIKEY
-        else:
-            apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
-        return apikey
 
     @staticmethod
     def abort():
@@ -156,17 +134,12 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
                     self.do_respond(200, 'OK')
                     # APIキーを削除
                     self.server.apikey = ''
+                elif parsed.path == '/hello':
+                    # レスポンス
+                    self.do_respond(200, 'OK')
                 else:
                     self.do_respond(404, 'Not Found')
             else:
                 self.do_respond(403, 'Forbidden')
         except:
             self.do_respond(500, 'Internal Server Error')
-
-
-if __name__  == '__main__':
-    # ローカルプロキシ
-    httpd = LocalProxy()
-    # リクエストを処理する
-    while httpd.apikey:
-        httpd.handle_request()
