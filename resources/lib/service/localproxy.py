@@ -26,7 +26,7 @@ else:
 class LocalProxy(HTTPServer):
 
     # ポート番号（デバッグ用）
-    PORT = 8088
+    PORT = '8088'
     # APIキー（デバッグ用）
     APIKEY = '12345678'
     # 文字セット
