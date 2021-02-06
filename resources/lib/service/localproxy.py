@@ -33,6 +33,9 @@ class LocalProxy(HTTPServer):
             # HTTPServerを初期化
             HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
         else:
+            # APIキー
+            self.apikey = None
+            # Kodi再起動を通知
             notify('Restart Kodi to enable local proxy')
 
     @staticmethod
