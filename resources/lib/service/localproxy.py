@@ -6,6 +6,7 @@ from BaseHTTPServer import HTTPServer
 import random
 import urllib, urllib2
 import urlparse
+import socket
 
 from ..const import Const
 from ..common import *
@@ -23,21 +24,31 @@ class LocalProxy(HTTPServer):
         self.activeport = Const.GET('port')
         # ポート番号が取得できたらHTTPサーバを準備する
         if self.activeport:
-            # アクティブなポート番号として保存
-            Const.SET('activeport', self.activeport)
-            # APIキー
-            self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
-            # APIキーを保存
-            Const.SET('apikey', self.apikey)
-            # ログ
-            log('apikey initialized: %s' % self.apikey)
-            # HTTPサーバを初期化
-            HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
+            # ポートが利用可能か確認する
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = s.connect_ex(('127.0.0.1', int(self.activeport)))
+            s.close()
+            if result > 0:
+                # アクティブなポート番号として保存
+                Const.SET('activeport', self.activeport)
+                # APIキー
+                self.apikey = ''.join([LocalProxy.CHARSET[random.randrange(len(LocalProxy.CHARSET))] for i in range(LocalProxy.LENGTH)])
+                # APIキーを保存
+                Const.SET('apikey', self.apikey)
+                # ログ
+                log('apikey initialized: %s' % self.apikey)
+                # HTTPサーバを初期化
+                HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
+            else:
+                # ポート番号が利用できない場合はローカルプロキシの設定変更を促す
+                self.apikey = None
+                # 通知メッセージ
+                self.message = 'Local proxy port %s is busy' % self.activeport
         else:
             # ポート番号が取得できないインストール直後はKodiの再起動を促す
             self.apikey = None
-            # Kodi再起動を通知
-            #notify('Restart Kodi to enable local proxy')
+            # 通知メッセージ
+            self.message = 'Restart Kodi to enable local proxy'
 
     @staticmethod
     def abort():

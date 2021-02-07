@@ -25,6 +25,6 @@ if __name__  == '__main__':
         # ローカルプロキシを起動
         while httpd.apikey:
             httpd.handle_request()
-    else:
-        # インストール直後などAPIキーが設定できなかったときはKodiの再起動を促す
-        notify('Restart Kodi to enable local proxy')
+    elif httpd.message:
+        # インストール直後やポート番号が競合している場合などAPIキーが設定できなかったときは通知する
+        notify(httpd.message)
