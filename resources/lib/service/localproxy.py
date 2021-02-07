@@ -21,7 +21,7 @@ class LocalProxy(HTTPServer):
     def __init__(self):
         # ポート番号
         self.activeport = Const.GET('port')
-        # 通常起動時
+        # ポート番号が取得できたらHTTPサーバを準備する
         if self.activeport:
             # アクティブなポート番号として保存
             Const.SET('activeport', self.activeport)
@@ -31,13 +31,13 @@ class LocalProxy(HTTPServer):
             Const.SET('apikey', self.apikey)
             # ログ
             log('apikey initialized: %s' % self.apikey)
-            # HTTPServerを初期化
+            # HTTPサーバを初期化
             HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
         else:
-            # APIキー
+            # ポート番号が取得できないインストール直後はKodiの再起動を促す
             self.apikey = None
             # Kodi再起動を通知
-            notify('Restart Kodi to enable local proxy')
+            #notify('Restart Kodi to enable local proxy')
 
     @staticmethod
     def abort():
