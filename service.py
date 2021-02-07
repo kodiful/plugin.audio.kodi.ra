@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+rom resources.lib.const import Const
+from resources.lib.common import *
+
 from resources.lib.service.service import Service
 from resources.lib.service.localproxy import LocalProxy
 
