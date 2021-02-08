@@ -125,7 +125,10 @@ foreach (glob("*.mp3") as $filename) {
       $t = strptime($json['ft'], "%Y%m%d%H%M%S");
       $starttime = mktime($t['tm_hour'], $t['tm_min'], $t['tm_sec'], $t['tm_mon']+1, $t['tm_mday'], $t['tm_year']+1900);
       // title
-      $title = htmlspecialchars(htmlspecialchars_decode($json['title']));
+      $title = $json['title'];
+      $title .= ' ';
+      $title .= strftime('%F', $starttime);
+      $title = htmlspecialchars(htmlspecialchars_decode($title));
       $source = str_replace("{title}", $title, $source);
       // startdate
       $startdate = strftime('%a, %d %b %Y %H:%M:%S +0900', $starttime);
