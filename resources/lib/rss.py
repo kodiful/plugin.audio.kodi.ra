@@ -13,6 +13,9 @@ from xml.sax.saxutils import escape, unescape
 class Params:
     # ファイルパス
     RSS_FILE = os.path.join(Const.DOWNLOAD_PATH, 'rss.xml')
+    # URL
+    RSS_URL  = Const.GET('rss_url')
+    if RSS_URL and not RSS_URL.endswith('/'): RSS_URL = RSS_URL+'/'
 
 
 class RSS:
@@ -30,7 +33,12 @@ class RSS:
         # rssファイルを生成する
         with open(Params.RSS_FILE, 'w') as f:
             # header
-            f.write(header.format(image='icon.png'))
+            f.write(
+                header.format(
+                    image='icon.png',
+                    root=Params.RSS_URL
+                )
+            )
             # body
             plist = []
             for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
@@ -65,6 +73,7 @@ class RSS:
                         title=title,
                         gtvid=gtvid,
                         url=p.get('url',''),
+                        root=Params.RSS_URL,
                         source=source,
                         startdate=startdate,
                         name=p['name'],

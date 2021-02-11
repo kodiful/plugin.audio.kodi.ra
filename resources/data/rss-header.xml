@@ -13,8 +13,8 @@
     <copyright></copyright>
     <description></description>
     <image>
-      <url>{image}</url>
+      <url>{root}{image}</url>
       <link>http://kodiful.com/radio/</link>
       <title>KodiRa</title>
     </image>
-    <itunes:image href="{image}" />
+    <itunes:image href="{root}{image}" />

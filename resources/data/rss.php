@@ -17,11 +17,11 @@ $header = <<<EOF
     <copyright></copyright>
     <description></description>
     <image>
-      <url>{image}</url>
+      <url>{root}{image}</url>
       <link>http://kodiful.com/radio/</link>
       <title>{rsstitle}</title>
     </image>
-    <itunes:image href="{image}" />
+    <itunes:image href="{root}{image}" />
 EOF;
 
 $body = <<<EOF
@@ -34,7 +34,7 @@ $body = <<<EOF
       <guid>{gtvid}</guid>
       <source>{name}</source>
       <author>{name}</author>
-      <enclosure url="{source}" length="{filesize}" type="audio/mp3" />
+      <enclosure url="{root}{source}" length="{filesize}" type="audio/mp3" />
       <itunes:explicit>no</itunes:explicit>
       <itunes:duration>{duration}</itunes:duration>
       <itunes:summary>{description}</itunes:summary>
@@ -53,6 +53,18 @@ header("Content-Type: application/xml");
 date_default_timezone_set('Asia/Tokyo');
 $results = array();
 
+// URLから抽出
+if($_SERVER['HTTPS']) {
+  $root = "https://";
+} else {
+  $root = "http://";
+}
+$root .= $_SERVER['SERVER_NAME'];
+if($_SERVER['SERVER_PORT'] != '80') {
+  $root .= ":" . $_SERVER['SERVER_PORT'];
+}
+$root .= preg_replace('/rss\.php$/', '', $_SERVER['SCRIPT_NAME']);
+
 // RSSヘッダを出力
 $source = $header;
 if(isset($_GET['title_or_description'])) {
@@ -66,6 +78,7 @@ if(isset($_GET['title_or_description'])) {
 } else {
   $source = str_replace("{rsstitle}", "KodiRa", $source);
 }
+$source = str_replace("{root}", $root, $source);
 $source = str_replace("{image}", "icon.png", $source);
 echo $source;
 
@@ -129,6 +142,7 @@ foreach (glob("*.mp3") as $filename) {
       $description = htmlspecialchars(htmlspecialchars_decode($json['description']));
       $source = str_replace("{description}", $description, $source);
       // others
+      $source = str_replace("{root}", $root, $source);
       $source = str_replace("{source}", $filename . ".mp3", $source);
       $source = str_replace("{url}", $json['url'], $source);
       $source = str_replace("{gtvid}", $json['gtvid'], $source);
