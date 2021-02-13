@@ -186,23 +186,27 @@ class Keywords:
         return True
 
     def __save_qrcode(self, key):
-        rss_url = Const.GET('rss_url')
-        if rss_url.startswith('http://') or rss_url.startswith('https://'):
-            url = self.rss.key2url(key)
-            if url:
-                qrcodepath = os.path.join(Const.MEDIA_PATH, 'key_%s.png' % self.rss.key2name(key))
-                if not os.path.isfile(qrcodepath):
-                    # QRコードを生成
-                    qr = QRCode(version=1, box_size=10, border=4)
-                    qr.add_data(re.sub(r'^http(s?)://', 'podcast://', url))
-                    qr.make(fit=True)
-                    qr.make_image(fill_color="black", back_color="white").save(qrcodepath, 'PNG')
-                    # DBから画像のキャッシュを削除
-                    conn = sqlite.connect(Const.CACHE_DB)
-                    conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % qrcodepath)
-                    conn.commit()
-                    conn.close()
-                return qrcodepath
+        rss = Const.GET('rss')
+        if rss == 'true':
+            rss_url = Const.GET('rss_url')
+            if rss_url.startswith('http://') or rss_url.startswith('https://'):
+                url = self.rss.key2url(key)
+                if url:
+                    qrcodepath = os.path.join(Const.MEDIA_PATH, 'key_%s.png' % self.rss.key2name(key))
+                    if not os.path.isfile(qrcodepath):
+                        # QRコードを生成
+                        qr = QRCode(version=1, box_size=10, border=4)
+                        qr.add_data(re.sub(r'^http(s?)://', 'podcast://', url))
+                        qr.make(fit=True)
+                        qr.make_image(fill_color="black", back_color="white").save(qrcodepath, 'PNG')
+                        # DBから画像のキャッシュを削除
+                        conn = sqlite.connect(Const.CACHE_DB)
+                        conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % qrcodepath)
+                        conn.commit()
+                        conn.close()
+                    return qrcodepath
+                else:
+                    return ''
             else:
                 return ''
         else:
