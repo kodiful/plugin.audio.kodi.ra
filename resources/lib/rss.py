@@ -16,9 +16,23 @@ class RSS:
 
     def __init__(self):
         # for backward compatibility
-        if Const.GET('rss') == 'false': Const.SET('rss', '0')
+        rss = Const.GET('rss')
+        if rss == 'true' or rss == 'false':
+            pass
+        elif rss == '0':
+            Const.SET('rss', 'false')
+        else:
+            Const.SET('rss', 'true')
+            Const.SET('rss_num', rss)
         # rss root
-        self.rss_root  = os.path.dirname(Const.GET('rss_url'))
+        rss_url = Const.GET('rss_url')
+        if rss_url.startswith('http://') or rss_url.startswith('https://'):
+            if rss_url.endswith('/'):
+                pass
+            else:
+                rss_url = '%s/' % rss_url
+                Const.SET('rss_url', rss_url)
+        self.rss_root  = os.path.dirname(rss_url)
 
     def key2name(self, key):
         return md5(key).hexdigest()
@@ -39,7 +53,7 @@ class RSS:
         if key:
             limit = None
         else:
-            limit = Const.GET('rss')
+            limit = Const.GET('rss_num') or 'unlimited'
             limit = None if limit == 'unlimited' else int(limit)
         # RSSファイルを生成する
         with open(filepath, 'w') as f:
