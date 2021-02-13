@@ -149,7 +149,7 @@ if __name__  == '__main__':
 
     # RSS
     elif action == 'updateRSS':
-        RSS().create()
+        RSS().create(args['key'])
 
     # キーワードの追加、変更、削除
     elif action == 'addKeyword':

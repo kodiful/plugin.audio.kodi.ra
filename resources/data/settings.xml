@@ -40,7 +40,7 @@
     <!--RSS-->
     <setting label="30409" id="rss" type="labelenum" values="0|5|10|20|50|100|unlimited" default="unlimited" enable="eq(-5,true)+!eq(-3,)" visible="eq(-7,Darwin)|eq(-7,Windows)"/>
     <setting label="30410" id="rss_url" type="text" default="" enable="!eq(-1,0)+eq(-6,true)+!eq(-4,)" visible="eq(-8,Darwin)|eq(-8,Windows)"/>
-    <setting label="30411" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS)" enable="!eq(-2,0)+eq(-7,true)+!eq(-5,)" visible="eq(-9,Darwin)|eq(-9,Windows)"/>
+    <setting label="30411" type="action" option="close" action="RunPlugin(plugin://$ID/?action=updateRSS&key=)" enable="!eq(-2,0)+eq(-7,true)+!eq(-5,)" visible="eq(-9,Darwin)|eq(-9,Windows)"/>
   </category>
   <category label="30500">
     <setting id="id" type="text" visible="false"/>

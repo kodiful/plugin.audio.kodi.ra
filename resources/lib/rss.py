@@ -14,9 +14,6 @@ from xml.sax.saxutils import escape, unescape
 
 class RSS:
 
-    DEFAULT_FILE_NAME = 'rss.xml'
-    DIR_NAME = 'rss'
-
     def __init__(self):
         # for backward compatibility
         if Const.GET('rss') == 'false': Const.SET('rss', '0')
@@ -26,11 +23,11 @@ class RSS:
     def key2name(self, key):
         return md5(key).hexdigest()
 
-    def key2file(self, key):
-        return '%s.xml' % self.key2name(key)
+    def key2file(self, key=''):
+        return 'rss_%s.xml' % self.key2name(key) if key else 'rss.xml'
 
-    def key2url(self, key):
-        return '%s/%s/%s' % (self.rss_root, RSS.DIR_NAME, self.key2file(key)) if self.rss_root else ''
+    def key2url(self, key=''):
+        return '%s/%s' % (self.rss_root, self.key2file(key)) if self.rss_root else ''
 
     def create(self, key=None):
         # テンプレート
@@ -38,13 +35,10 @@ class RSS:
         body = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-body.xml'))
         footer = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-footer.xml'))
         # RSSファイルパス、アイテム数
+        filepath = os.path.join(Const.DOWNLOAD_PATH, self.key2file(key))
         if key:
-            rssdir = os.path.join(Const.DOWNLOAD_PATH, RSS.DIR_NAME)
-            if not os.path.isdir(rssdir): os.makedirs(rssdir)
-            filepath = os.path.join(rssdir, self.key2file(key))
             limit = None
         else:
-            filepath = os.path.join(Const.DOWNLOAD_PATH, RSS.DEFAULT_FILE_NAME)
             limit = Const.GET('rss')
             limit = None if limit == 'unlimited' else int(limit)
         # RSSファイルを生成する
