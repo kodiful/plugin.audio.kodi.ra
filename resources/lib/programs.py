@@ -2,7 +2,7 @@
 
 from const import Const
 from common import *
-from xmltodict import parse
+from ext.xmltodict import parse
 
 import os
 import sys
@@ -21,8 +21,8 @@ from hashlib import md5
 from PIL import Image
 from cStringIO import StringIO
 
-from resources.lib.downloads import Downloads
-from resources.lib.keywords  import Keywords
+from downloads import Downloads
+from keywords  import Keywords
 
 
 class Params:

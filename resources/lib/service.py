@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from ..const import Const
-from ..common import *
-
-from ..compatibility import Compatibility
+from const import Const
+from common import *
 
 import os
 import platform
 import xbmc, xbmcgui
 from hashlib import md5
 
-from ..cp.radiko import Radiko, Authenticate
-from ..cp.radiru import Radiru
-from ..cp.jcba   import Jcba
-from ..cp.misc   import Misc
-
-from ..programs  import Programs
-from ..downloads import Downloads
-
-from .localproxy import LocalProxy
+from compatibility import Compatibility
+from cp import Radiko, Authenticate, Radiru, Jcba, Misc
+from programs import Programs
+from downloads import Downloads
+from localproxy import LocalProxy
 
 
 class Monitor(xbmc.Monitor):

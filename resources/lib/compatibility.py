@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .const import Const
-from .common import *
-from .rss import RSS
+from const import Const
+from common import *
+from rss import RSS
 
 import re
 import glob

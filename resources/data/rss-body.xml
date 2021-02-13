@@ -7,7 +7,7 @@
       <guid>{gtvid}</guid>
       <source>{name}</source>
       <author>{name}</author>
-      <enclosure url="{root}{source}" length="{filesize}" type="audio/mp3" />
+      <enclosure url="{root}/{source}" length="{filesize}" type="audio/mp3" />
       <itunes:explicit>no</itunes:explicit>
       <itunes:duration>{duration}</itunes:duration>
       <itunes:summary>{description}</itunes:summary>
