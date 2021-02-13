@@ -55,7 +55,8 @@ class Keywords:
             poster = self.__save_qrcode(s['key']) or 'DefaultFolder.png'
             # listitemを追加
             li = xbmcgui.ListItem(s['key'])
-            li.setArt({'icon':'DefaultFolder.png', 'thumb':'DefaultFolder.png', 'poster':poster})
+            li.setIconImage('DefaultFolder.png')
+            li.setArt({'thumb':poster, 'poster':poster})
             # context menu
             contextmenu = []
             contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
