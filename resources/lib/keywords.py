@@ -44,6 +44,8 @@ class Keywords:
         xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showPrograms' % sys.argv[0], listitem=li, isFolder=True)
         # すべての保存済み番組
         li = xbmcgui.ListItem(Const.STR(30317), iconImage='DefaultFolder.png', thumbnailImage='DefaultFolder.png')
+        qrcode = self.__save_qrcode('') or 'DefaultFolder.png' # QRコード
+        li.setArt({'icon':'DefaultFolder.png', 'thumb':qrcode, 'poster':qrcode})
         # アドオン設定
         contextmenu = []
         contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
@@ -51,12 +53,10 @@ class Keywords:
         xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % sys.argv[0], listitem=li, isFolder=True)
         # キーワードを表示
         for i, s in enumerate(self.keywords):
-            # QRコードをサムネイルにする
-            poster = self.__save_qrcode(s['key']) or 'DefaultFolder.png'
             # listitemを追加
             li = xbmcgui.ListItem(s['key'])
-            li.setIconImage('DefaultFolder.png')
-            li.setArt({'thumb':poster, 'poster':poster})
+            qrcode = self.__save_qrcode(s['key']) or 'DefaultFolder.png' # QRコード
+            li.setArt({'icon':'DefaultFolder.png', 'thumb':qrcode, 'poster':qrcode})
             # context menu
             contextmenu = []
             contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
