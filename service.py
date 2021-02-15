@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 
+# HTTP接続のタイムアウト(秒)を設定
+import socket
+socket.setdefaulttimeout(60)
+
 # extディレクトリをパスに追加
 import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'lib', 'ext'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'ext'))
 
-from resources.lib.const import Const
+from resources.lib.const import *
 from resources.lib.common import *
-
 from resources.lib.service import Service
 from resources.lib.localproxy import LocalProxy
 
 import threading
-
-# HTTP接続におけるタイムアウト(秒)
-import socket
-socket.setdefaulttimeout(60)
 
 
 if __name__  == '__main__':

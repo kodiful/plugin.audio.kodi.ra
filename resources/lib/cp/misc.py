@@ -2,7 +2,7 @@
 
 from jcba import Jcba
 
-from resources.lib.const import Const
+from resources.lib.const import *
 from resources.lib.common import *
 
 import os

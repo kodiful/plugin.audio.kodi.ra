@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from const import Const
+from const import *
 from common import *
 
 import random

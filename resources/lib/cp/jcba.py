@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from resources.lib.const import Const
+from resources.lib.const import *
 from resources.lib.common import *
 
 import os
@@ -8,9 +8,9 @@ import os
 
 class Params:
     # 放送局データ
-    STATION_FILE = os.path.join(Const.TEMPLATE_PATH, 'jcba', 'station.json')
+    STATION_FILE = os.path.join(Const.TEMPLATE_PATH, 'cp', 'jcba', 'station.json')
     # 設定ダイアログ
-    SETTINGS_FILE = os.path.join(Const.TEMPLATE_PATH, 'jcba', 'settings.xml')
+    SETTINGS_FILE = os.path.join(Const.TEMPLATE_PATH, 'cp', 'jcba', 'settings.xml')
 
 
 class Jcba(Params):
