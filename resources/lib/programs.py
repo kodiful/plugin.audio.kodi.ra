@@ -11,6 +11,7 @@ import os
 import sys
 import glob
 import re
+import json
 import urllib
 import datetime, time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
@@ -264,18 +265,19 @@ class Programs:
             contextmenu = []
             # 番組情報を更新
             contextmenu.append((Const.STR(30055), 'Container.Update(%s?action=updatePrograms,replace)' % sys.argv[0]))
-            # ダウンロード設定
+            # ダウンロード、保存キーワード設定
             if Const.GET('download') == 'true':
-                for i, p in enumerate(s['programs'] or []):
-                    if p['ft'].isdigit() and p['to'].isdigit():
-                        # 保存
-                        if i==0: menu = Params.TITLE_KK % (Const.STR(30056),p['title'])
-                        if i>0:  menu = Params.TITLE_LG % (Const.STR(30056),p['title'])
-                        contextmenu.append((menu, 'RunPlugin({url}?action=enqueueDownload&{query})'.format(url=sys.argv[0], query=urllib.urlencode(p))))
-                        # キーワード追加
-                        if i==0: menu = Params.TITLE_KK % (Const.STR(30057),p['title'])
-                        if i>0:  menu = Params.TITLE_LG % (Const.STR(30057),p['title'])
-                        contextmenu.append((menu, 'RunPlugin({url}?action=addKeyword&{query})'.format(url=sys.argv[0], query=urllib.urlencode(p))))
+                menu = map(
+                    lambda p: (p['title'], urllib.urlencode(p)),
+                    filter(lambda p: p['ft'].isdigit() and p['to'].isdigit(), s['programs'] or [])
+                )
+                if menu:
+                    contextmenu.append((Const.STR(30056), 'RunPlugin({url}?action=selectAction&{query})'.format(
+                        url=sys.argv[0],
+                        query=urllib.urlencode({'data':json.dumps(menu), 'prompt':Const.STR(30060), 'nextaction':'enqueueDownload'}))))
+                    contextmenu.append((Const.STR(30057), 'RunPlugin({url}?action=selectAction&{query})'.format(
+                        url=sys.argv[0],
+                        query=urllib.urlencode({'data':json.dumps(menu), 'prompt':Const.STR(30061), 'nextaction':'addKeyword'}))))
             # ラジオ設定
             if s['id'].find('misc_') == 0:
                 # 変更
@@ -290,6 +292,12 @@ class Programs:
             xbmcplugin.addDirectoryItem(int(sys.argv[1]), s['stream'], listitem=li, isFolder=False)
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
+
+    def select(self, prompt, nextaction, data):
+        menu, params = zip(*json.loads(data))
+        selection = xbmcgui.Dialog().select(prompt, menu)
+        if selection > -1:
+            xbmc.executebuiltin('RunPlugin(%s?action=%s&%s)' % (sys.argv[0], nextaction, params[selection]))
 
     def match(self, pending_programs=[]):
         # 開始時間、終了時間が規定されている番組について照合

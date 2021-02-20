@@ -211,6 +211,8 @@ if __name__  == '__main__':
     elif action == 'updatePrograms':
         Cache().update(renew=True)
         Programs().show()
+    elif action == 'selectAction':
+        Programs().select(args['prompt'], args['nextaction'], args['data'])
 
     # 未定義
     else:
