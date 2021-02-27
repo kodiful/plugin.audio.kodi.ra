@@ -3,75 +3,61 @@
 from const import Const
 from common import *
 
-import sys
 import os
 import glob
 import shutil
 
-from hashlib import md5
 from xml.sax.saxutils import escape, unescape
+
+
+class Params:
+    # ファイルパス
+    RSS_FILE = os.path.join(Const.DOWNLOAD_PATH, 'rss.xml')
+    # URL
+    RSS_URL  = Const.GET('rss_url')
+    if RSS_URL and not RSS_URL.endswith('/'): RSS_URL = RSS_URL+'/'
 
 
 class RSS:
 
-    DEFAULT_FILE_NAME = 'rss.xml'
-    DIR_NAME = 'rss'
-
     def __init__(self):
         # for backward compatibility
         if Const.GET('rss') == 'false': Const.SET('rss', '0')
-        # rss root
-        self.rss_root  = os.path.dirname(Const.GET('rss_url'))
 
-    def key2name(self, key):
-        return md5(key).hexdigest()
-
-    def key2file(self, key):
-        return '%s.xml' % self.key2name(key)
-
-    def key2url(self, key):
-        return '%s/%s/%s' % (self.rss_root, RSS.DIR_NAME, self.key2file(key)) if self.rss_root else ''
-
-    def create(self, key=None):
+    def create(self):
+        if Const.GET('rss') == '0': return
         # テンプレート
-        header = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-header.xml'))
-        body = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-body.xml'))
-        footer = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-footer.xml'))
-        # RSSファイルパス、アイテム数
-        if key:
-            rssdir = os.path.join(Const.DOWNLOAD_PATH, RSS.DIR_NAME)
-            if not os.path.isdir(rssdir): os.makedirs(rssdir)
-            filepath = os.path.join(rssdir, self.key2file(key))
-            limit = None
-        else:
-            filepath = os.path.join(Const.DOWNLOAD_PATH, RSS.DEFAULT_FILE_NAME)
-            limit = Const.GET('rss')
-            limit = None if limit == 'unlimited' else int(limit)
-        # RSSファイルを生成する
-        with open(filepath, 'w') as f:
+        header = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-header.xml'))
+        body = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-body.xml'))
+        footer = read_file(os.path.join(Const.TEMPLATE_PATH,'rss-footer.xml'))
+        # rssファイルを生成する
+        with open(Params.RSS_FILE, 'w') as f:
             # header
             f.write(
                 header.format(
-                    title=key or 'KodiRa',
                     image='icon.png',
-                    root=self.rss_root))
+                    root=Params.RSS_URL
+                )
+            )
             # body
-            contents = []
+            plist = []
             for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
                 json_file = file
                 mp3_file = file.replace('.json', '.mp3')
                 if os.path.isfile(mp3_file):
-                    contents.append(read_json(json_file))
-            # keyが指定されていたらフィルタ
-            if key: contents = filter(lambda p: p['key']==key, contents)
+                    plist.append(read_json(json_file))
             # 開始時間の降順に各番組情報を書き込む
-            for p in sorted(contents, key=lambda item: item['ft'], reverse=True)[:limit]:
+            limit = Const.GET('rss')
+            limit = None if limit == 'unlimited' else int(limit)
+            for p in sorted(plist, key=lambda item: item['ft'], reverse=True)[:limit]:
                 # title
                 title = self.escape(p['title'])
+                # gtvid
+                gtvid = p['gtvid']
                 # source
-                source = '%s.mp3' % p['gtvid']
+                source = gtvid + '.mp3'
                 # file
-                mp3_file = os.path.join(Const.DOWNLOAD_PATH, source)
+                mp3_file = os.path.join(Const.DOWNLOAD_PATH, gtvid + '.mp3')
                 # startdate
                 startdate = strptime(p['ft'],'%Y%m%d%H%M%S').strftime('%a, %d %b %Y %H:%M:%S +0900')
                 # duration
@@ -85,23 +71,28 @@ class RSS:
                 f.write(
                     body.format(
                         title=title,
-                        gtvid=p['gtvid'],
+                        gtvid=gtvid,
                         url=p.get('url',''),
-                        root=self.rss_root,
+                        root=Params.RSS_URL,
                         source=source,
                         startdate=startdate,
                         name=p['name'],
                         duration=duration,
                         filesize=filesize,
-                        description=description))
+                        description=description
+                    )
+                )
             # footer
             f.write(footer)
         # アイコン画像がRSSから参照できるように、画像をダウンロードフォルダにコピーする
         shutil.copy(os.path.join(Const.PLUGIN_PATH, 'icon.png'), os.path.join(Const.DOWNLOAD_PATH, 'icon.png'))
         # copy stylesheet
         shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'stylesheet.xsl'), os.path.join(Const.DOWNLOAD_PATH, 'stylesheet.xsl'))
+        # copy php script
+        shutil.copy(os.path.join(Const.TEMPLATE_PATH, 'rss.php'), os.path.join(Const.DOWNLOAD_PATH, 'rss.php'))
 
-    def escape(self, text):
+    @staticmethod
+    def escape(text):
         text = unescape(text, entities={'&quot;':'"'})
         text = escape(text, entities={'"':'&quot;'})
         return text

@@ -2,11 +2,11 @@
 
 from jcba import Jcba
 
-from resources.lib.const import Const
-from resources.lib.common import *
-from resources.lib.localproxy import LocalProxy
+from ..const import Const
+from ..common import *
+from ..xmltodict import parse
 
-from xmltodict import parse
+from ..service.localproxy import LocalProxy
 
 import os
 import time, datetime

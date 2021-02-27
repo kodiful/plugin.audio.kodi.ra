@@ -2,10 +2,9 @@
 
 from jcba import Jcba
 
-from resources.lib.const import Const
-from resources.lib.common import *
-
-from xmltodict import parse
+from ..const import Const
+from ..common import *
+from ..xmltodict import parse
 
 import os
 import re

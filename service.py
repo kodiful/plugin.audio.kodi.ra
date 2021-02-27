@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# extディレクトリをパスに追加
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'lib', 'ext'))
-
 from resources.lib.const import Const
 from resources.lib.common import *
 
-from resources.lib.service import Service
-from resources.lib.localproxy import LocalProxy
+from resources.lib.service.service import Service
+from resources.lib.service.localproxy import LocalProxy
 
 import threading
 

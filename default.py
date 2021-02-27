@@ -5,10 +5,12 @@ from resources.lib.common import *
 
 from service import Service
 
+import sys
+import os
 import urlparse
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
-from resources.lib.cp        import Misc
+from resources.lib.cp.misc   import Misc
 from resources.lib.programs  import Programs
 from resources.lib.downloads import Downloads
 from resources.lib.keywords  import Keywords

@@ -1,31 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from const import Const
-from common import *
+from .const import Const
+from .common import *
 
 import os
 import sys
 import json
 import re
 import glob
-import urllib
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 from downloads import Downloads
-from rss import RSS
-
-try:
-    from sqlite3 import dbapi2 as sqlite
-except:
-    from pysqlite2 import dbapi2 as sqlite
-
-from qrcode import QRCode
 
 
 class Keywords:
 
     def __init__(self):
-        self.rss = RSS()
         self.read()
 
     def read(self):
@@ -51,11 +41,8 @@ class Keywords:
         xbmcplugin.addDirectoryItem(int(sys.argv[1]), '%s?action=showContents&key=' % sys.argv[0], listitem=li, isFolder=True)
         # キーワードを表示
         for i, s in enumerate(self.keywords):
-            # QRコードをサムネイルにする
-            thumbnail = self.__save_qrcode(s['key']) or 'DefaultFolder.png'
             # listitemを追加
-            li = xbmcgui.ListItem(s['key'])
-            li.setArt({'icon':'DefaultFolder.png', 'thumb':thumbnail})
+            li = xbmcgui.ListItem(s['key'], iconImage='DefaultFolder.png', thumbnailImage='DefaultPlaylist.png')
             # context menu
             contextmenu = []
             contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
@@ -129,19 +116,16 @@ class Keywords:
 
     def match(self, p):
         for k in self.keywords:
-            if self.__match(p, k): return k
-
-    def __match(self, p, k):
-        # キーワードを照合
-        if self.__match_keyword(k, p) == False: return False
-        # 曜日を照合
-        if self.__match_day(k, p) == False: return False
-        # 放送局を照合
-        if self.__match_station(k, p) == False: return False
-        # 重複をチェック
-        if self.__match_duplicate(k, p) == False: return False
-        # すべてクリアしたら採用
-        return True
+            # キーワードを照合
+            if self.__match_keyword(k, p) == False: continue
+            # 曜日を照合
+            if self.__match_day(k, p) == False: continue
+            # 放送局を照合
+            if self.__match_station(k, p) == False: continue
+            # 重複をチェック
+            if self.__match_duplicate(k, p) == False: continue
+            # すべてクリアしたキーワードを返す
+            return k
 
     def __match_keyword(self, k, p):
         if k['key']:
@@ -182,22 +166,3 @@ class Keywords:
                         # 番組名と詳細情報が一致する
                         return False
         return True
-
-    def __save_qrcode(self, key):
-        url = self.rss.key2url(key)
-        if url:
-            qrcodepath = os.path.join(Const.MEDIA_PATH, 'key_%s.png' % self.rss.key2name(key))
-            if not os.path.isfile(qrcodepath):
-                # QRコードを生成
-                qr = QRCode(version=1, box_size=10, border=4)
-                qr.add_data(re.sub(r'^http(s?)://', 'podcast://', url))
-                qr.make(fit=True)
-                qr.make_image(fill_color="black", back_color="white").save(qrcodepath, 'PNG')
-                # DBから画像のキャッシュを削除
-                conn = sqlite.connect(Const.CACHE_DB)
-                conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % qrcodepath)
-                conn.commit()
-                conn.close()
-            return qrcodepath
-        else:
-            return ''

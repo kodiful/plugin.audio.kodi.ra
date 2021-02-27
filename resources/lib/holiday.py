@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from const import Const
-from common import *
+from .const import Const
+from .common import *
 
 
 class Holiday:

@@ -7,14 +7,14 @@
     version="2.0" xml:lang="ja">
   <channel>
     <ttl>60</ttl>
-    <title>{title}</title>
+    <title>KodiRa</title>
     <link>http://kodiful.com/radio/</link>
     <language>ja</language>
     <copyright></copyright>
     <description></description>
     <image>
-      <url>{root}/{image}</url>
+      <url>{root}{image}</url>
       <link>http://kodiful.com/radio/</link>
       <title>KodiRa</title>
     </image>
-    <itunes:image href="{root}/{image}" />
+    <itunes:image href="{root}{image}" />

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from const import Const
-from common import *
-from holiday import Holiday
-from rss import RSS
+from .const import Const
+from .common import *
+from .holiday import Holiday
+from .rss import RSS
 
-from localproxy import LocalProxy
+from .service.localproxy import LocalProxy
 
 import datetime, time
 import os
@@ -301,10 +301,8 @@ class Downloads:
             if p.returncode == 0:
                 # 一時ファイルをリネーム
                 os.rename(data['tmp_file'], data['mp3_file'])
-                # 全コンテンツのrssファイル生成
+                # rssファイル生成
                 RSS().create()
-                # 対応するkey(=data['tit1'])のコンテンツrssファイル生成
-                if data['tit1']: RSS().create(data['tit1'])
                 # 完了通知
                 notify('Download completed "{title}"'.format(title=data['title']))
                 # ログ
@@ -340,10 +338,8 @@ class Downloads:
                 os.remove(json_file)
                 if os.path.isfile(tmp_file): os.remove(tmp_file)
                 if os.path.isfile(mp3_file): os.remove(mp3_file)
-            # 全コンテンツのrssファイル生成
+            # rssファイル生成
             RSS().create()
-            # 対応するkeyのコンテンツrssファイル生成
-            if key: RSS().create(key)
 
     def show(self, key=''):
         plist = []

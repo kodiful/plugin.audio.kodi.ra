@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from resources.lib.const import Const
-from resources.lib.common import *
+from ..const import Const
+from ..common import *
 
 import os
 

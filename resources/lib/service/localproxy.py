@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from const import Const
-from common import *
+from SimpleHTTPServer import SimpleHTTPRequestHandler
+from BaseHTTPServer import HTTPServer
 
 import random
 import urllib, urllib2
 import urlparse
 import socket
 
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from ..const import Const
+from ..common import *
 
 
 class LocalProxy(HTTPServer):
