@@ -4,7 +4,6 @@ from const import *
 from common import *
 from holiday import Holiday
 from localproxy import LocalProxy
-from contents import Contents
 
 import datetime, time
 import os
