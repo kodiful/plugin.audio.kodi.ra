@@ -196,7 +196,7 @@ class Keywords:
                     if not os.path.isfile(qrcodepath):
                         # QRコードを生成
                         qr = QRCode(version=1, box_size=10, border=4)
-                        qr.add_data(re.sub(r'^http(s?)://', r'podcast\1://', url))
+                        qr.add_data(re.sub(r'^http(s?)://', 'podcast://', url))
                         qr.make(fit=True)
                         qr.make_image(fill_color="black", back_color="white").save(qrcodepath, 'PNG')
                         # DBから画像のキャッシュを削除
