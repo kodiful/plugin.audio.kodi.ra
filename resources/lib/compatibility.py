@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from const import *
+from const import Const
 from common import *
-from contents import Contents
+from rss import RSS
 
 import re
 import glob
@@ -70,9 +70,5 @@ class Compatibility:
         for file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.sh')):
             os.remove(file)
         # rssファイルを更新
-        if status:
-            Contents().createrss()
-            #
-            # ここで各keyに対するRSSを変換する
-            #
+        if status: RSS().create()
         return status

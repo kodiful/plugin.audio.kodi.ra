@@ -1,5 +1,5 @@
     <item>
-      <title>{title} {date}</title>
+      <title>{title}</title>
       <link>{url}</link>
       <description>{description}</description>
       <category></category>

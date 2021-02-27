@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from const import *
+from const import Const
 from common import *
-from contents import Contents
-
-from qrcode import QRCode
 
 import os
 import sys
@@ -14,15 +11,21 @@ import glob
 import urllib
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
+from downloads import Downloads
+from rss import RSS
+
 try:
     from sqlite3 import dbapi2 as sqlite
 except:
     from pysqlite2 import dbapi2 as sqlite
 
+from qrcode import QRCode
+
 
 class Keywords:
 
     def __init__(self):
+        self.rss = RSS()
         self.read()
 
     def read(self):
@@ -117,7 +120,8 @@ class Keywords:
         # ファイルを削除する
         if int(level) & 2:
             # id番目のキーワードのファイルを削除
-            Contents(self.keywords[int(id)]['key']).delete()
+            key = self.keywords[int(id)]
+            Downloads().delete(key=key['key'])
         # キーワードを削除する
         if int(level) & 1:
             # id番目の要素を削除
@@ -182,19 +186,28 @@ class Keywords:
         return True
 
     def __save_qrcode(self, key):
-        rss = Contents(key)
-        if rss.url:
-            path = os.path.join(Const.MEDIA_PATH, 'key_%s.png' % rss.hexdigest)
-            if not os.path.isfile(path):
-                # QRコードを生成
-                qr = QRCode(version=1, box_size=10, border=4)
-                qr.add_data(re.sub(r'^http(s?)://', r'podcast\1://', rss.url))
-                qr.make(fit=True)
-                qr.make_image(fill_color="black", back_color="white").save(path, 'PNG')
-                # DBから画像のキャッシュを削除
-                conn = sqlite.connect(Const.CACHE_DB)
-                conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % path)
-                conn.commit()
-                conn.close()
-            return path
-        return ''
+        rss = Const.GET('rss')
+        if rss == 'true':
+            rss_url = Const.GET('rss_url')
+            if rss_url.startswith('http://') or rss_url.startswith('https://'):
+                url = self.rss.key2url(key)
+                if url:
+                    qrcodepath = os.path.join(Const.MEDIA_PATH, 'key_%s.png' % self.rss.key2name(key))
+                    if not os.path.isfile(qrcodepath):
+                        # QRコードを生成
+                        qr = QRCode(version=1, box_size=10, border=4)
+                        qr.add_data(re.sub(r'^http(s?)://', r'podcast\1://', url))
+                        qr.make(fit=True)
+                        qr.make_image(fill_color="black", back_color="white").save(qrcodepath, 'PNG')
+                        # DBから画像のキャッシュを削除
+                        conn = sqlite.connect(Const.CACHE_DB)
+                        conn.cursor().execute("DELETE FROM texture WHERE url = '%s';" % qrcodepath)
+                        conn.commit()
+                        conn.close()
+                    return qrcodepath
+                else:
+                    return ''
+            else:
+                return ''
+        else:
+            return ''

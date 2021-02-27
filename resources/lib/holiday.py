@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from const import *
+from const import Const
 from common import *
 
 

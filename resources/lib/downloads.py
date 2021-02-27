@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from const import *
+from const import Const
 from common import *
 from holiday import Holiday
+from rss import RSS
+
 from localproxy import LocalProxy
 
 import datetime, time
@@ -300,9 +302,9 @@ class Downloads:
                 # 一時ファイルをリネーム
                 os.rename(data['tmp_file'], data['mp3_file'])
                 # 全コンテンツのrssファイル生成
-                Contents().createrss()
+                RSS().create()
                 # 対応するkey(=data['tit1'])のコンテンツrssファイル生成
-                if data['tit1']: Contents(data['tit1']).createrss()
+                if data['tit1']: RSS().create(data['tit1'])
                 # 完了通知
                 notify('Download completed "{title}"'.format(title=data['title']))
                 # ログ
@@ -318,3 +320,64 @@ class Downloads:
         else:
             # 中断した時はjsonファイルを削除
             os.remove(data['json_file'])
+
+    def delete(self, gtvid=None, key=None):
+        # ファイル削除
+        if gtvid is None and key is None:
+            files = glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json'))
+        elif gtvid is not None:
+            files = glob.glob(os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid))
+        elif key is not None:
+            files = filter(lambda file:read_json(file).get('key','')==key, glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')))
+        else:
+            files = []
+        # ファイル削除
+        if len(files) > 0:
+            for file in files:
+                json_file = file
+                tmp_file = '.%s' % file
+                mp3_file  = file.replace('.json', '.mp3')
+                os.remove(json_file)
+                if os.path.isfile(tmp_file): os.remove(tmp_file)
+                if os.path.isfile(mp3_file): os.remove(mp3_file)
+            # 全コンテンツのrssファイル生成
+            RSS().create()
+            # 対応するkeyのコンテンツrssファイル生成
+            if key: RSS().create(key)
+
+    def show(self, key=''):
+        plist = []
+        for json_file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
+            tmp_file = '.%s' % json_file
+            mp3_file = json_file.replace('.json', '.mp3')
+            if os.path.isfile(mp3_file):
+                plist.append(read_json(json_file))
+            else:
+                log('file lost (or in downloading):{file}'.format(file=mp3_file))
+        # 日付フォーマット
+        h = Holiday()
+        # 時間の逆順にソートして表示
+        for p in sorted(plist, key=lambda item: item['ft'], reverse=True):
+            if key == '' or key==p.get('key',''):
+                # title
+                title = '%s [COLOR khaki]%s[/COLOR] [COLOR khaki](%s)[/COLOR]' % (h.format(p['ft']),p['title'], p['name'])
+                # logo
+                id = p['gtvid'].split('_')
+                logopath = os.path.join(Const.MEDIA_PATH, 'logo_%s_%s.png' % (id[0],id[1]))
+                if not os.path.isfile(logopath): logopath = 'DefaultFile.png'
+                # listitemを追加
+                li = xbmcgui.ListItem(title, iconImage=logopath, thumbnailImage=logopath)
+                comment = p['description']
+                comment = re.sub(r'&lt;.*?&gt;','\n', comment)
+                comment = re.sub(r'\n{2,}', '\n', comment)
+                comment = re.sub(r'^\n+', '', comment)
+                comment = re.sub(r'\n+$', '', comment)
+                li.setInfo(type='music', infoLabels={'title':p['title'],'duration':p['duration'],'artist':p['name'],'comment':comment})
+                li.setProperty('IsPlayable', 'true')
+                # context menu
+                li.addContextMenuItems([(Const.STR(30314), 'RunPlugin(%s?action=deleteDownload&id=%s)' % (sys.argv[0],p['gtvid']))], replaceItems=True)
+                # add directory item
+                # file
+                mp3_file = os.path.join(Const.DOWNLOAD_PATH, p['gtvid'] + '.mp3')
+                xbmcplugin.addDirectoryItem(int(sys.argv[1]), mp3_file, li, isFolder=False)
+        xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)

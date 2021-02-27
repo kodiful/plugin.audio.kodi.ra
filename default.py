@@ -1,25 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# HTTP接続のタイムアウト(秒)を設定
-import socket
-socket.setdefaulttimeout(60)
-
-# extディレクトリをパスに追加
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'ext'))
-
-from resources.lib.const import *
+from resources.lib.const import Const
 from resources.lib.common import *
-from resources.lib.cp import Misc
-from resources.lib.programs import Programs
-from resources.lib.downloads import Downloads
-from resources.lib.keywords import Keywords
-from resources.lib.contents import Contents
 
 from service import Service
 
 import urlparse
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
+
+from resources.lib.cp        import Misc
+from resources.lib.programs  import Programs
+from resources.lib.downloads import Downloads
+from resources.lib.keywords  import Keywords
+from resources.lib.rss       import RSS
+
+# HTTP接続におけるタイムアウト(秒)
+import socket
+socket.setdefaulttimeout(60)
 
 
 class Cache(Service):
@@ -143,12 +140,16 @@ if __name__  == '__main__':
         else:
             notify('Download enqueued')
     elif action == 'deleteDownload':
-        Contents().delete(gtvid=args['id'])
+        Downloads().delete(gtvid=args['id'])
         xbmc.executebuiltin('Container.Refresh()')
     elif action == 'clearDownloads':
         if xbmcgui.Dialog().yesno(Const.ADDON_NAME, Const.STR(30800)):
-            Contents().delete()
+            Downloads().delete()
             xbmc.executebuiltin('Container.Refresh()')
+
+    # RSS
+    elif action == 'updateRSS':
+        RSS().create(args['key'])
 
     # キーワードの追加、変更、削除
     elif action == 'addKeyword':
@@ -197,13 +198,11 @@ if __name__  == '__main__':
         Const.SET('stream','')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
 
-    # RSS
-    elif action == 'updateRSS':
-        Contents(args['key']).createrss()
-
     # 表示
+    elif action == 'showDownloads':
+        Downloads().show()
     elif action == 'showContents':
-        Contents(args['key']).show()
+        Downloads().show(args['key'])
     elif action == 'showKeywords':
         Keywords().show()
     elif action == 'showPrograms':
