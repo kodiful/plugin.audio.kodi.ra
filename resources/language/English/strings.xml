@@ -53,12 +53,10 @@
   <string id="30318">Delete station</string>
   <string id="30319">Edit station</string>
   <string id="30320">Edit keyword</string>
-  <string id="30321">Delete keyword only</string>
-  <string id="30322">Delete files only</string>
+  <string id="30321">Delete keyword</string>
+  <string id="30322">Delete files</string>
   <string id="30323">Delete files and keyword</string>
   <string id="30324">Update RSS</string>
-  <string id="30325">Delete keyword/files</string>
-  <string id="30326">Choose action</string>
 
   <string id="30400">Save</string>
   <string id="30403">Save streaming</string>

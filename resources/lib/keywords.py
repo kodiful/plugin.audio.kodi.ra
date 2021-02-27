@@ -57,7 +57,9 @@ class Keywords:
             # context menu
             contextmenu = []
             contextmenu.append((Const.STR(30320), 'RunPlugin(%s?action=beginEditKeyword&id=%d)' % (sys.argv[0],i)))
-            contextmenu.append((Const.STR(30325), 'RunPlugin(%s?action=deleteKeyword&id=%d)' % (sys.argv[0],i)))
+            #contextmenu.append((Const.STR(30321), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=1)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30322), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=2)' % (sys.argv[0],i)))
+            contextmenu.append((Const.STR(30323), 'RunPlugin(%s?action=deleteKeyword&id=%d&level=3)' % (sys.argv[0],i)))
             contextmenu.append((Const.STR(30324), 'RunPlugin(%s?action=updateRSS&%s)' % (sys.argv[0],urllib.urlencode({'key':s['key']}))))
             contextmenu.append((Const.STR(30051), 'RunPlugin(%s?action=settings)' % sys.argv[0]))
             li.addContextMenuItems(contextmenu, replaceItems=True)
@@ -111,19 +113,17 @@ class Keywords:
         # 変更した設定を書き込む
         self.write()
 
-    def delete(self, id):
-        level = xbmcgui.Dialog().select(Const.STR(30326), [Const.STR(30321), Const.STR(30322), Const.STR(30323)])
+    def delete(self, id, level):
         # ファイルを削除する
-        if level in [1, 2]:
+        if int(level) & 2:
             # id番目のキーワードのファイルを削除
             Contents(self.keywords[int(id)]['key']).delete()
         # キーワードを削除する
-        if level in [0, 2]:
+        if int(level) & 1:
             # id番目の要素を削除
             self.keywords.pop(int(id))
             # 変更した設定を書き込む
             self.write()
-        return level
 
     def match(self, p):
         for k in self.keywords:

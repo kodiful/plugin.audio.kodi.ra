@@ -168,7 +168,7 @@ if __name__  == '__main__':
             duplicate=settings['duplicate'])
         xbmc.executebuiltin("Container.Refresh")
     elif action == 'deleteKeyword':
-        Keywords().delete(args['id'])
+        Keywords().delete(args['id'], args['level'])
         xbmc.executebuiltin("Container.Refresh")
 
     # 放送局の追加、変更、削除
@@ -182,8 +182,8 @@ if __name__  == '__main__':
             settings['logo'])
         xbmc.executebuiltin('Container.Refresh()')
     elif action == 'deleteStation':
-        if Misc().delete(args['id']) > -1:
-            xbmc.executebuiltin('Container.Refresh()')
+        Misc().delete(args['id'])
+        xbmc.executebuiltin('Container.Refresh()')
 
     # アドオン設定
     elif action == 'settings':

@@ -53,12 +53,10 @@
   <string id="30318">ラジオを削除する</string>
   <string id="30319">ラジオを変更する</string>
   <string id="30320">保存キーワードを変更する</string>
-  <string id="30321">ファイルはそのままで保存キーワードを削除する</string>
-  <string id="30322">保存キーワードはそのままでファイルを削除する</string>
-  <string id="30323">保存キーワードとファイルを削除する</string>
+  <string id="30321">保存キーワードを削除する</string>
+  <string id="30322">ファイルを削除する</string>
+  <string id="30323">ファイルと保存キーワードを削除する</string>
   <string id="30324">RSSを更新する</string>
-  <string id="30325">保存キーワード/ファイルを削除する</string>
-  <string id="30326">操作を選択してください</string>
 
   <string id="30400">番組保存</string>
   <string id="30403">番組保存</string>
