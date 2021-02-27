@@ -7,7 +7,7 @@
     version="2.0" xml:lang="ja">
   <channel>
     <ttl>60</ttl>
-    <title>KodiRa - {title}</title>
+    <title>{title}</title>
     <link>http://kodiful.com/radio/</link>
     <language>ja</language>
     <copyright></copyright>
