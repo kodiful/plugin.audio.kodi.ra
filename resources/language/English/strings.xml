@@ -11,12 +11,10 @@
   <string id="30053">None</string>
   <string id="30054">Custom</string>
   <string id="30055">Update Programs</string>
-  <string id="30056">Download</string>
-  <string id="30057">Add keyword</string>
+  <string id="30056">Save: </string>
+  <string id="30057">Add keyword: </string>
   <string id="30058">Suspending</string>
   <string id="30059">No dataし</string>
-  <string id="30060">Choose program for download</string>
-  <string id="30061">Choose program for keyword</string>
 
   <string id="30100">NHK Radio</string>
   <string id="30001">Station</string>
@@ -47,7 +45,7 @@
   <string id="30355">Stations to be displayed</string>
   <string id="30356">Thumbnail URL</string>
 
-  <string id="30312">Downloaded programs</string>
+  <string id="30312">Saved programs</string>
   <string id="30314">Delete</string>
   <string id="30315">Edit</string>
   <string id="30316">[COLOR orange]Show programs on air[/COLOR]</string>
@@ -62,8 +60,8 @@
   <string id="30325">Delete keyword/files</string>
   <string id="30326">Choose action</string>
 
-  <string id="30400">Download</string>
-  <string id="30403">Download streaming</string>
+  <string id="30400">Save</string>
+  <string id="30403">Save streaming</string>
   <string id="30404">Bitrate</string>
   <string id="30405">Path to folder</string>
   <string id="30406">Path to rtmpdump</string>

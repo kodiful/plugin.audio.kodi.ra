@@ -11,12 +11,10 @@
   <string id="30053">表示しない</string>
   <string id="30054">選択して表示</string>
   <string id="30055">番組情報を更新</string>
-  <string id="30056">番組保存</string>
-  <string id="30057">保存キーワード設定</string>
+  <string id="30056">保存：</string>
+  <string id="30057">設定：</string>
   <string id="30058">放送休止中</string>
   <string id="30059">番組情報なし</string>
-  <string id="30060">保存する番組を選択してください</string>
-  <string id="30061">保存キーワードを設定する番組を選択してください</string>
 
   <string id="30100">NHKラジオ</string>
   <string id="30001">放送局</string>
