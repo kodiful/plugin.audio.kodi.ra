@@ -18,8 +18,6 @@ from resources.lib.contents import Contents
 
 from service import Service
 
-import sys
-import json
 import urlparse
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
@@ -213,16 +211,8 @@ if __name__  == '__main__':
     elif action == 'updatePrograms':
         Cache().update(renew=True)
         Programs().show()
-
-    # 選択
     elif action == 'selectAction':
-        prompt = args['prompt']
-        nextaction = args['nextaction']
-        data = json.loads(args['data'])
-        menu, params = zip(*data)
-        s = xbmcgui.Dialog().select(prompt, menu)
-        if s > -1:
-            xbmc.executebuiltin('RunPlugin(%s?action=%s&%s)' % (sys.argv[0], nextaction, params[s]))
+        Programs().select(args['prompt'], args['nextaction'], args['data'])
 
     # 未定義
     else:
