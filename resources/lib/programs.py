@@ -293,12 +293,6 @@ class Programs:
         # リストアイテム追加完了
         xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True)
 
-    def select(self, prompt, nextaction, data):
-        menu, params = zip(*json.loads(data))
-        selection = xbmcgui.Dialog().select(prompt, menu)
-        if selection > -1:
-            xbmc.executebuiltin('RunPlugin(%s?action=%s&%s)' % (sys.argv[0], nextaction, params[selection]))
-
     def match(self, pending_programs=[]):
         # 開始時間、終了時間が規定されている番組について照合
         return MatchList(pending_programs).match(filter(lambda p: p['ft'] and p['to'], self.programs))
