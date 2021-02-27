@@ -115,7 +115,8 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
         # レスポンスボディ
         if self.command == 'GET':
             # HTTPステータスを返す
-            self.wfile.write('%d %s' % (code, message))
+            data = '%d %s' % (code, message)
+            self.wfile.write(data.encode())
             # ログ
             log('%s: %s' % (message, self.path))
 
