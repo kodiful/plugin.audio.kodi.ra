@@ -1,16 +1,30 @@
 # -*- coding: utf-8 -*-
 
-from const import *
-from common import *
-from compatibility import Compatibility
-from cp import Radiko, Authenticate, Radiru, Jcba, Misc
-from programs import Programs
-from downloads import Downloads
-from localproxy import LocalProxy
+from resources.lib.const import Const
+from resources.lib.common import log
+from resources.lib.common import notify
+from resources.lib.common import timestamp
+from resources.lib.common import read_file
+from resources.lib.common import write_file
+from resources.lib.common import read_json
+from resources.lib.common import write_json
+
+from resources.lib.cp import Radiko
+from resources.lib.cp import Authenticate
+from resources.lib.cp import Radiru
+from resources.lib.cp import Jcba
+from resources.lib.cp import Misc
+from resources.lib.compatibility import Compatibility
+from resources.lib.programs import Programs
+from resources.lib.downloads import Downloads
+from resources.lib.localproxy import LocalProxy
 
 import os
 import platform
-import xbmc, xbmcgui
+
+import xbmc
+import xbmcgui
+
 from hashlib import md5
 
 
@@ -32,11 +46,14 @@ class Service:
             # 古い形式のファイルの変換
             Compatibility().converter()
             # フラグを変更
-            Const.SET('compatibility','false')
+            Const.SET('compatibility', 'false')
         # ディレクトリをチェック
-        if not os.path.isdir(Const.CACHE_PATH): os.makedirs(Const.CACHE_PATH)
-        if not os.path.isdir(Const.MEDIA_PATH): os.makedirs(Const.MEDIA_PATH)
-        if not os.path.isdir(Const.DATA_PATH):  os.makedirs(Const.DATA_PATH)
+        if not os.path.isdir(Const.CACHE_PATH):
+            os.makedirs(Const.CACHE_PATH)
+        if not os.path.isdir(Const.MEDIA_PATH):
+            os.makedirs(Const.MEDIA_PATH)
+        if not os.path.isdir(Const.DATA_PATH):
+            os.makedirs(Const.DATA_PATH)
         # いろいろ初期化
         self.lastupdt = ''
         self.nextupdt = ''
@@ -79,20 +96,20 @@ class Service:
     def setup_settings(self):
         # 放送局リスト
         s = [Const.STR(30520)]
-        stations = Programs((self.radiru,self.radiko)).stations
+        stations = Programs((self.radiru, self.radiko)).stations
         for station in stations:
             s.append(station['name'])
         # テンプレート読み込み
         template = read_file(Const.TEMPLATE_FILE)
         # ソース作成
         source = template.format(
-            radiru = self.radiru.getSettingsData(),
-            radiko = self.radiko.getSettingsData(),
-            jcba   = self.jcba.getSettingsData(),
-            misc   = self.misc.getSettingsData(),
-            bc = '|'.join(s),
-            ffmpeg = '',
-            os = platform.system())
+            radiru=self.radiru.getSettingsData(),
+            radiko=self.radiko.getSettingsData(),
+            jcba=self.jcba.getSettingsData(),
+            misc=self.misc.getSettingsData(),
+            bc='|'.join(s),
+            ffmpeg='',
+            os=platform.system())
         # ファイル書き込み
         write_file(Const.SETTINGS_FILE, source)
         # ログ
@@ -100,7 +117,7 @@ class Service:
 
     def hash_settings(self):
         settings = read_file(Const.USERSETTINGS_FILE)
-        return md5(settings).hexdigest() if settings else ''
+        return md5(settings.encode()).hexdigest() if settings else ''
 
     def monitor(self, refresh=False):
         # 開始
@@ -138,17 +155,18 @@ class Service:
                 self.nextauth = self.authenticate()
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
-                self.programs  = Programs((self.radiru, self.radiko, self.jcba, self.misc))
+                self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
             # 現在時刻が更新予定時刻を過ぎていたら
             if now > self.nextupdt:
                 # 番組データを取得
                 self.nextupdt, new_hash = self.programs.setup()
-                #　番組データが更新されたら
+                # 番組データが更新されたら
                 if new_hash != self.programs_hash:
                     self.lastupdt = now
                     self.programs_hash = new_hash
                     # 番組情報を記録
-                    if Const.GET('record'): self.programs.record()
+                    if Const.GET('record'):
+                        self.programs.record()
                     # ダウンロードする番組を抽出
                     downloader.pending = self.programs.match(downloader.pending)
                     # 画面更新
@@ -157,7 +175,7 @@ class Service:
             if os.path.isfile(Const.QUEUE_FILE):
                 queue = read_json(Const.QUEUE_FILE)
                 for p in queue:
-                    downloader.pending.append({'program':p, 'keyword':{'key':''}})
+                    downloader.pending.append({'program': p, 'keyword': {'key': ''}})
                 os.remove(Const.QUEUE_FILE)
             # ダウンロードする番組が検出されたら
             if downloader.pending:
@@ -182,8 +200,8 @@ class Service:
                         xbmc.executebuiltin('Container.Update(%s?action=showPrograms,replace)' % argv)
                     refresh = False
             # スレッドリストのメンテナンス
-            downloader.thread = filter(lambda t:t.is_alive(), downloader.thread)
-            downloader.process = filter(lambda p:p.returncode is None, downloader.process)
+            downloader.thread = list(filter(lambda t: t.is_alive(), downloader.thread))
+            downloader.process = list(filter(lambda p: p.returncode is None, downloader.process))
             # ステータスを出力
             write_json(Const.STATUS_FILE, {
                 'now': now,

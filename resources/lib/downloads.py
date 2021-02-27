@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from const import *
-from common import *
-from holiday import Holiday
-from localproxy import LocalProxy
-from contents import Contents
+from resources.lib.const import Const
+from resources.lib.common import log
+from resources.lib.common import notify
+from resources.lib.common import strptime
+from resources.lib.common import read_json
+from resources.lib.common import write_json
+from resources.lib.common import timestamp
+from resources.lib.localproxy import LocalProxy
+from resources.lib.contents import Contents
 
-import datetime, time
+import datetime
+import time
 import os
 import subprocess
-import sys
 import glob
-import shutil
-import json
 import re
 import threading
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 
 class Logger():
@@ -45,7 +46,8 @@ class Downloads:
             for json_file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '*.json')):
                 mp3_file = re.sub(r'\.json$', '.mp3', json_file)
                 # 対応するmp3ファイルがない場合は削除
-                if not os.path.isfile(mp3_file): os.remove(json_file)
+                if not os.path.isfile(mp3_file):
+                    os.remove(json_file)
             # 一時ファイル
             for tmp_file in glob.glob(os.path.join(Const.DOWNLOAD_PATH, '.*.mp3')):
                 os.remove(tmp_file)
@@ -57,30 +59,38 @@ class Downloads:
         self.alive = False
         for p in self.process:
             # 実行中のffmepegを強制終了
-            if p.returncode is None: p.kill()
+            if p.returncode is None:
+                p.kill()
 
     def status(self, id, ft):
         # 番組ID
-        gtvid = '%s_%s' % (id, ft);
+        gtvid = '%s_%s' % (id, ft)
         # ファイルパス
-        json_file  = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
+        json_file = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
         tmp_file = os.path.join(Const.DOWNLOAD_PATH, '.%s.mp3' % gtvid)
         mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
         # 既存の番組情報ファイルの有無をチェック
         status = 0
-        if os.path.isfile(json_file): status += 1
-        if os.path.isfile(tmp_file): status += 2
-        if os.path.isfile(mp3_file): status += 4
+        if os.path.isfile(json_file):
+            status += 1
+        if os.path.isfile(tmp_file):
+            status += 2
+        if os.path.isfile(mp3_file):
+            status += 4
         return status
 
     def enqueue(self, id, name, ft, to, title, description, stream, url, delay):
         # 時刻をチェック
-        if to < timestamp(): return 'Already over'
+        if to < timestamp():
+            return 'Already over'
         # 既存の番組情報ファイルの有無をチェック
         status = self.status(id, ft)
-        if status & 4: return 'Already downloaded'
-        if status & 2: return 'Already scheduled and now downloading'
-        if status & 1: return 'Already scheduled'
+        if status & 4:
+            return 'Already downloaded'
+        if status & 2:
+            return 'Already scheduled and now downloading'
+        if status & 1:
+            return 'Already scheduled'
         # 既存のキューをファイルから読み込む
         queue = []
         if os.path.isfile(Const.QUEUE_FILE):
@@ -112,10 +122,10 @@ class Downloads:
             # すでに終了している番組
             if end.days < 0:
                 log('download abandoned. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                    id = p['id'],
-                    start = p['ft'],
-                    title = p['title'],
-                    keyword = k['key']))
+                    id=p['id'],
+                    start=p['ft'],
+                    title=p['title'],
+                    keyword=k['key']))
                 # 次の番組のダウンロード処理へ
                 continue
             # すでに開始している番組、開始していないがConst.PREP_INTERVAL以内に開始する番組
@@ -135,10 +145,10 @@ class Downloads:
                 # 正常終了したらログに書き出す
                 if status is None:
                     log('download scheduled. id:{id}, start:{start}, title:{title}, keyword:{keyword}'.format(
-                        id = p['id'],
-                        start = p['ft'],
-                        title = p['title'],
-                        keyword = k['key']))
+                        id=p['id'],
+                        start=p['ft'],
+                        title=p['title'],
+                        keyword=k['key']))
                 # 次の番組のダウンロード処理へ
                 continue
             # Const.PREP_INTERVAL以降に開始する番組
@@ -149,16 +159,15 @@ class Downloads:
 
     def start(self, id, name, ft, to, title, description, stream, delay, url='', key=''):
         # 番組ID
-        gtvid = '%s_%s' % (id, ft);
+        gtvid = '%s_%s' % (id, ft)
         # ファイルパス
-        json_file  = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
+        json_file = os.path.join(Const.DOWNLOAD_PATH, '%s.json' % gtvid)
         tmp_file = os.path.join(Const.DOWNLOAD_PATH, '.%s.mp3' % gtvid)
         mp3_file = os.path.join(Const.DOWNLOAD_PATH, '%s.mp3' % gtvid)
         # 現在時刻
         now = datetime.datetime.now()
         # 開始時間
         start = strptime(ft, '%Y%m%d%H%M%S')
-        startdate = start.strftime('%Y-%m-%d %H:%M:%S')
         # 終了時間
         end = strptime(to, '%Y%m%d%H%M%S')
         # ラグ調整
@@ -257,28 +266,29 @@ class Downloads:
         for key, val in data['headers'].items():
             headers += '%s: %s\r\n' % (key, val)
         # コマンドライン
-        command = ('"{ffmpeg}" -y -v warning -t {duration} -headers "{headers}" -i "{stream}" -acodec libmp3lame -b:a {bitrate} '
-            + '-metadata title="{title}" '
-            + '-metadata artist="{artist}" '
-            + '-metadata copyright="{copyright}" '
-            + '-metadata publisher="{publisher}" '
-            + '-metadata date="{date}" '
-            + '-metadata TIT1="{tit1}" '
-            + '-metadata TIT3="{tit3}" '
-            + '"{tmp_file}"').format(
-                ffmpeg=data['ffmpeg'],
-                duration=data['duration'],
-                headers=headers,
-                stream=data['stream'],
-                bitrate=data['bitrate'],
-                title=data['title'],
-                artist=data['artist'],
-                copyright=data['copyright'],
-                publisher=data['publisher'],
-                date=data['start'].strftime('%Y-%m-%dT%H:%M:%SZ'),
-                tit1=data['tit1'],
-                tit3=data['tit3'],
-                tmp_file=data['tmp_file'])
+        template = '"{ffmpeg}" -y -v warning -t {duration} -headers "{headers}" -i "{stream}" -acodec libmp3lame -b:a {bitrate} ' \
+            '-metadata title="{title}" ' \
+            '-metadata artist="{artist}" ' \
+            '-metadata copyright="{copyright}" ' \
+            '-metadata publisher="{publisher}" ' \
+            '-metadata date="{date}" ' \
+            '-metadata TIT1="{tit1}" ' \
+            '-metadata TIT3="{tit3}" ' \
+            '"{tmp_file}"'
+        command = template.format(
+            ffmpeg=data['ffmpeg'],
+            duration=data['duration'],
+            headers=headers,
+            stream=data['stream'],
+            bitrate=data['bitrate'],
+            title=data['title'],
+            artist=data['artist'],
+            copyright=data['copyright'],
+            publisher=data['publisher'],
+            date=data['start'].strftime('%Y-%m-%dT%H:%M:%SZ'),
+            tit1=data['tit1'],
+            tit3=data['tit3'],
+            tmp_file=data['tmp_file'])
         # 開始待機
         t = data['wait']
         while t > 0 and self.alive:
@@ -303,7 +313,8 @@ class Downloads:
                 # 全コンテンツのrssファイル生成
                 Contents().createrss()
                 # 対応するkey(=data['tit1'])のコンテンツrssファイル生成
-                if data['tit1']: Contents(data['tit1']).createrss()
+                if data['tit1']:
+                    Contents(data['tit1']).createrss()
                 # 完了通知
                 notify('Download completed "{title}"'.format(title=data['title']))
                 # ログ

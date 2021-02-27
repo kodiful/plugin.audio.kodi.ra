@@ -1,0 +1,406 @@
+# Kodi Media Center language file
+# Addon Name: KodiRa
+# Addon id: plugin.audio.kodi.ra
+# Addon Provider: kodiful
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: https://forum.kodi.tv/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Team-Kodi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja_JP\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30001"
+msgid "Station"
+msgstr "放送局"
+
+msgctxt "#30002"
+msgid "Tokyo"
+msgstr "東京"
+
+msgctxt "#30003"
+msgid "Sendai"
+msgstr "仙台"
+
+msgctxt "#30004"
+msgid "Nagoya"
+msgstr "名古屋"
+
+msgctxt "#30005"
+msgid "Osaka"
+msgstr "大阪"
+
+msgctxt "#30006"
+msgid "Hiroshima"
+msgstr "広島"
+
+msgctxt "#30007"
+msgid "Matsuyama"
+msgstr "松山"
+
+msgctxt "#30008"
+msgid "Fukuoka"
+msgstr "福岡"
+
+msgctxt "#30009"
+msgid "Sapporo"
+msgstr "札幌"
+
+msgctxt "#30051"
+msgid "Addon Settings"
+msgstr "アドオン設定"
+
+msgctxt "#30052"
+msgid "All"
+msgstr "すべて表示"
+
+msgctxt "#30053"
+msgid "None"
+msgstr "表示しない"
+
+msgctxt "#30054"
+msgid "Custom"
+msgstr "選択して表示"
+
+msgctxt "#30055"
+msgid "Update Programs"
+msgstr "番組情報を更新"
+
+msgctxt "#30056"
+msgid "Download"
+msgstr "番組保存"
+
+msgctxt "#30057"
+msgid "Add keyword"
+msgstr "保存キーワード設定"
+
+msgctxt "#30058"
+msgid "Suspending"
+msgstr "放送休止中"
+
+msgctxt "#30059"
+msgid "No dataし"
+msgstr "番組情報なし"
+
+msgctxt "#30060"
+msgid "Choose program for download"
+msgstr "保存する番組を選択してください"
+
+msgctxt "#30061"
+msgid "Choose program for keyword"
+msgstr "保存キーワードを設定する番組を選択してください"
+
+msgctxt "#30100"
+msgid "NHK Radio"
+msgstr "NHKラジオ"
+
+msgctxt "#30101"
+msgid "Stations to be displayed"
+msgstr "表示する放送局"
+
+msgctxt "#30102"
+msgid "[COLOR lightgreen]Update display[/COLOR]"
+msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
+
+msgctxt "#30200"
+msgid "NCommercial Radio"
+msgstr "民放ラジオ"
+
+msgctxt "#30201"
+msgid "Stations to be displayed"
+msgstr "表示する放送局"
+
+msgctxt "#30202"
+msgid "[COLOR lightgreen]Update display[/COLOR]"
+msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
+
+msgctxt "#30300"
+msgid "Community Radio"
+msgstr "コミュニティラジオ"
+
+msgctxt "#30301"
+msgid "Stations to be displayed"
+msgstr "表示する放送局"
+
+msgctxt "#30302"
+msgid "[COLOR lightgreen]Update display[/COLOR]"
+msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
+
+msgctxt "#30312"
+msgid "Downloaded programs"
+msgstr "保存済み番組"
+
+msgctxt "#30314"
+msgid "Delete"
+msgstr "削除する"
+
+msgctxt "#30315"
+msgid "Edit"
+msgstr "変更する"
+
+msgctxt "#30316"
+msgid "[COLOR orange]Show programs on air[/COLOR]"
+msgstr "[COLOR orange]放送中の番組[/COLOR]"
+
+msgctxt "#30317"
+msgid "[COLOR yellow]Show all[/COLOR]"
+msgstr "[COLOR khaki]すべての保存済み番組[/COLOR]"
+
+msgctxt "#30318"
+msgid "Delete station"
+msgstr "ラジオを削除する"
+
+msgctxt "#30319"
+msgid "Edit station"
+msgstr "ラジオを変更する"
+
+msgctxt "#30320"
+msgid "Edit keyword"
+msgstr "保存キーワードを変更する"
+
+msgctxt "#30321"
+msgid "Delete keyword only"
+msgstr "ファイルはそのままで保存キーワードを削除する"
+
+msgctxt "#30322"
+msgid "Delete files only"
+msgstr "保存キーワードはそのままでファイルを削除する"
+
+msgctxt "#30323"
+msgid "Delete files and keyword"
+msgstr "保存キーワードとファイルを削除する"
+
+msgctxt "#30324"
+msgid "Update RSS"
+msgstr "RSSを更新する"
+
+msgctxt "#30325"
+msgid "Delete keyword/files"
+msgstr "保存キーワード/ファイルを削除する"
+
+msgctxt "#30326"
+msgid "Choose action"
+msgstr "操作を選択してください"
+
+msgctxt "#30350"
+msgid "Other Radio"
+msgstr "その他のラジオ"
+
+msgctxt "#30351"
+msgid "Station"
+msgstr "放送局名"
+
+msgctxt "#30352"
+msgid "Stream URL"
+msgstr "ストリームのURL"
+
+msgctxt "#30353"
+msgid "[COLOR lightgreen]Update[/COLOR]"
+msgstr "[COLOR lightgreen]変更する[/COLOR]"
+
+msgctxt "#30354"
+msgid "[COLOR lightgreen]Add[/COLOR]"
+msgstr "[COLOR lightgreen]追加する[/COLOR]"
+
+msgctxt "#30355"
+msgid "Stations to be displayed"
+msgstr "表示する放送局"
+
+msgctxt "#30356"
+msgid "Thumbnail URL"
+msgstr "サムネイルのURL"
+
+msgctxt "#30400"
+msgid "Download"
+msgstr "番組保存"
+
+msgctxt "#30403"
+msgid "Download streaming"
+msgstr "番組保存"
+
+msgctxt "#30404"
+msgid "Bitrate"
+msgstr "ビットレート"
+
+msgctxt "#30405"
+msgid "Path to folder"
+msgstr "保存フォルダのパス"
+
+msgctxt "#30406"
+msgid "Path to rtmpdump"
+msgstr "rtmpdumpのパス"
+
+msgctxt "#30407"
+msgid "Path to ffmpeg"
+msgstr "ffmpegのパス"
+
+msgctxt "#30408"
+msgid "[COLOR lightgreen]Clear Folder[/COLOR]"
+msgstr "[COLOR lightgreen]保存フォルダをクリアする[/COLOR]"
+
+msgctxt "#30409"
+msgid "Create RSS"
+msgstr "RSS生成"
+
+msgctxt "#30410"
+msgid "URL of download folder"
+msgstr "保存フォルダのURL"
+
+msgctxt "#30411"
+msgid "[COLOR lightgreen]Update RSS[/COLOR]"
+msgstr "[COLOR lightgreen]RSSを更新する[/COLOR]"
+
+msgctxt "#30412"
+msgid "Number of items"
+msgstr "アイテム数"
+
+msgctxt "#30500"
+msgid "Keyword"
+msgstr "保存キーワード"
+
+msgctxt "#30501"
+msgid "Keyword"
+msgstr "キーワード"
+
+msgctxt "#30502"
+msgid "Search"
+msgstr "検索対象"
+
+msgctxt "#30503"
+msgid "Day"
+msgstr "曜日"
+
+msgctxt "#30504"
+msgid "Station"
+msgstr "放送局"
+
+msgctxt "#30505"
+msgid "Duplicate title or info"
+msgstr "保存済み番組の情報と重複する場合"
+
+msgctxt "#30508"
+msgid "[COLOR lightgreen]Update[/COLOR]"
+msgstr "[COLOR lightgreen]変更する[/COLOR]"
+
+msgctxt "#30509"
+msgid "[COLOR lightgreen]Add[/COLOR]"
+msgstr "[COLOR lightgreen]追加する[/COLOR]"
+
+msgctxt "#30511"
+msgid "Title only"
+msgstr "番組名のみ"
+
+msgctxt "#30512"
+msgid "Title & detail info"
+msgstr "番組名と詳細情報"
+
+msgctxt "#30513"
+msgid "Save"
+msgstr "保存する"
+
+msgctxt "#30514"
+msgid "Skip"
+msgstr "保存しない"
+
+msgctxt "#30520"
+msgid "ANY"
+msgstr "指定しない"
+
+msgctxt "#30521"
+msgid "Sun"
+msgstr "日"
+
+msgctxt "#30522"
+msgid "Mon"
+msgstr "月"
+
+msgctxt "#30523"
+msgid "Tue"
+msgstr "火"
+
+msgctxt "#30524"
+msgid "Wed"
+msgstr "水"
+
+msgctxt "#30525"
+msgid "Thu"
+msgstr "木"
+
+msgctxt "#30526"
+msgid "Fri"
+msgstr "金"
+
+msgctxt "#30527"
+msgid "Sat"
+msgstr "土"
+
+msgctxt "#30528"
+msgid "Save program settings required"
+msgstr "番組保存設定を行ってください"
+
+msgctxt "#30529"
+msgid "Unsupported OS"
+msgstr "このOSでは番組保存をサポートしていません"
+
+msgctxt "#30600"
+msgid "Local Proxy"
+msgstr "ローカルプロキシ"
+
+msgctxt "#30601"
+msgid "Port number"
+msgstr "ポート番号"
+
+msgctxt "#30602"
+msgid "API key"
+msgstr "APIキー"
+
+msgctxt "#30700"
+msgid "Other Settings"
+msgstr "その他"
+
+msgctxt "#30701"
+msgid "[COLOR lightgreen]Reset all cache and settings[/COLOR]"
+msgstr "[COLOR lightgreen]すべてのキャッシュと設定を初期化する[/COLOR]"
+
+msgctxt "#30702"
+msgid "[COLOR lightgreen]Clear image cache[/COLOR]"
+msgstr "[COLOR lightgreen]イメージキャッシュをクリアする[/COLOR]"
+
+msgctxt "#30703"
+msgid "[COLOR lightgreen]Clear data cache[/COLOR]"
+msgstr "[COLOR lightgreen]データキャッシュをクリアする[/COLOR]"
+
+msgctxt "#30704"
+msgid "[COLOR lightgreen]Update settings dialog"
+msgstr "[COLOR lightgreen]設定ダイアログを更新する[/COLOR]"
+
+msgctxt "#30705"
+msgid "Check compatibility with older versions"
+msgstr "旧バージョンとの互換性をチェックする"
+
+msgctxt "#30706"
+msgid "Record program data"
+msgstr "番組データを記録する"
+
+msgctxt "#30707"
+msgid "Debug"
+msgstr "デバッグ"
+
+msgctxt "#30800"
+msgid "Delete files completely?"
+msgstr "保存フォルダのファイルをすべて削除しますか？"
+
+msgctxt "#30919"
+msgid "%m/%d(%%s)"
+msgstr "%m月%d日(%%s)"
+
+msgctxt "#30920"
+msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+msgstr "月,火,水,木,金,土,日"
+

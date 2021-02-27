@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from const import *
-from common import *
+from resources.lib.const import Const
+from resources.lib.common import log
 
 import random
-import urllib, urllib2
-import urlparse
 import socket
+import urllib
 
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import ThreadingHTTPServer
+from http.server import SimpleHTTPRequestHandler
 
 
-class LocalProxy(HTTPServer):
+class LocalProxy(ThreadingHTTPServer):
 
     # 文字セット
     CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -38,7 +37,7 @@ class LocalProxy(HTTPServer):
                 # ログ
                 log('apikey initialized: %s' % self.apikey)
                 # HTTPサーバを初期化
-                HTTPServer.__init__(self, ('', int(self.activeport)), LocalProxyHandler)
+                super().__init__(('', int(self.activeport)), LocalProxyHandler)
             else:
                 # ポート番号が利用できない場合はローカルプロキシの設定変更を促す
                 self.apikey = None
@@ -59,7 +58,7 @@ class LocalProxy(HTTPServer):
         # URLを生成
         abort_url = 'http://127.0.0.1:%s/abort;%s' % (activeport, apikey)
         # リクエスト
-        res = urllib.urlopen(abort_url)
+        res = urllib.request.urlopen(abort_url)
         data = res.read()
         res.close()
         return data
@@ -73,23 +72,21 @@ class LocalProxy(HTTPServer):
         # URLを生成
         params = {'_': url}
         params.update(headers)
-        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (activeport, apikey, urllib.urlencode(params))
+        proxy_url = 'http://127.0.0.1:%s/proxy;%s?%s' % (activeport, apikey, urllib.parse.urlencode(params))
         return proxy_url
 
     @staticmethod
     def parse(proxy_url):
-        # ポート番号
-        activeport = Const.GET('activeport')
         # APIキー
         apikey = Const.GET('apikey')
         # ソースURLとリクエストヘッダの既定値
         url = proxy_url
         headers = {}
         # プロキシURLを展開
-        parsed = urlparse.urlparse(proxy_url)
+        parsed = urllib.parse.urlparse(proxy_url)
         # URLのパスとAPIキーが一致したらソースURLとリクエストヘッダを抽出する
         if parsed.path == '/proxy' and parsed.params == apikey:
-            for key, val in urlparse.parse_qs(parsed.query, keep_blank_values=True).items():
+            for key, val in urllib.parse.parse_qs(parsed.query, keep_blank_values=True).items():
                 if key == '_':
                     url = val[0]
                 else:
@@ -127,7 +124,7 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
             # HTTPリクエストをパースする
             # リクエスト： GET /proxy;pBVVfZdW?x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u HTTP/1.1"
             # パース結果： ParseResult(scheme='', netloc='', path='/proxy', params='pBVVfZdW', query='x-radiko-authtoken=PYRk2tStPElKwPIQkPjJ4A&_=https%3A%2F%2Ff-radiko.smartstream.ne.jp%2FTBS%2F_definst_%2Fsimul-stream.stream%2Fplaylist.m3u', fragment='')
-            parsed = urlparse.urlparse(self.path)
+            parsed = urllib.parse.urlparse(self.path)
             # APIキーをチェック
             if parsed.params == self.server.apikey:
                 # パスに応じて処理
@@ -141,8 +138,9 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
                         self.end_headers()
                         # レスポンスボディ
                         if self.command == 'GET':
-                            req = urllib2.Request(url, headers=headers)
-                            self.copyfile(urllib2.urlopen(req), self.wfile)
+                            req = urllib.request.Request(url, headers=headers)
+                            data = urllib.request.urlopen(req).read()
+                            self.wfile.write(data)
                             # ログ
                             log('forwarded to: %s' % url)
                     else:
@@ -159,5 +157,5 @@ class LocalProxyHandler(SimpleHTTPRequestHandler):
                     self.do_respond(404, 'Not Found')
             else:
                 self.do_respond(403, 'Forbidden')
-        except:
+        except Exception:
             self.do_respond(500, 'Internal Server Error')

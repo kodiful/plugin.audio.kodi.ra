@@ -4,19 +4,19 @@
 import socket
 socket.setdefaulttimeout(60)
 
+import sys
+import os
+import threading
+
 # extディレクトリをパスに追加
-import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'ext'))
 
-from resources.lib.const import *
-from resources.lib.common import *
+from resources.lib.common import notify
 from resources.lib.service import Service
 from resources.lib.localproxy import LocalProxy
 
-import threading
 
-
-if __name__  == '__main__':
+if __name__ == '__main__':
     # ローカルプロキシを初期化（APIキーを設定）
     httpd = LocalProxy()
     # サービスを初期化（APIキーを用いてURLを設定／インストール直後でAPIキーがない場合も設定ダイアログを作成）

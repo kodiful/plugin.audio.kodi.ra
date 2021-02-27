@@ -4,12 +4,22 @@
 import socket
 socket.setdefaulttimeout(60)
 
+import sys
+import os
+import json
+import urllib
+
+import xbmc
+import xbmcgui
+
 # extディレクトリをパスに追加
-import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'resources', 'ext'))
 
-from resources.lib.const import *
-from resources.lib.common import *
+from resources.lib.const import Const
+from resources.lib.common import log
+from resources.lib.common import notify
+from resources.lib.common import strptime
+
 from resources.lib.cp import Misc
 from resources.lib.programs import Programs
 from resources.lib.downloads import Downloads
@@ -17,11 +27,6 @@ from resources.lib.keywords import Keywords
 from resources.lib.contents import Contents
 
 from service import Service
-
-import sys
-import json
-import urlparse
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 
 class Cache(Service):
@@ -69,10 +74,10 @@ class Cache(Service):
         self.update()
 
 
-if __name__  == '__main__':
+if __name__ == '__main__':
 
     # 引数
-    args = urlparse.parse_qs(sys.argv[2][1:], keep_blank_values=True)
+    args = urllib.parse.parse_qs(sys.argv[2][1:], keep_blank_values=True)
     for key in args.keys():
         args[key] = args[key][0]
 
@@ -86,24 +91,24 @@ if __name__  == '__main__':
         action = 'showPrograms'
 
     # ログ
-    #log('path=',xbmc.getInfoLabel('Container.FolderPath'))
-    #log('argv=',sys.argv)
-    #log(args)
+    # log('path=',xbmc.getInfoLabel('Container.FolderPath'))
+    # log('argv=',sys.argv)
+    # log(args)
 
     # アドオン設定をコピー
     settings = {}
-    for key in ['id','key','s','day','ch','duplicate','name','stream','logo']:
+    for key in ['id', 'key', 's', 'day', 'ch', 'duplicate', 'name', 'stream', 'logo']:
         settings[key] = Const.GET(key)
     # アドオン設定をリセット
-    Const.SET('id','')
-    Const.SET('key','')
-    Const.SET('s','0')
-    Const.SET('day','0')
-    Const.SET('ch','0')
-    Const.SET('duplicate','0')
-    Const.SET('name','')
-    Const.SET('stream','')
-    Const.SET('logo','')
+    Const.SET('id', '')
+    Const.SET('key', '')
+    Const.SET('s', '0')
+    Const.SET('day', '0')
+    Const.SET('ch', '0')
+    Const.SET('duplicate', '0')
+    Const.SET('name', '')
+    Const.SET('stream', '')
+    Const.SET('logo', '')
 
     # actionに応じた処理
 
@@ -156,7 +161,7 @@ if __name__  == '__main__':
     elif action == 'addKeyword':
         Keywords().beginEdit(
             key=args['title'],
-            day=str(int(strptime(args['ft'],'%Y%m%d%H%M%S').strftime('%w'))+1),
+            day=str(int(strptime(args['ft'], '%Y%m%d%H%M%S').strftime('%w')) + 1),
             ch=args['name'])
     elif action == 'beginEditKeyword':
         Keywords().beginEdit(id=args['id'])
@@ -189,14 +194,14 @@ if __name__  == '__main__':
 
     # アドオン設定
     elif action == 'settings':
-        Const.SET('id','')
-        Const.SET('key','')
-        Const.SET('s','0')
-        Const.SET('day','0')
-        Const.SET('ch','0')
-        Const.SET('duplicate','0')
-        Const.SET('name','')
-        Const.SET('stream','')
+        Const.SET('id', '')
+        Const.SET('key', '')
+        Const.SET('s', '0')
+        Const.SET('day', '0')
+        Const.SET('ch', '0')
+        Const.SET('duplicate', '0')
+        Const.SET('name', '')
+        Const.SET('stream', '')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
 
     # RSS

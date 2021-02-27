@@ -4,3 +4,4 @@
 *.work
 .DS_Store
 /resources/settings.xml
+__pycache__

@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.audio.kodi.ra"
-       name="KodiRa"
-       version="6.3"
-       provider-name="kodiful">
+<addon id="plugin.audio.kodi.ra" name="KodiRa" version="7.0" provider-name="kodiful">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="xbmc.python" version="3.0.0" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>audio</provides>
   </extension>
-  <extension point="xbmc.service" library="service.py"/>
+  <extension point="xbmc.service" library="service.py" />
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-    <summary lang="en">KodiRa</summary>
-    <summary lang="ja">KodiRa</summary>
-    <description lang="en">Listen to NHK Radio, Commercial Radio (radiko.jp) and others</description>
-    <description lang="ja">NHKラジオ, 民放ラジオ(radiko.jp)ほかを聴くことができます</description>
-    <disclaimer lang="en">Works on Windows &amp; macOS</disclaimer>
-    <disclaimer lang="ja">WindowsとmacOSで動作。</disclaimer>
+    <summary lang="en_GB">KodiRa</summary>
+    <summary lang="ja_JP">KodiRa</summary>
+    <description lang="en_GB">Listen to NHK Radio, Commercial Radio (radiko.jp) and others</description>
+    <description lang="ja_JP">NHKラジオ, 民放ラジオ(radiko.jp)ほかを聴くことができます</description>
+    <disclaimer lang="en_GB">Works on Windows &amp; macOS</disclaimer>
+    <disclaimer lang="ja_JP">WindowsとmacOSで動作。</disclaimer>
     <website>http://kodiful.com/</website>
   </extension>
 </addon>

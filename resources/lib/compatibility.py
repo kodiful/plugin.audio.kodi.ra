@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from const import *
-from common import *
-from contents import Contents
+from resources.lib.const import Const
+from resources.lib.common import log
+from resources.lib.common import read_json
+from resources.lib.common import write_json
+from resources.lib.contents import Contents
 
+import os
 import re
 import glob
+
 
 class Compatibility:
 

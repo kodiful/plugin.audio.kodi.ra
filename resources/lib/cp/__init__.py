@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from radiko import Radiko, Authenticate
-from radiru import Radiru
-from jcba   import Jcba
-from misc   import Misc
+from resources.lib.cp.radiko import Radiko
+from resources.lib.cp.radiko import Authenticate
+from resources.lib.cp.radiru import Radiru
+from resources.lib.cp.jcba import Jcba
+from resources.lib.cp.misc import Misc
