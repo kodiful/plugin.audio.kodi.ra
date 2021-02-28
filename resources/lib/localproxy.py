@@ -7,11 +7,11 @@ import random
 import socket
 import urllib
 
-from http.server import ThreadingHTTPServer
+from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
 
 
-class LocalProxy(ThreadingHTTPServer):
+class LocalProxy(HTTPServer):
 
     # 文字セット
     CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'

@@ -72,8 +72,17 @@ class Misc(Params, Jcba):
         Const.SET('stream', data['stream'])
         Const.SET('logo', data.get('logo_large', ''))
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
-        xbmc.executebuiltin('SetFocus(103)')  # select 4th category
-        xbmc.executebuiltin('SetFocus(201)')  # select 2nd control
+        xbmc.executebuiltin('SetFocus(-97)')  # id is determined by the following codes
+        '''from resources.lib.common import notify
+        xbmc.sleep(5000)
+        wid = xbmcgui.getCurrentWindowId()
+        win = xbmcgui.Window(wid)
+        cid = win.getFocusId()
+        log(wid, cid)
+        wid = xbmcgui.getCurrentWindowDialogId()
+        win = xbmcgui.Window(wid)
+        cid = win.getFocusId()
+        log(wid, cid)'''
 
     def endEdit(self, id, name, stream, logo):
         if id == '':

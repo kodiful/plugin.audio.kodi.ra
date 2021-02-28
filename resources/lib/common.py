@@ -23,7 +23,9 @@ def read_file(filepath, mode='r'):
         return None
 
 
-def write_file(filepath, data, mode='w'):
+def write_file(filepath, data, mode=None):
+    if mode is None:
+        mode = 'wb' if isinstance(data, bytes) else 'w'
     with open(filepath, mode) as f:
         f.write(data)
 
@@ -86,7 +88,11 @@ def strptime(t, format):
 # other utilities
 
 def notify(message, **options):
+    # アドオン
+    addon = xbmcaddon.Addon()
+    # ポップアップする時間
     time = options.get('time', 10000)
+    # ポップアップアイコン
     image = options.get('image', None)
     if image:
         pass
@@ -94,12 +100,16 @@ def notify(message, **options):
         image = 'DefaultIconError.png'
     else:
         image = 'DefaultIconInfo.png'
+    # ログ出力
     log(message, error=options.get('error', False))
-    xbmc.executebuiltin('Notification("%s","%s",%d,"%s")' % (xbmcaddon.Addon().getAddonInfo('name'), message, time, image))
+    # ポップアップ通知
+    xbmc.executebuiltin('Notification("%s","%s",%d,"%s")' % (addon.getAddonInfo('name'), message, time, image))
 
 
 def log(*messages, **options):
+    # アドオン
     addon = xbmcaddon.Addon()
+    # ログレベルを設定
     if options.get('error', False):
         level = xbmc.LOGERROR
     elif options.get('notice', False):
@@ -108,6 +118,7 @@ def log(*messages, **options):
         level = xbmc.LOGINFO
     else:
         level = None
+    # ログ出力
     if level:
         frame = inspect.currentframe().f_back
         xbmc.log('%s: %s(%d): %s: %s' % (
@@ -115,5 +126,5 @@ def log(*messages, **options):
             os.path.basename(frame.f_code.co_filename),
             frame.f_lineno,
             frame.f_code.co_name,
-            ' '.join(list(map(lambda x: str(x), messages)))
+            ' '.join(map(lambda x: str(x), messages))
         ), level)

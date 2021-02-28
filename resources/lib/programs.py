@@ -184,7 +184,7 @@ class Programs:
         # 開始/終了時刻が定義された番組を抽出
         p = list(filter(lambda x: x['ft'] and x['to'], self.programs))
         # 開始/終了時刻のペアから現在の番組情報のハッシュを生成
-        data = reduce(lambda x, y: x + y, list(map(lambda x: x['ft'] + x['to'], p)), '')
+        data = reduce(lambda x, y: x + y, map(lambda x: x['ft'] + x['to'], p), '')
         hash = md5(data.encode()).hexdigest()
         # 直近の更新時刻を返す
         return min(updt), hash
@@ -246,7 +246,7 @@ class Programs:
         # ファイルから読み込む
         self.stations = read_json(Params.STATION_FILE)
         # 放送局表示
-        for s in list(filter(lambda x: self.__showhide(x['id']), self.stations)):
+        for s in filter(lambda x: self.__showhide(x['id']), self.stations):
             title = '[COLOR white]%s[/COLOR]' % s['name']
             if s['programs'] == '':
                 title += ' ' + Params.TITLE_KK % (Params.BULLET, Const.STR(30059))
@@ -278,7 +278,7 @@ class Programs:
             if Const.GET('download') == 'true':
                 menu = list(map(
                     lambda p: (p['title'], urllib.parse.urlencode(p)),
-                    list(filter(lambda p: p['ft'].isdigit() and p['to'].isdigit(), s['programs'] or []))
+                    filter(lambda p: p['ft'].isdigit() and p['to'].isdigit(), s['programs'] or [])
                 ))
                 if menu:
                     contextmenu.append((Const.STR(30056), 'RunPlugin({url}?action=selectAction&{query})'.format(
@@ -308,7 +308,7 @@ class Programs:
 
     def record(self):
         # 開始時間、終了時間が規定されている番組データを保存
-        for p in list(filter(lambda p: p['ft'] and p['to'], self.programs)):
+        for p in filter(lambda p: p['ft'] and p['to'], self.programs):
             json_file = os.path.join(Params.DATA_PATH, '%s_%s.json' % (p['id'], p['ft']))
             if not os.path.isfile(json_file):
                 write_json(json_file, p)

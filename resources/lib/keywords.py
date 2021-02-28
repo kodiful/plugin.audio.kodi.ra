@@ -79,8 +79,17 @@ class Keywords:
         Const.SET('name', '')
         Const.SET('stream', '')
         xbmc.executebuiltin('Addon.OpenSettings(%s)' % Const.ADDON_ID)
-        xbmc.executebuiltin('SetFocus(105)')  # select 6th category
-        xbmc.executebuiltin('SetFocus(204)')  # select 5th control
+        xbmc.executebuiltin('SetFocus(-95)')  # id is determined by the following codes
+        '''from resources.lib.common import notify
+        xbmc.sleep(5000)
+        wid = xbmcgui.getCurrentWindowId()
+        win = xbmcgui.Window(wid)
+        cid = win.getFocusId()
+        log(wid, cid)
+        wid = xbmcgui.getCurrentWindowDialogId()
+        win = xbmcgui.Window(wid)
+        cid = win.getFocusId()
+        log(wid, cid)'''
 
     def endEdit(self, id, key, s, day, ch, duplicate):
         key = re.sub(r'(^\s+|\s+$)', '', key)
