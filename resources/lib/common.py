@@ -5,7 +5,6 @@ import datetime
 import time
 import inspect
 import json
-import re
 import urllib
 
 import xbmc
@@ -59,7 +58,7 @@ def urlread(url, headers={}):
     except urllib.request.HTTPError as e:
         log('HTTPError url:{url}, code:{code}'.format(url=url, code=e.code), error=True)
         buf = ''
-    except URLError as e:
+    except urllib.error.URLError as e:
         log('URLError url:{url}, reason:{reason}'.format(url=url, reason=e.reason), error=True)
         buf = ''
     except Exception as e:
