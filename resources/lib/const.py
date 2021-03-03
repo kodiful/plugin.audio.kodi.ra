@@ -30,6 +30,7 @@ class Const:
     SETTINGS_FILE = os.path.join(RESOURCES_PATH, 'settings.xml')
     TEMPLATE_PATH = os.path.join(RESOURCES_PATH, 'data')
     TEMPLATE_FILE = os.path.join(TEMPLATE_PATH, 'settings.xml')
+    LOGO_PATH = os.path.join(TEMPLATE_PATH, 'cp', 'logo')
     KEYWORDS_FILE = os.path.join(PROFILE_PATH, 'keywords.json')
     CHANNELS_FILE = os.path.join(PROFILE_PATH, 'channels.json')
     USERSETTINGS_FILE = os.path.join(PROFILE_PATH, 'settings.xml')

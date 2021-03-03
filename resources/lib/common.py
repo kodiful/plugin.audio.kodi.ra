@@ -15,7 +15,7 @@ import xbmcaddon
 
 def read_file(filepath, mode='r'):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-        with open(filepath, mode) as f:
+        with open(filepath, mode, encoding='utf_8_sig', errors='ignore') as f:
             data = f.read()
         return data
     else:

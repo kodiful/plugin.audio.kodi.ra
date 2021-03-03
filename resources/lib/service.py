@@ -21,6 +21,7 @@ from resources.lib.localproxy import LocalProxy
 
 import os
 import platform
+import shutil
 
 import xbmc
 import xbmcgui
@@ -51,7 +52,8 @@ class Service:
         if not os.path.isdir(Const.CACHE_PATH):
             os.makedirs(Const.CACHE_PATH)
         if not os.path.isdir(Const.MEDIA_PATH):
-            os.makedirs(Const.MEDIA_PATH)
+            # os.makedirs(Const.MEDIA_PATH)
+            shutil.copytree(Const.LOGO_PATH, Const.MEDIA_PATH)
         if not os.path.isdir(Const.DATA_PATH):
             os.makedirs(Const.DATA_PATH)
         # いろいろ初期化
