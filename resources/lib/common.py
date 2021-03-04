@@ -7,17 +7,23 @@ import inspect
 import json
 import urllib
 
+from chardet.universaldetector import UniversalDetector
+
 import xbmc
 import xbmcaddon
 
 
 # file i/o
 
-def read_file(filepath, mode='r'):
+def read_file(filepath):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-        with open(filepath, mode, encoding='utf_8_sig', errors='ignore') as f:
+        detector = UniversalDetector()
+        with open(filepath, 'rb') as f:
             data = f.read()
-        return data
+        detector.feed(data)
+        detector.close()
+        encoding = detector.result['encoding']
+        return data.decode(encoding)
     else:
         return None
 

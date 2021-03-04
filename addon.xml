@@ -2,6 +2,7 @@
 <addon id="plugin.audio.kodi.ra" name="KodiRa" version="7.0.1" provider-name="kodiful">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.chardet" version="3.0.4"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>audio</provides>
