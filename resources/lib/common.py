@@ -23,16 +23,18 @@ def read_file(filepath):
         detector.feed(data)
         detector.close()
         encoding = detector.result['encoding']
-        return data.decode(encoding)
+        return data.decode(encoding=encoding, errors='ignore')
     else:
         return None
 
 
 def write_file(filepath, data, mode=None):
-    if mode is None:
-        mode = 'wb' if isinstance(data, bytes) else 'w'
-    with open(filepath, mode) as f:
-        f.write(data)
+    if isinstance(data, bytes):
+        with open(filepath, 'wb') as f:
+            f.write(data)
+    else:
+        with open(filepath, 'w', encoding='utf-8', errors='ignore') as f:
+            f.write(data)
 
 
 def read_json(filepath):
