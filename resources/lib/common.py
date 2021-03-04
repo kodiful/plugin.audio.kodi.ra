@@ -23,7 +23,7 @@ def read_file(filepath):
         return None
 
 
-def write_file(filepath, data, mode=None):
+def write_file(filepath, data):
     if isinstance(data, bytes):
         with open(filepath, 'wb') as f:
             f.write(data)
