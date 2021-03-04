@@ -138,7 +138,7 @@ class Contents:
         footer = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-footer.xml'))
         # RSS生成
         filepath = os.path.join(Const.DOWNLOAD_PATH, self.filename)
-        with open(filepath, 'w') as f:
+        with open(filepath, 'w', encoding='utf-8', errors='ignore') as f:
             # header
             f.write(
                 header.format(
