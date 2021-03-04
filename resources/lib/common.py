@@ -6,8 +6,7 @@ import time
 import inspect
 import json
 import urllib
-
-from chardet.universaldetector import UniversalDetector
+import chardet
 
 import xbmc
 import xbmcaddon
@@ -17,13 +16,9 @@ import xbmcaddon
 
 def read_file(filepath):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-        detector = UniversalDetector()
         with open(filepath, 'rb') as f:
             data = f.read()
-        detector.feed(data)
-        detector.close()
-        encoding = detector.result['encoding']
-        return data.decode(encoding=encoding, errors='ignore')
+        return data.decode(encoding=chardet.detect(data)['encoding'], errors='ignore')
     else:
         return None
 
@@ -32,9 +27,11 @@ def write_file(filepath, data, mode=None):
     if isinstance(data, bytes):
         with open(filepath, 'wb') as f:
             f.write(data)
-    else:
+    elif isinstance(data, str):
         with open(filepath, 'w', encoding='utf-8', errors='ignore') as f:
             f.write(data)
+    else:
+        raise TypeError
 
 
 def read_json(filepath):
