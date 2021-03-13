@@ -397,10 +397,9 @@ msgid "Delete files completely?"
 msgstr "保存フォルダのファイルをすべて削除しますか？"
 
 msgctxt "#30919"
-msgid "%m/%d(%%s)"
-msgstr "%m月%d日(%%s)"
+msgid "%Y/%m/%d(%%s) %H:%M"
+msgstr "%Y年%m月%d日(%%s) %H:%M"
 
 msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
 msgstr "月,火,水,木,金,土,日"
-

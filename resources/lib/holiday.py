@@ -2,6 +2,7 @@
 
 from resources.lib.const import Const
 from resources.lib.common import strptime
+from resources.lib.common import strftime
 
 
 class Holiday:
@@ -422,9 +423,8 @@ class Holiday:
             "2036-11-23",  # 勤労感謝の日
             "2036-11-24",  # 振替休日
         }
-        # %m月%d日(%%s)
-        # self.fmt = format or Const.STR(30919)
-        self.fmt = format or '%Y-%m-%d(%%s) %H:%M'
+        # %Y年%m月%d日(%%s) %H:%M
+        self.fmt = format or Const.STR(30919)
         # 月,火,水,木,金,土,日
         w = weekday or Const.STR(30920)
         self.weekday = w.split(',')
@@ -437,7 +437,8 @@ class Holiday:
         # 曜日
         w = d.weekday()
         # 8月31日(土)
-        date1 = d.strftime(self.fmt) % self.weekday[w]
+        # date1 = d.strftime(self.fmt) % self.weekday[w]
+        date1 = strftime(d, self.fmt) % self.weekday[w]
         # 2019-08-31
         date2 = d.strftime('%Y-%m-%d')
         # カラー

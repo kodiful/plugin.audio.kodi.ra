@@ -401,10 +401,9 @@ msgid "Delete files completely?"
 msgstr ""
 
 msgctxt "#30919"
-msgid "%m/%d(%%s)"
+msgid "%Y/%m/%d(%%s) %H:%M"
 msgstr ""
 
 msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
 msgstr ""
-

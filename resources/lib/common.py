@@ -89,6 +89,12 @@ def strptime(t, format):
     return s
 
 
+# workaround for encode problems for strftime on Windows
+# cf. https://ja.stackoverflow.com/questions/44597/windows上のpythonのdatetime-strftimeで日本語を使うとエラーになる
+def strftime(d, format):
+    return d.strftime(format.encode('unicode-escape').decode()).encode().decode('unicode-escape')
+
+
 # other utilities
 
 def notify(message, **options):
