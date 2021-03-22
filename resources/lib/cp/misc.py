@@ -86,7 +86,7 @@ class Misc(Params, Jcba):
 
     def endEdit(self, id, name, stream, logo):
         if id == '':
-            self.data.append({'name': name, 'stream': stream, 'logo': logo})
+            self.data.append({'name': name, 'stream': stream, 'logo_large': logo})
         else:
             target = list(filter(lambda x: x['id'] == id, self.getStationData()))[0]
             data = list(filter(lambda x: x['name'] == target['name'] and x['stream'] == target['stream'], self.data))[0]
