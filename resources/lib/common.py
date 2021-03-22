@@ -18,7 +18,10 @@ def read_file(filepath):
     if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
         with open(filepath, 'rb') as f:
             data = f.read()
-        return data.decode(encoding=chardet.detect(data)['encoding'], errors='ignore')
+        encoding = chardet.detect(data)['encoding']
+        if encoding:
+            data = data.decode(encoding=encoding, errors='ignore')
+        return data
     else:
         return None
 

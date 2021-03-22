@@ -111,7 +111,7 @@ class Programs:
                 except Exception:
                     img = None
             if img is None:
-                buffer = read_file(Const.LOGO_FILE, mode='rb')
+                buffer = read_file(Const.LOGO_FILE)
                 img = Image.open(io.BytesIO(buffer))
             w = img.size[0]
             h = img.size[1]
