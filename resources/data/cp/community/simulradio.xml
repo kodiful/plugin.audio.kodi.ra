@@ -1,0 +1,2319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="verify-v1" content="GmPiKEnyfcP34ncCuYziNbuEPs6oR0ZNXN4xe51O5bY=" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>サイマルラジオ</title>
+<link href="style.css?20151104" rel="stylesheet" type="text/css" />
+<script src="Scripts/swfobject_modified.js" type="text/javascript"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8216849-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<style type="text/css">
+#main {
+	margin-top: 20px;
+	width: 880px;
+	overflow: hidden;
+}
+.radiosbox {
+	width: 928px;
+	margin: 0;
+	overflow: hidden;
+	_zoom: 1;
+}
+.radiosbox .radiobox {
+	width: 184px;
+	margin: 0 48px 14px 0;
+	display: inline-block;
+	vertical-align: top;
+	letter-spacing: normal;
+}
+.radiobox table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#contents a:hover img {
+	opacity:0.7;
+	filter:alpha(opacity=70);
+	-ms-filter:"alpha(opacity=70)";
+}
+</style>
+</head>
+<body id="index">
+<a href="#menupoint" style="display:none;">メニューへ→</a> <a href="#contpoint" style="display:none;">本文へ→</a>
+<div id="container">
+	<div id="header">
+		<h6><a href="index.html">サイマルラジオ</a></h6>
+		<div class="menu"> <a name="menupoint" id="menupoint"></a>
+			<ul>
+				<li><img src="images/logo2.png" alt="" style="width: 80px; padding-right: 10px;" /></li>
+				<li><a href="rule.html">利用規約</a></li>
+				<li><a href="policy.html">サイトポリシー</a></li>
+				<li><a href="faq.html">よくあるご質問</a></li>
+				<li><a href="contact/index.html">お問い合わせ</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="index_top">
+		<div align="center" style="background-color: #000000;">
+			<div id="top_shien">
+				<!--<h2><img src="images/top_title.png" alt="東日本大震災被災地への支援について" /></h2>-->
+				<div id="shien_main">
+					<p>コミュニティ放送局が放送すると同時にインターネットに配信をするサイマルラジオは、平成20年（2008年）にコミュニティ・サイマルラジオ・アライアンス（略CSRA）としてスタートしました。</p>
+					<p>ラジオ局がインターネットに同時配信することは、現在では普通のことになりましたが、日本で初めての運用でした。<br />
+また、平成23年東日本大震災においては、臨時災害局のサイマルラジオ環境設置を行い、平成30年3月に最後の1局が閉局するまで支援いたしました。「遠方にいるご家族の、地域の状況を知りたい！サイマルラジオを設置してほしい」という1通のメールから始まった活動でした。</p>
+					<p>これからのCSRAとしては、地域のSDGs（持続可能な開発目標）の手段として、サイマルラジオが地域にとって有効な手段として利用できることを目指してまいりたいと考えております。</p>
+					<p>2019年9月</p>
+					<p class="text_right">【本件へのお問い合わせ】info@csra.fm</p>
+				</div>
+				<div id="shien_sub">
+					<h3>「メンバー局から」</h3>
+					<iframe src="infomation.html?202003" width="880px" height="250px" frameborder="0"></iframe>
+					<!--<p>逗子・葉山コミュニティ放送（株）・（株）エフエムゆーとぴあ・エフエムラジオ立川（株）・（株）エフエム戸塚・（株）クレスト・<br />
+（株）エフエムわっかない・（株）エフエム二十一・箕面FMまちそだて（株）・南紀白浜コミュニティ放送（株）・NPO法人エフエムわいわい・（株）コミュニティメディアパートナーズ福岡・藤沢エフエム放送（株）・（株）FMしまばら・かわさき市民放送㈱・（株）エフエム宝塚・
+（株）えふえむエヌ・ワン・（株）フラワーコミュニティ放送・NPO法人 ディ あまみエフエム・（株）エフエムキャッチ・（株）FMうるま</p>-->
+				</div>
+				<div id="news_outer">
+					<div class="news">
+						<h3>お知らせ</h3>
+						<iframe src="news.html?2021" width="590px" height="60px" frameborder="0"></iframe>
+					</div>
+					<div class="bn_csra">
+						<a href="http://csra.fm/" target="_blank"><img src="images/bn_csra_test.gif" alt="CSRAバナー" /></a>
+					</div>
+				</div>
+				<div style="padding-bottom: 15px; width: 880px; overflow: hidden; text-align: right;">
+					<a href="https://www.facebook.com/デジタルコミュニティ放送-119155836142264/?modal=admin_todo_tour" target="_blank"><img src="images/dcba.jpg" alt="" style="width: 280px;" /></a></li>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a name="contpoint" id="contpoint"></a>
+	<div id="contents">
+		<div style="clear:both;border:1px solid #CCCCCC; background-color: #EEEEEE; margin-top: 20px; padding: 8px;">
+				<div style="font-size:x-small; line-height:140%; display:inline-block;">サイマルラジオを視聴するためには、Windows Media Playerが必要です。<a href="faq.html">詳細な視聴環境についてはこちらをご覧下さい。</a><br />
+					またこのサイトをご覧いただくにはADOBE FLASH PLAYERが必要です。お持ちで無い方は<a href="http://get.adobe.com/jp/flashplayer/" target="_blank">こちらよりダウンロード（無料）してください。</a></div>
+				<div align="center" style="display: inline-block; position: relative; top: 3px;"> <a href="http://www.microsoft.com/japan/windows/windowsmedia/download/" target="_blank"><img src="images/bn_wmp.jpg" alt="Windows Media Playerのダウンロード" width="88" height="31" border="0" /></a> <a href="http://get.adobe.com/jp/flashplayer/" target="_blank"><img src="images/bn_afp.jpg" alt="Adobe Flash Playerのダウンロード" width="124" height="31" border="0" /></a> </div>
+		</div>
+		<div id="main">
+			<h2 style="margin-top:0;"><a name="hokkaido" id="hokkaido"></a>北海道</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/1.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p>
+							<a href="http://listenradio.jp/?chp=30005&cap=10005&arp=1" target="_blank" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/?chp=30005&cap=10005&arp=1');" ><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2" valign="top"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.sankakuyama.co.jp/" target="_blank">三角山放送局</a></strong><br />
+									札幌市西区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 0:00-19:00/21:00-24:00<br />
+									金 0:00-20:00/21:00-24:00<br />
+									土 0:00-18:00/21:00-24:00<br />
+									日 0:00-6:00<br />
+									※コンサドーレ札幌のアウェイ戦の中継を除く<br />
+									※ネット休止時間<br />
+									毎週月曜日～金曜日の18時から19時<br />
+									毎週日曜日の8時～12時、20時～22時</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/2.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30016/FM-JAGA" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30016/FM-JAGA');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFM JAGAの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.jaga.fm/" target="_blank">FM JAGA</a></strong><br />
+									帯広市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 7:00-20:00/22:00-24:00<br />
+									土 8:00-17:00/20:00/24:00<br />
+									日 9:00-13:00/16:55-17:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/3.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmwing.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmwing.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmwing.com/index.html" target="_blank">FM WING</a></strong><br />
+									帯広市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 7:00-翌5:00<br />
+									土 9:00-翌5:00<br />
+								日 9:00-20:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/4.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://live.776.fm/" onClick="javascript: pageTracker._trackPageview('https://live.776.fm/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									映像・音声 (250K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://776.fm/" target="_blank">RADIOワンダーストレージFMドラマシティ</a></strong><br />
+									札幌市厚別区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 9:00-22:00<br />
+									土 15:00-22:30<br />
+									日 9:00-21:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/57.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/FmKushiro.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/FmKushiro.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm946.com" target="_blank">FMくしろ</a></strong><br />
+									釧路市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/58.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmwappy.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmwappy.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://wappy761.jp" target="_blank">FMわっぴ～</a></strong><br />
+									稚内市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td width="90"><p><img src="data/5.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm837.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm837.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+							<td width="210">&nbsp;</td>
+						</tr>
+						<tr valign="top">
+							<td colspan="3"><p style="clear:both; margin-top: 0px;"><strong><a href="http://www.fm837.com/" target="_blank">FMりべーる</a></strong><br />
+								旭川市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 8:00-17:00/20:00-23:00<br />
+									火 8:00-17:00/20:00-23:00<br />
+									水(第1・3・5) 8:00-14:30/15:00-17:00/18:00-19:00/20:00-23:00<br />
+									水(第2・4) 8:00-17:00/18:00-19:00/20:00-23:00<br />
+									木 8:00-11:00/12:00-17:00/20:00-23:00<br />
+									金(第1・2・3・5) 8:00-11:00/14:00-15:00/16:00-17:00/19:00-23:00<br />
+									金(第4) 8:00-11:00/11:30-12:00/14:00-15:00/16:00-17:00/19:00-23:00<br />
+									土 10:00-12:00/18:00-20:00/24:00-25:00<br />
+									日 9:00-11:00/11:45-18:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/92.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.radioniseko.jp/asx/radioniseko_24k.asx" onclick="javascript: pageTracker._trackPageview('http://www.radioniseko.jp/asx/radioniseko_24k.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;"><strong><a href="http://radioniseko.jp" target="_blank">ラジオニセコ</a></strong><br />
+								ニセコ町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/104.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/iruka.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/iruka.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmiruka.co.jp/" target="_blank">FMいるか</a></strong><br />
+								函館市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 7:00-22:00<br />
+									土 9:00-18:00<br />
+								日 9:00-18:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/112.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/radiokaros.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/radiokaros.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.radiokaros.com/" target="_blank">ラジオカロスサッポロ</a></strong><br />
+								札幌市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 7:00-24:00<br />
+									火 7:00-21:00<br />
+									水-金 7:00-24:00<br />
+									土 7:00-18:00/20:00-24:00<br />
+								日 9:00-23:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/123.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmapple.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmapple.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30090/FMアップル" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30090/FMアップル');" target="_blank"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://765fm.com/" target="_blank">FMアップル</a></strong><br />
+								札幌市豊平区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table>
+			</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/129.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/eniwa.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/eniwa.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.e-niwa.tv/" target="_blank">e-niwaFM</a></strong><br />
+								恵庭市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 6:00-19:00/20:00-0:00<br />
+火-金 0:00-19:00/20:00-0:00<br />
+土 0:00-19:00<br />
+日 10:00-16:00</p></td>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/135.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/otaru.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/otaru.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmotaru.jp/" target="_blank">FMおたる</a></strong><br />
+								小樽市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 8:00-24:30<br />
+							火 8:00-24:30<br />
+							水 8:00-24:30<br />
+							木 8:00-24:30<br />
+							金 8:00-24:30<br />
+							土 10:00-24:30<br />
+							日 10:00-21:00</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">偶数週、奇数週で配信時間が異なります。詳しくはHPをご確認ください。</p></td>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/140.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><!--<a href="http://www.simulradio.info/asx/shiroishi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/shiroishi.asx');">--><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /><!--</a>--><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.830.fm/" target="_blank">エフエムしろいし</a></strong><br />
+								札幌市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">都合により現在、配信を停止しております</p></td>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/156.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30087/wi-radio" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30087/wi-radio');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのWi-radioの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.date-kanko.jp/wiradio/" target="_blank">Wi-radio</a></strong><br />
+								伊達市</p>
+							<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">都合により現在、配信を停止しております</p>--></td>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/159.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/?chp=30045&cap=10005&arp=1" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/?chp=30045&cap=10005&arp=1');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmnemuro.com/" target="_blank">FMねむろ</a></strong><br />
+								根室市</p>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/160.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30058/FM%20ABASHIRI" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30058/FM%20ABASHIRI');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="https://www.lia-abashiri.com/" target="_blank"> FMあばしり</a></strong><br />
+								網走市</p>
+						</tr>
+					</table>
+			</div><!--
+			--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/164.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://lve.jp/jcCb5GJOHwON/" onclick="javascript: pageTracker._trackPageview('https://lve.jp/jcCb5GJOHwON/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="https://sapporomura-radio.jp/" target="_blank"> さっぽろ村ラジオ</a></strong><br />
+								札幌市</p>
+						</tr>
+					</table>
+			</div><!--
+      --><div class="radiobox"><table>
+          <tr valign="top">
+            <td><p><img src="data/171.jpg" alt="" width="90" height="60" class="left" /></p></td>
+            <td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30015/FMメイプル" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30015/FMメイプル');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+              音声</p></td>
+          </tr>
+          <tr valign="top">
+            <td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのMメイプルの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="https://www.facebook.com/fm.maple79.9" target="_blank"> FMメイプル</a></strong><br />
+              北広島市</p>
+          </tr>
+        </table>
+    </div><!--
+			--></div>
+			<h2><a name="touhoku" id="touhoku"></a>東北</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/6.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30017/%E3%83%A9%E3%83%82%E3%82%AA%E3%82%82%E3%82%8A%E3%81%8A%E3%81%8B" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30017/%E3%83%A9%E3%83%82%E3%82%AA%E3%82%82%E3%82%8A%E3%81%8A%E3%81%8B');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのラヂオもりおかの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://radiomorioka.co.jp" target="_blank">ラヂオもりおか</a><br />
+									</strong>盛岡市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 7:00-11:30/16:30-20:00<br />
+									金 7:00-11:30/16:00-21:45</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/7.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30007/RADIO3" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30007/RADIO3');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのRADIO3の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.radio3.jp/" target="_blank">RADIO3</a><br />
+									</strong>仙台市青葉区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 9:00-20:00/22:00-24:00<br />
+									土 8:00-10:00/18:00-19:00/21:00-23:00<br />
+									日 8:30-11:00/22:00-23:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/8.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmmotcom.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmmotcom.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-mot.com/" target="_blank">エフエム モットコム</a></strong> <br />
+									本宮市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 7:00-15:00/17:00-22:00/23:00-25:00<br />
+									土 10:00-11:00/16:00-23:30<br />
+									日 9:00-11:00/15:30-25:00</p>
+									<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">2017年10月1日（日）　午前8：00～正午の間、「本宮市総合防災訓練」の実施に伴い、訓練への参加及び中継放送のため、上記の時間帯の放送内容が変更となります。</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/34.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-iwaki.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-iwaki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-iwaki.co.jp/cgi-bin/WebObjects/1201dac04a1.woa/" target="_blank">FMいわき</a></strong><br />
+									いわき市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/52.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/aizu.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/aizu.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmaizu.com/index.shtm" target="_blank">エフエム会津</a></strong> <br />
+									会津若松市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/53.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/FmYutopia.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/FmYutopia.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30030/FMゆーとぴあ" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30030/FMゆーとぴあ');" target="_blank"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.yutopia.or.jp/~fm763/" target="_blank">FMゆーとぴあ</a></strong><br />
+									湯沢市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/54.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/yokote.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/yokote.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmyokote.com/" target="_blank">横手かまくらエフエム</a></strong> <br />
+									横手市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 7:00-9:00/10:00-14:00/16:30-19:00/21:00-22:00<br />
+									金 7:00-16:00/16:30-22:00<br />
+									土 8:00-13:00<br />
+								日 9:00-13:00/18:00-19:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/64.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/FmMiyako.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/FmMiyako.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://miyakofm.com" target="_blank">みやこハーバーラジオ</a></strong><br />
+									宮古市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"><!-- 時間帯 --></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/68.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/RadioIshinomaki.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/RadioIshinomaki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm764.jp" target="_blank">ラジオ石巻</a></strong><br />
+									石巻市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+						<!--
+						<tr valign="top">
+							<td><p><img src="data/66.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/BAYWAVE.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/BAYWAVE.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+							<img src="images/rinzi.gif" width="100" height="21" />
+							<p style="clear:both;  margin-top: 0px;"><strong><a href="www.bay-wave.co.jp " target="_blank">BAY WAVE</a></strong> <br />
+									塩釜市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					-->
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/66.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30056/BAY%20WAVE" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30056/BAY%20WAVE');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのBAY WAVEの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.bay-wave.co.jp " target="_blank">BAY WAVE</a></strong> <br />
+									塩釜市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 9:00-20:00<br />
+									土 12:00-15:00/16:55-19:00/22:00-24:00<br />
+									※サッカー生中継による一部変更もあります。<br />
+								日 11:00-13:00/22:00-23:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/67.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30018/fmいずみ" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30018/fmいずみ');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのfmいずみの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.fm797.co.jp/" target="_blank">fmいずみ</a></strong> <br />
+									仙台市泉区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/71.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/RingoFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/RingoFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">3月31日で閉局</p><img src="images/rinzi.gif" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://ringo-radio.cocolog-nifty.com/" target="_blank">りんごFM</a></strong><br />
+									山元町</p>
+
+								<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br /><br />
+								8:00-9:00<br /><span style="font-size: 80%">　天気予報・ニュース拾い読み・おはようさん</span><br />
+								9:00-10:00<br /><span style="font-size: 90%">　山元町情報</span><br />
+								10:00-11:00<br /><span style="font-size: 90%">　体操・健康の時間</span><br />
+								11:00-12:00<br /><span style="font-size: 90%">　語り継ぐ私の3月11日</span><br />
+								12:00-13:00<br /><span style="font-size: 90%">　山元町情報・天気予報</span><br />
+								13:00-14:00<br /><span style="font-size: 90%">　4ヶ国語放送（土）・ボランティア情報</span><br />
+								14:00-15:00<br /><span style="font-size: 90%">　取材レポート</span><br />
+								15:00-16:00<br /><span style="font-size: 90%">　体操・健康の時間</span><br />
+								16:00-17:00<br /><span style="font-size: 90%">　学校だより</span><br />
+								17:00～<br /><span style="font-size: 80%">　山元町情報・天気予報・今日のゲストメッセージ</span><br />
+								</p>--></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/72.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/Natoraji.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/Natoraji.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p>
+									<p><a href="http://listenradio.jp/Home/ProgramSchedule/30092/%E3%81%AA%E3%81%A8%E3%82%89%E3%81%98801" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30092/%E3%81%AA%E3%81%A8%E3%82%89%E3%81%98801');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.natori801.jp" target="_blank">なとらじ</a></strong><br />
+									名取市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"><!--時間帯--></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/74.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/MinamisomaFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/MinamisomaFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">閉局しました</p>
+							<img src="images/rinzi.gif" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://minamisomasaigaifm.hostei.com/index.html" target="_blank">南相馬ひばりエフエム</a></strong><br />
+									南相馬市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">※毎週 日 23:00～翌 月 8:30まで、メンテナンスのため休止<br />
+							※12月27日（土）18:00から1月5日（月）9:00まで、年末年始につき放送休止。なお、災害時など緊急の場合には、放送を再開し、情報を提供していく予定です。</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/75.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kocofm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kocofm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both; margin-top: 0px;"><strong><a href="http://www.kocofm.jp/" target="_blank">郡山コミュニティ放送</a></strong><br />
+									郡山市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/80.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><!--<p><a href="http://www.simulradio.info/asx/OnagawaFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/OnagawaFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />-->
+								<!--音声--><!--音声 (64K)-->
+							<!--</p>--></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">3月31日で閉局</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://onagawafm.jp/" target="_blank">女川さいがいFM</a></strong><br />
+									女川町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/151.jpg?20170630" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30094/ラヂオ気仙沼" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30094/ラヂオ気仙沼');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのラヂオけせんぬまの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://kfm775.co.jp/" target="_blank">ラヂオ気仙沼</a></strong><br />
+									気仙沼市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/89.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/rikuzentakataFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/rikuzentakataFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">3月16日閉局</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://rikuzentakata-fm.blogspot.com/" target="_blank">陸前高田災害FM</a></strong><br />
+									陸前高田市</p>
+								<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">
+									3月16日閉局
+								</p>--></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/91.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/OdagaisamaFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/OdagaisamaFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">閉局しました</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.gurutto-koriyama.com/detail/index_213.html" target="_blank">富岡臨時災害FM局（おだがいさまFM）</a></strong><br />
+									富岡町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">
+									<!--時間帯-->
+								月・火・木 8:00-9:00/10:00-10:20/18:30-19:30<br />
+								水 8:00-9:00/10:00-10:20/11:00-11:30/18:30-19:30<br />
+								金 8:00-9:00/10:00-10:20/18:30-20:30<br />
+								土 12:00-13:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/94.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><!--<p><a href="http://www.simulradio.info/asx/aozora.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/aozora.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声--><!--音声 (64K)-->
+							<!--</p>--></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">3月24日で閉局</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.town.watari.miyagi.jp/index.cfm/22,21308,126,html" target="_blank">亘理臨時災害FM局（FMあおぞら）</a></strong><br />
+									亘理町</p>
+								<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">-->
+									<!--時間帯-->
+									<!--※毎週 水 15:00-15:30まで、メンテナンスのため休止</p>--></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/100.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><!--<p><a href="http://www.simulradio.info/asx/otsuchi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/otsuchi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />-->
+								<!--音声--><!--音声 (64K)-->
+							<!--</p>>--></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both;  margin-top: 0px;">3月18日で閉局</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.town.otsuchi.iwate.jp/" target="_blank">おおつちさいがいエフエム</a></strong><br />
+									大槌町</p>
+								<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">8:00-24:00（毎日） </p>--></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/107.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kamaishi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kamaishi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">3月31日で閉局</p><img src="images/rinzi.gif" alt="" width="100" height="21" />
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.city.kamaishi.iwate.jp/index.cfm/12,18557,121,html" target="_blank">釜石災害FM</a></strong><br />
+									釜石市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">10:30-12:00 / 15:30-17:00（毎日）</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">機材メンテナンス及び電気関連工事のため、2月21日（火）17：30～23日（水）9：00　予定　 で一時放送を休止します。</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/115.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://fmasmo.fmplapla.com/player/" onclick="javascript: pageTracker._trackPageview('http://fmasmo.fmplapla.com/player/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://emus.jimdo.com/" target="_blank">FMあすも</a></strong><br />
+									一関市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/119.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/befm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/befm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p>
+							<p><a href="http://www.befm.co.jp/タイムテーブル/" target="_blank"	 onClick="javascript: pageTracker._trackPageview('http://www.befm.co.jp/タイムテーブル/');"><img src="images/btn_radio_bangumi.png" alt="番組表" width="70" height="32" border="0" /></a></p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.befm.co.jp/" target="_blank">BeFM</a></strong><br />
+									八戸市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 7:00-9:00/12:00-22:00<br />
+土 14:30-21:00<br />
+日 18:00-24:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/120.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kiritampo.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kiritampo.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;"><strong><a href="http://fm791.net/" target="_blank">鹿角きりたんぽFM</a></strong><br />
+									鹿角市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/136.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30050/%E3%82%AB%E3%82%B7%E3%82%AA%E3%83%9A%E3%82%A2FM" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30050/%E3%82%AB%E3%82%B7%E3%82%AA%E3%83%9A%E3%82%A2FM');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;">「放送を聞く」をクリックし、リスラジのカシオペアFMの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://779.jp/" target="_blank">カシオペアFM</a></strong><br />
+									二戸市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"><!-- 平日 6:30-7:00/9:00-11:00/13:00-14:00/18:00-18:20<br />
+								月曜 19:00-21:00/土曜 9:00-11:00/日曜 9:00-09:15<br /><br />
+								上記の時間帯はサイマル放送は休止です。サーバメンテナンスのため放送休止中<br />
+								再開まではListenRadioからお聴きください--></p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/146.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/taihaku.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/taihaku.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;"><strong><a href="http://www.fm-t.net/" target="_blank">FMたいはく</a></strong><br />
+									仙台市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table></div><!--
+					--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/153.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30014/エフエム椿台" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30014/エフエム椿台');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;">「放送を聞く」をクリックし、リスラジのエフエム椿台の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<strong><br /><a href="http://www.fm796.com" target="_blank">エフエム椿台</a></strong><br />
+									秋田市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div>
+          <!--
+					--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/172.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30025/ラジオおおだて" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30025/ラジオおおだて');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;">「放送を聞く」をクリックし、リスラジのラジオおおだての番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<strong><br /><a href="https://odate-fm.com/" target="_blank">ラジオおおだて</a></strong><br />
+									大館市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table></div><!--
+				--></div>
+			<div class="radiosbox"><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/9.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmkento.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmkento.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (128K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmkento.com/pc/" target="_blank">FM Kento</a></strong><br />
+									新潟市中央区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><!--<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/10.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmkaruizawa.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmkaruizawa.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-karuizawa.co.jp/" target="_blank">FM軽井沢</a></strong><br />
+									軽井沢町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div>--><!--
+				
+				
+			--></div>
+			<h2><a name="kantou" id="kantou"></a>関東甲信越</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/106.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/azumino.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/azumino.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.azuminofm.co.jp/" target="_blank">あづみ野FM</a></strong><br />
+									安曇野市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/11.jpg?2021" width="90" height="60" class="left" /></p>
+								<p style="clear:both;  margin-top: -15px;"><strong><a href="http://www.fmpalulun.co.jp/" target="_blank">FMぱるるん<br />
+									</a></strong>水戸市</p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://lve.jp/ZrHcOD3aGfaG/" onClick="javascript: pageTracker._trackPageview('https://lve.jp/ZrHcOD3aGfaG/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									映像・音声<br />
+									（548K）</p>
+								<p><a href="http://www.simulradio.info/asx/fmpalulun.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmpalulun.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声のみ</p>
+								<p><a href="http://listenradio.jp/Home/ProgramSchedule/30022/FM%E3%81%B1%E3%82%8B%E3%82%8B%E3%82%93" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30022/FM%E3%81%B1%E3%82%8B%E3%82%8B%E3%82%93');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 6:00-27:00<br />
+								火 6:00-27:00<br />
+								水 7:00-14:00/16:00-27:00<br />
+								木 6:00-27:00<br />
+								金 6:00-27:00<br />
+								土 5:00-29:00<br />
+							日 5:00-26:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/12.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;">
+								<p><a href="http://www.fm767.com/flower_64k.asx" onClick="javascript: pageTracker._trackPageview('http://www.fm767.com/flower_64k.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p>
+								<p><a href="https://www.fm767.com/pdf/flowerradio_program_180720.pdf" target="_blank"	 onClick="javascript: pageTracker._trackPageview('https://www.fm767.com/pdf/flowerradio_program_180720.pdf');"><img src="images/btn_radio_bangumi.png" alt="番組表" width="70" height="32" border="0" /></a></p>
+								<p><a href="http://listenradio.jp/?chp=30002&cap=10005&arp=3" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/?chp=30002&cap=10005&arp=3');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p>
+								<p><a href="http://www.konosu-kanko.jp/" target="_blank"><img src="images/btn_kanko.png" alt="観光協会" width="70" height="32" border="0" /></a></p>
+									</td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm767.com/" target="_blank">フラワーラジオ<br />
+									</a></strong>鴻巣市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 8:00-19:00<br />
+									金 8:00-24:00<br />
+									土 0:00-18:00<br />
+									日 9:00-18:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/154.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/smile.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/smile.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="https://clovermedia.jp" target="_blank">CLOVER MEDIA</a></strong><br />
+									朝霞市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/14.jpg" width="90" height="60" class="left" /></p>
+								<p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.beachfm.co.jp/" target="_blank">湘南ビーチFM</a></strong><br />
+									逗子市・葉山町</p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://www.beachfm.co.jp/video/" onClick="javascript: pageTracker._trackPageview('https://www.beachfm.co.jp/video/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									映像・音声</p>
+								<p><a href="https://www.beachfm.co.jp/radio/" onClick="javascript: pageTracker._trackPageview('https://www.beachfm.co.jp/radio/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声のみ</p>
+								<p><a href="http://listenradio.jp/Home/ProgramSchedule/30028/%E6%B9%98%E5%8D%97%E3%83%93%E3%83%BC%E3%83%81FM" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30028/%E6%B9%98%E5%8D%97%E3%83%93%E3%83%BC%E3%83%81FM');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/15.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30063/%E3%83%AC%E3%83%87%E3%82%A3%E3%82%AA%E6%B9%98%E5%8D%97" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30063/%E3%83%AC%E3%83%87%E3%82%A3%E3%82%AA%E6%B9%98%E5%8D%97');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのレディオ湘南の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.radioshonan.co.jp/" target="_blank">レディオ湘南<br />
+									</a></strong>藤沢市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 6:00-24:00<br />
+									土 7:54-24:00<br />
+								日 8:56-24:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/31.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://redswave.com/simul.asx" onclick="javascript: pageTracker._trackPageview('http://redswave.com/simul.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30008/REDSWAVE" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30008/REDSWAVE');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://redswave.com" target="_blank">REDS WAVE</a></strong><br />
+									さいたま市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-日 6:00-25:00<br />
+								※浦和レッズ戦実況中継番組の再放送を除く。</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/32.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;">
+							<!--	<p><a href="mms://ir298.com/IRTsukuba/radiotsukuba.asx" onclick="javascript: pageTracker._trackPageview('mms://ir298.com/IRTsukuba/radiotsukuba.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />	-->
+								<p><a href="http://www.simulradio.info/asx/tsukuba.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/tsukuba.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2">
+								<p style="clear:both; margin-top: 0px;"><strong><a href="http://radio-tsukuba.net" target="_blank">ラヂオつくば</a></strong><br />
+									つくば市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※毎週月2:00-5:00メンテナンスのため放送停止</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/38.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-tachikawa.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-tachikawa.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm844.co.jp/" target="_blank">エフエムたちかわ</a></strong><br />
+									立川市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+							※毎週 月0:00-月5:00まで、メンテナンスのため休止</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/41.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kawasaki.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kawasaki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p>
+              <p><a href="http://listenradio.jp/Home/ProgramSchedule/30046/かわさきFM" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30046/かわさきFM');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.kawasakifm.co.jp/" target="_blank">かわさきFM</a></strong><br />
+								川崎市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※都合により変更する場合があります。</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/42.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kiryufm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kiryufm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmkiryu.jp" target="_blank">FM 桐生</a></strong><br />
+								桐生市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※毎週 日20:00-月7:00メンテナンスのため放送休止</p></td>
+						</tr>
+					</table>
+				</div>--><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/47.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/totsuka.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/totsuka.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30064/FM戸塚" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30064/FM戸塚');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-totsuka.com/" target="_blank">FM戸塚</a></strong><br />
+								横浜市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/56.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/FmSalus.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/FmSalus.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-salus.jp/" target="_blank">FMサルース</a></strong><br />
+								横浜市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/62.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/chofu_fm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/chofu_fm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p>
+								<p><a href="http://listenradio.jp/Home/ProgramSchedule/30039/%E8%AA%BF%E5%B8%83FM" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30039/%E8%AA%BF%E5%B8%83FM');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.chofu-fm.com/" target="_blank">調布FM</a></strong><br />
+								調布市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/69.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://radio.maebashi.fm:8080/mwave" onclick="javascript: pageTracker._trackPageview('http://radio.maebashi.fm:8080/mwave');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.maebashi.fm/" target="_blank">まえばしCITYエフエム</a></strong><br />
+								前橋市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※J-WAVE配信番組を除く。</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/76.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/katsushika.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/katsushika.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p>
+								<p><a href="http://listenradio.jp/Home/ProgramSchedule/30031/%E3%81%8B%E3%81%A4%E3%81%97%E3%81%8BFM" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30031/%E3%81%8B%E3%81%A4%E3%81%97%E3%81%8BFM');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.kfm789.co.jp/" target="_blank">かつしかFM</a></strong><br />
+								葛飾区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/77.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.fmsagami.co.jp/asx/fmsagami.asx" onclick="javascript: pageTracker._trackPageview('http://www.fmsagami.co.jp/asx/fmsagami.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmsagami.co.jp/" target="_blank">エフエムさがみ</a></strong><br />
+								相模原市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 5:00-26:00<br />
+									土・日 7:00-26:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/81.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/rainbowtown.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/rainbowtown.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.792fm.com/" target="_blank">レインボータウンFM</a></strong><br />
+								江東区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">
+									<!-- 配信時間 -->
+								</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/97.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="mms://hdv.nkansai.tv/kaon" onclick="javascript: pageTracker._trackPageview('mms://hdv.nkansai.tv/kaon');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30057/FMカオン" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30057/FMカオン');" target="_blank"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmkaon.com/" target="_blank">FM kaon</a></strong><br />
+								海老名市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/99.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/chuo_fm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/chuo_fm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm840.jp/" target="_blank">中央エフエム</a></strong><br />
+								中央区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/121.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/takahagi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/takahagi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.t768.net" target="_blank">たかはぎFM</a></strong><br />
+								高萩市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/133.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/kawaguchi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/kawaguchi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm856.co.jp/" target="_blank">FM Kawaguchi</a></strong><br />
+								川口市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">6:00～25:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/134.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmuu.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmuu.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmuu.jp/" target="_blank">FM-UU</a></strong><br />
+								牛久市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/141.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/hitachi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/hitachi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.hfm.or.jp/" target="_blank">FMひたち</a></strong><br />
+								日立市</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/152.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30096/ハローハッピー・こしがやエフエム" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30096/ハローハッピー・こしがやエフエム');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのこしがやエフエムの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://koshigaya.fm/" target="_blank">こしがやエフエム</a></strong><br />
+								越谷市</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/168.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30081/Tokyo%20Star%20Radio" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30081/Tokyo%20Star%20Radio');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジの八王子FMの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br />
+							<strong><a href="https://775fm.com/" target="_blank">Tokyo Star Radio</a></strong><br />
+								八王子市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/166.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30027/エフエム世田谷" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30027/エフエム世田谷');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのエフエム世田谷の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br />
+							<strong><a href="https://fmsetagaya.com/" target="_blank">エフエム世田谷</a></strong><br />
+								世田谷区</p>
+								</td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/167.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30059/ラジオフチューズ" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30059/ラジオフチューズ');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのラジオフチューズの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br />
+							<strong><a href="https://www.radio-fuchues.tokyo/" target="_blank">ラジオフチューズ</a></strong><br />
+								府中市</p>
+								</td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/169.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30051/コマラジ" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30051/コマラジ');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのコマラジの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br />
+							<strong><a href="https://www.komae.fm/" target="_blank">コマラジ</a></strong><br />
+								狛江市</p>
+								</td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/170.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30065/マリンFM" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30065/マリンFM');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声
+								<!--音声 (64K)-->
+							</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのマリンFMの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br />
+							<strong><a href="http://www.marine-fm.com/" target="_blank">マリンFM</a></strong><br />
+								横浜市</p>
+								</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h2><a name="toukai" id="toukai"></a>東海</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/17.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://fmplapla.com/fmyokkaichi/" onClick="javascript: pageTracker._trackPageview('https://fmplapla.com/fmyokkaichi/');" target="_blank"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p>
+									<p><a href="http://cty-fm.com/program/" target="_blank"	 onClick="javascript: pageTracker._trackPageview('http://cty-fm.com/program/');"><img src="images/btn_radio_bangumi.png" alt="番組表" width="70" height="32" border="0" /></a></p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://cty-fm.com/" target="_blank">CTY-FM<br />
+									</a></strong>四日市市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">7:00-10:00/12:00-19:00<br />
+									※ただし曜日により変動します。<br />
+								</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/18.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30062/Ciao" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30062/Ciao');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのCiao!の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.ciao796.com/" target="_blank">Ciao!<br />
+									</a></strong>熱海市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※ただし自社制作番組のみ放送。</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/19.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/mid-fm761.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/mid-fm761.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://midfm761.com/" target="_blank">MID-FM<br />
+									</a></strong>名古屋市中区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/174.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/FmOkazaki.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/FmOkazaki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm-egao.jp/" target="_blank">エフエムEGAO<br />
+									</a></strong>岡崎市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-土 24時間<br />
+									日 5:00-27:00<br />
+									☆上記放送時間以外にも、臨時災害放送・特別番組など「羽根スタジオ（特設スタジオを含む）」から放送する番組に関しては全て配信されます。<br />
+								</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/105.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="https://fmplapla.com/pitchfm/" onclick="javascript: pageTracker._trackPageview('https://fmplapla.com/pitchfm/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのPitch FMの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.838.fm/" target="_blank">Pitch FM</a></strong><br />
+								刈谷市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">5:00-25:00（毎日）</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/118.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/toyota.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/toyota.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.loveat.co.jp/" target="_blank">RADIO LOVEAT<br />
+							</a></strong>豊田市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+								</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/125.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/suzuka.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/suzuka.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.suzuka-voice.fm/" target="_blank">Suzuka Voice FM</a><br />
+							</strong>鈴鹿市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/127.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/izunokuni.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/izunokuni.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmizunokuni.jp/" target="_blank">FMいずのくに</a><br />
+							</strong>伊豆の国市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">7:00-21:00(完全生放送)</p></td>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+			<h2><a name="hokuriku" id="hokuriku"></a>北陸</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/20.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;">&nbsp;</td>
+						</tr>
+						<tr valign="top">
+							<td width="90" align="left" valign="middle" style="font-size: x-small;"><p><a href="http://www.fmn1.jp/netradio.html" onclick="javascript: pageTracker._trackPageview('http://www.fmn1.jp/netradio.html');" target="_blank"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								画像・音声 (514K)</p></td>
+							<td width="90" align="left" valign="middle" style="font-size: x-small;"><p><a href="https://www.fmn1.jp/netaudio.html" onclick="javascript: pageTracker._trackPageview('https://www.fmn1.jp/netaudio.html');" target="_blank"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								　音声（32K）</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmn1.jp/" target="_blank">FM-N1</a><br />
+							</strong>野々市市</p>
+								<iframe src="http://www.fmn1.jp/simulradio.html" scrolling="No" frameborder="0" width="185" marginwidth="0" marginheight="0" style="clear: both;"></iframe></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/61.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.web-services.jp/harbor779/" onClick="javascript: pageTracker._trackPageview('http://www.web-services.jp/harbor779/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (24K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href=" http://harbor779.com" target="_blank">ハーバーステーション<br />
+									</a></strong>敦賀市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 8:00-20:00</p></td>
+						</tr>
+					</table></div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/132.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/radiomyu.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/radiomyu.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm761.co.jp/" target="_blank">ラジオ・ミュー</a><br />
+									</strong>黒部市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table></div><!--
+			--></div>
+			<h2><a name="kinki" id="kinki"></a>近畿</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/21.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://fukuchiyama.fm-tanba.jp/simul.asx" onClick="javascript: pageTracker._trackPageview('http://fukuchiyama.fm-tanba.jp/simul.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fukuchiyama.fm-tanba.jp/" target="_blank">FM丹波</a></strong><br />
+									福知山市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/22.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30048/FM%E5%8D%83%E9%87%8C" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30048/FM%E5%8D%83%E9%87%8C');" target="_blank"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFM千里の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.senri-fm.jp/" target="_blank">FM 千里<br />
+									</a></strong>豊中市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/23.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://tcc117.jp/fmyy/asx/fmyy.asx" onClick="javascript: pageTracker._trackPageview('http://tcc117.jp/fmyy/asx/fmyy.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">地上波を終了し、インターネット放送局として再出発<br /><strong><a href="http://tcc117.jp/fmyy/" target="_blank">エフエムわいわい</a></strong><br />
+									神戸市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">土 12:00-20:00<br />
+									日-金 12:00-20:00(土曜日の再放送)</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/25.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-miki.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-miki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-miki.jp/" target="_blank">エフエム　みっきぃ</a></strong><br />
+									三木市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/33.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.media-gather.jp/_mg_standard/player2.php?p=Y4cJh0sZqak%3D" onclick="javascript: pageTracker._trackPageview('http://www.media-gather.jp/_mg_standard/player2.php?p=Y4cJh0sZqak%3D');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声＋映像<br />「放送を聞く」をクリック後のアンテナのイラストをクリックしてください</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30049/エフエムひらかた" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30049/エフエムひらかた');" target="_blank"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0"></a><br>
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.kiku-fm779.com/" target="_blank">FMひらかた</a></strong><br />
+									枚方市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/37.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://hdv5.nkansai.tv/genki/" onclick="javascript: pageTracker._trackPageview('http://hdv5.nkansai.tv/genki/');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmgenki.jp" target="_blank">FM GENKI</a></strong><br />
+									姫路市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 7:00-9:00/10:00-15:00/16:00-20:00<br />
+									金 7:00-9:00/10:00-15:00/16:00-21:00/22:00-24:40<br />
+									土 8:00-19:00/21:00-25:00<br />
+									日 7:00-18:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/35.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-tanabe.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-tanabe.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm885.jp/" target="_blank">FM TANABE</a></strong><br />
+									田辺市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-土 7:00-22:00<br />
+									日 7:00-21:00<br />
+								※月-土 22:00-7:00、日 21:00-7:00まで特別放送あり。</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/39.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/jungle.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/jungle.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.764.fm/" target="_blank">FMジャングル</a></strong><br />
+									豊岡市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/46.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/banban.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/banban.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.banban.jp/radio/" target="_blank">BAN-BANラジオ</a></strong><br />
+								加古川市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/82.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/beach_station.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/beach_station.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p>
+								<p><a href="https://www.fm764.com/schedule/timetable" target="_blank"	 onClick="javascript: pageTracker._trackPageview('https://www.fm764.com/schedule/timetable');"><img src="images/btn_radio_bangumi.png" alt="番組表" width="70" height="32" border="0" /></a></p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm764.com/" target="_blank">ビーチステーション</a></strong><br />
+								白浜町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月～木 5:00-6:00/8:00-13:00/16:30-20:00<br />
+									金 5:00-6:00/8:00-13:00/16:00-20:00<br />
+									土 9:00-13:00/19:00-20:00<br />
+									日 9:00-13:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/85.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/minohfm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/minohfm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm.minoh.net/" target="_blank">みのおエフエム</a></strong><br />
+								箕面市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/87.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/yes-fm.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/yes-fm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p><p><a href="http://listenradio.jp/Home/ProgramSchedule/30073/YES-fm" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30073/YES-fm');" target="_blank"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.yesfm.jp/index.php" target="_blank">YES-fm</a></strong><br />
+								大阪市中央区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-木 14:00-22:00/24:00-26:00<br />
+									金 8:59-22-00/24:00-26:00<br />
+									土 8:59-１8:00/21:00-25:00<br />
+									日 21:00-25:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/90.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/KyotoLivingFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/KyotoLivingFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-845.com/" target="_blank">京都リビングエフエム</a></strong><br />
+								京都市伏見区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 10:00-19:00/22:00-24:00<br />
+									火 10:00-15:00/22:00-24:00<br />
+									水 10:00-15:00/22:00-24:00<br />
+									木 10:00-16:00/22:00-24:00<br />
+									金 10:00-15:00/22:00-24:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/109.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/aiai.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/aiai.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmaiai.com/" target="_blank">エフエムあまがさき</a></strong><br />
+								尼崎市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 7:45-22:08<br />
+									火 7:45-21:06<br />
+									水 7:45-22:08<br />
+									木 7:45-23:08<br />
+									金 7:45-21:08<br />
+									土 10:00-22:38<br />
+									日 9:00-25:08</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/110.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/rockets785.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/rockets785.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm785.jp/" target="_blank">えふえむ草津</a></strong><br />
+								草津市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/114.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/hasimoto.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/hasimoto.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://816.fm/" target="_blank">FMはしもと</a></strong><br />
+								橋本市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/122.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/radiocafe.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/radiocafe.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://radiocafe.jp/" target="_blank">京都三条ラジオカフェ</a></strong><br />
+								京都市中京区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><!--<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/128.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/tanbacom.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/tanbacom.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.tanba.info/category/%E4%B8%B9%E6%B3%A2%E5%B8%82%E7%81%BD%E5%AE%B3%EF%BD%86%EF%BD%8D/" target="_blank">たんばしさいがいFM</a></strong><br />
+								丹波市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table>
+				</div>--><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/130.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/tango.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/tango.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm-tango.jp/" target="_blank">FMたんご</a></strong><br />
+								京丹後市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/131.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmmoov.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmmoov.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-moov.com/" target="_blank">FM MOOV KOBE</a></strong><br />
+								神戸市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/137.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/radiosweet.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/radiosweet.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (4K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.sweet815.com/" target="_blank">Radio Sweet</a></strong><br />
+								東近江市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">テスト配信中</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/138.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm805.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm805.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (4K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.tanba.info/" target="_blank">805たんば</a></strong><br />
+								丹波市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間配信</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/139.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/honey.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/honey.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (4K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm822.com/" target="_blank">HONEY FM</a></strong><br />
+								三田市</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/144.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/radiomixkyoto.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/radiomixkyoto.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (4K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://radiomix.kyoto/" target="_blank">RADIO MIX KYOTO</a></strong><br />
+								京都市北区</p>
+							<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/161.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30063/FM%E3%81%8A%E3%81%A8%E3%81%8F%E3%81%AB" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30063/FM%E3%81%8A%E3%81%A8%E3%81%8F%E3%81%AB');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm-otokuni.com/" target="_blank">FMおとくに</a></strong><br />
+								乙訓地域</p>
+							<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p>--></td>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+			<h2><a name="chugoku" id="chugoku"></a>中国</h2>
+			<div class="radiosbox"><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/36.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-chupea.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-chupea.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://chupea.fm/" target="_blank">FMちゅーピー</a></strong><br />
+									広島市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月-金 9:00-11:30/14:00-20:00<br />
+									土 12:00-15:00/18:00-20:00/23:00-24:00<br />
+								日 17:00-24:00</p></td>
+						</tr>
+					</table>
+				</div>
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/51.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.darazfm.com/streaming.asx" onclick="javascript: pageTracker._trackPageview('http://www.darazfm.com/streaming.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.darazfm.com/" target="_blank">DARAZ FM</a></strong><br />
+									米子市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+								※FM802配信番組、ガイナーレ鳥取 サッカー中継を除く</p></td>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+
+			<h2><a name="shikoku" id="shikoku"></a>四国</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/29.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm815.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm815.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm815.com/" target="_blank">FM高松</a></strong><br />
+									高松市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 11:00-12:00/16:00-18:00/21:00-21:30/22:00-23:00<br />
+									火 11:00-12:00/14:00-14:30/16:00-19:00<br />
+									水 11:00-12:00/16:00-18:00/19:00-20:00/22:00-22:30<br />
+									木 11:00-12:00/14:00-14:15/16:00-18:30/22:00-22:30<br />
+									金(第1・3・5週) 8:45-09:00/11:00-12:00/16:00-18:00/22:30-23:30<br />
+									金(第2・4週) 8:35-9:00/11:00-12:00/16:00-18:00/22:30-23:30<br />
+									土 15:00-18:00/18:30-18:45<br />
+									日 9:00-10:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/43.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/b-fm791.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/b-fm791.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.bfm.jp/" target="_blank">FMびざん</a></strong><br />
+									徳島市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 7:30-9:00/11:00-12:00/14:00-16:00/18:00-21:00/22:00-24:00<br />
+									火 7:30-9-00/11:00-12:00/14:00-16:00/18:00-19:00/21:00-24:00<br />
+									水 7:30-9-00/11:00-12:00/14:00-16:00/18:00-19:00/21:00-24:00<br />
+									木 7:30-9:00/11:00-12:00/14:00-16:00/18:00-19:00/20:00-20:30/21:00-24:00<br />
+									金 7:30-9:00/10:30-24:00<br />
+									土 10:00-12:00/19:00-27:00<br />
+								日 12:00-15:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/126.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmsun.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmsun.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.kbn.ne.jp/fm/" target="_blank">FM SUN</a></strong><br />
+								坂出市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 10:00-12:50/14:00-17:30/20:00-24:00/25:00-27:00<br />
+									火 10:00-12:50/14:00-16:30/17:00-17:30/20:00-24:00/25:00-27:00<br />
+									水 10:00-12:50/14:00-16:30/17:00-17:30/20:00-24:00/25:00-27:00<br />
+									木 10:00-12:50/14:00-16:30/17:00-17:30/20:00-24:00/25:00-27:00<br />
+									金 10:00-12:50/14:00-16:30/17:00-17:30/20:00-24:00/25:00-27:00<br />
+									土 6:00-7:00/11:00-12:00/16:00-17:00/20:00-20:30/22:00-24:00<br />
+								日 9:00-12:00/13:00-15:00/17:00-19:00/22:00-23:00/25:00-27:00</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">機器点検のため、平成29年5月12日（金）午前7時頃〜5月13日（土）午前7時まで放送を休止します</p></td>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+			<h2><a name="kyusyu" id="kyusyu"></a>九州</h2>
+			<div class="radiosbox"><!--
+				--><!--<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/26.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmnakatsu.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmnakatsu.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.789.fm/" target="_blank">NOAS FM</a></strong><br />
+									中津市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"> 24時間</p></td>
+						</tr>
+					</table>
+				</div>--><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/27.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/sunshinefm.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/sunshinefm.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.sunfm.co.jp/" target="_blank">サンシャイン エフエム</a></strong><br />
+									宮崎市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">月 6:00-13:00/16:00-21:00<br />
+									火 6:00-19:00<br />
+									水 6:00-13:00/16:00-20:00<br />
+									木 6:00-21:00<br />
+									金 6:00-21:00<br />
+									土 12:00-14:00<br />
+									日 9:00-13:00/19:00-20:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/65.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.npo-d.org/simul/AmamiFM.asx" onclick="javascript: pageTracker._trackPageview('http://www.npo-d.org/simul/AmamiFM.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.npo-d.org" target="_blank">あまみFM<br />
+									</a></strong>奄美市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/78.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.shimabara.fm/st/fm-shimabara-live.asx" onClick="javascript: pageTracker._trackPageview('http://www.shimabara.fm/st/fm-shimabara-live.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (48K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.shimabara.fm/" target="_blank">FMしまばら</a></strong><br />
+									島原市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"> 7:00-22:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/86.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.shimabara.fm/st/fm-kitaq-live.asx" onClick="javascript: pageTracker._trackPageview('http://www.shimabara.fm/st/fm-kitaq-live.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-kitaq.com/" target="_blank">FM KITAQ</a></strong><br />
+									北九州市小倉北区</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"> 月,木 7:00-22:00<br />
+									金 7:00-23:00<br />
+									土,日 8:00-22:00 </p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/95.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="mms://hdv.nkansai.tv/starcorn" onclick="javascript: pageTracker._trackPageview('mms://hdv.nkansai.tv/starcorn');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.starcornfm.com/" target="_blank">スターコーンFM</a></strong><br />
+								築上郡築上町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">平日 7:30-14:30/17:00-20:00<br />
+								土曜 10:00-17:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/108.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://comiten.jp/live.asx" onclick="javascript: pageTracker._trackPageview('http://comiten.jp/live.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (40K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://comiten.jp/" target="_blank">コミュニティラジオ天神</a></strong><br />
+								福岡市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">8:00-23:00（毎日）</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/116.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/hibiki.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/hibiki.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.hibiki882.jp/" target="_blank">AIR STATION HIBIKI</a></strong><br />
+								北九州市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/124.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/nobeoka.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/yufuin.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmnobeoka.jp/" target="_blank">FMのべおか</a></strong><br />
+								延岡市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">&nbsp;</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/143.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/ginga.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/ginga.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fm786.jp/" target="_blank">FMぎんが</a></strong><br />
+								鹿児島市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">テスト配信中</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/163.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30072/FM%E3%81%9F%E3%81%A4%E3%81%94%E3%81%86" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30072/FM%E3%81%9F%E3%81%A4%E3%81%94%E3%81%86');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFMたつごうの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<p style="clear:both;  margin-top: 0px;"><strong><a href="http://tatsugo.fm-s.org" target="_blank">FMたつごう</a></strong><br />
+								大島郡龍郷町</p>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/165.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30085/CHOKU%E3%83%A9%E3%82%B8%EF%BC%81" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30085/CHOKU%E3%83%A9%E3%82%B8%EF%BC%81');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのちょっくらじおの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<p style="clear:both;  margin-top: 0px;"><strong><a href="http://choku861.jp/" target="_blank">ちょっくらじお</a></strong><br />
+								直方市古町</p>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+			<h2><a name="okinawa" id="okinawa"></a>沖縄</h2>
+			<div class="radiosbox"><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/28.jpg" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm-nirai.asx" onClick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm-nirai.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-nirai.jp/" target="_blank">エフエム ニライ<br />
+									</a></strong>北谷町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間<br />
+									※放送休止　月 4:00-5:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/30.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30069/FM%E3%81%84%E3%81%97%E3%81%8C%E3%81%8D%E3%82%B5%E3%83%B3%E3%82%B5%E3%83%B3%E3%83%A9%E3%82%B8%E3%82%AA" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30069/FM%E3%81%84%E3%81%97%E3%81%8C%E3%81%8D%E3%82%B5%E3%83%B3%E3%82%B5%E3%83%B3%E3%83%A9%E3%82%B8%E3%82%AA');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFMいしがきの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.fmishigaki.jp/" target="_blank">FMいしがき</a></strong><br />
+									石垣市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/48.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/uruma.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/uruma.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-uruma.com/" target="_blank">FMうるま<br />
+									</a></strong>うるま市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/49.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fm21.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fm21.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm21.net/" target="_blank">FM21</a></strong><br />
+									浦添市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/50.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/lequio.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/lequio.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fmlequio.com/" target="_blank">FMレキオ<br />
+									</a></strong>那覇市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/73.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30083/FM%E3%81%A8%E3%82%88%E3%81%BF" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30083/FM%E3%81%A8%E3%82%88%E3%81%BF');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+									音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFMとよみの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.fm-toyomi.com/" target="_blank">FMとよみ<br />
+									</a></strong>豊見城市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">5:00-23:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/103.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/okiradi.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/okiradi.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声 (64K)</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm854.com/" target="_blank">オキラジ</a></strong><br />
+								沖縄市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div>--><!--
+				<div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/111.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/nanjo.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/nanjo.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-nanjo.net/" target="_blank">FMなんじょう</a></strong><br />
+								南城市</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/113.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/motob.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/motob.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.motob.net/" target="_blank">FMもとぶ</a></strong><br />
+								本部町</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">24時間</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/117.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/fmkumejima.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/fmkumejima.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmkumejima.com/" target="_blank">FMくめじま</a></strong><br />
+								久米島</p>
+								<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;">5:00-25:00</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/142.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="middle" style="font-size: x-small;"><p><a href="http://www.simulradio.info/asx/ginowan.asx" onclick="javascript: pageTracker._trackPageview('http://www.simulradio.info/asx/ginowan.asx');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />
+								音声</p>
+								<p><a href="http://listenradio.jp/Home/ProgramSchedule/30093/FM%E3%81%8E%E3%81%AE%E3%82%8F%E3%82%93" onClick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30093/FM%E3%81%8E%E3%81%AE%E3%82%8F%E3%82%93');"><img src="images/btn_lrbtn.png" alt="リスラジで聴く" width="70" height="32" border="0" /></a><br />
+									上記で再生できない方は、リスラジアイコンをクリックしてください</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://fmginowan.com/" target="_blank">FMぎのわん</a></strong><br />
+								宜野湾市</p>
+								<!--<p style="font-size: 70%; line-height: 140%; margin-top: 0px; clear: both;"></p>--></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/145.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="top" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30098/ぎのわんシティFM" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30098/ぎのわんシティFM');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのぎのわんシティFMの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://gcfm818.com/" target="_blank">ぎのわんシティFM</a></strong><br />
+								宜野湾市</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/157.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="top" style="font-size: x-small;"><p><a href="mms://hdv.nkansai.tv/yonabaru" onclick="javascript: pageTracker._trackPageview('mms://hdv.nkansai.tv/yonabaru');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;"><strong><a href="http://www.fm-yonabaru.site" target="_blank">FMよなばる</a></strong><br />
+								与那原町</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/158.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="top" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30091/%E3%83%8F%E3%83%BC%E3%83%88FM%E3%81%AA%E3%82%93%E3%81%98%E3%82%87%E3%81%86" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30091/%E3%83%8F%E3%83%BC%E3%83%88FM%E3%81%AA%E3%82%93%E3%81%98%E3%82%87%E3%81%86');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFMハートなんじょうの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="https://www.hfmn.okinawa/" target="_blank">ハートFMなんじょう</a></strong><br />
+								南城市</p></td>
+						</tr>
+					</table>
+				</div><!--
+				--><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/162.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="top" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30068/FM%E9%82%A3%E8%A6%87" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30068/FM%E9%82%A3%E8%A6%87');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both;  margin-top: 0px;">「放送を聞く」をクリックし、リスラジのfm那覇の番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://www.fmnaha.jp/" target="_blank">fm那覇</a></strong><br />
+								那覇市</p></td>
+						</tr>
+					</table>
+				</div><!--
+        --><div class="radiobox"><table>
+						<tr valign="top">
+							<td><p><img src="data/173.jpg" alt="" width="90" height="60" class="left" /></p></td>
+							<td width="90" align="center" valign="top" style="font-size: x-small;"><p><a href="http://listenradio.jp/Home/ProgramSchedule/30095/FMやんばる" onclick="javascript: pageTracker._trackPageview('http://listenradio.jp/Home/ProgramSchedule/30095/FMやんばる');"><img src="images/btn_radio.jpg" alt="放送を聴く" width="70" height="32" border="0" /></a><br />音声</p></td>
+						</tr>
+						<tr valign="top">
+							<td colspan="2"><p style="clear:both; margin-top: 0px;">「放送を聞く」をクリックし、リスラジのFMやんばるの番組表ページへ。左上のListenRadioのロゴの下の再生マークをクリックすると放送が聞けます。<br /><strong><a href="http://fmyanbaru.co.jp/" target="_blank">FMやんばる</a></strong><br />
+								名護市</p></td>
+						</tr>
+					</table>
+				</div><!--
+			--></div>
+		</div><!-- #main -->
+	</div>
+</div>
+<p class="copy">Copyright &copy; SimulRadio. All rights reserved.</p>
+<script type="text/javascript" src="http://i.yimg.jp/images/analytics/js/ywa.js"></script>
+<script type="text/javascript">
+var YWATracker = YWA.getTracker("1000291206348");
+YWATracker.addExcludeProtocol("file:");
+YWATracker.submit();
+</script>
+<noscript>
+<div><img src="http://by.analytics.yahoo.co.jp/p.pl?a=1000291206348&amp;js=no" width="1" height="1" alt="" /></div>
+</noscript>
+</body>
+</html>

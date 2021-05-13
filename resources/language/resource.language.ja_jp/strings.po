@@ -85,7 +85,7 @@ msgid "Suspending"
 msgstr "放送休止中"
 
 msgctxt "#30059"
-msgid "No dataし"
+msgid "No data"
 msgstr "番組情報なし"
 
 msgctxt "#30060"
@@ -95,6 +95,14 @@ msgstr "保存する番組を選択してください"
 msgctxt "#30061"
 msgid "Choose program for keyword"
 msgstr "保存キーワードを設定する番組を選択してください"
+
+msgctxt "#30062"
+msgid "No"
+msgstr "しない"
+
+msgctxt "#30063"
+msgid "Yes"
+msgstr "する"
 
 msgctxt "#30100"
 msgid "NHK Radio"
@@ -109,7 +117,7 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
 
 msgctxt "#30200"
-msgid "NCommercial Radio"
+msgid "Commercial Radio"
 msgstr "民放ラジオ"
 
 msgctxt "#30201"
@@ -121,8 +129,8 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
 
 msgctxt "#30300"
-msgid "Community Radio"
-msgstr "コミュニティラジオ"
+msgid "Community Radio(JCBA)"
+msgstr "コミュニティラジオ(JCBA)"
 
 msgctxt "#30301"
 msgid "Stations to be displayed"
@@ -403,3 +411,351 @@ msgstr "%Y年%m月%d日(%%s) %H:%M"
 msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
 msgstr "月,火,水,木,金,土,日"
+
+msgctxt "#30303"
+msgid "Community Radio(JCBA)2"
+msgstr "コミュニティラジオ(JCBA)2"
+
+msgctxt "#30360"
+msgid "Community Radio(ListenRadio)"
+msgstr "コミュニティラジオ(リスラジ)"
+
+msgctxt "#30361"
+msgid "Stations to be displayed"
+msgstr "表示する放送局"
+
+msgctxt "#30363"
+msgid "Community Radio(ListenRadio)2"
+msgstr "コミュニティラジオ(リスラジ)2"
+
+msgctxt "#30364"
+msgid "Get Program Data"
+msgstr "番組表取得"
+
+msgctxt "#30304"
+msgid "Get Program Data"
+msgstr "番組表取得"
+
+msgctxt "#30800"
+msgid "Community Radio"
+msgstr "コミュニティラジオ"
+
+msgctxt "#30811"
+msgid "Get Program Data"
+msgstr "番組表取得"
+
+msgctxt "#30812"
+msgid "Select Station(s)"
+msgstr "選局"
+
+msgctxt "#30801"
+msgid "Hokkaido area"
+msgstr "北海道地方"
+
+msgctxt "#30802"
+msgid "Tohoku area"
+msgstr "東北地方"
+
+msgctxt "#30803"
+msgid "Kanto area"
+msgstr "関東地方"
+
+msgctxt "#30804"
+msgid "Shinetsu area"
+msgstr "信越地方"
+
+msgctxt "#30805"
+msgid "Hokuriku area"
+msgstr "北陸地方"
+
+msgctxt "#30806"
+msgid "Tokai area"
+msgstr "東海地方"
+
+msgctxt "#30807"
+msgid "Kinki area"
+msgstr "近畿地方"
+
+msgctxt "#30808"
+msgid "Chugoku area"
+msgstr "中国地方"
+
+msgctxt "#30809"
+msgid "Shikoku area"
+msgstr "四国地方"
+
+msgctxt "#30810"
+msgid "Kyusyu & Okinawa area"
+msgstr "九州・沖縄地方"
+
+msgctxt "#30821"
+msgid "Community(Hokkaido)"
+msgstr "コミュニティ(北海道)"
+
+msgctxt "#30822"
+msgid "Community(Tohoku)"
+msgstr "コミュニティ(東北)"
+
+msgctxt "#30823"
+msgid "Community(Kanto)"
+msgstr "コミュニティ(関東)"
+
+msgctxt "#30824"
+msgid "Community(Shinetsu/Hokuriku)"
+msgstr "コミュニティ(信越・北陸)"
+
+msgctxt "#30825"
+msgid "Community(Tokai)"
+msgstr "コミュニティ(東海)"
+
+msgctxt "#30826"
+msgid "Community(Kinki)"
+msgstr "コミュニティ(近畿)"
+
+msgctxt "#30827"
+msgid "Community(Chugoku/Shikoku)"
+msgstr "コミュニティ(中国・四国)"
+
+msgctxt "#30828"
+msgid "Community(Kyusyu/Okinawa)"
+msgstr "コミュニティ(九州・沖縄)"
+
+
+
+# Radiko Area(Regions)
+msgctxt "#30210"
+msgid "Regions"
+msgstr "地域"
+
+msgctxt "#30218"
+msgid "Prefecture"
+msgstr "都道府県"
+
+msgctxt "#30211"
+msgid "Hokkaido/Tohoku"
+msgstr "北海道・東北"
+
+msgctxt "#30212"
+msgid "Kanto"
+msgstr "関東"
+
+msgctxt "#30213"
+msgid "Hokuriku/Koushinetsu"
+msgstr "北陸・甲信越"
+
+msgctxt "#30214"
+msgid "Tyubu"
+msgstr "中部"
+
+msgctxt "#30215"
+msgid "Kinki"
+msgstr "近畿"
+
+msgctxt "#30216"
+msgid "Tyugoku/Shikoku"
+msgstr "中国・四国"
+
+msgctxt "#30217"
+msgid "Kyushu/Okinawa"
+msgstr "九州・沖縄"
+
+
+# Radiko Area(Pref.)
+msgctxt "#30220"
+msgid "Auto"
+msgstr "自動選択"
+
+## hokkaido-tohoku
+msgctxt "#30221"
+msgid "Hokkaido"
+msgstr "北海道"
+
+msgctxt "#30222"
+msgid "Aomori"
+msgstr "青森"
+
+msgctxt "#30223"
+msgid "Iwate"
+msgstr "岩手"
+
+msgctxt "#30224"
+msgid "Miyagi"
+msgstr "宮城"
+
+msgctxt "#30225"
+msgid "Akita"
+msgstr "秋田"
+
+msgctxt "#30226"
+msgid "Yamagata"
+msgstr "山形"
+
+msgctxt "#30227"
+msgid "Fukushima"
+msgstr "福島"
+
+## Kanto
+msgctxt "#30228"
+msgid "Ibaraki"
+msgstr "茨城"
+
+msgctxt "#30229"
+msgid "Tochigi"
+msgstr "栃木"
+
+msgctxt "#30230"
+msgid "Gunma"
+msgstr "群馬"
+
+msgctxt "#30231"
+msgid "Saitama"
+msgstr "埼玉"
+
+msgctxt "#30232"
+msgid "Chiba"
+msgstr "千葉"
+
+msgctxt "#30233" # JP13
+msgid "Tokyo"
+msgstr "東京"
+
+msgctxt "#30234"
+msgid "Kanagawa"
+msgstr "神奈川"
+
+## hokuriku-koushinetsu
+msgctxt "#30235" # JP15
+msgid "Niigata"
+msgstr "新潟"
+
+msgctxt "#30236"
+msgid "Toyama"
+msgstr "富山"
+
+msgctxt "#30237"
+msgid "Ishikawa"
+msgstr "石川"
+
+msgctxt "#30238"
+msgid "Fukui"
+msgstr "福井"
+
+msgctxt "#30239" # JP19
+msgid "Yamanashi"
+msgstr "山梨"
+
+msgctxt "#30240" # JP20
+msgid "Nagano"
+msgstr "長野"
+
+## chubu
+msgctxt "#30241"
+msgid "Gifu"
+msgstr "岐阜"
+
+msgctxt "#30242"
+msgid "Shizuoka"
+msgstr "静岡"
+
+msgctxt "#30243"
+msgid "Aichi"
+msgstr "愛知"
+
+msgctxt "#30244"
+msgid "Mie"
+msgstr "三重"
+
+## kinki
+msgctxt "#30245"
+msgid "Shiga"
+msgstr "滋賀"
+
+msgctxt "#30246"
+msgid "Kyoto"
+msgstr "京都"
+
+msgctxt "#30247"
+msgid "Osaka"
+msgstr "大阪"
+
+msgctxt "#30248"
+msgid "Hyougo"
+msgstr "兵庫"
+
+msgctxt "#30249"
+msgid "Nara"
+msgstr "奈良"
+
+msgctxt "#30250" # JP30
+msgid "Wakayama"
+msgstr "和歌山"
+
+## chugoku-shikoku
+msgctxt "#30251"
+msgid "Tottori"
+msgstr "鳥取"
+
+msgctxt "#30252"
+msgid "Shimane"
+msgstr "島根"
+
+msgctxt "#30253"
+msgid "Okayama"
+msgstr "岡山"
+
+msgctxt "#30254"
+msgid "Hiroshima"
+msgstr "広島"
+
+msgctxt "#30255"
+msgid "Yamaguchi"
+msgstr "山口"
+
+msgctxt "#30256"
+msgid "Tokushima"
+msgstr "徳島"
+
+msgctxt "#30257"
+msgid "Kagawa"
+msgstr "香川"
+
+msgctxt "#30258"
+msgid "Ehime"
+msgstr "愛媛"
+
+msgctxt "#30259"
+msgid "Kochi"
+msgstr "高知"
+
+## kyushu-okinawa
+msgctxt "#30260"
+msgid "Fukuoka"
+msgstr "福岡"
+
+msgctxt "#30261"
+msgid "Saga"
+msgstr "佐賀"
+
+msgctxt "#30262"
+msgid "Nagasaki"
+msgstr "長崎"
+
+msgctxt "#30263"
+msgid "Kumamoto"
+msgstr "熊本"
+
+msgctxt "#30264"
+msgid "Oita"
+msgstr "大分"
+
+msgctxt "#30265"
+msgid "Miyazaki"
+msgstr "宮崎"
+
+msgctxt "#30266"
+msgid "Kagoshima"
+msgstr "鹿児島"
+
+msgctxt "#30267"
+msgid "Okinawa"
+msgstr "沖縄"

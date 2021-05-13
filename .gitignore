@@ -5,3 +5,5 @@
 .DS_Store
 /resources/settings.xml
 __pycache__
+.vscode
+.gitignore

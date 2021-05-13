@@ -1,0 +1,32 @@
+      <setting label="FMからつ(佐賀県唐津市)" type="bool" id="jcba_092" default="false" enable="eq(-1,2)"/>
+      <setting label="NOAS FM(大分県中津市)" type="bool" id="jcba_089" default="false" enable="eq(-2,2)"/>
+      <setting label="ゆふいんラヂオ局(大分県由布市)" type="bool" id="jcba_088" default="false" enable="eq(-3,2)"/>
+      <setting label="FMのべおか(宮崎県延岡市)" type="bool" id="lisr_30088" default="false" enable="eq(-4,2)"/>
+      <setting label="FMうるま(沖縄県うるま市)" type="bool" id="lisr_30011" default="false" enable="eq(-5,2)"/>
+      <setting label="FMよなばる(沖縄県与那原町)" type="bool" id="lisr_30055" default="false" enable="eq(-6,2)"/>
+      <setting label="FMくめじま(沖縄県久米島町)" type="bool" id="simu_e765fd9ddc143e0e7cf291347445cb80" default="false" enable="eq(-7,2)"/>
+      <setting label="FMニライ(沖縄県北谷町)" type="bool" id="lisr_30003" default="false" enable="eq(-8,2)"/>
+      <setting label="ハートFMなんじょう(沖縄県南城市)" type="bool" id="lisr_30091" default="false" enable="eq(-9,2)"/>
+      <setting label="FMやんばる(沖縄県名護市)" type="bool" id="lisr_30095" default="false" enable="eq(-10,2)"/>
+      <setting label="FMぎのわん(沖縄県宜野湾市)" type="bool" id="lisr_30093" default="false" enable="eq(-11,2)"/>
+      <setting label="ぎのわんシティFM(沖縄県宜野湾市)" type="bool" id="lisr_30098" default="false" enable="eq(-12,2)"/>
+      <setting label="ちゅらハートエフエム本部(沖縄県本部町)" type="bool" id="simu_8e06fb4ccd3f20fd057dc015d6d6abea" default="false" enable="eq(-13,2)"/>
+      <setting label="オキラジ(沖縄県沖縄市)" type="bool" id="lisr_30066" default="false" enable="eq(-14,2)"/>
+      <setting label="FM21(沖縄県浦添市)" type="bool" id="simu_951e7fe8db619d75cbd153d37813f92d" default="false" enable="eq(-15,2)"/>
+      <setting label="FMいしがき サンサンラジオ(沖縄県石垣市)" type="bool" id="lisr_30069" default="false" enable="eq(-16,2)"/>
+      <setting label="FMとよみ(沖縄県豊見城市)" type="bool" id="lisr_30083" default="false" enable="eq(-17,2)"/>
+      <setting label="fm那覇(沖縄県那覇市)" type="bool" id="lisr_30068" default="false" enable="eq(-18,2)"/>
+      <setting label="FMレキオ(沖縄県那覇市)" type="bool" id="simu_4b197b4b64fbf1012a551475caa3bab6" default="false" enable="eq(-19,2)"/>
+      <setting label="かっぱFM(熊本県八代市)" type="bool" id="jcba_090" default="false" enable="eq(-20,2)"/>
+      <setting label="FM791(熊本県熊本市中央区)" type="bool" id="jcba_091" default="false" enable="eq(-21,2)"/>
+      <setting label="ドリームスエフエム(福岡県久留米市)" type="bool" id="jcba_093" default="false" enable="eq(-22,2)"/>
+      <setting label="FM YAME(福岡県八女市)" type="bool" id="jcba_086" default="false" enable="eq(-23,2)"/>
+      <setting label="FM KITAQ(福岡県北九州市小倉北区)" type="bool" id="simu_ce8d08ee81c4fe5818226cf16cf6c779" default="false" enable="eq(-24,2)"/>
+      <setting label="AIR STATION HIBIKI(福岡県北九州市若松区)" type="bool" id="lisr_30052" default="false" enable="eq(-25,2)"/>
+      <setting label="ちょっくらじお(福岡県直方市)" type="bool" id="lisr_30085" default="false" enable="eq(-26,2)"/>
+      <setting label="コミュニティラジオ天神(福岡県福岡市中央区)" type="bool" id="simu_7836c83d928e4a8c885a0c0533a6341f" default="false" enable="eq(-27,2)"/>
+      <setting label="スターコーンFM(福岡県築上町)" type="bool" id="simu_2b20763c5d23a74aa9fa45c49163c615" default="false" enable="eq(-28,2)"/>
+      <setting label="FMしまばら(長崎県島原市)" type="bool" id="simu_f14744f4ac8066b88ed58decf986a61e" default="false" enable="eq(-29,2)"/>
+      <setting label="あまみエフエム ディ!ウェイヴ(鹿児島県奄美市)" type="bool" id="lisr_30054" default="false" enable="eq(-30,2)"/>
+      <setting label="FMぎんが(鹿児島県鹿児島市)" type="bool" id="simu_447bb94439884f067a022ea8a87b40ec" default="false" enable="eq(-31,2)"/>
+      <setting label="エフエムたつごう(鹿児島県龍郷町)" type="bool" id="lisr_30072" default="false" enable="eq(-32,2)"/>

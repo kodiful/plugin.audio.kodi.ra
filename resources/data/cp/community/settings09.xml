@@ -1,0 +1,18 @@
+      <setting label="COME ON! FM(山口県下関市)" type="bool" id="jcba_084" default="false" enable="eq(-1,2)"/>
+      <setting label="しゅうなんFM(山口県周南市)" type="bool" id="jcba_085" default="false" enable="eq(-2,2)"/>
+      <setting label="FMくらしき(岡山県倉敷市)" type="bool" id="jcba_080" default="false" enable="eq(-3,2)"/>
+      <setting label="Radio momo(岡山県岡山市北区)" type="bool" id="jcba_079" default="false" enable="eq(-4,2)"/>
+      <setting label="FOR LIFE RADIO FMみはら(広島県三原市)" type="bool" id="jcba_113" default="false" enable="eq(-5,2)"/>
+      <setting label="エフエムおのみち79.4(広島県尾道市)" type="bool" id="jcba_081" default="false" enable="eq(-6,2)"/>
+      <setting label="FMちゅーピー(広島県広島市中区)" type="bool" id="jcba_082" default="false" enable="eq(-7,2)"/>
+      <setting label="エフエムはつかいち(広島県廿日市市)" type="bool" id="jcba_083" default="false" enable="eq(-8,2)"/>
+      <setting label="FM東広島(広島県東広島市)" type="bool" id="jcba_087" default="false" enable="eq(-9,2)"/>
+      <setting label="レディオBINGO(広島県福山市)" type="bool" id="jcba_078" default="false" enable="eq(-10,2)"/>
+      <setting label="DARAZ FM(鳥取県米子市)" type="bool" id="lisr_30053" default="false" enable="eq(-11,2)"/>
+      <setting label="RADIO BIRD(鳥取県鳥取市)" type="bool" id="jcba_119" default="false" enable="eq(-12,2)"/>
+      <setting label="B-FM791(徳島県徳島市)" type="bool" id="lisr_30010" default="false" enable="eq(-13,2)"/>
+      <setting label="FMラヂオバリバリ(愛媛県今治市)" type="bool" id="jcba_076" default="false" enable="eq(-14,2)"/>
+      <setting label="FMがいや(愛媛県宇和島市)" type="bool" id="jcba_077" default="false" enable="eq(-15,2)"/>
+      <setting label="Hello!NEW 新居浜FM(愛媛県新居浜市)" type="bool" id="jcba_099" default="false" enable="eq(-16,2)"/>
+      <setting label="FM SUN(香川県坂出市)" type="bool" id="lisr_30070" default="false" enable="eq(-17,2)"/>
+      <setting label="FM81.5(香川県高松市)" type="bool" id="lisr_30024" default="false" enable="eq(-18,2)"/>

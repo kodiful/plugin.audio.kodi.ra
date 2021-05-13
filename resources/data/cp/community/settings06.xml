@@ -1,0 +1,24 @@
+      <setting label="いなべエフエム(三重県いなべ市)" type="bool" id="jcba_050" default="false" enable="eq(-1,2)"/>
+      <setting label="鈴鹿ヴォイスFM(三重県鈴鹿市)" type="bool" id="jcba_123" default="false" enable="eq(-2,2)"/>
+      <setting label="FM PiPi(岐阜県多治見市)" type="bool" id="jcba_043" default="false" enable="eq(-3,2)"/>
+      <setting label="FMわっち(岐阜県岐阜市)" type="bool" id="jcba_044" default="false" enable="eq(-4,2)"/>
+      <setting label="Hits FM(岐阜県高山市)" type="bool" id="jcba_045" default="false" enable="eq(-5,2)"/>
+      <setting label="i-wave 76.5 FM(愛知県一宮市)" type="bool" id="jcba_048" default="false" enable="eq(-6,2)"/>
+      <setting label="MID-FM761(愛知県名古屋市中区)" type="bool" id="lisr_30004" default="false" enable="eq(-7,2)"/>
+      <setting label="FM EGAO(愛知県岡崎市)" type="bool" id="lisr_30040" default="false" enable="eq(-8,2)"/>
+      <setting label="Radio SANQ(愛知県瀬戸市)" type="bool" id="jcba_047" default="false" enable="eq(-9,2)"/>
+      <setting label="United North(愛知県犬山市)" type="bool" id="jcba_046" default="false" enable="eq(-10,2)"/>
+      <setting label="エフエムななみ(愛知県蟹江町)" type="bool" id="jcba_049" default="false" enable="eq(-11,2)"/>
+      <setting label="RADIO LOVEAT(愛知県豊田市)" type="bool" id="simu_0d894fcae43bdb0926509058940013bd" default="false" enable="eq(-12,2)"/>
+      <setting label="ボイス・キュー(静岡県三島市)" type="bool" id="jcba_038" default="false" enable="eq(-13,2)"/>
+      <setting label="なぎさステーション(静岡県伊東市)" type="bool" id="jcba_116" default="false" enable="eq(-14,2)"/>
+      <setting label="FMいずのくに(静岡県伊豆の国市)" type="bool" id="simu_62c3823c3f8c90b30e69a7dd9e137cc8" default="false" enable="eq(-15,2)"/>
+      <setting label="FM ISみらいずステーション(静岡県伊豆市)" type="bool" id="jcba_035" default="false" enable="eq(-16,2)"/>
+      <setting label="Radio-f(静岡県富士市)" type="bool" id="jcba_041" default="false" enable="eq(-17,2)"/>
+      <setting label="g-sky76.5(静岡県島田市)" type="bool" id="jcba_036" default="false" enable="eq(-18,2)"/>
+      <setting label="富士山GOGOエフエム(静岡県御殿場市)" type="bool" id="jcba_037" default="false" enable="eq(-19,2)"/>
+      <setting label="COAST-FM(静岡県沼津市)" type="bool" id="jcba_042" default="false" enable="eq(-20,2)"/>
+      <setting label="FM Haro!(静岡県浜松市中区)" type="bool" id="jcba_034" default="false" enable="eq(-21,2)"/>
+      <setting label="Ciao!(静岡県熱海市)" type="bool" id="lisr_30062" default="false" enable="eq(-22,2)"/>
+      <setting label="マリンパル(静岡県静岡市清水区)" type="bool" id="jcba_039" default="false" enable="eq(-23,2)"/>
+      <setting label="FM-Hi!(静岡県静岡市葵区)" type="bool" id="jcba_040" default="false" enable="eq(-24,2)"/>

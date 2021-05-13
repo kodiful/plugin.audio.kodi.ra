@@ -53,12 +53,15 @@ def write_json(filepath, data):
     write_file(filepath, json.dumps(data, sort_keys=True, ensure_ascii=False, indent=4))
 
 
-def urlread(url, headers={}):
+def urlread(url, headers={}, params={}):
     opener = urllib.request.build_opener()
     h = [('User-Agent', 'Mozilla/5.0')]  # User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0) Gecko/20100101 Firefox/68.0
     for key, val in headers.items():
         h.append((key, val))
     opener.addheaders = h
+    if params:
+        url = url + '?' + urllib.parse.urlencode(params)
+    # log('url(Full): %s' % url)
     try:
         response = opener.open(url)
         buf = response.read()

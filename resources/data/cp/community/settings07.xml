@@ -1,0 +1,35 @@
+      <setting label="FMたんご(京都府京丹後市)" type="bool" id="simu_d15f7ef88eeca5376be571486f330cde" default="false" enable="eq(-1,2)"/>
+      <setting label="京都三条ラジオカフェ(京都府京都市中京区)" type="bool" id="lisr_30082" default="false" enable="eq(-2,2)"/>
+      <setting label="FM845(京都府京都市伏見区)" type="bool" id="jcba_104" default="false" enable="eq(-3,2)"/>
+      <setting label="Radio Mix Kyoto(京都府京都市北区)" type="bool" id="lisr_30071" default="false" enable="eq(-4,2)"/>
+      <setting label="FMうじ(京都府宇治市)" type="bool" id="jcba_065" default="false" enable="eq(-5,2)"/>
+      <setting label="FM 丹波(京都府福知山市)" type="bool" id="simu_f581eeaf9998ce38c0f384eda23282bd" default="false" enable="eq(-6,2)"/>
+      <setting label="FMいかる(京都府綾部市)" type="bool" id="jcba_064" default="false" enable="eq(-7,2)"/>
+      <setting label="エフエム舞鶴(京都府舞鶴市)" type="bool" id="jcba_066" default="false" enable="eq(-8,2)"/>
+      <setting label="FMおとくに(京都府長岡京市)" type="bool" id="lisr_30063" default="false" enable="eq(-9,2)"/>
+      <setting label="エフエムみっきい(兵庫県三木市)" type="bool" id="jcba_110" default="false" enable="eq(-10,2)"/>
+      <setting label="805たんば(兵庫県丹波市)" type="bool" id="jcba_118" default="false" enable="eq(-11,2)"/>
+      <setting label="ハッピーエフエムいたみ(兵庫県伊丹市)" type="bool" id="jcba_070" default="false" enable="eq(-12,2)"/>
+      <setting label="BAN-BANラジオ(兵庫県加古川市)" type="bool" id="lisr_30078" default="false" enable="eq(-13,2)"/>
+      <setting label="FM GENKI(兵庫県姫路市)" type="bool" id="lisr_30041" default="false" enable="eq(-14,2)"/>
+      <setting label="ハミングFM宝塚(兵庫県宝塚市)" type="bool" id="jcba_071" default="false" enable="eq(-15,2)"/>
+      <setting label="FM aiai(兵庫県尼崎市)" type="bool" id="lisr_30067" default="false" enable="eq(-16,2)"/>
+      <setting label="FM MOOV KOBE(兵庫県神戸市中央区)" type="bool" id="simu_62f82c45f063a06e16f2fc9d797c03a1" default="false" enable="eq(-17,2)"/>
+      <setting label="さくらFM(兵庫県西宮市)" type="bool" id="jcba_072" default="false" enable="eq(-18,2)"/>
+      <setting label="FMジャングル(兵庫県豊岡市)" type="bool" id="lisr_30013" default="false" enable="eq(-19,2)"/>
+      <setting label="バナナエフエム(和歌山県和歌山市)" type="bool" id="jcba_075" default="false" enable="eq(-20,2)"/>
+      <setting label="FMはしもと(和歌山県橋本市)" type="bool" id="jcba_120" default="false" enable="eq(-21,2)"/>
+      <setting label="FM TANABE(和歌山県田辺市)" type="bool" id="jcba_114" default="false" enable="eq(-22,2)"/>
+      <setting label="ビーチステーション(和歌山県白浜町)" type="bool" id="jcba_121" default="false" enable="eq(-23,2)"/>
+      <setting label="FMちゃお(大阪府八尾市)" type="bool" id="jcba_067" default="false" enable="eq(-24,2)"/>
+      <setting label="YES-fm(大阪府大阪市中央区)" type="bool" id="lisr_30073" default="false" enable="eq(-25,2)"/>
+      <setting label="Be Happy! 789(大阪府大阪市北区)" type="bool" id="jcba_068" default="false" enable="eq(-26,2)"/>
+      <setting label="FM-HANAKO(大阪府守口市)" type="bool" id="jcba_069" default="false" enable="eq(-27,2)"/>
+      <setting label="FMひらかた(大阪府枚方市)" type="bool" id="lisr_30049" default="false" enable="eq(-28,2)"/>
+      <setting label="タッキー816(大阪府箕面市)" type="bool" id="jcba_102" default="false" enable="eq(-29,2)"/>
+      <setting label="FM千里(大阪府豊中市)" type="bool" id="jcba_112" default="false" enable="eq(-30,2)"/>
+      <setting label="FM五條(奈良県五條市)" type="bool" id="jcba_097" default="false" enable="eq(-31,2)"/>
+      <setting label="ならどっとFM(奈良県奈良市)" type="bool" id="jcba_073" default="false" enable="eq(-32,2)"/>
+      <setting label="FMハイホー(奈良県王寺町)" type="bool" id="jcba_074" default="false" enable="eq(-33,2)"/>
+      <setting label="Radio Sweet(滋賀県東近江市)" type="bool" id="simu_c7d1efa361161f1ff5431b3b494a6562" default="false" enable="eq(-34,2)"/>
+      <setting label="Rocket's785(滋賀県草津市)" type="bool" id="jcba_063" default="false" enable="eq(-35,2)"/>

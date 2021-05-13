@@ -16,7 +16,9 @@ from xmltodict import parse
 import os
 import urllib
 
-from base64 import b64encode
+import math
+import random
+from base64 import b64encode, b64decode
 
 
 class Params:
@@ -37,9 +39,11 @@ class Params:
     # 遅延
     DELAY = 20
 
+    STN = 'radiko_'
+
 
 class Authenticate:
-
+    # [kojira](https://github.com/jackyzy823/rajiko) を元に，エリアフリー化。
     # キー
     AUTH_KEY = 'bcd151073c03b352e1ef2fd66c32209da9ca0afa'
     # URL
@@ -49,6 +53,19 @@ class Authenticate:
     def __init__(self, renew=True):
         # responseを初期化
         self.response = response = {'auth_key': self.AUTH_KEY, 'auth_token': '', 'area_id': '', 'authed': 0}
+        self.info = info = { 'appversion': '', 'userid': '', 'useragent': '', 'device': '' }
+        
+        # radikoの設定取得
+        regi = int(Const.GET('radikoregion')) if Const.GET('radikoregion') != '' else 0
+        area = 0
+        area_id = ''
+        if regi > 0: # Auto以外
+            area = int(Const.GET('radikoarea' + str(regi)))
+            area_id = Const.areaListParRegion[ Const.regions[regi - 1]['id'] ][area]['id'] # JPxx
+            self.info = info = self.genRandomInfo()
+            self.response = response = {'auth_key': Const.fullkey_b64, 'auth_token': '', 'area_id': area_id, 'authed': 0}
+        log('region:%s area:%s => %s' % (regi, area, area_id))
+
         # auth_tokenを取得
         response = self.appIDAuth(response)
         if response and response['auth_token']:
@@ -70,25 +87,39 @@ class Authenticate:
             'x-radiko-device': 'pc',
             'x-radiko-app-version': '0.0.1',
             'x-radiko-user': 'dummy_user',
-            'x-radiko-app': 'pc_html5'
+            'x-radiko-app': 'pc_html5'            
         }
+        if response['area_id'] != '':
+            headers = {
+                'User-Agent': self.info['useragent'],
+                'X-Radiko-App': 'aSmartPhone7a',
+                'X-Radiko-App-Version': self.info['userid'],
+                'X-Radiko-Device': self.info['device'],
+                'X-Radiko-User': self.info['userid']
+            }
         try:
             # リクエスト
             req = urllib.request.Request(self.AUTH1_URL, headers=headers)
             # レスポンス
             auth1 = urllib.request.urlopen(req).info()
         except Exception as e:
-            log(str(e), error=True)
+            log('AUTH1: ' + str(e), error=True)
             return
         response['auth_token'] = auth1['X-Radiko-AuthToken']
         response['key_offset'] = int(auth1['X-Radiko-KeyOffset'])
         response['key_length'] = int(auth1['X-Radiko-KeyLength'])
         return response
 
-    # partialkeyを取得
+    # partialkeyを抽出
     def createPartialKey(self, response):
-        partial_key = response['auth_key'][response['key_offset']:response['key_offset'] + response['key_length']]
-        return b64encode(partial_key.encode()).decode()
+        ret = ''
+        if response['area_id'] != '':
+            partial_key = b64decode(response['auth_key'])[response['key_offset']:response['key_offset'] + response['key_length']]
+            ret = b64encode(partial_key).decode()
+        else:
+            partial_key = response['auth_key'][response['key_offset']:response['key_offset'] + response['key_length']]
+            ret = b64encode(partial_key.encode()).decode()
+        return ret
 
     # area_idを取得
     def challengeAuth(self, response):
@@ -100,16 +131,68 @@ class Authenticate:
             'x-radiko-partialkey': response['partial_key'],
             'x-radiko-user': 'dummy_user'
         }
+        if response['area_id'] != '':
+            headers = {
+                'User-Agent': self.info['useragent'],
+                'X-Radiko-App': 'aSmartPhone7a',
+                'X-Radiko-App-Version': self.info['userid'],
+                'X-Radiko-Device': self.info['device'],
+                'X-Radiko-User': self.info['userid'],
+
+                'X-Radiko-AuthToken': response['auth_token'],
+                'X-Radiko-Location': self.genGPS(response['area_id']),
+                'X-Radiko-Connection': "wifi",
+                'X-Radiko-Partialkey': response['partial_key']
+            }
         try:
             # リクエスト
             req = urllib.request.Request(self.AUTH2_URL, headers=headers)
             # レスポンス
             auth2 = urllib.request.urlopen(req).read().decode()
         except Exception as e:
-            log(str(e), error=True)
+            log('AUTH2: ' + str(e), error=True)
             return
         response['area_id'] = auth2.split(',')[0].strip()
         return response
+
+    # 所在偽装(rajiko)
+    def genGPS(self, area_id):
+        ret = ''
+        latlong = Const.coordinates[ Const.areaList[ int(area_id[2:]) - 1 ] ]
+        lat = latlong[0]
+        long = latlong[1]
+        # +/- 0 ~ 0.025 --> 0 ~ 1.5' ->  +/-  0 ~ 2.77/2.13km
+        lat = lat + random.random() / 40.0 * (1 if random.random() > 0.5 else -1)
+        long = long + random.random() / 40.0 * (1 if random.random() > 0.5 else -1)
+        ret = '{:.6f}'.format(lat) + ',' + '{:.6f}'.format(long) + ',gps'
+        return ret
+
+    # 端末情報偽装(rajiko)
+    def genRandomInfo(self):
+        version = list(Const.VERSION_MAP.keys())[ math.floor(random.random() * len(Const.VERSION_MAP)) ]
+        sdk =   Const.VERSION_MAP[version]['sdk']
+        build = Const.VERSION_MAP[version]['builds'][ math.floor(random.random() * len(Const.VERSION_MAP[version]['builds'])) ]
+
+        model = Const.MODEL_LIST[ math.floor(random.random() * len(Const.MODEL_LIST)) ]
+        device = sdk + "." + model
+
+        useragent = 'Dalvik/2.1.0 (Linux; U; Android ' + version + '; ' + model + '/' + build + ')'
+
+        appver = ["7.3.7","7.3.6","7.3.5","7.3.4","7.3.3","7.3.2","7.3.1","7.3.0","7.2.11","7.2.10","7.2.1","7.2.0","7.1.13","7.1.1","7.1.0","7.0.9","6.4.7","6.4.6"]
+        appversion = appver[ math.floor(random.random() * len(appver)) ]
+
+        hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+        s = ''
+        for i in range(32):
+            s += hex[ math.floor(random.random() * len(hex)) ]
+        userid = s
+
+        return {
+            'appversion': appversion,
+            'userid': userid,
+            'useragent': useragent,
+            'device': device
+        }
 
 
 class Radiko(Params, Jcba):

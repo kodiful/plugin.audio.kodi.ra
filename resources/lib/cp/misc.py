@@ -13,6 +13,7 @@ import sys
 import xbmc
 
 from hashlib import md5
+from datetime import datetime, timedelta
 
 
 class Params:
@@ -23,6 +24,8 @@ class Params:
     # ファイル
     STATION_FILE = os.path.join(DATA_PATH, 'station.json')
     SETTINGS_FILE = os.path.join(DATA_PATH, 'settings.xml')
+
+    STN = 'misc_'
 
 
 class Misc(Params, Jcba):
@@ -64,6 +67,14 @@ class Misc(Params, Jcba):
                 .format(id=data['id'], name=data['name'], offset=-1 - i))
         # 設定データを書き込む
         write_file(self.SETTINGS_FILE, '\n'.join(buf))
+
+    def getProgramData(self, renew=False):
+        # jcba.pyから移設
+        # 最新の番組データを取得、なければ放送局データから生成する
+        results = [{'id': s['id'], 'progs': [{'title': s.get('onair') or Const.STR(30059)}]} for s in self.getStationData()]
+        # デフォルトは更新なし
+        nextupdate = '9' * 14
+        return results, nextupdate
 
     def beginEdit(self, id):
         data = list(filter(lambda x: x['id'] == id, self.getStationData()))[0]

@@ -1,0 +1,22 @@
+      <setting label="ラジオニセコ(ニセコ町)" type="bool" id="jcba_128" default="false" enable="eq(-1,2)"/>
+      <setting label="FMはな(中標津町)" type="bool" id="jcba_001" default="false" enable="eq(-2,2)"/>
+      <setting label="wi-radio(伊達市)" type="bool" id="lisr_30087" default="false" enable="eq(-3,2)"/>
+      <setting label="FMいるか(函館市)" type="bool" id="jcba_122" default="false" enable="eq(-4,2)"/>
+      <setting label="FMメイプル(北広島市)" type="bool" id="lisr_30015" default="false" enable="eq(-5,2)"/>
+      <setting label="Airてっし(名寄市)" type="bool" id="jcba_003" default="false" enable="eq(-6,2)"/>
+      <setting label="FMおたる(小樽市)" type="bool" id="simu_5b685603aad40a682691382828ac5060" default="false" enable="eq(-7,2)"/>
+      <setting label="FM WING(帯広市)" type="bool" id="lisr_30038" default="false" enable="eq(-8,2)"/>
+      <setting label="FM JAGA(帯広市)" type="bool" id="lisr_30016" default="false" enable="eq(-9,2)"/>
+      <setting label="e-niwa(恵庭市)" type="bool" id="simu_336ced927e921326ee838fb4ca0d955c" default="false" enable="eq(-10,2)"/>
+      <setting label="FMりべーる(旭川市)" type="bool" id="lisr_30074" default="false" enable="eq(-11,2)"/>
+      <setting label="ラジオカロスサッポロ(札幌市中央区)" type="bool" id="simu_09b6903d073ac5690a2632849bea66e4" default="false" enable="eq(-12,2)"/>
+      <setting label="RADIOワンダーストレージFMドラマシティ(札幌市厚別区)" type="bool" id="lisr_30044" default="false" enable="eq(-13,2)"/>
+      <setting label="さっぽろ村ラジオ(札幌市東区)" type="bool" id="lisr_30032" default="false" enable="eq(-14,2)"/>
+      <setting label="エフエムしろいしWith-S(札幌市白石区)" type="bool" id="simu_d41d8cd98f00b204e9800998ecf8427e" default="false" enable="eq(-15,2)"/>
+      <setting label="三角山放送局(札幌市西区)" type="bool" id="lisr_30005" default="false" enable="eq(-16,2)"/>
+      <setting label="FMアップル(札幌市豊平区)" type="bool" id="lisr_30090" default="false" enable="eq(-17,2)"/>
+      <setting label="FMねむろ(根室市)" type="bool" id="lisr_30045" default="false" enable="eq(-18,2)"/>
+      <setting label="エフエムもえる(留萌市)" type="bool" id="jcba_002" default="false" enable="eq(-19,2)"/>
+      <setting label="エフエムわっぴー(稚内市)" type="bool" id="simu_79552ae7ee527e23283e3aafc0fe4f36" default="false" enable="eq(-20,2)"/>
+      <setting label="FM ABASHIRI(網走市)" type="bool" id="lisr_30058" default="false" enable="eq(-21,2)"/>
+      <setting label="FMくしろ(釧路市)" type="bool" id="lisr_30029" default="false" enable="eq(-22,2)"/>

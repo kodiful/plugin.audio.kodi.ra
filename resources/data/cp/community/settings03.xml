@@ -1,0 +1,56 @@
+      <setting label="ふくろうエフエム(千葉県八千代市)" type="bool" id="jcba_100" default="false" enable="eq(-1,2)"/>
+      <setting label="SKYWAVE FM(千葉県千葉市中央区)" type="bool" id="jcba_125" default="false" enable="eq(-2,2)"/>
+      <setting label="市川うららFM(千葉県市川市)" type="bool" id="jcba_020" default="false" enable="eq(-3,2)"/>
+      <setting label="Radio NARITA(千葉県成田市)" type="bool" id="jcba_022" default="false" enable="eq(-4,2)"/>
+      <setting label="かずさエフエム(千葉県木更津市)" type="bool" id="jcba_021" default="false" enable="eq(-5,2)"/>
+      <setting label="REDS WAVE(埼玉県さいたま市浦和区)" type="bool" id="lisr_30008" default="false" enable="eq(-6,2)"/>
+      <setting label="発するFM(埼玉県三芳町)" type="bool" id="jcba_098" default="false" enable="eq(-7,2)"/>
+      <setting label="FMチャッピー(埼玉県入間市)" type="bool" id="jcba_019" default="false" enable="eq(-8,2)"/>
+      <setting label="FM Kawaguchi(埼玉県川口市)" type="bool" id="lisr_30035" default="false" enable="eq(-9,2)"/>
+      <setting label="ラジオ川越(埼玉県川越市)" type="bool" id="jcba_126" default="false" enable="eq(-10,2)"/>
+      <setting label="ナナコライブリーエフエム(埼玉県朝霞市)" type="bool" id="lisr_30026" default="false" enable="eq(-11,2)"/>
+      <setting label="FMふっかちゃん(埼玉県深谷市)" type="bool" id="lisr_30047" default="false" enable="eq(-12,2)"/>
+      <setting label="ハロー・ハッピーこしがやエフエム(埼玉県越谷市)" type="bool" id="lisr_30096" default="false" enable="eq(-13,2)"/>
+      <setting label="フラワーラジオ(埼玉県鴻巣市)" type="bool" id="lisr_30002" default="false" enable="eq(-14,2)"/>
+      <setting label="エフエム八ヶ岳(山梨県北杜市)" type="bool" id="jcba_109" default="false" enable="eq(-15,2)"/>
+      <setting label="エフエムふじごこ(山梨県富士吉田市)" type="bool" id="jcba_027" default="false" enable="eq(-16,2)"/>
+      <setting label="FMふじやま(山梨県富士河口湖町)" type="bool" id="jcba_026" default="false" enable="eq(-17,2)"/>
+      <setting label="エフエム甲府(山梨県甲府市)" type="bool" id="jcba_025" default="false" enable="eq(-18,2)"/>
+      <setting label="エフエム世田谷(東京都世田谷区)" type="bool" id="lisr_30027" default="false" enable="eq(-19,2)"/>
+      <setting label="RADIO CITY(東京都中央区)" type="bool" id="lisr_30042" default="false" enable="eq(-20,2)"/>
+      <setting label="Tokyo Star Radio(東京都八王子市)" type="bool" id="lisr_30081" default="false" enable="eq(-21,2)"/>
+      <setting label="FMしながわ(東京都品川区)" type="bool" id="jcba_115" default="false" enable="eq(-22,2)"/>
+      <setting label="ラジオフチューズ(東京都府中市)" type="bool" id="lisr_30059" default="false" enable="eq(-23,2)"/>
+      <setting label="むさしのFM(東京都武蔵野市)" type="bool" id="jcba_032" default="false" enable="eq(-24,2)"/>
+      <setting label="FMえどがわ(東京都江戸川区)" type="bool" id="jcba_033" default="false" enable="eq(-25,2)"/>
+      <setting label="レインボータウンFM(東京都江東区)" type="bool" id="lisr_30036" default="false" enable="eq(-26,2)"/>
+      <setting label="コマラジ(東京都狛江市)" type="bool" id="lisr_30051" default="false" enable="eq(-27,2)"/>
+      <setting label="エフエムたちかわ(東京都立川市)" type="bool" id="lisr_30033" default="false" enable="eq(-28,2)"/>
+      <setting label="かつしかFM(東京都葛飾区)" type="bool" id="jcba_130" default="false" enable="eq(-29,2)"/>
+      <setting label="調布FM(東京都調布市)" type="bool" id="lisr_30039" default="false" enable="eq(-30,2)"/>
+      <setting label="FMやまと(神奈川県大和市)" type="bool" id="jcba_096" default="false" enable="eq(-31,2)"/>
+      <setting label="湘南マジックウェイブ(神奈川県大磯町)" type="bool" id="jcba_018" default="false" enable="eq(-32,2)"/>
+      <setting label="FMおだわら(神奈川県小田原市)" type="bool" id="jcba_017" default="false" enable="eq(-33,2)"/>
+      <setting label="かわさきFM(神奈川県川崎市中原区)" type="bool" id="lisr_30046" default="false" enable="eq(-34,2)"/>
+      <setting label="FM湘南ナパサ(神奈川県平塚市)" type="bool" id="jcba_014" default="false" enable="eq(-35,2)"/>
+      <setting label="マリンFM(神奈川県横浜市中区)" type="bool" id="lisr_30065" default="false" enable="eq(-36,2)"/>
+      <setting label="エフエム戸塚(神奈川県横浜市戸塚区)" type="bool" id="lisr_30064" default="false" enable="eq(-37,2)"/>
+      <setting label="FMサルース(神奈川県横浜市青葉区)" type="bool" id="jcba_117" default="false" enable="eq(-38,2)"/>
+      <setting label="FM・ブルー湘南(神奈川県横須賀市)" type="bool" id="jcba_015" default="false" enable="eq(-39,2)"/>
+      <setting label="FMカオン(神奈川県海老名市)" type="bool" id="lisr_30057" default="false" enable="eq(-40,2)"/>
+      <setting label="FM HOT 839(神奈川県相模原市中央区)" type="bool" id="simu_41fc07e82c70b8453185a7a009e3d425" default="false" enable="eq(-41,2)"/>
+      <setting label="レディオ湘南(神奈川県藤沢市)" type="bool" id="jcba_101" default="false" enable="eq(-42,2)"/>
+      <setting label="湘南ビーチFM(神奈川県逗子市)" type="bool" id="lisr_30028" default="false" enable="eq(-43,2)"/>
+      <setting label="かまくらエフエム(神奈川県鎌倉市)" type="bool" id="jcba_016" default="false" enable="eq(-44,2)"/>
+      <setting label="M-wave(群馬県前橋市)" type="bool" id="lisr_30043" default="false" enable="eq(-45,2)"/>
+      <setting label="FM TARO(群馬県太田市)" type="bool" id="jcba_029" default="false" enable="eq(-46,2)"/>
+      <setting label="FM OZE(群馬県沼田市)" type="bool" id="jcba_030" default="false" enable="eq(-47,2)"/>
+      <setting label="ラヂオななみ(群馬県玉村町)" type="bool" id="jcba_103" default="false" enable="eq(-48,2)"/>
+      <setting label="ラジオ高崎(群馬県高崎市)" type="bool" id="jcba_028" default="false" enable="eq(-49,2)"/>
+      <setting label="ラヂオつくば(茨城県つくば市)" type="bool" id="simu_62dd884bed2ff48f2b5412ddff435509" default="false" enable="eq(-50,2)"/>
+      <setting label="FMだいご(茨城県大子町)" type="bool" id="jcba_023" default="false" enable="eq(-51,2)"/>
+      <setting label="FMひたち(茨城県日立市)" type="bool" id="lisr_30023" default="false" enable="eq(-52,2)"/>
+      <setting label="FMぱるるん(茨城県水戸市)" type="bool" id="lisr_30022" default="false" enable="eq(-53,2)"/>
+      <setting label="FMうしくうれしく放送(茨城県牛久市)" type="bool" id="lisr_30021" default="false" enable="eq(-54,2)"/>
+      <setting label="たかはぎFM(茨城県高萩市)" type="bool" id="lisr_30075" default="false" enable="eq(-55,2)"/>
+      <setting label="FMかしま(茨城県鹿嶋市)" type="bool" id="jcba_024" default="false" enable="eq(-56,2)"/>

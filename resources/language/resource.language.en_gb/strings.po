@@ -85,7 +85,7 @@ msgid "Suspending"
 msgstr ""
 
 msgctxt "#30059"
-msgid "No dataし"
+msgid "No data"
 msgstr ""
 
 msgctxt "#30060"
@@ -94,6 +94,14 @@ msgstr ""
 
 msgctxt "#30061"
 msgid "Choose program for keyword"
+msgstr ""
+
+msgctxt "#30062"
+msgid "No"
+msgstr ""
+
+msgctxt "#30063"
+msgid "Yes"
 msgstr ""
 
 msgctxt "#30100"
@@ -109,7 +117,7 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr ""
 
 msgctxt "#30200"
-msgid "NCommercial Radio"
+msgid "Commercial Radio"
 msgstr ""
 
 msgctxt "#30201"
@@ -121,7 +129,7 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr ""
 
 msgctxt "#30300"
-msgid "Community Radio"
+msgid "Community Radio(JCBA)"
 msgstr ""
 
 msgctxt "#30301"
@@ -406,4 +414,352 @@ msgstr ""
 
 msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+msgstr ""
+
+msgctxt "#30303"
+msgid "Community Radio(JCBA)2"
+msgstr ""
+
+msgctxt "#30360"
+msgid "Community Radio(ListenRadio)"
+msgstr ""
+
+msgctxt "#30361"
+msgid "Stations to be displayed"
+msgstr ""
+
+msgctxt "#30363"
+msgid "Community Radio(ListenRadio)2"
+msgstr ""
+
+msgctxt "#30364"
+msgid "Get Program Data"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Get Program Data"
+msgstr ""
+
+msgctxt "#30800"
+msgid "Community Radio"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Get Program Data"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Select Station(s)"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Hokkaido area"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Tohoku area"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Kanto area"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Shinetsu area"
+msgstr ""
+
+msgctxt "#30805"
+msgid "Hokuriku area"
+msgstr ""
+
+msgctxt "#30806"
+msgid "Tokai area"
+msgstr ""
+
+msgctxt "#30807"
+msgid "Kinki area"
+msgstr ""
+
+msgctxt "#30808"
+msgid "Chugoku area"
+msgstr ""
+
+msgctxt "#30809"
+msgid "Shikoku area"
+msgstr ""
+
+msgctxt "#30810"
+msgid "Kyusyu & Okinawa area"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Community(Hokkaido)"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Community(Tohoku)"
+msgstr ""
+
+msgctxt "#30823"
+msgid "Community(Kanto)"
+msgstr ""
+
+msgctxt "#30824"
+msgid "Community(Shinetsu/Hokuriku)"
+msgstr ""
+
+msgctxt "#30825"
+msgid "Community(Tokai)"
+msgstr ""
+
+msgctxt "#30826"
+msgid "Community(Kinki)"
+msgstr ""
+
+msgctxt "#30827"
+msgid "Community(Chugoku/Shikoku)"
+msgstr ""
+
+msgctxt "#30828"
+msgid "Community(Kyusyu/Okinawa)"
+msgstr ""
+
+
+
+# Radiko Area(Regions)
+msgctxt "#30210"
+msgid "Regions"
+msgstr ""
+
+msgctxt "#30218"
+msgid "Prefecture"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Hokkaido/Tohoku"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Kanto"
+msgstr ""
+
+msgctxt "#30213"
+msgid "Hokuriku/Koushinetsu"
+msgstr ""
+
+msgctxt "#30214"
+msgid "Tyubu"
+msgstr ""
+
+msgctxt "#30215"
+msgid "Kinki"
+msgstr ""
+
+msgctxt "#30216"
+msgid "Tyugoku/Shikoku"
+msgstr ""
+
+msgctxt "#30217"
+msgid "Kyushu/Okinawa"
+msgstr ""
+
+
+# Radiko Area(Pref.)
+msgctxt "#30220"
+msgid "Auto"
+msgstr ""
+
+## hokkaido-tohoku
+msgctxt "#30221"
+msgid "Hokkaido"
+msgstr ""
+
+msgctxt "#30222"
+msgid "Aomori"
+msgstr ""
+
+msgctxt "#30223"
+msgid "Iwate"
+msgstr ""
+
+msgctxt "#30224"
+msgid "Miyagi"
+msgstr ""
+
+msgctxt "#30225"
+msgid "Akita"
+msgstr ""
+
+msgctxt "#30226"
+msgid "Yamagata"
+msgstr ""
+
+msgctxt "#30227"
+msgid "Fukushima"
+msgstr ""
+
+## Kanto
+msgctxt "#30228"
+msgid "Ibaraki"
+msgstr ""
+
+msgctxt "#30229"
+msgid "Tochigi"
+msgstr ""
+
+msgctxt "#30230"
+msgid "Gunma"
+msgstr ""
+
+msgctxt "#30231"
+msgid "Saitama"
+msgstr ""
+
+msgctxt "#30232"
+msgid "Chiba"
+msgstr ""
+
+msgctxt "#30233" # JP13
+msgid "Tokyo"
+msgstr ""
+
+msgctxt "#30234"
+msgid "Kanagawa"
+msgstr ""
+
+## hokuriku-koushinetsu
+msgctxt "#30235" # JP15
+msgid "Niigata"
+msgstr ""
+
+msgctxt "#30236"
+msgid "Toyama"
+msgstr ""
+
+msgctxt "#30237"
+msgid "Ishikawa"
+msgstr ""
+
+msgctxt "#30238"
+msgid "Fukui"
+msgstr ""
+
+msgctxt "#30239" # JP19
+msgid "Yamanashi"
+msgstr ""
+
+msgctxt "#30240" # JP20
+msgid "Nagano"
+msgstr ""
+
+## chubu
+msgctxt "#30241"
+msgid "Gifu"
+msgstr ""
+
+msgctxt "#30242"
+msgid "Shizuoka"
+msgstr ""
+
+msgctxt "#30243"
+msgid "Aichi"
+msgstr ""
+
+msgctxt "#30244"
+msgid "Mie"
+msgstr ""
+
+## kinki
+msgctxt "#30245"
+msgid "Shiga"
+msgstr ""
+
+msgctxt "#30246"
+msgid "Kyoto"
+msgstr ""
+
+msgctxt "#30247"
+msgid "Osaka"
+msgstr ""
+
+msgctxt "#30248"
+msgid "Hyougo"
+msgstr ""
+
+msgctxt "#30249"
+msgid "Nara"
+msgstr ""
+
+msgctxt "#30250" # JP30
+msgid "Wakayama"
+msgstr ""
+
+## chugoku-shikoku
+msgctxt "#30251"
+msgid "Tottori"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Shimane"
+msgstr ""
+
+msgctxt "#30253"
+msgid "Okayama"
+msgstr ""
+
+msgctxt "#30254"
+msgid "Hiroshima"
+msgstr ""
+
+msgctxt "#30255"
+msgid "Yamaguchi"
+msgstr ""
+
+msgctxt "#30256"
+msgid "Tokushima"
+msgstr ""
+
+msgctxt "#30257"
+msgid "Kagawa"
+msgstr ""
+
+msgctxt "#30258"
+msgid "Ehime"
+msgstr ""
+
+msgctxt "#30259"
+msgid "Kochi"
+msgstr ""
+
+## kyushu-okinawa
+msgctxt "#30260"
+msgid "Fukuoka"
+msgstr ""
+
+msgctxt "#30261"
+msgid "Saga"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Nagasaki"
+msgstr ""
+
+msgctxt "#30263"
+msgid "Kumamoto"
+msgstr ""
+
+msgctxt "#30264"
+msgid "Oita"
+msgstr ""
+
+msgctxt "#30265"
+msgid "Miyazaki"
+msgstr ""
+
+msgctxt "#30266"
+msgid "Kagoshima"
+msgstr ""
+
+msgctxt "#30267"
+msgid "Okinawa"
 msgstr ""

@@ -13,6 +13,8 @@ from resources.lib.cp import Radiko
 from resources.lib.cp import Authenticate
 from resources.lib.cp import Radiru
 from resources.lib.cp import Jcba
+from resources.lib.cp import Listenradio
+from resources.lib.cp import Simulradio
 from resources.lib.cp import Misc
 from resources.lib.compatibility import Compatibility
 from resources.lib.programs import Programs
@@ -91,8 +93,10 @@ class Service:
         self.radiru = Radiru(renew)
         self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=renew)
         self.jcba = Jcba(renew)
+        self.listenradio = Listenradio(renew)
+        self.simulradio = Simulradio(renew)        
         self.misc = Misc(renew)
-        self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
+        self.programs = Programs((self.radiru, self.radiko, self.jcba, self.listenradio, self.simulradio, self.misc))
         return self.programs.setup(renew)
 
     def setup_settings(self):
@@ -107,11 +111,19 @@ class Service:
         source = template.format(
             radiru=self.radiru.getSettingsData(),
             radiko=self.radiko.getSettingsData(),
-            jcba=self.jcba.getSettingsData(),
+            comm1=self.jcba.getSettingsData2('settings01.xml'), # 北海道 
+            comm2=self.jcba.getSettingsData2('settings02.xml'), # 東北
+            comm3=self.jcba.getSettingsData2('settings03.xml'), # 関東
+            comm4=self.jcba.getSettingsData2('settings04.xml'), # 信越・北陸
+            comm6=self.jcba.getSettingsData2('settings06.xml'), # 東海
+            comm7=self.jcba.getSettingsData2('settings07.xml'), # 近畿
+            comm8=self.jcba.getSettingsData2('settings08.xml'), # 中国・四国
+            comm0=self.jcba.getSettingsData2('settings00.xml'), # 九州
             misc=self.misc.getSettingsData(),
             bc='|'.join(s),
             ffmpeg='',
             os=platform.system())
+
         # ファイル書き込み
         write_file(Const.SETTINGS_FILE, source)
         # ログ
@@ -157,7 +169,7 @@ class Service:
                 self.nextauth = self.authenticate()
                 # クラスを更新
                 self.radiko = Radiko(area=self.auth['area_id'], token=self.auth['auth_token'], renew=True)
-                self.programs = Programs((self.radiru, self.radiko, self.jcba, self.misc))
+                self.programs = Programs((self.radiru, self.radiko, self.jcba, self.listenradio, self.misc))
             # 現在時刻が更新予定時刻を過ぎていたら
             if now > self.nextupdt:
                 # 番組データを取得
@@ -167,7 +179,7 @@ class Service:
                     self.lastupdt = now
                     self.programs_hash = new_hash
                     # 番組情報を記録
-                    if Const.GET('record'):
+                    if Const.GET('record') == True:
                         self.programs.record()
                     # ダウンロードする番組を抽出
                     downloader.pending = self.programs.match(downloader.pending)
