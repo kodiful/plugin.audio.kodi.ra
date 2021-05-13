@@ -129,7 +129,7 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr ""
 
 msgctxt "#30300"
-msgid "Community Radio(JCBA)"
+msgid "Community Radio"
 msgstr ""
 
 msgctxt "#30301"
@@ -416,114 +416,43 @@ msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
 msgstr ""
 
-msgctxt "#30303"
-msgid "Community Radio(JCBA)2"
-msgstr ""
 
-msgctxt "#30360"
-msgid "Community Radio(ListenRadio)"
-msgstr ""
-
-msgctxt "#30361"
-msgid "Stations to be displayed"
-msgstr ""
-
-msgctxt "#30363"
-msgid "Community Radio(ListenRadio)2"
-msgstr ""
-
-msgctxt "#30364"
+## Community Radio
+msgctxt "#30330"
 msgid "Get Program Data"
 msgstr ""
 
-msgctxt "#30304"
-msgid "Get Program Data"
-msgstr ""
-
-msgctxt "#30800"
-msgid "Community Radio"
-msgstr ""
-
-msgctxt "#30811"
-msgid "Get Program Data"
-msgstr ""
-
-msgctxt "#30812"
-msgid "Select Station(s)"
-msgstr ""
-
-msgctxt "#30801"
-msgid "Hokkaido area"
-msgstr ""
-
-msgctxt "#30802"
-msgid "Tohoku area"
-msgstr ""
-
-msgctxt "#30803"
-msgid "Kanto area"
-msgstr ""
-
-msgctxt "#30804"
-msgid "Shinetsu area"
-msgstr ""
-
-msgctxt "#30805"
-msgid "Hokuriku area"
-msgstr ""
-
-msgctxt "#30806"
-msgid "Tokai area"
-msgstr ""
-
-msgctxt "#30807"
-msgid "Kinki area"
-msgstr ""
-
-msgctxt "#30808"
-msgid "Chugoku area"
-msgstr ""
-
-msgctxt "#30809"
-msgid "Shikoku area"
-msgstr ""
-
-msgctxt "#30810"
-msgid "Kyusyu & Okinawa area"
-msgstr ""
-
-msgctxt "#30821"
+msgctxt "#30331"
 msgid "Community(Hokkaido)"
 msgstr ""
 
-msgctxt "#30822"
+msgctxt "#30332"
 msgid "Community(Tohoku)"
 msgstr ""
 
-msgctxt "#30823"
+msgctxt "#30333"
 msgid "Community(Kanto)"
 msgstr ""
 
-msgctxt "#30824"
+msgctxt "#30334"
 msgid "Community(Shinetsu/Hokuriku)"
 msgstr ""
 
-msgctxt "#30825"
+msgctxt "#30335"
 msgid "Community(Tokai)"
 msgstr ""
 
-msgctxt "#30826"
+msgctxt "#30336"
 msgid "Community(Kinki)"
 msgstr ""
 
-msgctxt "#30827"
+msgctxt "#30337"
 msgid "Community(Chugoku/Shikoku)"
 msgstr ""
 
-msgctxt "#30828"
+msgctxt "#30338"
 msgid "Community(Kyusyu/Okinawa)"
 msgstr ""
-
 
 
 # Radiko Area(Regions)

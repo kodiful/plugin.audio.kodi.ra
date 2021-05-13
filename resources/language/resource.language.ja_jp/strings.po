@@ -129,8 +129,8 @@ msgid "[COLOR lightgreen]Update display[/COLOR]"
 msgstr "[COLOR lightgreen]表示を更新する[/COLOR]"
 
 msgctxt "#30300"
-msgid "Community Radio(JCBA)"
-msgstr "コミュニティラジオ(JCBA)"
+msgid "Community Radio"
+msgstr "コミュニティラジオ"
 
 msgctxt "#30301"
 msgid "Stations to be displayed"
@@ -412,114 +412,43 @@ msgctxt "#30920"
 msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
 msgstr "月,火,水,木,金,土,日"
 
-msgctxt "#30303"
-msgid "Community Radio(JCBA)2"
-msgstr "コミュニティラジオ(JCBA)2"
 
-msgctxt "#30360"
-msgid "Community Radio(ListenRadio)"
-msgstr "コミュニティラジオ(リスラジ)"
-
-msgctxt "#30361"
-msgid "Stations to be displayed"
-msgstr "表示する放送局"
-
-msgctxt "#30363"
-msgid "Community Radio(ListenRadio)2"
-msgstr "コミュニティラジオ(リスラジ)2"
-
-msgctxt "#30364"
+## Community Radio
+msgctxt "#30330"
 msgid "Get Program Data"
 msgstr "番組表取得"
 
-msgctxt "#30304"
-msgid "Get Program Data"
-msgstr "番組表取得"
-
-msgctxt "#30800"
-msgid "Community Radio"
-msgstr "コミュニティラジオ"
-
-msgctxt "#30811"
-msgid "Get Program Data"
-msgstr "番組表取得"
-
-msgctxt "#30812"
-msgid "Select Station(s)"
-msgstr "選局"
-
-msgctxt "#30801"
-msgid "Hokkaido area"
-msgstr "北海道地方"
-
-msgctxt "#30802"
-msgid "Tohoku area"
-msgstr "東北地方"
-
-msgctxt "#30803"
-msgid "Kanto area"
-msgstr "関東地方"
-
-msgctxt "#30804"
-msgid "Shinetsu area"
-msgstr "信越地方"
-
-msgctxt "#30805"
-msgid "Hokuriku area"
-msgstr "北陸地方"
-
-msgctxt "#30806"
-msgid "Tokai area"
-msgstr "東海地方"
-
-msgctxt "#30807"
-msgid "Kinki area"
-msgstr "近畿地方"
-
-msgctxt "#30808"
-msgid "Chugoku area"
-msgstr "中国地方"
-
-msgctxt "#30809"
-msgid "Shikoku area"
-msgstr "四国地方"
-
-msgctxt "#30810"
-msgid "Kyusyu & Okinawa area"
-msgstr "九州・沖縄地方"
-
-msgctxt "#30821"
+msgctxt "#30331"
 msgid "Community(Hokkaido)"
 msgstr "コミュニティ(北海道)"
 
-msgctxt "#30822"
+msgctxt "#30332"
 msgid "Community(Tohoku)"
 msgstr "コミュニティ(東北)"
 
-msgctxt "#30823"
+msgctxt "#30333"
 msgid "Community(Kanto)"
 msgstr "コミュニティ(関東)"
 
-msgctxt "#30824"
+msgctxt "#30334"
 msgid "Community(Shinetsu/Hokuriku)"
 msgstr "コミュニティ(信越・北陸)"
 
-msgctxt "#30825"
+msgctxt "#30335"
 msgid "Community(Tokai)"
 msgstr "コミュニティ(東海)"
 
-msgctxt "#30826"
+msgctxt "#30336"
 msgid "Community(Kinki)"
 msgstr "コミュニティ(近畿)"
 
-msgctxt "#30827"
+msgctxt "#30337"
 msgid "Community(Chugoku/Shikoku)"
 msgstr "コミュニティ(中国・四国)"
 
-msgctxt "#30828"
+msgctxt "#30338"
 msgid "Community(Kyusyu/Okinawa)"
 msgstr "コミュニティ(九州・沖縄)"
-
 
 
 # Radiko Area(Regions)

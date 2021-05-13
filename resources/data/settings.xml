@@ -26,43 +26,43 @@
 {radiko}
   </category>
 
-  <category label="30821"><!-- Hokkaido -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30331"><!-- Hokkaido -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm1}
   </category>
-  <category label="30822"><!-- tohoku -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30332"><!-- tohoku -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm2}
   </category>
-  <category label="30823"><!-- Kanto -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30333"><!-- Kanto -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm3}
   </category>
-  <category label="30824"><!-- Shinetsu/Hokuriku -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30334"><!-- Shinetsu/Hokuriku -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm4}
   </category>
-  <category label="30825"><!-- Tokai -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30335"><!-- Tokai -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm6}
   </category>
-  <category label="30826"><!-- Kinki -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30336"><!-- Kinki -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm7}
   </category>
-  <category label="30827"><!-- Chugoku/Shikoku -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30337"><!-- Chugoku/Shikoku -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm8}
   </category>
-  <category label="30828"><!-- Kyusyu & Okinawa -->
-    <setting label="30811" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
+  <category label="30338"><!-- Kyusyu & Okinawa -->
+    <setting label="30330" id="commschedule" type="bool" default="false"/><!-- 番組表取得 -->
     <setting type="sep"/>
 {comm0}
   </category>
