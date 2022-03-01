@@ -92,7 +92,7 @@ class Jcba(Params):
         ret = False
         data = ''
         data = read_file(fp)
-        if data:
+        if data is not None:
             sj = json.loads(data)
             items = sj['items']
             # log('no of items?: %s' % len(items))
@@ -103,6 +103,8 @@ class Jcba(Params):
                 # log('%s' % items[len(items)-3]['end']['dateTime'][0:19])
                 if  now < datetime.strptime(items[len(items)-3]['end']['dateTime'][0:19], '%Y-%m-%dT%H:%M:%S'):
                     ret = True
+        else:
+            ret = True
 
         # log('result: %s' % ret)
         return ret
@@ -184,7 +186,7 @@ class Jcba(Params):
                 pp = []
                 
                 data = read_file(fp)
-                if data:
+                if data is not None:
                     sj = json.loads(data)
                     items = sj['items']
                     now = datetime.now()

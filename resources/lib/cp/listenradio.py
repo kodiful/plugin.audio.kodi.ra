@@ -47,13 +47,16 @@ class Listenradio(Params, Jcba):
         ret = False
         s = ''
         s = read_file(fp)
-        if s:
+        if s is not None:
             sj = json.loads(s)
             st = sj['ServerTime'] # "ServerTime":"2021-04-06T17:43:45.9233135+09:00"
             ft = datetime.strptime(str(st[0:19]), '%Y-%m-%dT%H:%M:%S') + timedelta(days=6) # 取り置き済み番組表 賞味期限(6日)
             t = datetime.strptime(timestamp(), '%Y%m%d%H%M%S')
             if t < ft:
                 ret = True
+        else:
+            ret = True
+
         return ret
     
     def getSchedule(self, id = '', fp = ''):
@@ -105,7 +108,7 @@ class Listenradio(Params, Jcba):
                 data = ''
                 buf = []
                 data = read_file(fp)
-                if data:
+                if data is not None:
                     data = json.loads(data)
                     dd = data["ProgramSchedule"]
 
