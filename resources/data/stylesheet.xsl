@@ -43,6 +43,10 @@
           h3 {
           font-style: italic;
           }
+          iframe {
+            width: 100%;
+            border: none;
+          }
           #content {
           width: 700px;
           margin: 0 auto;
@@ -151,7 +155,11 @@
               </p>
               <xsl:if test="description">
                 <p>
-                  <xsl:value-of select="description" disable-output-escaping="yes"/>
+                  <iframe onload="this.style.height=this.contentWindow.document.body.offsetHeight+20+'px';">
+                    <xsl:attribute name="srcdoc">
+                      <xsl:value-of select="description" disable-output-escaping="yes"/>
+                    </xsl:attribute>
+                  </iframe>
                 </p>
               </xsl:if>
               <p class="episode-meta">
