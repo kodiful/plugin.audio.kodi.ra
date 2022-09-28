@@ -164,7 +164,7 @@
                       &lt;body&gt;
                         <xsl:value-of select="description" disable-output-escaping="yes"/>
                         &lt;script&gt;
-                          frameElement.style.height = `${document.body.offsetHeight}px`
+                          frameElement.style.height = `${document.body.offsetHeight}px`;
                         &lt;/script&gt;
                       &lt;/body&gt;
                     </xsl:attribute>
