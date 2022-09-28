@@ -155,7 +155,7 @@
               </p>
               <xsl:if test="description">
                 <p>
-                  <iframe onload="this.style.height=this.contentWindow.document.body.offsetHeight+20+'px';">
+                  <iframe>
                     <xsl:attribute name="srcdoc">
                       &lt;style&gt;
                         body {margin: 0px;}
