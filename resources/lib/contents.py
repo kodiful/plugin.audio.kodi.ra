@@ -69,7 +69,7 @@ class Contents:
         if self.key:
             contents = list(filter(lambda p: p['key'] == self.key, contents))
         # 開始時刻の逆順でソート
-        return sorted(contents, key=lambda p: p['ft'], reverse=True)
+        return sorted(contents, key=lambda p: (int(p['ft'][:8]), -int(p['ft'][8:])), reverse=True)
 
     def show(self):
         # 日付フォーマット
