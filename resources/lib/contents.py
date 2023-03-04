@@ -12,6 +12,7 @@ import sys
 import glob
 import shutil
 import re
+import locale
 
 import xbmcgui
 import xbmcplugin
@@ -132,6 +133,8 @@ class Contents:
         #
         # RSSファイルを生成する
         #
+        # 時刻表記のロケール設定                                                                                                                                                             
+        locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
         # テンプレート
         header = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-header.xml'))
         body = read_file(os.path.join(Const.TEMPLATE_PATH, 'rss-body.xml'))
