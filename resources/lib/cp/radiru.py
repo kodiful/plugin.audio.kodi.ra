@@ -28,7 +28,8 @@ class Params:
     NEXTUPDT_FILE = os.path.join(DATA_PATH, 'nextupdt.json')
     # URL
     STATION_URL = 'https://www.nhk.or.jp/radio/config/config_web.xml'
-    PROGRAM_URL = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
+    #PROGRAM_URL = 'https://api.nhk.or.jp/r2/pg/now/4/%s/netradio.json'
+    PROGRAM_URL = 'https://api.nhk.or.jp/r5/pg2/now/4/%s/netradio.json'  # 20230304
     DEFAULT_URL = 'https://www.nhk.or.jp/radio'
     # 地域
     AREA = [

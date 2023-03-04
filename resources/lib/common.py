@@ -7,6 +7,7 @@ import inspect
 import json
 import urllib
 import chardet
+import gzip
 
 import xbmc
 import xbmcaddon
@@ -60,9 +61,15 @@ def urlread(url, headers={}):
         h.append((key, val))
     opener.addheaders = h
     try:
-        response = opener.open(url)
-        buf = response.read()
-        response.close()
+        res = opener.open(url)
+        if res.info().get('content-encoding') == 'gzip':
+            buf = gzip.GzipFile(fileobj=res).read()
+        else:
+            buf = res.read()
+        encoding = chardet.detect(buf)['encoding']
+        if encoding:
+            buf = buf.decode(encoding=encoding, errors='ignore')
+        res.close()
     except urllib.request.HTTPError as e:
         log('HTTPError url:{url}, code:{code}'.format(url=url, code=e.code), error=True)
         buf = ''
