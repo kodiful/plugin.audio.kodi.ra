@@ -22,7 +22,7 @@ import threading
 class Logger():
 
     def __init__(self, logfile):
-        self.handle = open(logfile, 'a')
+        self.handle = open(logfile, 'a', encoding='utf-8')
 
     def write(self, message=''):
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
